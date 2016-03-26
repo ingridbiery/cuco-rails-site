@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
   before_filter :authenticate
     
@@ -20,11 +21,11 @@ class ApplicationController < ActionController::Base
     "co-op. We are open to all families willing to follow our " +
     "behavior code and participation requirements."
   end
-  
+
   protected
     def authenticate
       authenticate_or_request_with_http_basic do |username, password|
         username == "cucoDev" && password == "9cAN67Gw"
-      end
     end
+  end
 end

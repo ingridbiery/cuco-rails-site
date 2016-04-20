@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   #root 'application#home'
   root "pages#show", page: "home"
   get '/pages/:page' => 'pages#show'
+  
+  resources :users
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

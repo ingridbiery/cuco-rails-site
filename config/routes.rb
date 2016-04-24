@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   root "pages#show", page: "home"
   get '/pages/:page' => 'pages#show'
   
-  # new user is handled by devise :sign_up
-  resources :users, :except => [:new, :create]
+  # others are handled by devise
+  resources :users, :only => [:index, :show, :destroy]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

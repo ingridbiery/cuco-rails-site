@@ -9,5 +9,7 @@ All parents whose children take classes serve in volunteer roles to make the pro
 The one thing we have in common is an interest in trying to do what is best for our children and our families. We are committed to maintaining unschooling principles while participating in co-op. We are open to all families willing to follow our behavior code and participation requirements.
   </h3>
 <br />
-  <%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
+  <% if !user_signed_in? %>
+    <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+  <% end %>
 </div>

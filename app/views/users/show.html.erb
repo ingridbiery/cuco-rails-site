@@ -1,9 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<p id="notice"><%= notice %></p>
-
 <p><label>Name:</label> <%= @user.first_name %> <%= @user.last_name %></p>
 <p><label>Email Address:</label> <%= mail_to @user.email %></p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Edit', edit_user_registration_path(@user) %> |
 <%= link_to 'Back', users_path %>

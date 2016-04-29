@@ -22,5 +22,16 @@ module Workspace
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Mail setup
+    config.action_mailer.delivery_method = :smtp
+
+    ActionMailer::Base.smtp_settings = {
+      user_name: ENV['SPARKPOST_USERNAME'],
+      password: ENV['SPARKPOST_PASSWORD'],
+      address: 'smtp.sparkpostmail.com',
+      port: 587,
+      enable_starttls_auto: true
+    }
   end
 end

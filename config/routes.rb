@@ -5,9 +5,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   #root 'application#home'
-  root "pages#show", page: "home"
-  get '/pages/:page' => 'pages#show', as: :static_page
-  
+
   # others are handled by devise
   resources :users, :only => [:index, :show, :destroy]
 

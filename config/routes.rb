@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # others are handled by devise
   resources :users, :only => [:index, :show, :destroy]
 
+  # the calendar page url is pages/calendar.html. We get it through the
+  # calendar controller, show method
+  get "pages/calendar.html" => 'calendars#show'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

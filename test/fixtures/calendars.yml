@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  googleid: MyString
+  cuco_session_id: 
+
+two:
+  googleid: MyString
+  cuco_session_id: 

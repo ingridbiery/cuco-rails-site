@@ -8,3 +8,6 @@ User.destroy_all
 
 ingrid_biery = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Ingrid', last_name: 'Biery', email: 'ingridbiery@gmail.com')
 christine_davidson = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Christine', last_name: 'Davidson', email: 'christine.davidson@outlook.com')
+
+CucoSession.destroy_all
+fake_summer = CucoSession.create!(name:'Fake Summer Session')

@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160604200600) do
+ActiveRecord::Schema.define(version: 20160604215816) do
 
   create_table "calendars", force: :cascade do |t|
     t.string   "googleid"
     t.integer  "cuco_session_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "public"
   end
 
   add_index "calendars", ["cuco_session_id"], name: "index_calendars_on_cuco_session_id"

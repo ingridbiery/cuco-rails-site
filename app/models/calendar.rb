@@ -13,7 +13,10 @@ class Calendar < ActiveRecord::Base
             '%2323164E', '%235B123B', '%2342104A', '%23875509', '%238D6F47',
             '%236B3304', '%23333333']
 
-  def initialize
+  # store whether or not there is a signed in user so we know whether to show
+  # only public calendars
+  def initialize(signed_in)
+    @signed_in = signed_in
   end
 
   # return the code that google needs included in the iframe for each google calendar,
@@ -28,7 +31,11 @@ class Calendar < ActiveRecord::Base
     cals_src = ""
     color = 0
     Calendar.find_each do |calendar|
-      cals_src += cal(calendar.googleid, COLORS[color])
+      # include all calendars if the user is signed in, otherwise only if the
+      # calendar is public
+      if (@signed_in || calendar.public) then
+        cals_src += cal(calendar.googleid, COLORS[color])
+      end
       # increment color by more than 1 each time since adjacent colors are similar
       color += 10
       if color >= COLORS.length then color -= COLORS.length end

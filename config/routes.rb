@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # the calendar page url is pages/calendar.html. We get it through the
   # calendar controller, show method
-  get "pages/calendar.html" => 'calendars#show', :as => :calendar
+  get "calendar" => 'calendars#show', :as => :calendar
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

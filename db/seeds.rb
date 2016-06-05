@@ -10,10 +10,10 @@ ingrid_biery = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Ingr
 christine_davidson = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Christine', last_name: 'Davidson', email: 'christine.davidson@outlook.com')
 
 CucoSession.destroy_all
-fake_summer = CucoSession.create!(name:'Fake Summer Session')
+fake_summer = CucoSession.create!(name: 'Fake Summer Session')
 
-summer_public_cal = fake_summer.calendars.create!(googleid: '5a5mn9c90f5eu786ocd3rvjkbs', public: true)
-summer_member_cal = fake_summer.calendars.create!(googleid: 'eu3jj82rsctenv5c4abvnlktb0', public: false)
+summer_public_cal = fake_summer.calendars.create!(googleid: '5a5mn9c90f5eu786ocd3rvjkbs', members_only: false)
+summer_member_cal = fake_summer.calendars.create!(googleid: 'eu3jj82rsctenv5c4abvnlktb0', members_only: true)
 
 summer_public_cal.events.create!(title: 'Public Event', start: 1.week.from_now.at_noon, end: 1.week.from_now.at_noon+1.hour)
 

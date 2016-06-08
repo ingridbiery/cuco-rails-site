@@ -15,13 +15,13 @@ class Calendar < ActiveRecord::Base
 
   # return the code that google needs included in the iframe for each google calendar,
   # given a calendar id (a string of characters provided by google) and a color
-  def cal id, color
+  def self.cal id, color
     "src=#{id}%40group.calendar.google.com&color=#{color}&"
   end
 
   # return the URL provided by google for the iframe needed to embed a google
   # calendar on our site. Show all calendars
-  def url (signed_in)
+  def self.url (signed_in)
     cals_src = ""
     color = 0
     Calendar.find_each do |calendar|

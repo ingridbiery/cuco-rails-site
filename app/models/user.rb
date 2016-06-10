@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
+  # needed for authorization of a google account (so we can update a google
+  # calendar, for example)
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     data = access_token.info
     user = User.find_by(email: data.email)

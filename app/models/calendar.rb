@@ -16,7 +16,7 @@ class Calendar < ActiveRecord::Base
   # return the code that google needs included in the iframe for each google calendar,
   # given a calendar id (a string of characters provided by google) and a color
   def self.cal id, color
-    "src=#{id}%40group.calendar.google.com&color=#{color}&"
+    "src=#{id}&color=#{color}&"
   end
 
   # return the URL provided by google for the iframe needed to embed a google

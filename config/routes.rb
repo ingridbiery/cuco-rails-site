@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   # calendar controller, show method
   get "calendar" => 'calendars#show', :as => :calendar
   
+  # create a new session
+  resources :cuco_sessions, :only => [:new]
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

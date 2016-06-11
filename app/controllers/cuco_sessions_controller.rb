@@ -4,6 +4,8 @@ class CucoSessionsController < ApplicationController
   def new
   end
 
+  # add a random event to a random google calendar (the first one in our database)
+  # proof of concept only -- not a meaningful event yet
   def add_event
     @event = {
       'summary' => 'New Event Title',

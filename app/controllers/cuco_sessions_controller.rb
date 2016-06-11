@@ -1,4 +1,6 @@
 class CucoSessionsController < ApplicationController
+  let :admin, [:new, :add_event]
+  
   def new
   end
 

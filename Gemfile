@@ -14,6 +14,7 @@ gem 'high_voltage',         '~> 3.0.0'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'google-api-client',    '< 0.9', :require => 'google/api_client'
+gem 'action_access'
 
 group :development, :test do
   gem 'sqlite3'

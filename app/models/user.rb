@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  add_access_utilities
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -11,6 +13,15 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+                    
+  # needed for action_access to control access to specific parts of our site
+  # based on user roles. Needs to get all the roles for this user
+  # this is just a test -- in the future, we'll put roles into the database
+  def clearance_levels
+    return :admin if email == "cucocalendar@gmail.com"
+    return :user
+  end
+
 
   # needed for authorization of a google account (so we can update a google
   # calendar, for example)

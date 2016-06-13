@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :cuco_sessions, :only => [:new]
   
   get "add_event" => 'cuco_sessions#add_event', :as => :add_event
-  
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

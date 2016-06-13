@@ -26,4 +26,5 @@ class CucoSessionsController < ApplicationController
                                 :headers => {'Content-Type' => 'application/json'})
     redirect_to calendar_path
   end
+  
 end

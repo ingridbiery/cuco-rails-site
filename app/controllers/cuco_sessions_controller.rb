@@ -1,5 +1,5 @@
 class CucoSessionsController < ApplicationController
-  let :admin, [:new, :add_event]
+  let :admin, [:new, :add_event, :confirm_dates]
   
   def new
   end
@@ -27,4 +27,6 @@ class CucoSessionsController < ApplicationController
     redirect_to calendar_path
   end
   
+  def confirm_dates
+  end
 end

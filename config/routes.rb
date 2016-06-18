@@ -13,12 +13,13 @@ Rails.application.routes.draw do
 
   # the calendar page url is /calendar. We get it through the
   # calendar controller, show method
-  get "calendar" => 'calendars#show', :as => :calendar
+  get "calendar" => 'calendars#show'
   
   # create a new session
   resources :cuco_sessions, :only => [:new]
+  post "confirm_dates" => 'cuco_sessions#confirm_dates'
   
-  get "add_event" => 'cuco_sessions#add_event', :as => :add_event
+  get "add_event" => 'cuco_sessions#add_event'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

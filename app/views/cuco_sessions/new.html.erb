@@ -1,9 +1,15 @@
-<%= content_for :page_title, 'New Session - Columbus Unschoolers Cooperative (CUCO)' %>
+<h2>Create New Session</h2>
 
 <% if (!user_signed_in? or !check_authorization? or
        !current_user.can? :add_event, CucoSessionsController) %>
   For this to work, you need to be signed in as CUCO Calendar with google.
   <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
 <% else %>
+  <%= form_tag confirm_dates_path do %>
+    <%= text_field_tag "Session Name" %>
+    <%= date_field_tag "Start Date" %>
+    <%= date_field_tag "End Date" %>
+    <%= submit_tag "Calculate Dates" %>
+  <% end %>
   <%= link_to "Add Event", add_event_path %>
 <% end %>

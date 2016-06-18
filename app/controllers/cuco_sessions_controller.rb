@@ -28,5 +28,23 @@ class CucoSessionsController < ApplicationController
   end
   
   def confirm_dates
+    @session_name = params[:session_name]
+    @tuesdays = calculate_tuesdays(params[:start_date], params[:end_date])
   end
+
+  private
+    # get the dates of all the Tuesdays between two dates
+    def calculate_tuesdays start_date, stop_date
+      day = Date.parse(start_date)
+      stop = Date.parse(stop_date)
+      # find the first Tuesday (day number 2)
+      while day.wday != 2 do day += 1 end
+      tuesdays = [day] if day < stop
+      while day < stop do
+        day += 7
+        tuesdays.append(day)
+      end
+      tuesdays
+    end
+
 end

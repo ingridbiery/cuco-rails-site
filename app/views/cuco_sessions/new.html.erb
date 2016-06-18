@@ -6,9 +6,18 @@
   <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
 <% else %>
   <%= form_tag confirm_dates_path do %>
-    <%= text_field_tag "Session Name" %>
-    <%= date_field_tag "Start Date" %>
-    <%= date_field_tag "End Date" %>
+    <div>
+      <%= label_tag "Session Name" %>
+      <%= text_field_tag "session_name", "", :required => true %>
+    </div>
+    <div>
+      <%= label_tag "Location Start Date" %>
+      <%= date_field_tag "start_date", Date.today %>
+    </div>
+    <div>
+      <%= label_tag "Location End Date" %>
+      <%= date_field_tag "end_date", Date.today %>
+    </div>
     <%= submit_tag "Calculate Dates" %>
   <% end %>
   <%= link_to "Add Event", add_event_path %>

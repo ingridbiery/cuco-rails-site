@@ -14,8 +14,8 @@ class CucoSessionsController < ApplicationController
       'start' => { 'dateTime' => DateTime.now },
       'end' => { 'dateTime' => DateTime.now + 1.hour }}
   
-    client = Google::APIClient.new(:application_name => "ib-calendar-test",
-                                   :application_version => "1.0")
+    client = Google::APIClient.new(:application_name => Workspace::GOOGLE_APPLICATION_NAME,
+                                   :application_version => Workspace::GOOGLE_APPLICATION_VERSION)
     client.authorization.access_token = current_user.token
     service = client.discovered_api('calendar', 'v3')
 

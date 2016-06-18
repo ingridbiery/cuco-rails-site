@@ -1,8 +1,9 @@
 module CucoSessionsHelper
-  # check if we have a valid google authorization
+  # check if we have a valid google authorization. Do this by making a meaningless
+  # request of google to see if it returns with an error.
   def check_authorization?
-    client = Google::APIClient.new(:application_name => "ib-calendar-test",
-                                   :application_version => "1.0")
+    client = Google::APIClient.new(:application_name => Workspace::GOOGLE_APPLICATION_NAME,
+                                   :application_version => Workspace::GOOGLE_APPLICATION_VERSION)
     client.authorization.access_token = current_user.token
     service = client.discovered_api('calendar', 'v3')
     result = client.execute(:api_method => service.settings.list,

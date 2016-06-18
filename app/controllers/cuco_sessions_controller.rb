@@ -37,12 +37,13 @@ class CucoSessionsController < ApplicationController
     def calculate_tuesdays start_date, stop_date
       day = Date.parse(start_date)
       stop = Date.parse(stop_date)
+      tuesdays = []
+
       # find the first Tuesday (day number 2)
       while day.wday != 2 do day += 1 end
-      tuesdays = [day] if day < stop
       while day < stop do
-        day += 7
         tuesdays.append(day)
+        day += 7
       end
       tuesdays
     end

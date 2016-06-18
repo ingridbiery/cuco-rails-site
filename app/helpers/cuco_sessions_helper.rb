@@ -2,6 +2,7 @@ module CucoSessionsHelper
   # check if we have a valid google authorization. Do this by making a meaningless
   # request of google to see if it returns with an error.
   def check_authorization?
+    return false if (!user_signed_in? || current_user.token == nil)
     client = Google::APIClient.new(:application_name => Workspace::GOOGLE_APPLICATION_NAME,
                                    :application_version => Workspace::GOOGLE_APPLICATION_VERSION)
     client.authorization.access_token = current_user.token

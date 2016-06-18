@@ -5,7 +5,7 @@ class CreateFamilies < ActiveRecord::Migration
       t.string :street_address
       t.string :city
       t.string :state
-      t.string :zip
+      t.integer :zip
 
       t.timestamps null: false
     end

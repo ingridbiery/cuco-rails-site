@@ -1,0 +1,10 @@
+<tr id="person-<%= person.id %>">
+  <td class="first_name"><%= link_to person.first_name, person %></td></td>
+  <td class="last_name"><%= link_to person.last_name, person %></td>
+  <td class="dob"><%= person.dob %></td>
+  <td class="primary_adult"><%= person.primary_adult %></td>
+  <td class="timestamp"><%= person.created_at %></td>
+  <td><%= link_to 'Show', person %></td>
+  <td><%= link_to 'Edit', edit_person_path(person) %></td>
+  <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

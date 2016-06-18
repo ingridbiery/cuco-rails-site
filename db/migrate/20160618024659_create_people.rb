@@ -5,9 +5,10 @@ class CreatePeople < ActiveRecord::Migration
       t.string :last_name
       t.date :dob
       t.boolean :primary_adult
-      t.integer :family_id
+      t.references :family, index: true, foreign_key: true
 
       t.timestamps null: false
     end
+    add_index :people, [:family_id, :created_at]
   end
 end

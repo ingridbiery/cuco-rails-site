@@ -4,12 +4,14 @@ class FamiliesController < ApplicationController
   # GET /families
   # GET /families.json
   def index
-    @families = Family.all
+    @families = Family.paginate(page: params[:page])
   end
 
   # GET /families/1
   # GET /families/1.json
   def show
+    @family = Family.find(params[:id])
+    @people = @family.people.paginate(page: params[:page])
   end
 
   # GET /families/new

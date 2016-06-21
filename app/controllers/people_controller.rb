@@ -11,21 +11,25 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.json
   def show
+    @families = Family.all
   end
 
   # GET /people/new
   def new
     @person = Person.new
+    @families = Family.all
   end
 
   # GET /people/1/edit
   def edit
+    @families = Family.all
   end
 
   # POST /people
   # POST /people.json
   def create
     @person = Person.new(person_params)
+    @families = Family.all
 
     respond_to do |format|
       if @person.save

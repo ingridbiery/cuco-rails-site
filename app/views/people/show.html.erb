@@ -22,7 +22,7 @@
 
 <p>
   <strong>Family:</strong>
-  <%= @person.family_id %>
+  <%= @families.find(@person.family_id).family_name %>
 </p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |

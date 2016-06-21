@@ -29,7 +29,7 @@
   </div>
   <div class="field">
     <%= f.label :family_id %><br>
-    <%= f.number_field :family_id %>
+    <%= f.collection_select :family_id, @families, :id, :family_name, include_blank: true %>
   </div>
   <div class="actions">
     <%= f.submit %>

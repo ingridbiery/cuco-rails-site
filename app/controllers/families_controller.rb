@@ -13,6 +13,7 @@ class FamiliesController < ApplicationController
   def show
     @family = Family.find(params[:id])
     @people = @family.people.paginate(page: params[:page])
+    @families = Family.all
   end
 
   # GET /families/new

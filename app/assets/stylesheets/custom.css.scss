@@ -36,6 +36,14 @@ $gray-medium-light: #eaeaea;
   }
 }
 
+#welcome {
+  color: $gray-medium-light;
+}
+
+#welcome a {
+  color: $gray-light;
+}
+
 /* footer */
 footer {
   margin-top: 45px;

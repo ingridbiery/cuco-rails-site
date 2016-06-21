@@ -1,5 +1,6 @@
 class Family < ActiveRecord::Base
   has_many :people, dependent: :destroy
+  default_scope -> { order(family_name: :asc) }
   validates :family_name, presence: true,
                           uniqueness: true
   validates :street_address, presence: true

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :people
-  resources :families
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   devise_for :users, :path_names => { :sign_up => "register" }, :controllers => { registrations: 'registrations' }
@@ -14,6 +12,10 @@ Rails.application.routes.draw do
   # the calendar page url is /calendar. We get it through the
   # calendar controller, show method
   get "calendar" => 'calendars#show', :as => :calendar
+
+  # RESTful resources for family and people models, i.e. /people/new, /families/edit, etc...
+  resources :people
+  resources :families
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,76 +1,61 @@
 class PeopleController < ApplicationController
+  before_action :set_family
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /people
-  # GET /people.json
+  # GET /families/:family_id/people
   def index
-    @people = Person.all
+    @people = @family.people.all
   end
 
-  # GET /people/1
-  # GET /people/1.json
+  # GET /families/:family_id/people/1
   def show
-    @families = Family.all
   end
 
-  # GET /people/new
+  # GET /families/:family_id/people/new
   def new
-    # I don't understand why params[:format] is the family id, but it is
-    @family = Family.find(params[:format])
     @person = @family.people.build
   end
 
-  # GET /people/1/edit
+  # GET /families/:family_id/people/1/edit
   def edit
-    @families = Family.all
   end
 
-  # POST /people
-  # POST /people.json
+  # POST /families/:family_id/people
   def create
-    family = Family.find(person_params[:family_id])
-    @person = family.people.build(person_params)
+    @person = @family.people.build(person_params)
 
-    respond_to do |format|
-      if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.' }
-        format.json { render :show, status: :created, location: @person }
-      else
-        format.html { render :new }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
+    if @person.save
+      redirect_to family_person_path(@family, @person), notice: 'Person was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /people/1
-  # PATCH/PUT /people/1.json
+  # PATCH/PUT /families/:family_id/people/1
   def update
-    respond_to do |format|
-      if @person.update(person_params)
-        format.html { redirect_to @person, notice: 'Person was successfully updated.' }
-        format.json { render :show, status: :ok, location: @person }
-      else
-        format.html { render :edit }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
+    if @person.update(person_params)
+      redirect_to family_person_path(@family, @person), notice: 'Person was successfully updated.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /people/1
-  # DELETE /people/1.json
+  # DELETE /families/:family_id/people/1
   def destroy
     @person.destroy
-    respond_to do |format|
-      format.html { redirect_to people_url, notice: 'Person was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to family_people_path(@family), notice: 'Person was successfully destroyed.'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])
+    end
+    
+    # get the family from params before doing anything else
+    def set_family
+      @family = Family.find(params[:family_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

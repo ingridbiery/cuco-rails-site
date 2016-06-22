@@ -25,7 +25,7 @@
   <%= @family.zip %>
 </p>
 
-<p><%= link_to 'Add Person to Family', new_person_path(@family) %></p>
+<p><%= link_to 'Add Person to Family', new_family_person_path(@family) %></p>
 <% if @family.people.any? %>
   <h3>People (<%= @family.people.count %>)</h3>
   <table>

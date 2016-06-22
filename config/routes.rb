@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   get "calendar" => 'calendars#show', :as => :calendar
 
   # RESTful resources for family and people models, i.e. /people/new, /families/edit, etc...
-  resources :people
-  resources :families
+  resources :families do
+    resources :people
+  end
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -17,7 +17,8 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     # I don't understand why params[:format] is the family id, but it is
-    @person = Family.find(params[:format]).people.build
+    @family = Family.find(params[:format])
+    @person = @family.people.build
   end
 
   # GET /people/1/edit
@@ -28,8 +29,9 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.json
   def create
-    @person = Person.new(person_params)
-    @families = Family.all
+    byebug
+    family = Family.find(person_params[:family_id])
+    @person = family.people.build(person_params)
 
     respond_to do |format|
       if @person.save

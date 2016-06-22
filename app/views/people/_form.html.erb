@@ -28,7 +28,8 @@
     <%= f.check_box :primary_adult %>
   </div>
   <div class="field">
-    <%= f.label @person.family.family_name %>
+    <%= @family.family_name %>
+    <%= f.hidden_field :family_id, :value => @family.id %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -31,8 +31,7 @@
   <table>
     <thead>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th>Name</th>
         <th>DOB</th>
         <th>Primary Adult?</th>
         <th>Time Created</th>
@@ -46,4 +45,5 @@
 <% end %>
 
 <%= link_to 'Edit', edit_family_path(@family) %> |
-<%= link_to 'Back', families_path %>
+<%= link_to "Families", families_path %> |
+<%= link_to 'Back', :back %>

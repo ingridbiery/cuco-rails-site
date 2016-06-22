@@ -1,6 +1,8 @@
 <tr id="person-<%= person.id %>">
-  <td class="first_name"><%= link_to person.first_name, person %></td></td>
-  <td class="last_name"><%= link_to person.last_name, person %></td>
+  <td><%= link_to (person) do %>
+        <span class="first_name"><%= person.first_name %></span>
+        <span class="last_name"><%= person.last_name %></span>
+      <% end %></td>
   <td class="dob"><%= person.dob %></td>
   <td class="primary_adult"><%= person.primary_adult %></td>
   <td class="timestamp"><%= person.created_at %></td>

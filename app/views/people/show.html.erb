@@ -22,8 +22,8 @@
 
 <p>
   <strong>Family:</strong>
-  <%= @families.find(@person.family_id).family_name %>
+  <%= link_to Family.find(@person.family_id).family_name, family_path(@person.family_id) %>
 </p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+<%= link_to 'Back', :back %>

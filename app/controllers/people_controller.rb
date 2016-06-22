@@ -29,7 +29,6 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.json
   def create
-    byebug
     family = Family.find(person_params[:family_id])
     @person = family.people.build(person_params)
 

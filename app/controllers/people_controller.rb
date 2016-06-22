@@ -16,8 +16,8 @@ class PeopleController < ApplicationController
 
   # GET /people/new
   def new
-    @person = Person.new
-    @families = Family.all
+    # I don't understand why params[:format] is the family id, but it is
+    @person = Family.find(params[:format]).people.build
   end
 
   # GET /people/1/edit

@@ -28,8 +28,7 @@
     <%= f.check_box :primary_adult %>
   </div>
   <div class="field">
-    <%= f.label :family_id %><br>
-    <%= f.collection_select :family_id, @families, :id, :family_name, include_blank: true %>
+    <%= f.label @person.family.family_name %>
   </div>
   <div class="actions">
     <%= f.submit %>

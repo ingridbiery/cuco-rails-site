@@ -9,7 +9,7 @@ class CucoSessionsController < ApplicationController
   # render app/views/confirm_dates.html.erb which allows the user to confirm
   # those dates
   def confirm_dates
-    @session_name = params[:session_name]
+    @cuco_session_name = params[:cuco_session_name]
     @tuesdays = CucoSession.calculate_tuesdays(params[:start_date], params[:end_date])
   end
   
@@ -20,9 +20,9 @@ class CucoSessionsController < ApplicationController
   def create
     params[:weeks] = params[:weeks].values.map(&:symbolize_keys)
     # create the session
-    cs = CucoSession.create!(name: params[:session_name])
+    cs = CucoSession.create!(name: params[:cuco_session_name])
     # create public and private calendars (which will trigger creating the events)
-    Calendar.create_calendars(current_user, cs, params)
+    Calendar.create_calendars(current_user.token, cs, params)
     
     redirect_to calendar_path
   end

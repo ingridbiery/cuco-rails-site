@@ -1,7 +1,7 @@
-<h2>Confirm Dates for <%= @session_name %></h2>
+<h2>Confirm Dates for <%= @cuco_session_name %></h2>
 
 <%= form_tag cuco_sessions_path do %>
-  <%= hidden_field_tag :session_name, @session_name %>
+  <%= hidden_field_tag :cuco_session_name, @cuco_session_name %>
   <% @tuesdays.each_with_index do |tuesday, week_num| %>
     <% week_num += 1 %>
     <div>

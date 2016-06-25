@@ -1,51 +1,30 @@
 class CucoSessionsController < ApplicationController
-  let :admin, [:new, :add_event, :confirm_dates]
+  let :admin, [:new, :add_event, :confirm_dates, :create]
   
   def new
   end
 
-  # add a random event to a random google calendar (the first one in our database)
-  # proof of concept only -- not a meaningful event yet
-  def add_event
-    @event = {
-      'summary' => 'New Event Title',
-      'description' => 'The description',
-      'location' => 'Location',
-      'start' => { 'dateTime' => DateTime.now },
-      'end' => { 'dateTime' => DateTime.now + 1.hour }}
-  
-    client = Google::APIClient.new(:application_name => Workspace::GOOGLE_APPLICATION_NAME,
-                                   :application_version => Workspace::GOOGLE_APPLICATION_VERSION)
-    client.authorization.access_token = current_user.token
-    service = client.discovered_api('calendar', 'v3')
-
-    @set_event = client.execute(:api_method => service.events.insert,
-                                :parameters => {'calendarId' => Calendar.first.googleid,
-                                                'sendNotifications' => false},
-                                :body => JSON.dump(@event),
-                                :headers => {'Content-Type' => 'application/json'})
-    redirect_to calendar_path
-  end
-  
+  # The user has entered the name of the session and the start and end dates
+  # We need to calculate which dates are Tuesdays, then will automatically
+  # render app/views/confirm_dates.html.erb which allows the user to confirm
+  # those dates
   def confirm_dates
     @session_name = params[:session_name]
-    @tuesdays = calculate_tuesdays(params[:start_date], params[:end_date])
+    @tuesdays = CucoSession.calculate_tuesdays(params[:start_date], params[:end_date])
   end
-
-  private
-    # get the dates of all the Tuesdays between two dates
-    def calculate_tuesdays start_date, stop_date
-      day = Date.parse(start_date)
-      stop = Date.parse(stop_date)
-      tuesdays = []
-
-      # find the first Tuesday (day number 2)
-      while day.wday != 2 do day += 1 end
-      while day < stop do
-        tuesdays.append(day)
-        day += 7
-      end
-      tuesdays
-    end
+  
+  # The user has confirmed dates for the session. Create the CucoSessions object
+  # and all of its Calendars and Events
+  # we're currently skipping error checking about if this session or any of its
+  # stuff already exists
+  def create
+    params[:weeks] = params[:weeks].values.map(&:symbolize_keys)
+    # create the session
+    cs = CucoSession.create!(name: params[:session_name])
+    # create public and private calendars (which will trigger creating the events)
+    Calendar.create_calendars(current_user, cs, params)
+    
+    redirect_to calendar_path
+  end
 
 end

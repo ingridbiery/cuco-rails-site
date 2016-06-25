@@ -1,7 +1,7 @@
 class Calendar < ActiveRecord::Base
   belongs_to :cuco_session
   has_many :events, dependent: :destroy
-  
+
   # the colors that google allows calendars to be
   COLORS = ['%23B1365F', '%235C1158', '%23711616', '%23691426', '%23BE6D00',
             '%23B1440E', '%23853104', '%238C500B', '%23754916', '%2388880E',
@@ -12,6 +12,23 @@ class Calendar < ActiveRecord::Base
             '%23113F47', '%237A367A', '%235229A3', '%23865A5A', '%23705770',
             '%2323164E', '%235B123B', '%2342104A', '%23875509', '%238D6F47',
             '%236B3304', '%23333333']
+
+  # create new calendars for a session
+  def self.create_calendars current_user, cuco_session, params
+    client = Google::APIClient.new(:application_name => Workspace::GOOGLE_APPLICATION_NAME,
+                                   :application_version => Workspace::GOOGLE_APPLICATION_VERSION)
+    client.authorization.access_token = current_user.token
+    calendar = client.discovered_api('calendar', 'v3')
+    result = client.execute(:api_method => calendar.calendars.insert,
+                            :parameters => {'summary' => "Public"},
+                            :headers => {'Content-Type' => 'application/json'})
+    byebug
+
+#    @set_event = client.execute(:api_method => service.calendars.insert,
+#                                :parameters => {'summary' => "#{cuco_session} Public",
+#                                :body => JSON.dump(@event),
+#                                :headers => {'Content-Type' => 'application/json'})
+  end
 
   # return the code that google needs included in the iframe for each google calendar,
   # given a calendar id (a string of characters provided by google) and a color
@@ -36,4 +53,28 @@ class Calendar < ActiveRecord::Base
     end
     "https://calendar.google.com/calendar/embed?title=CUCO%20Calendar&height=600&wkst=1&bgcolor=%23FFFFFF&#{cals_src}ctz=America%2FNew_York"
   end
+  
+    # add a random event to a random google calendar (the first one in our database)
+  # proof of concept only -- not a meaningful event yet
+  def add_event
+    @event = {
+      'summary' => 'New Event Title',
+      'description' => 'The description',
+      'location' => 'Location',
+      'start' => { 'dateTime' => DateTime.now },
+      'end' => { 'dateTime' => DateTime.now + 1.hour }}
+  
+    client = Google::APIClient.new(:application_name => Workspace::GOOGLE_APPLICATION_NAME,
+                                   :application_version => Workspace::GOOGLE_APPLICATION_VERSION)
+    client.authorization.access_token = current_user.token
+    service = client.discovered_api('calendar', 'v3')
+
+    @set_event = client.execute(:api_method => service.events.insert,
+                                :parameters => {'calendarId' => Calendar.first.googleid,
+                                                'sendNotifications' => false},
+                                :body => JSON.dump(@event),
+                                :headers => {'Content-Type' => 'application/json'})
+    redirect_to calendar_path
+  end
+
 end

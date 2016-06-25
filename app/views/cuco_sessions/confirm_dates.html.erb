@@ -1,2 +1,13 @@
 <h2>Confirm Dates for <%= @session_name %></h2>
-<%= @tuesdays %>
+
+<%= form_tag cuco_sessions_path do %>
+  <%= hidden_field_tag :session_name, @session_name %>
+  <% @tuesdays.each_with_index do |tuesday, week_num| %>
+    <% week_num += 1 %>
+    <div>
+      <%= text_field_tag "weeks[#{week_num}][label]", "Week #{week_num}", :required => true %>
+      <%= date_field_tag "weeks[#{week_num}][date]", tuesday, :required => true %>
+    </div>
+  <% end %>
+  <%= submit_tag "Confirm" %>
+<% end %>

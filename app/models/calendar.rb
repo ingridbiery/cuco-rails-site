@@ -14,11 +14,12 @@ class Calendar < ActiveRecord::Base
             '%236B3304', '%23333333']
 
   # create new calendars for a session
-  def self.create_calendars(token, cuco_session, params)
+  def self.create_calendars(token, cuco_session, form_info)
     id = GoogleAPI.create_calendar(token, "Public #{cuco_session.name}")
     public_cal = cuco_session.calendars.create!(googleid: id, members_only: false)
     id = GoogleAPI.create_calendar(token, "Member #{cuco_session.name}")
-    private_cal = cuco_session.calendars.create!(googleid: id, members_only: true)
+    member_cal = cuco_session.calendars.create!(googleid: id, members_only: true)
+    Event.add_events(token, public_cal, member_cal, form_info)
   end
 
   # return the code that google needs included in the iframe for each google calendar,

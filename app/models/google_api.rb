@@ -41,4 +41,17 @@ class GoogleAPI
     result = service.insert_calendar(calendar)
     return result.id
   end
+  
+  # create an event on the given google calendar
+  def self.add_event(token, calendar_id, title, start_dt, end_dt)
+    access_token = AccessToken.new token
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = access_token
+    event = Google::Apis::CalendarV3::Event.new(
+      summary: title,
+      description: title,
+      start: { date_time: start_dt },
+    end: { date_time: end_dt })
+    result = service.insert_event(calendar_id, event)
+  end
 end

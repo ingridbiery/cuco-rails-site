@@ -37,7 +37,8 @@ class GoogleAPI
     access_token = AccessToken.new token
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = access_token
-    calendar = Google::Apis::CalendarV3::Calendar.new(summary: name)
+    calendar = Google::Apis::CalendarV3::Calendar.new(summary: name,
+                                                      time_zone: "America/New_York")
     result = service.insert_calendar(calendar)
     return result.id
   end
@@ -50,8 +51,11 @@ class GoogleAPI
     event = Google::Apis::CalendarV3::Event.new(
       summary: title,
       description: title,
-      start: { date_time: start_dt },
-    end: { date_time: end_dt })
+      start: { date_time: start_dt,
+               time_zone: "America/New_York" },
+      end: { date_time: end_dt,
+             time_zone: "America/New_York" })
     result = service.insert_event(calendar_id, event)
+    return result.id
   end
 end

@@ -25,7 +25,8 @@
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.text_field :state %>
+    <%= f.select :state, options_for_select(us_states, selected: @family.state),
+        {include_blank: true}%>
   </div>
   <div class="field">
     <%= f.label :zip %><br>

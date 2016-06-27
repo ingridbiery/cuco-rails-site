@@ -17,18 +17,7 @@
   </thead>
 
   <tbody>
-    <% @families.each do |family| %>
-      <tr>
-        <td><%= family.family_name %></td>
-        <td><%= family.street_address %></td>
-        <td><%= family.city %></td>
-        <td><%= family.state %></td>
-        <td><%= family.zip %></td>
-        <td><%= link_to 'Show', family %></td>
-        <td><%= link_to 'Edit', edit_family_path(family) %></td>
-        <td><%= link_to 'Destroy', family, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <%= render @families %>
   </tbody>
  </table>
 

@@ -25,7 +25,8 @@
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.text_field :state %>
+    <%= f.collection_select(:state, State.select(:state_name, :state_code),
+       :state_code, :state_name, {include_blank: true}) %>
   </div>
   <div class="field">
     <%= f.label :zip %><br>

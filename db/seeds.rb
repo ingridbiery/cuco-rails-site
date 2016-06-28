@@ -11,20 +11,20 @@ lj = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Lisa', last_na
 
 Family.destroy_all
 smith = Family.create!(family_name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-smith.people.create!(first_name: "Jennifer", last_name: "Smith", dob: "1970/01/01".to_date, primary_adult: true)
-smith.people.create!(first_name: "Isabella", last_name: "Smith", dob: "2010/01/01".to_date, primary_adult: false)
-smith.people.create!(first_name: "Andrew", last_name: "Smith", dob: "2012/01/01".to_date, primary_adult: false)
+smith.people.create!(first_name: "Jennifer", last_name: "Smith", dob: "1970/01/01".to_date, primary_adult: true, pronouns: "She/Her/Hers")
+smith.people.create!(first_name: "Isabella", last_name: "Smith", dob: "2010/01/01".to_date, primary_adult: false, pronouns: "She/Her/Hers")
+smith.people.create!(first_name: "Andrew", last_name: "Smith", dob: "2012/01/01".to_date, primary_adult: false, pronouns: "He/Him/His")
 
 johnson = Family.create!(family_name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-johnson.people.create!(first_name: "Lisa", last_name: "Johnson", dob: "1970/01/01".to_date, primary_adult: true)
-johnson.people.create!(first_name: "Emma", last_name: "Johnson", dob: "2009/01/01".to_date, primary_adult: false)
-johnson.people.create!(first_name: "Olivia", last_name: "Johnson", dob: "2011/01/01".to_date, primary_adult: false)
+johnson.people.create!(first_name: "Lisa", last_name: "Johnson", dob: "1970/01/01".to_date, primary_adult: true, pronouns: "She/Her/Hers")
+johnson.people.create!(first_name: "Emma", last_name: "Johnson", dob: "2009/01/01".to_date, primary_adult: false, pronouns: "She/Her/Hers")
+johnson.people.create!(first_name: "Olivia", last_name: "Johnson", dob: "2011/01/01".to_date, primary_adult: false, pronouns: "She/Her/Hers")
 
 williams = Family.create!(family_name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-williams.people.create!(first_name: "Kimberly", last_name: "Williams", dob: "1970/01/01".to_date, primary_adult: true)
-williams.people.create!(first_name: "Christopher", last_name: "Williams", dob: "2000/01/01".to_date, primary_adult: false)
-williams.people.create!(first_name: "David", last_name: "Williams", dob: "2002/01/01".to_date, primary_adult: false)
-williams.people.create!(first_name: "Matthew", last_name: "Williams", dob: "2005/01/01".to_date, primary_adult: false)
+williams.people.create!(first_name: "Kimberly", last_name: "Williams", dob: "1970/01/01".to_date, primary_adult: true, pronouns: "She/Her/Hers")
+williams.people.create!(first_name: "Christopher", last_name: "Williams", dob: "2000/01/01".to_date, primary_adult: false, pronouns: "They/Them/Their")
+williams.people.create!(first_name: "David", last_name: "Williams", dob: "2002/01/01".to_date, primary_adult: false, pronouns: "He/Him/His")
+williams.people.create!(first_name: "Matthew", last_name: "Williams", dob: "2005/01/01".to_date, primary_adult: false, pronouns: "He/Him/His")
 
 CucoSession.destroy_all
 fake_summer = CucoSession.create!(name: 'Fake Summer Session')

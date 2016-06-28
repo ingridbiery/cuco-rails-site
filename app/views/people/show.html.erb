@@ -11,13 +11,8 @@
 </p>
 
 <p>
-  <strong>Birthday:</strong>
+  <strong>Dob:</strong>
   <%= @person.dob %>
-</p>
-
-<p>
-  <strong>Pronouns:</strong>
-  <%= @person.pronouns %>
 </p>
 
 <p>
@@ -28,11 +23,6 @@
 <p>
   <strong>Family:</strong>
   <%= link_to @family.family_name, @family %>
-</p>
-
-<p>
-  <strong>Created:</strong>
-  <%= @person.created_at %>
 </p>
 
 <%= link_to 'Edit', edit_family_person_path(@family, @person) %> |

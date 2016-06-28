@@ -5,5 +5,4 @@ class Person < ActiveRecord::Base
   validates :last_name, presence: true
   validates :dob, presence: true
   validates :family_id, presence: true
-  validates :pronouns, presence: true
 end

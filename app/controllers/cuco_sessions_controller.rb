@@ -10,7 +10,8 @@ class CucoSessionsController < ApplicationController
   # those dates
   def confirm_dates
     @cuco_session_name = params[:cuco_session_name]
-    @tuesdays = CucoSession.calculate_tuesdays(params[:start_date], params[:end_date])
+    # calculate proposed dates for this session
+    @dates = CucoSession.calculate_dates(params[:start_date], params[:end_date])
   end
   
   # The user has confirmed dates for the session. Create the CucoSessions object
@@ -18,11 +19,10 @@ class CucoSessionsController < ApplicationController
   # we're currently skipping error checking about if this session or any of its
   # stuff already exists
   def create
-    params[:weeks] = params[:weeks].values.map(&:symbolize_keys)
     # create the session
     cs = CucoSession.create!(name: params[:cuco_session_name])
     # create public and private calendars (which will trigger creating the events)
-    Calendar.create_calendars(current_user.token, cs, params)
+    Calendar.create_calendars(current_user.token, cs, params[:dates])
     
     redirect_to calendar_path
   end

@@ -2,11 +2,47 @@
 
 <%= form_tag cuco_sessions_path do %>
   <%= hidden_field_tag :cuco_session_name, @cuco_session_name %>
-  <% @tuesdays.each_with_index do |tuesday, week_num| %>
+  <div>
+    <%= text_field_tag "dates[class_offering_open][label]", "Class Offerings", :required => true %>
+    <%= date_field_tag "dates[class_offering_open][date]", @dates[:class_offering_open], :required => true %>
+  </div>
+  <div>
+    <%= label_tag "Class Offerings Close" %>
+    <%= date_field_tag "dates[class_offering_close][date]", @dates[:class_offering_close], :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "dates[schedule_posted][label]", "Schedule Posted", :required => true %>
+    <%= date_field_tag "dates[schedule_posted][date]", @dates[:schedule_posted], :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "dates[member_reg_open][label]", "Member Registration", :required => true %>
+    <%= date_field_tag "dates[member_reg_open][date]", @dates[:member_reg_open], :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "dates[former_reg_open][label]", "Former Member Registration", :required => true %>
+    <%= date_field_tag "dates[former_reg_open][date]", @dates[:former_reg_open], :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "dates[new_reg_open][label]", "New Member Registration", :required => true %>
+    <%= date_field_tag "dates[new_reg_open][date]", @dates[:new_reg_open], :required => true %>
+  </div>
+  <div>
+    <%= label_tag "Registration Close" %>
+    <%= date_field_tag "dates[reg_close][date]", @dates[:reg_close], :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "dates[fees_posted][label]", "Fees Posted", :required => true %>
+    <%= date_field_tag "dates[fees_posted][date]", @dates[:fees_posted], :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "dates[fees_due][label]", "Fees Due", :required => true %>
+    <%= date_field_tag "dates[fees_due][date]", @dates[:fees_due], :required => true %>
+  </div>
+  <% @dates[:weeks].each_with_index do |tuesday, week_num| %>
     <% week_num += 1 %>
     <div>
-      <%= text_field_tag "weeks[#{week_num}][label]", "Week #{week_num}", :required => true %>
-      <%= date_field_tag "weeks[#{week_num}][date]", tuesday, :required => true %>
+      <%= text_field_tag "dates[weeks[#{week_num}]][label]", "Week #{week_num}", :required => true %>
+      <%= date_field_tag "dates[weeks[#{week_num}]][date]", tuesday, :required => true %>
     </div>
   <% end %>
   <%= submit_tag "Confirm" %>

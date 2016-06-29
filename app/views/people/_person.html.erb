@@ -5,6 +5,7 @@
   <% end %></td>
   <td class="dob"><%= person.dob %></td>
   <td class="primary_adult"><%= person.primary_adult %></td>
+  <td class="pronouns"><%= Pronoun.find(person.pronoun_id).pronouns %></td>
   <td class="timestamp"><%= person.created_at %></td>
   <td><%= link_to 'Show', family_person_path(@family, person) %></td>
   <td><%= link_to 'Edit', edit_family_person_path(@family, person) %></td>

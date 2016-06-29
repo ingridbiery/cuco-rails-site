@@ -1,14 +1,7 @@
+<h1><%= @person.first_name %> <%= @person.last_name %></h1>
+<br /><div style="font-size: 2em;"><%= @family.family_name %> Family</div><br />
+
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @person.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @person.last_name %>
-</p>
 
 <p>
   <strong>Birthday</strong>
@@ -21,8 +14,8 @@
 </p>
 
 <p>
-  <strong>Family:</strong>
-  <%= link_to @family.family_name, @family %>
+  <strong>Preferred Pronouns:</strong>
+  <%= Pronoun.find(@person.pronoun_id).pronouns %>
 </p>
 
 <p>
@@ -31,4 +24,4 @@
 </p>
 
 <%= link_to 'Edit', edit_family_person_path(@family, @person) %> |
-<%= link_to 'Back', :back %>
+<%= link_to 'Back to Family', family_path(@family) %>

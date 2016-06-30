@@ -1,0 +1,20 @@
+<%= form_for [@pronoun] do |f| %>
+  <% if @pronoun.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pronoun.errors.count, "error") %> prohibited this pronoun from being saved:</h2>
+
+      <ul>
+      <% @pronoun.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :pronouns %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

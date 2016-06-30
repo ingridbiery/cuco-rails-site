@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :families do
     resources :people
   end
+
+  resources :pronouns
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

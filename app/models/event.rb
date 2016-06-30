@@ -37,7 +37,8 @@ class Event < ActiveRecord::Base
   # add one event to the google calendar and our database
   def self.add_event(token, cal, label, start_dt, end_dt)
     id = GoogleAPI.add_event(token, cal.googleid, label, start_dt, end_dt)
-    cal.events.create!(title: label, start: start_dt, end: start_dt)
+    cal.events.create!(title: label, start_dt: start_dt, end_dt: start_dt,
+                       googleid: id)
   end
 
 end

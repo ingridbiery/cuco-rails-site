@@ -44,7 +44,7 @@ class PeopleController < ApplicationController
   # DELETE /families/:family_id/people/1
   def destroy
     @person.destroy
-    redirect_to family_people_path(@family), notice: 'Person was successfully destroyed.'
+    redirect_to family_path(@family), notice: 'Person was successfully destroyed.'
   end
 
   private

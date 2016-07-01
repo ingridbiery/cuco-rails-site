@@ -26,7 +26,8 @@ class PeopleController < ApplicationController
     @person = @family.people.build(person_params)
 
     if @person.save
-      redirect_to family_person_path(@family, @person), notice: 'Person was successfully created.'
+      redirect_to family_person_path(@family, @person),
+          notice: "#{@person.first_name} #{@person.last_name} was successfully created."
     else
       render :new
     end
@@ -35,7 +36,8 @@ class PeopleController < ApplicationController
   # PATCH/PUT /families/:family_id/people/1
   def update
     if @person.update(person_params)
-      redirect_to family_person_path(@family, @person), notice: 'Person was successfully updated.'
+      redirect_to family_person_path(@family, @person), 
+          notice: "#{@person.first_name} #{@person.last_name} was successfully updated."
     else
       render :edit
     end
@@ -44,7 +46,8 @@ class PeopleController < ApplicationController
   # DELETE /families/:family_id/people/1
   def destroy
     @person.destroy
-    redirect_to family_path(@family), notice: 'Person was successfully destroyed.'
+    redirect_to family_path(@family), 
+        notice: "#{@person.first_name} #{@person.last_name} was successfully destroyed."
   end
 
   private

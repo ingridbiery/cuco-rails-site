@@ -3,14 +3,19 @@
 <h1><%= @person.first_name %> <%= @person.last_name %></h1>
 <br /><div style="font-size: 2em;"><%= @family.family_name %> Family</div><br />
 
+<% if primary_exists == "" %>
+  <div id="notice">NO PRIMARY ADULT SELECTED, PLEASE CHOOSE A PRIMARY ADULT</div><br>
+<% elsif primary_exists == "#{@person.first_name} #{@person.last_name}" %>
+  <div id="notice">This is the primary adult.</div><br>
+<% else %>
+  <div id="notice">
+  The <strong>Primary Adult</strong> is <strong><%= primary_exists %></strong>.
+  </div><br>
+<% end %>
+
 <p>
   <strong>Birthday</strong>
   <%= @person.dob %>
-</p>
-
-<p>
-  <strong>Primary adult:</strong>
-  <%= @person.primary_adult %>
 </p>
 
 <p>

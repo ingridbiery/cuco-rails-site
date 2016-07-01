@@ -2,8 +2,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <h2><%= @family.family_name %></h2>
+  <h2>The <strong><%= @family.family_name %></strong> Family</h2>
 </p>
+
+<% if primary_exists == "" %>
+  <div id="notice">NO PRIMARY ADULT SELECTED, PLEASE CHOOSE A PRIMARY ADULT</div><br>
+<% else %>
+  <div class="field">
+  The <strong>Primary Adult</strong> is <strong><%= primary_exists %></strong>.
+  </div>
+<% end %>
 
 <p>
   <strong>Street address:</strong>

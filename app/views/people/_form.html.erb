@@ -11,6 +11,17 @@
     </div>
   <% end %>
 
+  <% if primary_exists == "" or primary_exists == "#{@person.first_name} #{@person.last_name}" %>
+    <div class="field">
+      <%= f.label :primary_adult %>:
+      <%= f.check_box :primary_adult %>
+    </div>
+  <% else %>
+    <div class="field">
+    The <strong>Primary Adult</strong> is <strong><%= primary_exists %></strong>.
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
@@ -22,10 +33,6 @@
   <div class="field">
     <%= f.label "Birthday" %><br>
     <%= f.date_select :dob %>
-  </div>
-  <div class="field">
-    <%= f.label :primary_adult %>:
-    <%= f.check_box :primary_adult %>
   </div>
   <div class="field">
     <%= f.collection_select :pronoun_id, Pronoun.all, :id, :pronouns,

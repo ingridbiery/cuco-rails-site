@@ -31,8 +31,8 @@
 </p>
 <hr />
 <% if @family.people.any? %>
-  <h3>People (<%= @family.people.count %>)
-  <%= link_to image_tag('add.png'), new_family_person_path(@family) %></h3>
+  <h3>People in Family (<%= @family.people.count %>)
+  <%= link_to image_tag('add.png'), new_family_person_path(@family), title: "Add New Person to Family" %></h3>
   <table>
     <thead>
       <tr>
@@ -51,5 +51,4 @@
 <% end %>
 
 <%= link_to 'Edit', edit_family_path(@family) %> |
-<%= link_to "Families", families_path %> |
-<%= link_to 'Back', :back %>
+<%= link_to "Back to List of Families", families_path %>

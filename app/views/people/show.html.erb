@@ -4,7 +4,7 @@
 <br /><div style="font-size: 2em;"><%= @family.family_name %> Family</div><br />
 
 <% if primary_exists == "" %>
-  <div id="notice">NO PRIMARY ADULT SELECTED, PLEASE CHOOSE A PRIMARY ADULT</div><br>
+  <div id="error_explanation">NO PRIMARY ADULT SELECTED, PLEASE CHOOSE A PRIMARY ADULT</div><br>
 <% elsif primary_exists == "#{@person.first_name} #{@person.last_name}" %>
   <div id="notice">This is the primary adult.</div><br>
 <% else %>

@@ -35,9 +35,9 @@
     <%= f.date_select :dob %>
   </div>
   <div class="field">
+    <%= f.label "Pronouns" %><br>
     <%= f.collection_select :pronoun_id, Pronoun.all, :id, :pronouns,
-        include_blank: "Choose Preferred Pronouns" %> <br />
-    <%= link_to "Click to add your own pronouns.", new_pronoun_path %>
+        include_blank: "Choose Preferred Pronouns" %>
   </div>
   <div class="actions">
     <%= f.submit %>

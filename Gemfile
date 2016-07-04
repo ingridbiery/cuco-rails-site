@@ -13,6 +13,10 @@ gem 'devise'
 gem 'high_voltage',            '~> 3.0.0'
 gem 'will_paginate',           '~> 3.0.7'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'google-api-client'
+gem 'action_access'
 
 group :development, :test do
   gem 'sqlite3'

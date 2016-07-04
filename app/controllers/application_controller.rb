@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   private
     # override the devise helper to store the current location so we can
-    # redirect to it after loggin in or out. This override makes signing in
+    # redirect to it after logging in or out. This override makes signing in
     # and signing up work automatically. Override after_sign_out_path
     # below for signing out.
     def store_current_location

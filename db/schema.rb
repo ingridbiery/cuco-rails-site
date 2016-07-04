@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629025257) do
+ActiveRecord::Schema.define(version: 20160630233410) do
 
   create_table "calendars", force: :cascade do |t|
     t.string   "googleid"
@@ -31,11 +31,12 @@ ActiveRecord::Schema.define(version: 20160629025257) do
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "start_dt"
+    t.datetime "end_dt"
     t.integer  "calendar_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "googleid"
   end
 
   add_index "events", ["calendar_id"], name: "index_events_on_calendar_id"
@@ -85,6 +86,9 @@ ActiveRecord::Schema.define(version: 20160629025257) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "token"
+    t.string   "uid"
+    t.string   "provider"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

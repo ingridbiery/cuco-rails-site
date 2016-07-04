@@ -5,7 +5,6 @@ else
 end
 
 User.destroy_all
-
 js = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Jennifer', last_name: 'Smith', email: 'js@example.com')
 lj = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Lisa', last_name: 'Johnson', email: 'lj@example.com')
 
@@ -40,3 +39,7 @@ Pronoun.destroy_all
 Pronoun.create!(pronouns: "He/Him/His")
 Pronoun.create!(pronouns: "She/Her/Hers")
 Pronoun.create!(pronouns: "They/Them/Their")
+
+
+cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'CUCO', last_name: 'Calendar', email: 'cucocalendar@gmail.com')
+CucoSession.destroy_all

@@ -11,6 +11,10 @@ gem 'jbuilder',             '~> 2.2.3'
 gem 'sdoc',                 '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'high_voltage',         '~> 3.0.0'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'google-api-client'
+gem 'action_access'
 
 group :development, :test do
   gem 'sqlite3'

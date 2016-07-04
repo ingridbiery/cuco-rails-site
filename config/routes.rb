@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  devise_for :users, :path_names => { :sign_up => "register" }, :controllers => { registrations: 'registrations' }
+  devise_for :users, :path_names => { :sign_up => "register" },
+             :controllers => { :omniauth_callbacks => "omniauth_callbacks",
+                               registrations: 'registrations' }
 
   # You can have the root of your site routed with "root"
   #root 'application#home'
@@ -11,8 +13,12 @@ Rails.application.routes.draw do
 
   # the calendar page url is /calendar. We get it through the
   # calendar controller, show method
-  get "calendar" => 'calendars#show', :as => :calendar
+  get "calendar" => 'calendars#show'
   
+  # create a new session
+  resources :cuco_sessions, :only => [:new, :create]
+  post "confirm_dates" => 'cuco_sessions#confirm_dates'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -5,11 +5,12 @@
       <ul class="nav navbar-nav navbar-right">
       	<li><%= link_to 'Home', root_path %></li>
 	      <li><%= link_to 'Calendar', calendar_path %></li>
-	      <li><%= link_to 'FAQ', '#' %></li>
+	      <li>FAQ</li>
 	      <li><%= link_to 'Expectations', page_path("expectations") %></li>
 	      <li><%= link_to 'A Day at CUCO', page_path("dayatcuco") %></li>
-	      <li><%= link_to 'Family Demographics', '#' %></li>
-	      <li><%= link_to 'Child Demographics', '#' %></li>
+	      <% if (user_signed_in? and current_user.can? :add_event, CucoSessionsController) then %>
+          <li><%= link_to 'New Session', new_cuco_session_path %></li>
+        <% end %>
       </ul>
     </nav>
 

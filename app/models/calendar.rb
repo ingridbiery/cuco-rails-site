@@ -1,7 +1,7 @@
 class Calendar < ActiveRecord::Base
   belongs_to :cuco_session
   has_many :events, dependent: :destroy
-  
+ 
   # the colors that google allows calendars to be
   COLORS = ['%23B1365F', '%235C1158', '%23711616', '%23691426', '%23BE6D00',
             '%23B1440E', '%23853104', '%238C500B', '%23754916', '%2388880E',
@@ -13,15 +13,24 @@ class Calendar < ActiveRecord::Base
             '%2323164E', '%235B123B', '%2342104A', '%23875509', '%238D6F47',
             '%236B3304', '%23333333']
 
+  # create new calendars for a session
+  def self.create_calendars(token, cuco_session, dates)
+    id = GoogleAPI.create_calendar(token, "Public #{cuco_session.name}")
+    public_cal = cuco_session.calendars.create!(googleid: id, members_only: false)
+    id = GoogleAPI.create_calendar(token, "Member #{cuco_session.name}")
+    member_cal = cuco_session.calendars.create!(googleid: id, members_only: true)
+    Event.add_events(token, public_cal, member_cal, dates)
+  end
+
   # return the code that google needs included in the iframe for each google calendar,
   # given a calendar id (a string of characters provided by google) and a color
-  def cal id, color
-    "src=#{id}%40group.calendar.google.com&color=#{color}&"
+  def self.cal(id, color)
+    "src=#{id}&color=#{color}&"
   end
 
   # return the URL provided by google for the iframe needed to embed a google
   # calendar on our site. Show all calendars
-  def url (signed_in)
+  def self.url(signed_in)
     cals_src = ""
     color = 0
     Calendar.find_each do |calendar|
@@ -36,4 +45,5 @@ class Calendar < ActiveRecord::Base
     end
     "https://calendar.google.com/calendar/embed?title=CUCO%20Calendar&height=600&wkst=1&bgcolor=%23FFFFFF&#{cals_src}ctz=America%2FNew_York"
   end
+  
 end

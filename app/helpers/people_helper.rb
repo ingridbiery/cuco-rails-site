@@ -1,6 +1,6 @@
 module PeopleHelper
 
-  def primary_exists
+  def primary_adult_name
     people = @family.people.all
 
     people.each do |person|

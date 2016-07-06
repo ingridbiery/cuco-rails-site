@@ -7,4 +7,8 @@ class Person < ActiveRecord::Base
   validates :dob, presence: true
   validates :family_id, presence: true
   validates :pronoun_id, presence: true
+
+  def preferred_pronouns
+    Pronoun.find(pronoun_id).preferred_pronouns
+  end
 end

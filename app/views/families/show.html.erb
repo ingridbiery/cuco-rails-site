@@ -5,11 +5,11 @@
   <h2>The <strong><%= @family.family_name %></strong> Family</h2>
 </p>
 
-<% if primary_exists == "" %>
-  <div id="error_explanation">NO PRIMARY ADULT SELECTED, PLEASE CHOOSE A PRIMARY ADULT</div><br>
+<% if primary_adult_name == "" %>
+  <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
 <% else %>
   <div class="field">
-  The <strong>Primary Adult</strong> is <strong><%= primary_exists %></strong>.
+  The <strong>Primary Adult</strong> is <strong><%= primary_adult_name %></strong>.
   </div>
 <% end %>
 

@@ -18,7 +18,7 @@ class PronounsController < ApplicationController
   def create
     @pronoun = Pronoun.new(pronoun_params)
     if @pronoun.save
-      redirect_to pronouns_path, notice: "#{@pronoun.pronouns} was successfully created."
+      redirect_to pronouns_path, notice: "#{@pronoun.preferred_pronouns} was successfully created."
     else
       render :new
     end
@@ -26,7 +26,7 @@ class PronounsController < ApplicationController
 
   def update
     if @pronoun.update(pronoun_params)
-      redirect_to pronouns_path, notice: "#{@pronoun.pronouns} was successfully updated."
+      redirect_to pronouns_path, notice: "#{@pronoun.preferred_pronouns} was successfully updated."
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class PronounsController < ApplicationController
 
   def destroy
     @pronoun.destroy
-    redirect_to pronouns_path, notice: "#{@pronoun.pronouns} was successfully destroyed."
+    redirect_to pronouns_path, notice: "#{@pronoun.preferred_pronouns} was successfully destroyed."
   end
 
   private
@@ -45,7 +45,7 @@ class PronounsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pronoun_params
-      params.require(:pronoun).permit(:pronouns)
+      params.require(:pronoun).permit(:preferred_pronouns)
     end
 
 end

@@ -9,9 +9,9 @@ js = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Jennifer', las
 lj = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Lisa', last_name: 'Johnson', email: 'lj@example.com')
 
 Pronoun.destroy_all
-he = Pronoun.create!(pronouns: "He/Him/His")
-she = Pronoun.create!(pronouns: "She/Her/Hers")
-they = Pronoun.create!(pronouns: "They/Them/Their")
+he = Pronoun.create!(preferred_pronouns: "He/Him/His")
+she = Pronoun.create!(preferred_pronouns: "She/Her/Hers")
+they = Pronoun.create!(preferred_pronouns: "They/Them/Their")
 
 Family.destroy_all
 smith = Family.create!(family_name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)

@@ -1,0 +1,55 @@
+<h1><%= @person.first_name %> <%= @person.last_name %></h1>
+<br /><div style="font-size: 2em;"><%= @family.family_name %> Family</div><br />
+
+<% if primary_adult_name == "" %>
+  <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
+<% elsif primary_adult_name == "#{@person.first_name} #{@person.last_name}" %>
+  <div id="notice">This is the primary adult.</div><br>
+<% else %>
+  <div id="notice">
+  The <strong>Primary Adult</strong> is <strong><%= primary_adult_name %></strong>.
+  </div><br>
+<% end %>
+
+<p>
+  <strong>Birthday</strong>
+  <%= @person.dob %>
+</p>
+
+<p>
+  <strong>Preferred Pronouns:</strong>
+  <%= @person.preferred_pronouns %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @person.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @person.phone %>
+</p>
+
+<p>
+  <strong>Skype:</strong>
+  <%= @person.skype %>
+</p>
+
+<p>
+  <strong>Facebook:</strong>
+  <%= @person.facebook %>
+</p>
+
+<p>
+  <strong>Twitter:</strong>
+  <%= @person.twitter %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= @person.created_at %>
+</p>
+
+<%= link_to 'Edit', edit_family_person_path(@family, @person) %> |
+<%= link_to 'Back to Family', family_path(@family) %>

@@ -1,0 +1,65 @@
+<%= form_for [@family, @person] do |f| %>
+  <% if @person.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+      <% @person.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if primary_adult_name == "" or primary_adult_name == "#{@person.first_name} #{@person.last_name}" %>
+    <div class="field">
+      <%= f.label :primary_adult %>:
+      <%= f.check_box :primary_adult %>
+    </div>
+  <% else %>
+    <div class="field">
+    The <strong>Primary Adult</strong> is <strong><%= primary_adult_name %></strong>.
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label "Birthday" %><br>
+    <%= f.date_select :dob %>
+  </div>
+  <div class="field">
+    <%= f.label "Pronouns" %><br>
+    <%= f.collection_select :pronoun_id, Pronoun.all, :id, :preferred_pronouns,
+        include_blank: true %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :skype %><br>
+    <%= f.text_field :skype %>
+  </div>
+  <div class="field">
+    <%= f.label :facebook %><br>
+    <%= f.text_field :facebook %>
+  </div>
+  <div class="field">
+    <%= f.label :twitter %><br>
+    <%= f.text_field :twitter %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

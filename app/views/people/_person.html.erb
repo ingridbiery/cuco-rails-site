@@ -1,0 +1,13 @@
+<tr id="person-<%= person.id %>">
+  <td><%= link_to [@family, person] do %>
+    <span class="first_name"><%= person.first_name %></span>
+    <span class="last_name"><%= person.last_name %></span>
+  <% end %></td>
+  <td class="dob"><%= person.dob %></td>
+  <td class="primary_adult"><%= person.primary_adult %></td>
+  <td class="pronouns"><%= person.preferred_pronouns %></td>
+  <td class="timestamp"><%= person.created_at %></td>
+  <td><%= link_to 'Show', family_person_path(@family, person) %></td>
+  <td><%= link_to 'Edit', edit_family_person_path(@family, person) %></td>
+  <td><%= link_to 'Destroy', family_person_path(@family, person), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

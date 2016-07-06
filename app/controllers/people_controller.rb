@@ -65,6 +65,6 @@ class PeopleController < ApplicationController
     def person_params
       params.require(:person).permit(:first_name, :last_name, :dob,
                                      :primary_adult, :family_id, :pronoun_id,
-                                     :email, :phone, :skype, :facebook, :twitter)
+                                     :email, :phone, :social_media)
     end
 end

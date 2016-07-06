@@ -1,8 +1,8 @@
 class PronounsController < ApplicationController
-  before_action :set_pronoun
+  before_action :set_pronoun, only: [:show, :edit, :update, :destroy]
 
   def index
-    @pronouns = @pronoun.all
+    @pronouns = Pronoun.all
   end
 
   def show
@@ -13,48 +13,34 @@ class PronounsController < ApplicationController
   end
 
   def edit
-    @pronoun = Pronoun.find(params[:id])
   end
 
   def create
     @pronoun = Pronoun.new(pronoun_params)
-
-    respond_to do |format|
-      if @pronoun.save
-        format.html { redirect_to pronouns_path, :notice => "#{@pronoun.pronouns} were successfully created." }
-        format.json { render :show, status: :created, location: @pronoun }
-      else
-        format.html { render :new }
-        format.json { render json: @pronoun.errors, status: :unprocessable_entity }
-      end
+    if @pronoun.save
+      redirect_to pronouns_path, notice: "#{@pronoun.pronouns} was successfully created."
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @pronoun.update(pronoun_params)
-        format.html { redirect_to pronouns_path, :notice => "#{@pronoun.pronouns} were successfully updated." }
-        format.json { render :show, status: :ok, location: @pronoun }
-      else
-        format.html { render :edit }
-        format.json { render json: @pronoun.errors, status: :unprocessable_entity }
-      end
+    if @pronoun.update(pronoun_params)
+      redirect_to pronouns_path, notice: "#{@pronoun.pronouns} was successfully updated."
+    else
+      render :edit
     end
   end
 
   def destroy
-    @pronoun = Pronoun.find(params[:id])
     @pronoun.destroy
-    respond_to do |format|
-      format.html { redirect_to pronouns_path, :notice => "#{@pronoun.pronouns} were successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to pronouns_path, notice: "#{@pronoun.pronouns} was successfully destroyed."
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pronoun
-      @pronoun = Pronoun.all
+      @pronoun = Pronoun.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

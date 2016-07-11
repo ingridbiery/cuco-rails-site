@@ -1,0 +1,82 @@
+<% provide(:title, @course.title) %>
+
+<p>
+  <h2><% @course.title %></h2>
+</p>
+
+<p>
+  <strong>Short Title:</strong>
+  <%= @course.short_title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @course.description %>
+</p>
+
+<p>
+  <strong>Minimum Age:</strong>
+  <%= @course.min_age %>
+</p>
+
+<p>
+  <strong>Maximum Age:</strong>
+  <%= @course.max_age %>
+</p>
+
+<p>
+  <strong>Age Limits Firm?:</strong>
+  <%= @course.age_firm %>
+</p>
+
+<p>
+  <strong>Minimum Number of Students:</strong>
+  <%= @course.min_num_students %>
+</p>
+
+<p>
+  <strong>Maximum Number of Students:</strong>
+  <%= @course.max_num_students %>
+</p>
+
+<p>
+  <strong>Course Fee:</strong>
+  <%= @course.course_fee %>
+</p>
+
+<p>
+  <strong>Supplies:</strong>
+  <%= @course.supplies %>
+</p>
+
+<p>
+  <strong>Room Requirements:</strong>
+  <%= @course.room_requirements %>
+</p>
+
+<p>
+  <strong>Time Requirements:</strong>
+  <%= @course.time_requirements %>
+</p>
+
+<p>
+  <strong>Drop-Ins?:</strong>
+  <%= @course.drop_ins %>
+</p>
+
+<p>
+  <strong>Additional Information:</strong>
+  <%= @course.additional_info %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= @course.created_at %>
+</p>
+
+<hr />
+
+<h3>Students in Course</h3>
+
+<%= link_to 'Edit', edit_course_path %> |
+<%= link_to "Back to List of Courses", courses_path %>

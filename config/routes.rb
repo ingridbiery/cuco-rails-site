@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :people
   end
 
-  resources :pronouns
+  resources :pronouns, :courses
   
   # create a new session
   resources :cuco_sessions, :only => [:new, :create]

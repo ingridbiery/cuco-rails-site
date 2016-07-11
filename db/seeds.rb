@@ -5,12 +5,12 @@ else
 end
 
 Role.destroy_all
-role_a = Role.create!(name: "Admin")
-role_ga = Role.create!(name: "Google Admin")
-role_m = Role.create!(name: "Member")
-role_fm = Role.create!(name: "Former Member")
-role_nl = Role.create!(name: "Notification List")
-role_b = Role.create!(name: "Board Member")
+role_a = Role.create!(name: "admin")
+role_ga = Role.create!(name: "google_admin")
+role_m = Role.create!(name: "member")
+role_fm = Role.create!(name: "former_member")
+role_nl = Role.create!(name: "notification_list")
+role_b = Role.create!(name: "board_member")
 
 User.destroy_all
 js = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Jennifer', last_name: 'Smith', email: 'js@example.com')
@@ -20,6 +20,7 @@ lj = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Lisa', last_na
 lj.roles << role_nl
 cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'CUCO', last_name: 'Calendar', email: 'cucocalendar@gmail.com')
 cuco_calendar.roles << role_ga
+cuco_calendar.roles << role_a
 
 Pronoun.destroy_all
 he = Pronoun.create!(preferred_pronouns: "He/Him/His")

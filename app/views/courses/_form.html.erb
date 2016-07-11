@@ -1,0 +1,118 @@
+<%= form_for(@course) do |f| %>
+
+  <% if @course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+      <% @course.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :short_title %><br>
+    <%= f.text_field :short_title %><br>
+    <em>Enter a short version of the name to show on the schedule chart</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %><br>
+    <em>Enter a description of the course. You can include your teaching experience,
+    if any, what material you intend to cover, and what parents can expect from
+    the course. Include any special information that is not covered elsewhere on
+    this form.</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :min_age %><br>
+    <%= f.text_field :min_age %><br>
+    <em>What is the minimum age for the class? Leave blank to allow any age.</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :max_age %><br>
+    <%= f.text_field :max_age %><br>
+    <em>What is the maximum age for students? Leave blank to allow any age.</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :age_firm %><br>
+    <%= f.check_box :age_firm %> Yes <br>
+  <em>Is the age range a firm limit or just a suggestion?</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :min_num_students %><br>
+    <%= f.text_field :min_num_students %><br>
+    <em>What is the minimum number of students required for the class? If fewer
+    than this number sign up, the class will be canceled.</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :max_num_students %><br>
+    <%= f.text_field :max_num_students %><br>
+    <em>What is the maximum number of students you are comfortable teaching?</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :course_fee %><br>
+    <%= f.text_field :course_fee %><br>
+    <em>What is the maximum number of students you are comfortable teaching?</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :supplies %><br>
+    <%= f.text_area :supplies %><br>
+    <em>List any CUCO supplies that are needed for the course.</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :room_requirements %><br>
+    <%= f.text_area :room_requirements %><br>
+    <em>Do you need chairs? How many? Do you need tables? How many? Do you need
+    room to run? Do you need mats? Do you need the kitchen? Do you need access to
+    art supplies? Tell us what your course needs so we can figure out which rooms
+    will work for you, and how to set up in the morning.<em>
+  </div>
+
+  <div class="field">
+    <%= f.label :time_requirements %><br>
+    <%= f.text_area :time_requirements %><br>
+    <em>Are you only attending part of the day? Would you prefer to teach in the
+    morning/afternoon? Are there any courses you would prefer your course doesn't
+    conflict with? Please leave any notes that would be helpful to the scheduler.
+    They have a very big job, and we would like to reduce last-minute changes.
+    If you don't list it here, we may not be able to accommodate your request.</em>
+    </div>
+
+  <div class="field">
+    <%= f.label "Drop-ins ok?" %><br>
+    <%= f.check_box :drop_ins %> Yes <br>
+    <em>Used to indicate whether students may join this class after signups are
+    closed. If there is a fee for the class, the student must make arrangements
+    with the teacher regarding payment.</em>
+  </div>
+
+  <div class="field">
+    <%= f.label :additional_info %><br>
+    <%= f.text_area :additional_info %><br>
+    <em>If there is anything else you would like to tell the co-op schedulers,
+    management, or students who are interested in taking your course, please
+    include that information here. This is also the place to specify if you have
+    a plan to split the session with another course.</em>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

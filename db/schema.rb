@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< c6e050a77a6577a9e0b0d3453cfee7c29028267c
 ActiveRecord::Schema.define(version: 20160715195524) do
+=======
+ActiveRecord::Schema.define(version: 20160712193632) do
+>>>>>>> Attach Users to People
 
   create_table "calendars", force: :cascade do |t|
     t.string   "google_id"
@@ -125,9 +129,11 @@ ActiveRecord::Schema.define(version: 20160715195524) do
     t.string   "token"
     t.string   "uid"
     t.string   "provider"
+    t.integer  "person_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["person_id"], name: "index_users_on_person_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

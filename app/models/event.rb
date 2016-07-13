@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   belongs_to :calendar
-  
+
   def self.add_events(token, public_cal, member_cal, dates)
     # deal with planning dates
     add_event(token, member_cal, dates[:class_offering_open][:label],
@@ -36,9 +36,9 @@ class Event < ActiveRecord::Base
   
   # add one event to the google calendar and our database
   def self.add_event(token, cal, label, start_dt, end_dt)
-    id = GoogleAPI.add_event(token, cal.googleid, label, start_dt, end_dt)
+    id = GoogleAPI.add_event(token, cal.google_id, label, start_dt, end_dt)
     cal.events.create!(title: label, start_dt: start_dt, end_dt: start_dt,
-                       googleid: id)
+                       google_id: id)
   end
 
 end

@@ -18,7 +18,7 @@ class FamiliesControllerTest < ActionController::TestCase
 
   test "should create family" do
     assert_difference('Family.count') do
-      post :create, family: { city: @family.city, family_name: @family.family_name, state: @family.state, street_address: @family.street_address, zip: @family.zip }
+      post :create, family: { city: @family.city, name: @family.name, state: @family.state, street_address: @family.street_address, zip: @family.zip }
     end
 
     assert_redirected_to family_path(assigns(:family))
@@ -35,7 +35,7 @@ class FamiliesControllerTest < ActionController::TestCase
   end
 
   test "should update family" do
-    patch :update, id: @family, family: { city: @family.city, family_name: @family.family_name, state: @family.state, street_address: @family.street_address, zip: @family.zip }
+    patch :update, id: @family, family: { city: @family.city, name: @family.name, state: @family.state, street_address: @family.street_address, zip: @family.zip }
     assert_redirected_to family_path(assigns(:family))
   end
 

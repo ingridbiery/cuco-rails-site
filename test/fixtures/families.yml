@@ -1,14 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  family_name: MyString
+  name: MyString
   street_address: MyString
   city: MyString
   state: MyString
   zip: MyString
 
 two:
-  family_name: MyString
+  name: MyString
   street_address: MyString
   city: MyString
   state: MyString

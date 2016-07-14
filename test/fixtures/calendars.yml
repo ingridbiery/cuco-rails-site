@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  google_id: MyString
-  cuco_session_id: 
+  google_id: "GOOGLE ID"
+  cuco_session_id: 1
+  members_only: true
 
 two:
-  google_id: MyString
-  cuco_session_id: 
+  google_id: "GOOGLE ID"
+  cuco_session_id: 1
+  members_only: false

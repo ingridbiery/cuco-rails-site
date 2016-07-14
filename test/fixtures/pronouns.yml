@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  pronouns: MyString
+he:
+  preferred_pronouns: "He/Him/His"
 
-two:
-  pronouns: MyString
+she:
+  preferred_pronouns: "She/Her/Hers"
+  
+they:
+  preferred_pronouns: "They/Them/Their"

@@ -1,6 +1,12 @@
 class Calendar < ActiveRecord::Base
   belongs_to :cuco_session
   has_many :events, dependent: :destroy
+  validates :google_id, presence: true,
+                        uniqueness: true
+  validates :cuco_session_id, presence: true,
+                              numericality: true
+  validates :members_only, presence: true,
+                           inclusion: { in: [true, false] }
 
   # the colors that google allows calendars to be
   COLORS = ['%23B1365F', '%235C1158', '%23711616', '%23691426', '%23BE6D00',

@@ -1,6 +1,14 @@
 class Event < ActiveRecord::Base
   belongs_to :calendar
-
+  validates :title, presence: true,
+                    length: { minimum: 5, maximum: 30 }
+  validates :start_dt, presence: true
+  validates :end_dt, presence: true
+  # datetime validation would be nice, but is not simple and we're getting the
+  # data from a form so we're going to assume.
+  validates :calendar_id, presence: true,
+                          numericality: true
+  
   def self.add_events(token, public_cal, member_cal, dates)
     # deal with planning dates
     add_event(token, member_cal, dates[:class_offering_open][:label],
@@ -40,5 +48,4 @@ class Event < ActiveRecord::Base
     cal.events.create!(title: label, start_dt: start_dt, end_dt: start_dt,
                        google_id: id)
   end
-
 end

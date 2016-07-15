@@ -7,17 +7,17 @@ one:
   min_age: 1
   max_age: 1
   age_firm: false
-  min_num_students: 1
-  max_num_students: 1
-  course_fee: 1.5
+  min_students: 1
+  max_students: 1
+  fee: 1.5
   supplies: MyText
-  room_requirements: MyText
-  time_requirements: MyText
+  room_reqs: MyText
+  time_reqs: MyText
   drop_ins: false
   additional_info: MyText
   assigned_room: MyString
   assigned_period: 1
-  session_id: 1
+  cuco_session_id: 1
 
 two:
   title: MyString
@@ -26,14 +26,14 @@ two:
   min_age: 1
   max_age: 1
   age_firm: false
-  min_num_students: 1
-  max_num_students: 1
-  course_fee: 1.5
+  min_students: 1
+  max_students: 1
+  fee: 1.5
   supplies: MyText
-  room_requirements: MyText
-  time_requirements: MyText
+  room_reqs: MyText
+  time_reqs: MyText
   drop_ins: false
   additional_info: MyText
   assigned_room: MyString
   assigned_period: 1
-  session_id: 1
+  cuco_session_id: 1

@@ -31,17 +31,17 @@
 
 <p>
   <strong>Minimum Number of Students:</strong>
-  <%= @course.min_num_students %>
+  <%= @course.min_students %>
 </p>
 
 <p>
   <strong>Maximum Number of Students:</strong>
-  <%= @course.max_num_students %>
+  <%= @course.max_students %>
 </p>
 
 <p>
   <strong>Course Fee:</strong>
-  <%= @course.course_fee %>
+  <%= @course.fee %>
 </p>
 
 <p>
@@ -51,12 +51,12 @@
 
 <p>
   <strong>Room Requirements:</strong>
-  <%= @course.room_requirements %>
+  <%= @course.room_reqs %>
 </p>
 
 <p>
   <strong>Time Requirements:</strong>
-  <%= @course.time_requirements %>
+  <%= @course.time_reqs %>
 </p>
 
 <p>
@@ -78,5 +78,5 @@
 
 <h3>Students in Course</h3>
 
-<%= link_to 'Edit', edit_course_path %> |
-<%= link_to "Back to List of Courses", courses_path %>
+<%= link_to 'Edit', edit_cuco_session_course_path %> |
+<%= link_to "Back to List of Courses", cuco_session_courses_path %>

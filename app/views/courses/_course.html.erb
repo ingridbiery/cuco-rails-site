@@ -1,11 +1,11 @@
 <tr>
-  <td><%= link_to course.title, course %></td>
+  <td><%= link_to course.title, [@cuco_session, course] %></td>
   <td><%= course.description %></td>
   <td><%= course.min_age %> - <%= course.max_age %></td>
-  <td><%= course.course_fee %></td>
+  <td><%= course.fee %></td>
   <td><%= course.drop_ins %></td>
   <td><%= course.created_at %></td>
-  <td><%= link_to 'Show', course %></td>
-  <td><%= link_to 'Edit', edit_course_path(course) %></td>
-  <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to 'Show', [@cuco_session, course] %></td>
+  <td><%= link_to 'Edit', edit_cuco_session_course_path(@cuco_session, course) %></td>
+  <td><%= link_to 'Destroy', [@cuco_session, course], method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

@@ -1,6 +1,14 @@
 class CucoSessionsController < ApplicationController
-  let :admin, [:new, :add_event, :confirm_dates, :create]
+  let :admin, [:new, :add_event, :confirm_dates, :create, :index, :show]
   
+  def index
+    @cuco_sessions = CucoSession.all
+  end
+  
+  def show
+    @cuco_session = CucoSession.find(params[:id])
+  end
+
   def new
   end
 
@@ -27,4 +35,8 @@ class CucoSessionsController < ApplicationController
     redirect_to calendar_path
   end
 
+  def destroy
+    @cuco_session.destroy
+    redirect_to cuco_session_url, notice: "#{@cuco_session.name} was successfully destroyed."
+  end
 end

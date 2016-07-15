@@ -12,7 +12,6 @@ class FamiliesController < ApplicationController
   # GET /families/1.json
   def show
     @family = Family.find(params[:id])
-    @people = @family.people
     @families = Family.all
   end
 

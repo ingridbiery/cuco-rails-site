@@ -1,5 +1,6 @@
 class CucoSession < ActiveRecord::Base
   has_many :calendars, dependent: :destroy
+  has_many :courses, dependent: :destroy
 
   # get the proposed dates of all the events for the session
   # this will include the Tuesdays between start_date and stop_date as

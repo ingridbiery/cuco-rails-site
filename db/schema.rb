@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711021757) do
+ActiveRecord::Schema.define(version: 20160715040211) do
 
   create_table "calendars", force: :cascade do |t|
     t.string   "googleid"
@@ -30,19 +30,19 @@ ActiveRecord::Schema.define(version: 20160711021757) do
     t.integer  "min_age"
     t.integer  "max_age"
     t.boolean  "age_firm"
-    t.integer  "min_num_students"
-    t.integer  "max_num_students"
-    t.float    "course_fee"
+    t.integer  "min_students"
+    t.integer  "max_students"
+    t.float    "fee"
     t.text     "supplies"
-    t.text     "room_requirements"
-    t.text     "time_requirements"
+    t.text     "room_reqs"
+    t.text     "time_reqs"
     t.boolean  "drop_ins"
     t.text     "additional_info"
     t.string   "assigned_room"
     t.integer  "assigned_period"
-    t.integer  "session_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "cuco_session_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "cuco_sessions", force: :cascade do |t|

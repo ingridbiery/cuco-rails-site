@@ -1,5 +1,13 @@
 class Event < ActiveRecord::Base
   belongs_to :calendar
+  validates :title, presence: true,
+                    length: { minimum: 5, maximum: 30 }
+  validates :start_dt, presence: true
+  validates :end_dt, presence: true
+  # datetime validation would be nice, but is not simple and we're getting the
+  # data from a form so we're going to assume.
+  validates :calendar_id, presence: true,
+                          numericality: true
   
   def self.add_events(token, public_cal, member_cal, dates)
     # deal with planning dates
@@ -36,9 +44,8 @@ class Event < ActiveRecord::Base
   
   # add one event to the google calendar and our database
   def self.add_event(token, cal, label, start_dt, end_dt)
-    id = GoogleAPI.add_event(token, cal.googleid, label, start_dt, end_dt)
+    id = GoogleAPI.add_event(token, cal.google_id, label, start_dt, end_dt)
     cal.events.create!(title: label, start_dt: start_dt, end_dt: start_dt,
-                       googleid: id)
+                       google_id: id)
   end
-
 end

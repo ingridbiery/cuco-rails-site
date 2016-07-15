@@ -18,7 +18,7 @@
   <% if @family.people.any? %>
     <div class="field">
       <%= f.label :primary_adult %><br>
-      <%= f.collection_select(:primary_adult, @people, :id, :first_name) %>
+      <%= f.collection_select(:primary_adult, @family.people, :id, :first_name) %>
     </div>
   <% end %>
   <div class="field">

@@ -3,16 +3,13 @@ class FamiliesController < ApplicationController
   before_action :authenticate_user!
 
   # GET /families
-  # GET /families.json
   def index
     @families = Family.paginate(page: params[:page])
   end
 
   # GET /families/1
-  # GET /families/1.json
   def show
     @family = Family.find(params[:id])
-    @people = @family.people
     @families = Family.all
   end
 
@@ -45,7 +42,6 @@ class FamiliesController < ApplicationController
   end
 
   # PATCH/PUT /families/1
-  # PATCH/PUT /families/1.json
   def update
     if @family.update(family_params)
       redirect_to @family, notice: "#{@family.name} was successfully updated."
@@ -55,7 +51,6 @@ class FamiliesController < ApplicationController
   end
 
   # DELETE /families/1
-  # DELETE /families/1.json
   def destroy
     @family.destroy
     redirect_to families_url, notice: "#{@family.name} was successfully destroyed."

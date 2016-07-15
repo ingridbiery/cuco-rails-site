@@ -1,5 +1,5 @@
 class CucoSessionsController < ApplicationController
-  let :admin, [:new, :add_event, :confirm_dates, :create]
+  let :google_admin, [:new, :add_event, :confirm_dates, :create]
   
   def new
   end

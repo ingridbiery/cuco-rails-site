@@ -19,18 +19,8 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
   end
   
-  test "dob should be present" do
-    @person.dob = nil
-    assert_not @person.valid?
-  end
-
   test "family_id should be present" do
     @person.family_id = nil
-    assert_not @person.valid?
-  end
-
-  test "pronoun_id should be present" do
-    @person.pronoun_id = nil
     assert_not @person.valid?
   end
 
@@ -49,8 +39,4 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
   end
 
-  test "pronoun_id should be a number" do
-    @person.pronoun_id = "a"
-    assert_not @person.valid?
-  end
 end

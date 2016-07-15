@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713174807) do
+ActiveRecord::Schema.define(version: 20160715195524) do
 
   create_table "calendars", force: :cascade do |t|
     t.string   "google_id"
@@ -22,6 +22,28 @@ ActiveRecord::Schema.define(version: 20160713174807) do
   end
 
   add_index "calendars", ["cuco_session_id"], name: "index_calendars_on_cuco_session_id"
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title"
+    t.string   "short_title"
+    t.text     "description"
+    t.integer  "min_age"
+    t.integer  "max_age"
+    t.boolean  "age_firm"
+    t.integer  "min_num_students"
+    t.integer  "max_num_students"
+    t.float    "course_fee"
+    t.text     "supplies"
+    t.text     "room_requirements"
+    t.text     "time_requirements"
+    t.boolean  "drop_ins"
+    t.text     "additional_info"
+    t.string   "assigned_room"
+    t.integer  "assigned_period"
+    t.integer  "session_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "cuco_sessions", force: :cascade do |t|
     t.string   "name"
@@ -47,18 +69,18 @@ ActiveRecord::Schema.define(version: 20160713174807) do
     t.string   "city"
     t.string   "state"
     t.integer  "zip"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "primary_adult_id"
   end
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.date     "dob"
-    t.boolean  "primary_adult"
     t.integer  "family_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "pronoun_id"
     t.string   "email"
     t.string   "phone"

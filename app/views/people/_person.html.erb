@@ -4,8 +4,19 @@
     <span class="last_name"><%= person.last_name %></span>
   <% end %></td>
   <td class="dob"><%= person.dob %></td>
-  <td class="primary_adult"><%= person.primary_adult %></td>
-  <td class="pronouns"><%= person.preferred_pronouns %></td>
+
+  <% if person.id == @family.primary_adult_id %>
+    <td class="primary_adult">PRIMARY</td>
+  <% else %>
+    <td></td>
+  <% end %>
+
+  <% if person.pronoun_id %>
+    <td class="pronouns"><%= person.preferred_pronouns %></td>
+  <% else %>
+    <td><div id="error_explanation">PLEASE EDIT TO SELECT PRONOUN PREFERENCE</div></td>
+  <% end %>
+
   <td class="timestamp"><%= person.created_at %></td>
   <td><%= link_to 'Show', family_person_path(@family, person) %></td>
   <td><%= link_to 'Edit', edit_family_person_path(@family, person) %></td>

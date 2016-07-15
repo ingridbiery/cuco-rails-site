@@ -1,16 +1,15 @@
 <% provide(:title, @family.name) %>
-<p id="notice"><%= notice %></p>
 
 <p>
   <h2>The <strong><%= @family.name %></strong> Family</h2>
 </p>
 
-<% if primary_adult_name == "" %>
-  <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
+<% if @family.primary_adult_id? %>
+  <div id="notice">
+    The <strong>Primary Adult</strong> is <strong><%= @family.primary_adult.first_name %></strong>.
+  </div><br>
 <% else %>
-  <div class="field">
-  The <strong>Primary Adult</strong> is <strong><%= primary_adult_name %></strong>.
-  </div>
+  <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
 <% end %>
 
 <p>
@@ -39,7 +38,7 @@
 </p>
 <hr />
 <h3>People in Family (<%= @family.people.count %>)
-  <%= link_to image_tag('add.png'), new_family_person_path(@family), title: "Add New Person to Family" %></h3>
+<%= link_to image_tag('add.png'), new_family_person_path(@family), title: "Add New Person to Family" %></h3>
 <% if @family.people.any? %>
   <table>
     <thead>
@@ -53,7 +52,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render @people %>
+      <%= render @family.people %>
     </tbody>
   </table>
 <% end %>

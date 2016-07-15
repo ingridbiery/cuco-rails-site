@@ -1,16 +1,15 @@
 <% provide(:title, @family.family_name) %>
-<p id="notice"><%= notice %></p>
 
 <p>
   <h2>The <strong><%= @family.family_name %></strong> Family</h2>
 </p>
 
-<% if primary_adult_name == "" %>
-  <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
+<% if @family.primary_adult? %>
+  <div id="notice">
+  The <strong>Primary Adult</strong> is <strong><%= Person.find(@family.primary_adult).first_name %></strong>.
+  </div><br>
 <% else %>
-  <div class="field">
-  The <strong>Primary Adult</strong> is <strong><%= primary_adult_name %></strong>.
-  </div>
+  <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
 <% end %>
 
 <p>

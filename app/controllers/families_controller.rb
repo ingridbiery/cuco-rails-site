@@ -24,6 +24,7 @@ class FamiliesController < ApplicationController
 
   # GET /families/1/edit
   def edit
+    @people = @family.people
   end
 
   # POST /families
@@ -63,6 +64,7 @@ class FamiliesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def family_params
-      params.require(:family).permit(:family_name, :street_address, :city, :state, :zip)
+      params.require(:family).permit(:family_name, :street_address, :city, :state,
+                                     :zip, :primary_adult)
     end
 end

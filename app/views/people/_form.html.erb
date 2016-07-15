@@ -11,17 +11,6 @@
     </div>
   <% end %>
 
-  <% if primary_adult_name == "" or primary_adult_name == "#{@person.first_name} #{@person.last_name}" %>
-    <div class="field">
-      <%= f.label :primary_adult %>:
-      <%= f.check_box :primary_adult %>
-    </div>
-  <% else %>
-    <div class="field">
-    The <strong>Primary Adult</strong> is <strong><%= primary_adult_name %></strong>.
-    </div>
-  <% end %>
-
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>

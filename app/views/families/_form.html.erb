@@ -15,6 +15,12 @@
     <%= f.label :family_name %><br>
     <%= f.text_field :family_name %>
   </div>
+  <% if @family.people.any? %>
+    <div class="field">
+      <%= f.label :primary_adult %><br>
+      <%= f.collection_select(:primary_adult, @people, :id, :first_name) %>
+    </div>
+  <% end %>
   <div class="field">
     <%= f.label :street_address %><br>
     <%= f.text_field :street_address %>

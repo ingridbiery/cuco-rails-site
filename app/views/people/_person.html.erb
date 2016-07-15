@@ -4,7 +4,11 @@
     <span class="last_name"><%= person.last_name %></span>
   <% end %></td>
   <td class="dob"><%= person.dob %></td>
-  <td class="primary_adult"><%= person.primary_adult %></td>
+  <% if person.id == @family.primary_adult %>
+    <td class="primary_adult">PRIMARY</td>
+  <% else %>
+    <td></td></td>
+  <% end %>
   <td class="pronouns"><%= person.preferred_pronouns %></td>
   <td class="timestamp"><%= person.created_at %></td>
   <td><%= link_to 'Show', family_person_path(@family, person) %></td>

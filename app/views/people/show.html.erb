@@ -1,16 +1,6 @@
 <h1><%= @person.first_name %> <%= @person.last_name %></h1>
 <br /><div style="font-size: 2em;"><%= @family.family_name %> Family</div><br />
 
-<% if primary_adult_name == "" %>
-  <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
-<% elsif primary_adult_name == "#{@person.first_name} #{@person.last_name}" %>
-  <div id="notice">This is the primary adult.</div><br>
-<% else %>
-  <div id="notice">
-  The <strong>Primary Adult</strong> is <strong><%= primary_adult_name %></strong>.
-  </div><br>
-<% end %>
-
 <p>
   <strong>Birthday</strong>
   <%= @person.dob %>

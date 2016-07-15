@@ -30,11 +30,15 @@ class FamiliesController < ApplicationController
   def create
     @family = Family.new(family_params)
     if @family.save
-      first_person = @family.people.create!(first_name: current_user.first_name,
-                                            last_name: current_user.last_name)
-      @family.primary_adult = first_person.id
+      # automatically create a person object for the current user in this family
+      person_for_user = @family.people.create!(first_name: current_user.first_name,
+                                               last_name: current_user.last_name)
+      # make this person the primary adult for this family
+      @family.primary_adult_id = person_for_user.id
       @family.save
-      redirect_to @family, notice: "#{@family.name} was successfully created."
+      # let the user know what we just did
+      redirect_to @family, notice: "#{@family.name} was successfully created. " +
+                                   "#{person_for_user.first_name} #{person_for_user.last_name} was automatically created and set as the primary adult."
     else
       render :new
     end
@@ -66,6 +70,6 @@ class FamiliesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def family_params
       params.require(:family).permit(:name, :street_address, :city, :state,
-                                     :zip, :primary_adult)
+                                     :zip, :primary_adult_id)
     end
 end

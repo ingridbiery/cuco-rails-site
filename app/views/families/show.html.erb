@@ -4,9 +4,9 @@
   <h2>The <strong><%= @family.name %></strong> Family</h2>
 </p>
 
-<% if @family.primary_adult? %>
+<% if @family.primary_adult_id? %>
   <div id="notice">
-  The <strong>Primary Adult</strong> is <strong><%= Person.find(@family.primary_adult).first_name %></strong>.
+  The <strong>Primary Adult</strong> is <strong><%= @family.primary_adult.first_name %></strong>.
   </div><br>
 <% else %>
   <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>

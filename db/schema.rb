@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715014208) do
+ActiveRecord::Schema.define(version: 20160715195524) do
 
   create_table "calendars", force: :cascade do |t|
     t.string   "google_id"
@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20160715014208) do
     t.string   "city"
     t.string   "state"
     t.integer  "zip"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "primary_adult"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "primary_adult_id"
   end
 
   create_table "people", force: :cascade do |t|

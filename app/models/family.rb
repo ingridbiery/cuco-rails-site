@@ -12,4 +12,9 @@ class Family < ActiveRecord::Base
   validates :zip, presence: true,
                   length: { minimum: 5, maximum: 5 },
                   numericality: true
+         
+  # get the person object for the primary adult of this family         
+  def primary_adult
+    Person.find_by_id(primary_adult_id)
+  end
 end

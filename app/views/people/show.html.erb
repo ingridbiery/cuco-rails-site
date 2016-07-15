@@ -10,6 +10,8 @@
   <strong>Preferred Pronouns:</strong>
   <% if @person.pronoun_id %>
     <%= @person.preferred_pronouns %>
+  <% else %>
+    <div id="error_explanation">PLEASE EDIT TO SELECT PRONOUN PREFERENCE</div>
   <% end %>
 </p>
 

@@ -21,7 +21,6 @@ class FamiliesController < ApplicationController
 
   # GET /families/1/edit
   def edit
-    @people = @family.people
   end
 
   def create

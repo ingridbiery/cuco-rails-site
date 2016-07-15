@@ -27,12 +27,13 @@ class FamiliesController < ApplicationController
     @people = @family.people
   end
 
-  # POST /families
-  # POST /families.json
   def create
     @family = Family.new(family_params)
-
     if @family.save
+      first_person = @family.people.create!(first_name: current_user.first_name,
+                                            last_name: current_user.last_name)
+      @family.primary_adult = first_person.id
+      @family.save
       redirect_to @family, notice: "#{@family.family_name} was successfully created."
     else
       render :new

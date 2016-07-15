@@ -8,7 +8,9 @@
 
 <p>
   <strong>Preferred Pronouns:</strong>
-  <%= @person.preferred_pronouns %>
+  <% if @person.pronoun_id %>
+    <%= @person.preferred_pronouns %>
+  <% end %>
 </p>
 
 <p>

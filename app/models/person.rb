@@ -2,11 +2,18 @@ class Person < ActiveRecord::Base
   belongs_to :family
   has_one :pronoun
   default_scope -> { order(last_name: :asc) }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :dob, presence: true, on: :update
-  validates :family_id, presence: true
-  validates :pronoun_id, presence: true, on: :update
+  validates :first_name, presence: true,
+                         length: { maximum: 30 }
+  validates :last_name, presence: true,
+                        length: { maximum: 30 }
+  validates :dob, presence: true,
+                  on: :update
+  # it would be nice to validate datetime, but it is not simple so we'll skip it
+  validates :family_id, presence: true,
+                        numericality: true
+  validates :pronoun_id, presence: true,
+                         numericality: true,
+                         on: :update
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, length: { maximum: 255 },

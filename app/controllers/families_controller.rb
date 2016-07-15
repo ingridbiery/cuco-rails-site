@@ -34,7 +34,7 @@ class FamiliesController < ApplicationController
                                             last_name: current_user.last_name)
       @family.primary_adult = first_person.id
       @family.save
-      redirect_to @family, notice: "#{@family.family_name} was successfully created."
+      redirect_to @family, notice: "#{@family.name} was successfully created."
     else
       render :new
     end
@@ -44,7 +44,7 @@ class FamiliesController < ApplicationController
   # PATCH/PUT /families/1.json
   def update
     if @family.update(family_params)
-      redirect_to @family, notice: "#{@family.family_name} was successfully updated."
+      redirect_to @family, notice: "#{@family.name} was successfully updated."
     else
       render :edit
     end
@@ -54,7 +54,7 @@ class FamiliesController < ApplicationController
   # DELETE /families/1.json
   def destroy
     @family.destroy
-    redirect_to families_url, notice: "#{@family.family_name} was successfully destroyed."
+    redirect_to families_url, notice: "#{@family.name} was successfully destroyed."
   end
 
   private
@@ -65,7 +65,7 @@ class FamiliesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def family_params
-      params.require(:family).permit(:family_name, :street_address, :city, :state,
+      params.require(:family).permit(:name, :street_address, :city, :state,
                                      :zip, :primary_adult)
     end
 end

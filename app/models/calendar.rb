@@ -1,7 +1,13 @@
 class Calendar < ActiveRecord::Base
   belongs_to :cuco_session
   has_many :events, dependent: :destroy
- 
+  validates :google_id, presence: true,
+                        uniqueness: true
+  validates :cuco_session_id, presence: true,
+                              numericality: true
+  validates :members_only, presence: true,
+                           inclusion: { in: [true, false] }
+
   # the colors that google allows calendars to be
   COLORS = ['%23B1365F', '%235C1158', '%23711616', '%23691426', '%23BE6D00',
             '%23B1440E', '%23853104', '%238C500B', '%23754916', '%2388880E',
@@ -16,9 +22,9 @@ class Calendar < ActiveRecord::Base
   # create new calendars for a session
   def self.create_calendars(token, cuco_session, dates)
     id = GoogleAPI.create_calendar(token, "Public #{cuco_session.name}")
-    public_cal = cuco_session.calendars.create!(googleid: id, members_only: false)
+    public_cal = cuco_session.calendars.create!(google_id: id, members_only: false)
     id = GoogleAPI.create_calendar(token, "Member #{cuco_session.name}")
-    member_cal = cuco_session.calendars.create!(googleid: id, members_only: true)
+    member_cal = cuco_session.calendars.create!(google_id: id, members_only: true)
     Event.add_events(token, public_cal, member_cal, dates)
   end
 
@@ -37,7 +43,7 @@ class Calendar < ActiveRecord::Base
       # include all calendars if the user is signed in, otherwise only if the
       # calendar is public
       if (signed_in || !calendar.members_only) then
-        cals_src += cal(calendar.googleid, COLORS[color])
+        cals_src += cal(calendar.google_id, COLORS[color])
       end
       # increment color by more than 1 each time since adjacent colors are similar
       color += 10

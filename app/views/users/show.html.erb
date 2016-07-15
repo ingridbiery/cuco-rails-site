@@ -1,7 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<p><label>Name:</label> <%= @user.first_name %> <%= @user.last_name %></p>
-<p><label>Email Address:</label> <%= mail_to @user.email %></p>
+<table>
+  <%= render "user_header" %>
+  <tbody>
+    <%= render @user %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_user_registration_path(@user) %> |
 <%= link_to 'Back', users_path %>

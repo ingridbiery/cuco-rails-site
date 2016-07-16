@@ -1,5 +1,6 @@
 class CucoSessionsController < ApplicationController
-  let :google_admin, [:new, :add_event, :confirm_dates, :create, :index, :show]
+  let :google_admin, [:new, :add_event, :confirm_dates, :create]
+  let :member, [:index, :show]
 
   def index
     @cuco_sessions = CucoSession.all

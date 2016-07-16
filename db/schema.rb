@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< c6e050a77a6577a9e0b0d3453cfee7c29028267c
 ActiveRecord::Schema.define(version: 20160715195524) do
-=======
-ActiveRecord::Schema.define(version: 20160712193632) do
->>>>>>> Attach Users to People
 
   create_table "calendars", force: :cascade do |t|
     t.string   "google_id"

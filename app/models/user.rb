@@ -1,10 +1,7 @@
 class User < ActiveRecord::Base
   add_access_utilities
-<<<<<<< c6e050a77a6577a9e0b0d3453cfee7c29028267c
-  has_and_belongs_to_many :roles
-=======
   has_one :person
->>>>>>> Attach Users to People
+  has_and_belongs_to_many :roles
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

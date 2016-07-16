@@ -9,13 +9,35 @@
 	      <li><%= link_to 'Expectations', page_path("expectations") %></li>
 	      <li><%= link_to 'A Day at CUCO', page_path("dayatcuco") %></li>
 
-        <% if user_signed_in? %>
-          <li><%= link_to 'Families', families_path %></li>
-        <% end %>
+
+        <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
+        <li class="nav-item nav-item-dropdown">
+          <a class="dropdown-trigger" href="#">Admin Settings</a>
+          <ul class="dropdown-menu">
+
+    	      <% if user_signed_in? %>
+              <li class="dropdown-menu-item">
+                <%= link_to 'Families', families_path %>
+              </li>
+            <% end %>
+            
+    	      <% if (user_signed_in? and current_user.can? :add_event, CucoSessionsController) then %>
+              <li class="dropdown-menu-item">
+                <%= link_to 'Sessions', cuco_sessions_path %>
+              </li>              
+              <li class="dropdown-menu-item">
+                <%= link_to 'New Session', new_cuco_session_path %>
+              </li>
+              <li class="dropdown-menu-item">
+                <%= link_to 'Pronouns', pronouns_path %>
+              </li>
+              <li class="dropdown-menu-item">
+                <%= link_to 'Sessions', cuco_sessions_path %>
+              </li>
+            <% end %>
+            </ul>
+          </li>
         
-	      <% if (user_signed_in? and current_user.can? :add_event, CucoSessionsController) then %>
-          <li><%= link_to 'New Session', new_cuco_session_path %></li>
-        <% end %>
       </ul>
     </nav>
 

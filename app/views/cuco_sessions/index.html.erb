@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sessions</h1>
+
+<ul>
+  <% @cuco_sessions.each do |session| %>
+    <li><%= link_to session.name, session %></li>
+  <% end %>
+</ul>

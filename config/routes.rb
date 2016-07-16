@@ -23,7 +23,10 @@ Rails.application.routes.draw do
   resources :pronouns
   
   # create a new session
-  resources :cuco_sessions, :only => [:new, :create]
+  resources :cuco_sessions do
+    resources :courses
+  end
+  
   post "confirm_dates" => 'cuco_sessions#confirm_dates'
 
   # Example of regular route:

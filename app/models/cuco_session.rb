@@ -1,5 +1,6 @@
 class CucoSession < ActiveRecord::Base
   has_many :calendars, dependent: :destroy
+  has_many :courses, dependent: :destroy
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },
                    uniqueness: { message: "already exists." }

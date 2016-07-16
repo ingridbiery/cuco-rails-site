@@ -1,6 +1,8 @@
 class Person < ActiveRecord::Base
   belongs_to :family
   has_one :pronoun
+  has_many :users # we use this for 0 or 1 even though it sounds wrong
+
   default_scope -> { order(last_name: :asc) }
   validates :first_name, presence: true,
                          length: { maximum: 30 }

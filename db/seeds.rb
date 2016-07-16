@@ -29,22 +29,25 @@ they = Pronoun.create!(preferred_pronouns: "They/Them/Their")
 
 Family.destroy_all
 smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-js = smith.people.create!(first_name: "Jennifer", last_name: "Smith", dob: "1970/01/01".to_date, pronoun_id: she.id)
-smith.primary_adult_id = js.id
+jsp = smith.people.create!(first_name: "Jennifer", last_name: "Smith", dob: "1970/01/01".to_date, pronoun_id: she.id)
+jsp.users << js
+smith.primary_adult_id = jsp.id
 smith.save
 smith.people.create!(first_name: "Isabella", last_name: "Smith", dob: "2010/01/01".to_date, pronoun_id: they.id)
 smith.people.create!(first_name: "Andrew", last_name: "Smith", dob: "2012/01/01".to_date, pronoun_id: he.id)
 
 johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-lj = johnson.people.create!(first_name: "Lisa", last_name: "Johnson", dob: "1970/01/01".to_date, pronoun_id: she.id)
-johnson.primary_adult_id = lj.id
+ljp = johnson.people.create!(first_name: "Lisa", last_name: "Johnson", dob: "1970/01/01".to_date, pronoun_id: she.id)
+ljp.users << lj
+johnson.primary_adult_id = ljp.id
 johnson.save
 johnson.people.create!(first_name: "Emma", last_name: "Johnson", dob: "2009/01/01".to_date, pronoun_id: she.id)
 johnson.people.create!(first_name: "Olivia", last_name: "Johnson", dob: "2011/01/01".to_date, pronoun_id: they.id)
 
 williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-kw = williams.people.create!(first_name: "Kimberly", last_name: "Williams", dob: "1970/01/01".to_date, pronoun_id: she.id)
-williams.primary_adult_id = kw.id
+kwp = williams.people.create!(first_name: "Kimberly", last_name: "Williams", dob: "1970/01/01".to_date, pronoun_id: she.id)
+kwp.users << kw
+williams.primary_adult_id = kwp.id
 williams.save
 williams.people.create!(first_name: "Christopher", last_name: "Williams", dob: "2000/01/01".to_date, pronoun_id: he.id)
 williams.people.create!(first_name: "David", last_name: "Williams", dob: "2002/01/01".to_date, pronoun_id: he.id)

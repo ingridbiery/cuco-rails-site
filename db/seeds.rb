@@ -46,7 +46,6 @@ johnson.people.create!(first_name: "Olivia", last_name: "Johnson", dob: "2011/01
 
 williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
 kwp = williams.people.create!(first_name: "Kimberly", last_name: "Williams", dob: "1970/01/01".to_date, pronoun_id: she.id)
-kwp.users << kw
 williams.primary_adult_id = kwp.id
 williams.save
 williams.people.create!(first_name: "Christopher", last_name: "Williams", dob: "2000/01/01".to_date, pronoun_id: he.id)

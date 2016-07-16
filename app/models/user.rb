@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   add_access_utilities
-  has_one :person
+  has_one :person  # apparently this is actually what should be used for an optional relationship
   has_and_belongs_to_many :roles
   
   # Include default devise modules. Others available are:
@@ -9,8 +9,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:google_oauth2]
   before_save { self.email = email.downcase }
-  validates :first_name, presence: true, length: { maximum: 50 }
-  validates :last_name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
@@ -22,6 +20,15 @@ class User < ActiveRecord::Base
     roles.pluck(:name)
   end
 
+  # the name of this user. If there is no Person associated with this User yet,
+  # return the email address
+  def name
+    if !person.nil?
+      person.name
+    else
+      email
+    end
+  end
 
   # needed for authorization of a google account (so we can update a google
   # calendar, for example)

@@ -16,10 +16,7 @@
   <tbody>
     <% @people.each do |person| %>
       <tr>
-        <td><%= link_to (person) do %>
-          <%= person.first_name %>
-          <%= person.last_name %>
-        <% end %></td>
+        <td><%= link_to person, person.name %></td>
         <td><%= person.dob %></td>
         <td><%= person.primary_adult %></td>
         <td><%= link_to @family.name, @family %></td>

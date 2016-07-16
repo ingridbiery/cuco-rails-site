@@ -27,7 +27,7 @@ class PeopleController < ApplicationController
 
     if @person.save
       redirect_to family_person_path(@family, @person),
-          notice: "#{@person.first_name} #{@person.last_name} was successfully created."
+          notice: "#{@person.name} was successfully created."
     else
       render :new
     end
@@ -37,7 +37,7 @@ class PeopleController < ApplicationController
   def update
     if @person.update(person_params)
       redirect_to family_person_path(@family, @person), 
-          notice: "#{@person.first_name} #{@person.last_name} was successfully updated."
+          notice: "#{@person.name} was successfully updated."
     else
       render :edit
     end
@@ -47,7 +47,7 @@ class PeopleController < ApplicationController
   def destroy
     @person.destroy
     redirect_to family_path(@family), 
-        notice: "#{@person.first_name} #{@person.last_name} was successfully destroyed."
+        notice: "#{@person.name} was successfully destroyed."
   end
 
   private

@@ -1,7 +1,7 @@
 class Person < ActiveRecord::Base
   belongs_to :family
   has_one :pronoun
-  has_many :users # we use this for 0 or 1 even though it sounds wrong
+  has_one :user # apparently this is actually what should be used for an optional relationship
 
   default_scope -> { order(last_name: :asc) }
   validates :first_name, presence: true,
@@ -34,6 +34,11 @@ class Person < ActiveRecord::Base
   validates :phone, format: { with: VALID_PHONE_FORMAT },
                     allow_blank: true
   after_validation :clean_phone_number
+
+  # get the full name for this person
+  def name
+    "#{first_name} #{last_name}"
+  end
 
   protected
 

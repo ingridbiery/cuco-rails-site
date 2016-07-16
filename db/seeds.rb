@@ -13,12 +13,12 @@ role_nl = Role.create!(name: "notification_list")
 role_b = Role.create!(name: "board_member")
 
 User.destroy_all
-js = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Jennifer', last_name: 'Smith', email: 'js@example.com')
+js = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'js@example.com')
 js.roles << role_a
 js.roles << role_m
-lj = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'Lisa', last_name: 'Johnson', email: 'lj@example.com')
+lj = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'lj@example.com')
 lj.roles << role_nl
-cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], first_name: 'CUCO', last_name: 'Calendar', email: 'cucocalendar@gmail.com')
+cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'cucocalendar@gmail.com')
 cuco_calendar.roles << role_ga
 cuco_calendar.roles << role_a
 
@@ -30,7 +30,7 @@ they = Pronoun.create!(preferred_pronouns: "They/Them/Their")
 Family.destroy_all
 smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
 jsp = smith.people.create!(first_name: "Jennifer", last_name: "Smith", dob: "1970/01/01".to_date, pronoun_id: she.id)
-jsp.users << js
+jsp.user = js
 smith.primary_adult_id = jsp.id
 smith.save
 smith.people.create!(first_name: "Isabella", last_name: "Smith", dob: "2010/01/01".to_date, pronoun_id: they.id)
@@ -38,7 +38,7 @@ smith.people.create!(first_name: "Andrew", last_name: "Smith", dob: "2012/01/01"
 
 johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
 ljp = johnson.people.create!(first_name: "Lisa", last_name: "Johnson", dob: "1970/01/01".to_date, pronoun_id: she.id)
-ljp.users << lj
+ljp.user = lj
 johnson.primary_adult_id = ljp.id
 johnson.save
 johnson.people.create!(first_name: "Emma", last_name: "Johnson", dob: "2009/01/01".to_date, pronoun_id: she.id)

@@ -42,7 +42,7 @@
     </nav>
 
     <span id="welcome"><% if user_signed_in? %>
-      Welcome <br /> <%= current_user.first_name %> <%= current_user.last_name %>
+      Welcome <br /> <%= current_user.name %>
       <br /><%= link_to 'Log out', destroy_user_session_path, method: :delete %>
     <% else %>
       <%= link_to 'Log in', new_user_session_path %>

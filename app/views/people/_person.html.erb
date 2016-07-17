@@ -1,8 +1,5 @@
 <tr id="person-<%= person.id %>">
-  <td><%= link_to [@family, person] do %>
-    <span class="first_name"><%= person.first_name %></span>
-    <span class="last_name"><%= person.last_name %></span>
-  <% end %></td>
+  <td><%= link_to person.name, [@family, person] %></td>
   <td class="dob"><%= person.dob %></td>
 
   <% if person.id == @family.primary_adult_id %>

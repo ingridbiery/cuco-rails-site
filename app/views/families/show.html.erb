@@ -14,7 +14,7 @@
 
 <% if @family.user != nil %>
   <div id="notice">
-    The <strong>user</strong> for this family is <strong><%= @family.user.name %></strong>.
+    The <strong>user</strong> for this family is <strong><%= link_to @family.user.name, @family.user %></strong>.
   </div><br>
 <% else %>
   <div id="error_explanation">PLEASE CREATE YOURSELF AS A PERSON IN THIS FAMILY</div><br>
@@ -49,16 +49,7 @@
 <%= link_to image_tag('add.png'), new_family_person_path(@family), title: "Add New Person to Family" %></h3>
 <% if @family.people.any? %>
   <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Birthday</th>
-        <th>Primary Adult?</th>
-        <th>Preferred Pronouns</th>
-        <th>Time Created</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+    <%= render "people/person_header" %>
     <tbody>
       <%= render @family.people %>
     </tbody>

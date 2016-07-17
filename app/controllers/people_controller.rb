@@ -45,6 +45,12 @@ class PeopleController < ApplicationController
 
   # DELETE /families/:family_id/people/1
   def destroy
+    # if we're destroying the primary adult, make sure the family knows
+    if (@person.id == @family.primary_adult_id)
+      @family.primary_adult_id = nil
+      @family.save
+    end
+ 
     @person.destroy
     redirect_to family_path(@family), 
         notice: "#{@person.first_name} #{@person.last_name} was successfully destroyed."

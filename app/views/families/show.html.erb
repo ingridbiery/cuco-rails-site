@@ -12,6 +12,14 @@
   <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
 <% end %>
 
+<% if @family.user != nil %>
+  <div id="notice">
+    The <strong>user</strong> for this family is <strong><%= @family.user.name %></strong>.
+  </div><br>
+<% else %>
+  <div id="error_explanation">PLEASE CREATE YOURSELF AS A PERSON IN THIS FAMILY</div><br>
+<% end %>
+
 <p>
   <strong>Street address:</strong>
   <%= @family.street_address %>

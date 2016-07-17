@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+    <%= label_tag "This is Me" %>
+    <%= check_box_tag :this_is_me, 1, @this_is_me %>
+  </div>
+  <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
   </div>

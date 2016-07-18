@@ -34,8 +34,8 @@ class PeopleController < ApplicationController
       tell_user = "#{@person.name} was successfully created."
       # if this person is me, connect the user and the person
       if params[:this_is_me]
-        # update the current user's person
-        current_user.person = @person
+        # update the person's user
+        @person.user = current_user
         tell_user += " #{@person.name} is the user for this family."
         # if there was not already a primary adult, make this the primary
         if @family.primary_adult_id == nil

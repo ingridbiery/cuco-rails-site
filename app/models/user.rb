@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   add_access_utilities
-  has_one :person  # this is ok for an optional relationship
+  belongs_to :person  # this is ok for an optional relationship
   has_and_belongs_to_many :roles
   
   # Include default devise modules. Others available are:

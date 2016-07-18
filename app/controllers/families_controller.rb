@@ -9,14 +9,17 @@ class FamiliesController < ApplicationController
 
   # GET /families/1
   def show
+    @family = Family.find(params[:id])
+    @families = Family.all
+
     if current_user.person != nil then
       family_id = current_user.person.family_id
     end
-    unless params[:id] == family_id.to_s or family_id == nil
+    # only show the family if it is the current user's family or
+    # the current user and family are available for an association
+    unless params[:id] == family_id.to_s or 
+           (family_id == nil and @family.user == nil)
       not_authorized! path: families_path, message: "That's not your family!"
-    else
-      @family = Family.find(params[:id])
-      @families = Family.all
     end
   end
 
@@ -31,7 +34,10 @@ class FamiliesController < ApplicationController
     if current_user.person != nil then
       family_id = current_user.person.family_id
     end
-    unless params[:id] == family_id.to_s or family_id == nil
+    # only show the family if it is the current user's family or
+    # the current user and family are available for an association
+    unless params[:id] == family_id.to_s or 
+           (family_id == nil and @family.user == nil)
       not_authorized! path: families_path, message: "That's not your family!"
     end
   end

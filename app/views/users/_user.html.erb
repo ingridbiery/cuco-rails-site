@@ -4,4 +4,7 @@
   <td><ul><% user.roles.each do |role| %>
     <li><%= role.name %></li>
   <% end %></ul></td>
+  <td><% if user.person != nil %>
+    <%= link_to user.person.family.name, user.person.family %>
+  <% end %></td>
 </tr>

@@ -106,8 +106,8 @@ class PeopleController < ApplicationController
       new_person.save
 
       # clean up old_person's reference to current_user, if needed
-      old_person = Person.find(old_person_id)
-      if old_person != nil
+      if old_person_id != nil
+        old_person = Person.find(old_person_id)
         old_person.user_id = nil
         old_person.save
       end

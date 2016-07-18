@@ -9,8 +9,15 @@ class FamiliesController < ApplicationController
 
   # GET /families/1
   def show
-    @family = Family.find(params[:id])
-    @families = Family.all
+    if current_user.person != nil then
+      family_id = current_user.person.family_id
+    end
+    unless params[:id] == family_id.to_s or family_id == nil
+      not_authorized! path: families_path, message: "That's not your family!"
+    else
+      @family = Family.find(params[:id])
+      @families = Family.all
+    end
   end
 
   # GET /families/new
@@ -21,6 +28,12 @@ class FamiliesController < ApplicationController
 
   # GET /families/1/edit
   def edit
+    if current_user.person != nil then
+      family_id = current_user.person.family_id
+    end
+    unless params[:id] == family_id.to_s or family_id == nil
+      not_authorized! path: families_path, message: "That's not your family!"
+    end
   end
 
   def create

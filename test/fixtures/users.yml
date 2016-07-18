@@ -2,12 +2,8 @@
 
 js:
   encrypted_password: "password"
-  first_name: "Jennifer"
-  last_name: "Smith"
   email: "js@example.com"
 
 lj:
   encrypted_password: "password"
-  first_name: "Lisa"
-  last_name: "Johnson"
   email: "lj@example.com"

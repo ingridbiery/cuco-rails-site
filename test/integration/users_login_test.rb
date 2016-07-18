@@ -7,7 +7,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
   
   test "login with valid information" do
-    u = { first_name: 'A', last_name: 'B', email: 'a@b.com', password: 'password',
+    u = { email: 'a@b.com', password: 'password',
           password_confirmation: 'password'}
     new_user = User.create(u)
     new_user.save!

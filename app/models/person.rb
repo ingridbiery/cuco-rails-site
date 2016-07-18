@@ -1,7 +1,7 @@
 class Person < ActiveRecord::Base
   belongs_to :family
   has_one :pronoun
-  has_many :users # we use this for 0 or 1 even though it sounds wrong
+  has_one :user # this is ok for an optional relationship
 
   default_scope -> { order(last_name: :asc) }
   validates :first_name, presence: true,
@@ -25,15 +25,20 @@ class Person < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     allow_blank: true
 
-  def preferred_pronouns
-    Pronoun.find(pronoun_id).preferred_pronouns
-  end
-
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations
   VALID_PHONE_FORMAT = /\A(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?\z/
   validates :phone, format: { with: VALID_PHONE_FORMAT },
                     allow_blank: true
   after_validation :clean_phone_number
+
+  def preferred_pronouns
+    Pronoun.find(pronoun_id).preferred_pronouns
+  end
+
+  # get the full name for this person
+  def name
+    "#{first_name} #{last_name}"
+  end
 
   protected
 

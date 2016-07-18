@@ -17,4 +17,14 @@ class Family < ActiveRecord::Base
   def primary_adult
     Person.find_by_id(primary_adult_id)
   end
+  
+  # get the user associated with this family. nil if there isn't one
+  def user
+    people.each do |person|
+      if person.user != nil
+        return person.user
+      end
+    end
+    return nil
+  end
 end

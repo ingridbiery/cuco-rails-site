@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160716182920) do
+ActiveRecord::Schema.define(version: 20160716191640) do
 
   create_table "calendars", force: :cascade do |t|
     t.string   "google_id"
@@ -85,10 +85,12 @@ ActiveRecord::Schema.define(version: 20160716182920) do
     t.string   "email"
     t.string   "phone"
     t.text     "social_media"
+    t.integer  "user_id"
   end
 
   add_index "people", ["family_id", "created_at"], name: "index_people_on_family_id_and_created_at"
   add_index "people", ["family_id"], name: "index_people_on_family_id"
+  add_index "people", ["user_id"], name: "index_people_on_user_id"
 
   create_table "pronouns", force: :cascade do |t|
     t.string "preferred_pronouns"

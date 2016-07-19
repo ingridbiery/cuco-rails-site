@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   devise_for :users, :path_names => { :sign_up => "register" },
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
     resources :people
   end
 
-  resources :pronouns
+  resources :pronouns, :rooms
   
   # create a new session
   resources :cuco_sessions do

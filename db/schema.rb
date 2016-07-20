@@ -85,12 +85,10 @@ ActiveRecord::Schema.define(version: 20160719041754) do
     t.string   "email"
     t.string   "phone"
     t.text     "social_media"
-    t.integer  "user_id"
   end
 
   add_index "people", ["family_id", "created_at"], name: "index_people_on_family_id_and_created_at"
   add_index "people", ["family_id"], name: "index_people_on_family_id"
-  add_index "people", ["user_id"], name: "index_people_on_user_id"
 
   create_table "pronouns", force: :cascade do |t|
     t.string "preferred_pronouns"

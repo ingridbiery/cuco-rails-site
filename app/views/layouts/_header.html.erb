@@ -27,6 +27,10 @@
               <li class="dropdown-menu-item">
                 <%= link_to 'Pronouns', pronouns_path %>
               </li>
+
+              <li class="dropdown-menu-item">
+                <%= link_to 'Rooms', rooms_path %>
+              </li>
               
     	        <% if current_user.can? :add_event, CucoSessionsController then %>
                 <li class="dropdown-menu-item">

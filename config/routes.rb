@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :people
   end
 
-  resources :pronouns, :rooms
+  resources :pronouns, :rooms, :periods
   
   # create a new session
   resources :cuco_sessions do

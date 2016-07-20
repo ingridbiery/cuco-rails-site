@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:time_am_pm] = '%l:%M %p'

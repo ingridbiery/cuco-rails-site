@@ -1,0 +1,18 @@
+<h1>Available Periods</h1>
+
+<table>
+  <% @periods.each do |period| %>
+    <tr>
+      <td><%= link_to period.name, edit_period_path(period) %></td>
+      <td>(<%= period.start_time.to_formatted_s(:time_am_pm) %> - <%= period.end_time.to_formatted_s(:time_am_pm) %>)</td>
+      <td><%= link_to image_tag('wrench.png'), edit_period_path(period),
+              title: "Edit #{period.name}" %></td>
+      <td><%= link_to image_tag('delete.png'), period, method: :delete,
+              data: { confirm: 'Are you sure?' }, title: "Delete #{period.name}" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
+
+<%= link_to image_tag("add.png"), new_period_path, title: "Add New Period" %>

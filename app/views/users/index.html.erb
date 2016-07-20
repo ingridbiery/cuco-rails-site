@@ -1,4 +1,8 @@
+<p id="notice"><%= notice %></p>
+
 <h1>Listing users</h1>
+
+<%= will_paginate %>
 
 <table>
   <%= render "user_header" %>
@@ -7,3 +11,5 @@
     <%= render @users %>
   </tbody>
 </table>
+
+<%= will_paginate %>

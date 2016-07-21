@@ -24,9 +24,11 @@ class User < ActiveRecord::Base
   end
   
   # a new user has just been created
-  # add the user to the user role
+  # add the user to the user role, add the user to the notification list
   def after_create_action
     roles << Role.find_by(name: "user")
+    self.notification_list = true
+    self.save
   end
     
   # the name of this user. If there is no Person associated with this User yet,

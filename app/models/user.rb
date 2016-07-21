@@ -14,12 +14,26 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
                     
+  # do some stuff each time a new user is created
+  after_create :after_create_action
+                    
   # needed for action_access to control access to specific parts of our site
   # based on user roles. Needs to get all the roles for this user
   def clearance_levels
     roles.pluck(:name)
   end
+  
+  # is this user currently on the notification list
+  def on_notification_list?
+    roles.pluck(:name).include?("notification_list")
+  end
 
+  # a new user has just been created
+  # add the user to the notification list
+  def after_create_action
+    roles << Role.find_by(name: "notification_list")
+  end
+    
   # the name of this user. If there is no Person associated with this User yet,
   # return the email address
   def name

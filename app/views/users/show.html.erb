@@ -1,11 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<table>
-  <%= render "user_header" %>
-  <tbody>
-    <%= render @user %>
-  </tbody>
-</table>
+<p>Welcome <%= @user.name %></p>
+<p>Your email <%= @user.email %> is
+<% if !@user.on_notification_list? %> not <% end %>
+on the notification list</p>
+<% if @user.person != nil %>
+<p>Your family is <%= link_to @user.person.family.name, family_path(@user.person.family) %></p>
+<% else %>
+<p>Enter your <%= link_to "family", new_family_path %> info</p>
+<% end %>
 
-<%= link_to 'Edit', edit_user_registration_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit', edit_user_registration_path(@user) %>

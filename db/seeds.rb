@@ -17,7 +17,6 @@ js = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'js@example.com')
 js.roles << role_a
 js.roles << role_m
 lj = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'lj@example.com')
-lj.roles << role_nl
 cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'cucocalendar@gmail.com')
 cuco_calendar.roles << role_ga
 cuco_calendar.roles << role_a

@@ -14,7 +14,7 @@
 
 
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
-	      <% if user_signed_in? %>
+	      <% if user_signed_in? and current_user.can? :index, :families %>
           <li class="nav-item nav-item-dropdown">
             <a class="dropdown-trigger" href="#">Admin Settings</a>
             <ul class="dropdown-menu">

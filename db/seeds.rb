@@ -9,15 +9,15 @@ role_a = Role.create!(name: "admin")
 role_ga = Role.create!(name: "google_admin")
 role_m = Role.create!(name: "member")
 role_fm = Role.create!(name: "former_member")
-role_nl = Role.create!(name: "notification_list")
 role_b = Role.create!(name: "board_member")
+role_u = Role.create!(name: "user")
 
 User.destroy_all
-js = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'js@example.com')
+js = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'js@example.com', notification_list: 'true')
 js.roles << role_a
 js.roles << role_m
-lj = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'lj@example.com')
-cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'cucocalendar@gmail.com')
+lj = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'lj@example.com', notification_list: 'true')
+cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'cucocalendar@gmail.com', notification_list: 'false')
 cuco_calendar.roles << role_ga
 cuco_calendar.roles << role_a
 

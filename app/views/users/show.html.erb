@@ -2,7 +2,7 @@
 
 <p>Welcome <%= @user.name %></p>
 <p>Your email <%= @user.email %> is
-<% if !@user.on_notification_list? %> not <% end %>
+<% if !@user.notification_list? %> not <% end %>
 on the notification list</p>
 <% if @user.person != nil %>
 <p>Your family is <%= link_to @user.person.family.name, family_path(@user.person.family) %></p>

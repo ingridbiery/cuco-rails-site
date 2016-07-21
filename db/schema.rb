@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719041754) do
+ActiveRecord::Schema.define(version: 20160721015432) do
 
   create_table "calendars", force: :cascade do |t|
     t.string   "google_id"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20160719041754) do
     t.string   "uid"
     t.string   "provider"
     t.integer  "person_id"
+    t.boolean  "notification_list"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

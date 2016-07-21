@@ -23,15 +23,10 @@ class User < ActiveRecord::Base
     roles.pluck(:name)
   end
   
-  # is this user currently on the notification list
-  def on_notification_list?
-    roles.pluck(:name).include?("notification_list")
-  end
-
   # a new user has just been created
-  # add the user to the notification list
+  # add the user to the user role
   def after_create_action
-    roles << Role.find_by(name: "notification_list")
+    roles << Role.find_by(name: "user")
   end
     
   # the name of this user. If there is no Person associated with this User yet,

@@ -15,6 +15,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
   
+  test "notification_list should be present" do
+    @user.notification_list = nil
+    assert_not @user.valid?
+  end
+  
   test "email should not be too long" do
     @user.email = "a" * 244 + "@example.com"
     assert_not @user.valid?
@@ -51,4 +56,7 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
+
+  #  can't test for boolean because rails will typecast
+
 end

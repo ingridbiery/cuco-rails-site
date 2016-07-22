@@ -8,11 +8,12 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   
   test "login with valid information" do
     u = { email: 'a@b.com', password: 'password',
-          password_confirmation: 'password'}
+          password_confirmation: 'password',
+          notification_list: true }
     new_user = User.create(u)
     new_user.save!
     get new_user_session_path
-    assert_template 'devise/sessions/new'
+    assert_template 'users/sessions/new'
     post new_user_session_path, params: { session: { email: u[:email], password: u[:password] } }
     assert_template root_path
     # confused about why this part doesn't work
@@ -24,9 +25,10 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   test "login with invalid information" do
     get new_user_session_path
-    assert_template 'devise/sessions/new'
-    post new_user_session_path, params: { session: { email: "", password: "" } }
-    assert_template 'devise/sessions/new'
+    assert_template 'users/sessions/new'
+    post new_user_session_path, params: { session: { email: "", password: "",
+                                                     notification_list: false } }
+    assert_template 'users/sessions/new'
     assert_not flash.empty?
     get root_path
     assert flash.empty?

@@ -3,7 +3,9 @@
 js:
   encrypted_password: "password"
   email: "js@example.com"
+  notification_list: true
 
 lj:
   encrypted_password: "password"
   email: "lj@example.com"
+  notification_list: false

@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+  validates :notification_list, presence: true,
+                                inclusion: { in: [true, false] }
                     
   # do some stuff each time a new user is created
   after_create :after_create_action

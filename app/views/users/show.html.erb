@@ -9,5 +9,10 @@ on the notification list</p>
 <% else %>
 <p>Enter your <%= link_to "family", new_family_path %> info</p>
 <% end %>
+You have the following roles:<ul>
+  <% @user.roles.each do |role| %>
+    <li><%= role.name %></li>
+  <% end %>
+</ul>
 
 <%= link_to "Edit", edit_user_registration_path(@user), class: "btn btn-sm btn-primary" %>

@@ -4,14 +4,17 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
       	<li><%= link_to 'Home', root_path %></li>
+      	<% if user_signed_in? %>
+        	<li><%= link_to 'My Info', user_path(current_user) %></li>
+        <% end %>
 	      <li><%= link_to 'Calendar', calendar_path %></li>
-	      <li>FAQ</li>
+	      <li><%= link_to 'FAQ', page_path("faq") %></li>
 	      <li><%= link_to 'Expectations', page_path("expectations") %></li>
 	      <li><%= link_to 'A Day at CUCO', page_path("dayatcuco") %></li>
 
 
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
-	      <% if user_signed_in? %>
+	      <% if user_signed_in? and current_user.can? :index, :families %>
           <li class="nav-item nav-item-dropdown">
             <a class="dropdown-trigger" href="#">Admin Settings</a>
             <ul class="dropdown-menu">

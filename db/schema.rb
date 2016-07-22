@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721015432) do
+ActiveRecord::Schema.define(version: 20160722030621) do
 
   create_table "calendars", force: :cascade do |t|
     t.string   "google_id"
@@ -113,8 +113,6 @@ ActiveRecord::Schema.define(version: 20160721015432) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "rooms", ["courses_id"], name: "index_rooms_on_courses_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email"

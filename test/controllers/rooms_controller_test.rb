@@ -72,7 +72,6 @@ class RoomsControllerTest < ActionController::TestCase
 
   test "anonymous should not get edit" do
     get :edit, id: @room.id
-    assert_response :redirect
     assert_redirected_to new_user_session_url
   end
 
@@ -90,12 +89,11 @@ class RoomsControllerTest < ActionController::TestCase
   test "user should get update" do
     sign_in @user
     put :update, id: @room.id, room: @room.attributes
-    assert_response :redirect
     assert_redirected_to rooms_path
   end
 
   #############################################################################
-  # edit/update
+  # destroy
   #############################################################################
 
   test "anonymous should not get destroy" do

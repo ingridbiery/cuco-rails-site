@@ -98,6 +98,6 @@ class PeopleController < ApplicationController
     def person_params
       params.require(:person).permit(:first_name, :last_name, :dob,
                                      :family_id, :pronoun_id,
-                                     :email, :phone, :social_media)
+                                     :social_media)
     end
 end

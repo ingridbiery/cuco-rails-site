@@ -1,5 +1,6 @@
 class Family < ActiveRecord::Base
   has_many :people, dependent: :destroy
+  has_and_belongs_to_many :cuco_sessions
   default_scope -> { order(name: :asc) }
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false },

@@ -13,8 +13,9 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validates :notification_list, presence: true,
-                                inclusion: { in: [true, false] }
+  # note that presence: true doesn't work with booleans (because false is
+  # not present)
+  validates :notification_list, inclusion: [true, false]
                     
   # do some stuff each time a new user is created
   after_create :after_create_action

@@ -15,9 +15,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
   
-  test "notification_list should be present" do
+  test "notification_list should be true/false" do
     @user.notification_list = nil
     assert_not @user.valid?
+  end
+
+  test "notification_list should allow false" do
+    @user.notification_list = false
+    assert @user.valid?
   end
   
   test "email should not be too long" do

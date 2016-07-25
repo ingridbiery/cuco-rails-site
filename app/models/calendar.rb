@@ -5,8 +5,9 @@ class Calendar < ActiveRecord::Base
                         uniqueness: true
   validates :cuco_session_id, presence: true,
                               numericality: true
-  validates :members_only, presence: true,
-                           inclusion: { in: [true, false] }
+  # note that presence: true doesn't work with booleans (because false is
+  # not present)
+  validates :members_only, inclusion: [true, false]
 
   # the colors that google allows calendars to be
   COLORS = ['%23B1365F', '%235C1158', '%23711616', '%23691426', '%23BE6D00',

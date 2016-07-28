@@ -3,28 +3,28 @@ class Dates < ActiveRecord::Base
   has_many :events
   
   def course_offering
-    get_event(:course_offering)
+    events.find_by(event_type: EventType.find_by_name(:course_offering))
   end
   def schedule_posted
-    get_event(:schedule_posted)
+    events.find_by(event_type: EventType.find_by_name(:schedule_posted))
   end
   def member_reg
-    get_event(:member_reg)
+    events.find_by(event_type: EventType.find_by_name(:member_reg))
   end
   def former_reg
-    get_event(:former_reg)
+    events.find_by(event_type: EventType.find_by_name(:former_reg))
   end
   def new_reg
-    get_event(:new_reg)
+    events.find_by(event_type: EventType.find_by_name(:new_reg))
   end
   def fees_posted
-    get_event(:fees_posted)
+    events.find_by(event_type: EventType.find_by_name(:fees_posted))
   end
   def fees_due
-    get_event(:fees_due)
+    events.find_by(event_type: EventType.find_by_name(:fees_due))
   end
   def courses
-    events.where(event_type: EventType.find_by(name: :courses))
+    events.where(event_type: EventType.find_by_name(:courses))
   end
   
   def calculate_dates
@@ -37,47 +37,47 @@ class Dates < ActiveRecord::Base
     # store the basic dates (eventually, these constants might be configurable
     # somewhere online, but for now, we'll hardcode and we'll like it!)
     events.create!(name: "Class Offerings",
-                                start_dt: Time.zone.parse("#{all_tuesdays.first - 33} 23:30"),
-                                end_dt: Time.zone.parse("#{all_tuesdays.first - 28} 23:30"),
-                                event_type: EventType.find_by(name: :course_offering),
-                                members_only: true)
+                   start_dt: Time.zone.parse("#{all_tuesdays.first - 33} 23:30"),
+                   end_dt: Time.zone.parse("#{all_tuesdays.first - 28} 23:30"),
+                   event_type: EventType.find_by_name(:course_offering),
+                   members_only: true)
     events.create!(name: "Schedule Posted",
-                                start_dt: Time.zone.parse("#{all_tuesdays.first - 27} 12:00"),
-                                end_dt: Time.zone.parse("#{all_tuesdays.first - 27} 12:00"),
-                                event_type: EventType.find_by(name: :schedule_posted),
-                                members_only: false)
+                   start_dt: Time.zone.parse("#{all_tuesdays.first - 27} 12:00"),
+                   end_dt: Time.zone.parse("#{all_tuesdays.first - 27} 12:00"),
+                   event_type: EventType.find_by_name(:schedule_posted),
+                   members_only: false)
     events.create!(name: "Member Registration",
-                                start_dt: Time.zone.parse("#{all_tuesdays.first - 26} 23:30"),
-                                end_dt: Time.zone.parse("#{all_tuesdays.first - 21} 23:30"),
-                                event_type: EventType.find_by(name: :member_reg),
-                                members_only: true)
+                   start_dt: Time.zone.parse("#{all_tuesdays.first - 26} 23:30"),
+                   end_dt: Time.zone.parse("#{all_tuesdays.first - 21} 23:30"),
+                   event_type: EventType.find_by_name(:member_reg),
+                   members_only: true)
     events.create!(name: "Former Member Registration",
-                                start_dt: Time.zone.parse("#{all_tuesdays.first - 25} 23:30"),
-                                end_dt: Time.zone.parse("#{all_tuesdays.first - 20} 23:30"),
-                                event_type: EventType.find_by(name: :former_reg),
-                                members_only: true)
+                   start_dt: Time.zone.parse("#{all_tuesdays.first - 25} 23:30"),
+                   end_dt: Time.zone.parse("#{all_tuesdays.first - 20} 23:30"),
+                   event_type: EventType.find_by_name(:former_reg),
+                   members_only: true)
     events.create!(name: "New Member Registration",
-                                start_dt: Time.zone.parse("#{all_tuesdays.first - 24} 23:30"),
-                                end_dt: Time.zone.parse("#{all_tuesdays.first - 19} 23:30"),
-                                event_type: EventType.find_by(name: :new_reg),
-                                members_only: false)
+                   start_dt: Time.zone.parse("#{all_tuesdays.first - 24} 23:30"),
+                   end_dt: Time.zone.parse("#{all_tuesdays.first - 19} 23:30"),
+                   event_type: EventType.find_by_name(:new_reg),
+                   members_only: false)
     events.create!(name: "Fees Posted",
-                                start_dt: Time.zone.parse("#{all_tuesdays.first - 18} 23:30"),
-                                end_dt: Time.zone.parse("#{all_tuesdays.first - 18} 23:30"),
-                                event_type: EventType.find_by(name: :fees_posted),
-                                members_only: false)
+                   start_dt: Time.zone.parse("#{all_tuesdays.first - 18} 23:30"),
+                   end_dt: Time.zone.parse("#{all_tuesdays.first - 18} 23:30"),
+                   event_type: EventType.find_by_name(:fees_posted),
+                   members_only: false)
     events.create!(name: "Fees Due",
-                                start_dt: Time.zone.parse("#{all_tuesdays.first - 14} 23:30"),
-                                end_dt: Time.zone.parse("#{all_tuesdays.first - 14} 23:30"),
-                                event_type: EventType.find_by(name: :fees_due),
-                                members_only: false)
+                   start_dt: Time.zone.parse("#{all_tuesdays.first - 14} 23:30"),
+                   end_dt: Time.zone.parse("#{all_tuesdays.first - 14} 23:30"),
+                   event_type: EventType.find_by_name(:fees_due),
+                   members_only: false)
                    
     all_tuesdays.each_with_index do |tuesday, num|
       events.create!(name: "Week #{num+1}",
-                                  start_dt: Time.zone.parse("#{tuesday} 09:45"),
-                                  end_dt: Time.zone.parse("#{tuesday} 15:15"),
-                                  event_type: EventType.find_by(name: :courses),
-                                  members_only: false)
+                     start_dt: Time.zone.parse("#{tuesday} 09:45"),
+                     end_dt: Time.zone.parse("#{tuesday} 15:15"),
+                     event_type: EventType.find_by_name(:courses),
+                     members_only: false)
     end
   end
   
@@ -97,16 +97,21 @@ class Dates < ActiveRecord::Base
   end
 
   private
-    # return the Event object with given type name
-    def get_event(name)
-      events.find_by(event_type: EventType.find_by(name: name))
-    end
-    
     # update a single event object
     def update_event(event, new_info)
+      start_time = end_time = "23:30"
+      if event.event_type == EventType.find_by_name(:schedule_posted)
+        start_time = end_time = "12:00"
+      end
+      if event.event_type == EventType.find_by_name(:courses)
+        start_time = "09:45"
+        end_time = "15:15"
+      end
       event.name = new_info[:label]
-      event.start_dt = new_info[:start_date].to_datetime
-      event.end_dt = new_info[:end_date].to_datetime unless new_info[:end_date] == nil
+      event.start_dt = Time.zone.parse("#{new_info[:start_date]} #{start_time}")
+      if new_info[:end_date] != nil
+        event.end_dt = Time.zone.parse("#{new_info[:end_date]} #{end_time}") unless new_info[:end_date]
+      end
       event.save
     end
 end

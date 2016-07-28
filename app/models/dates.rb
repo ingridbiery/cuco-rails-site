@@ -110,7 +110,11 @@ class Dates < ActiveRecord::Base
       event.name = new_info[:label]
       event.start_dt = Time.zone.parse("#{new_info[:start_date]} #{start_time}")
       if new_info[:end_date] != nil
-        event.end_dt = Time.zone.parse("#{new_info[:end_date]} #{end_time}") unless new_info[:end_date]
+        event.end_dt = Time.zone.parse("#{new_info[:end_date]} #{end_time}")
+      else
+        # there is no end_date in the form -- use the start_date again, but
+        # use the end time (which is generally the same, but not for courses)
+        event.start_dt = Time.zone.parse("#{new_info[:start_date]} #{end_time}")
       end
       event.save
     end

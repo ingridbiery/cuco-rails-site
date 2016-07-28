@@ -1,0 +1,53 @@
+<% if @dates.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@dates.errors.count, "error") %> prohibited these dates from being saved:</h2>
+    <ul>
+    <% @dates.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag cuco_session_dates_path, :method=>'patch' do %>
+  <div>
+    <%= text_field_tag "results[course_offering][label]", @dates.course_offering.name, :required => true %>
+    <%= date_field_tag "results[course_offering][start_date]", @dates.course_offering.start_dt.to_date, :required => true %>
+    <%= date_field_tag "results[course_offering][end_date]", @dates.course_offering.end_dt.to_date, :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "results[schedule_posted][label]", @dates.schedule_posted.name, :required => true %>
+    <%= date_field_tag "results[schedule_posted][start_date]", @dates.schedule_posted.start_dt.to_date, :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "results[member_reg][label]", @dates.member_reg.name, :required => true %>
+    <%= date_field_tag "results[member_reg][start_date]", @dates.member_reg.start_dt.to_date, :required => true %>
+    <%= date_field_tag "results[member_reg][end_date]", @dates.member_reg.end_dt.to_date, :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "results[former_reg][label]", @dates.former_reg.name, :required => true %>
+    <%= date_field_tag "results[former_reg][start_date]", @dates.former_reg.start_dt.to_date, :required => true %>
+    <%= date_field_tag "results[former_reg][end_date]", @dates.former_reg.end_dt.to_date, :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "results[new_reg][label]", @dates.new_reg.name, :required => true %>
+    <%= date_field_tag "results[new_reg][start_date]", @dates.new_reg.start_dt.to_date, :required => true %>
+    <%= date_field_tag "results[new_reg][end_date]", @dates.new_reg.end_dt.to_date, :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "results[fees_posted][label]", @dates.fees_posted.name, :required => true %>
+    <%= date_field_tag "results[fees_posted][start_date]", @dates.fees_posted.start_dt.to_date, :required => true %>
+  </div>
+  <div>
+    <%= text_field_tag "results[fees_due][label]", @dates.fees_due.name, :required => true %>
+    <%= date_field_tag "results[fees_due][start_date]", @dates.fees_due.start_dt.to_date, :required => true %>
+  </div>
+  <% @dates.courses.each_with_index do |course, week_num| %>
+    <% week_num += 1 %>
+    <div>
+      <%= text_field_tag "results[weeks[#{week_num}]][label]", course.name, :required => true %>
+      <%= date_field_tag "results[weeks[#{week_num}]][start_date]", course.start_dt.to_date, :required => true %>
+    </div>
+  <% end %>
+  <%= submit_tag "Submit" %>
+<% end %>

@@ -1,0 +1,18 @@
+<h2>Dates for <%= @dates.cuco_session.name %></h2>
+<ul>
+  <li><strong>Location Start</strong>: <%= @dates.cuco_session.start_date %></li>
+  <li><strong>Location End</strong>: <%= @dates.cuco_session.end_date %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.course_offering} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.schedule_posted} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.member_reg} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.former_reg} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.new_reg} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.fees_posted} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.fees_due} %></li>
+  <% @dates.courses.each do |event| %>
+    <li><%= render partial: 'event', locals: {event: event} %></li>
+  <% end %>  
+</ul>
+
+<%= link_to 'Edit', edit_cuco_session_dates_path(@cuco_session, @dates) %> |
+<%= link_to "Back to Session", cuco_session_path(@cuco_session) %>

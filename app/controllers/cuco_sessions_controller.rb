@@ -1,43 +1,66 @@
 class CucoSessionsController < ApplicationController
-  let :google_admin, [:new, :add_event, :confirm_dates, :create]
+  let :google_admin, :all
   let :member, [:index, :show]
+  before_action :set_cuco_session, only: [:show, :edit, :update, :destroy]
 
   def index
     @cuco_sessions = CucoSession.all
   end
   
   def show
-    @cuco_session = CucoSession.find(params[:id])
   end
 
   def new
+    @cuco_session = CucoSession.new
   end
 
-  # The user has entered the name of the session and the start and end dates
-  # We need to calculate which dates are Tuesdays, then will automatically
-  # render app/views/confirm_dates.html.erb which allows the user to confirm
-  # those dates
-  def confirm_dates
-    @cuco_session_name = params[:cuco_session_name]
-    # calculate proposed dates for this session
-    @dates = CucoSession.calculate_dates(params[:start_date], params[:end_date])
+  def edit
   end
-  
-  # The user has confirmed dates for the session. Create the CucoSessions object
-  # and all of its Calendars and Events
-  # we're currently skipping error checking about if this session or any of its
-  # stuff already exists
+
   def create
-    # create the session
-    cs = CucoSession.create!(name: params[:cuco_session_name])
-    # create public and private calendars (which will trigger creating the events)
-    Calendar.create_calendars(current_user.token, cs, params[:dates])
-    
-    redirect_to calendar_path
+    @cuco_session = CucoSession.new(cuco_session_params)
+    if @cuco_session.save
+      d = Dates.create(cuco_session: @cuco_session)
+      d.calculate_dates
+      redirect_to @cuco_session, notice: "#{@cuco_session.name} was successfully created."
+    else
+      render :new
+    end
+  end
+
+  def update
+    # if the dates have changed, we need to update the @cuco_session.dates too
+    if (@cuco_session.dates == nil or
+        params[:start_date] != @cuco_session.start_date or
+        params[:end_date] != @cuco_session.end_date) then
+      update_dates = true
+    end
+    if @cuco_session.update(cuco_session_params)
+      if update_dates
+        @cuco_session.dates.destroy unless @cuco_session.dates == nil
+        d = Dates.create(cuco_session: @cuco_session)
+        d.calculate_dates
+      end
+      redirect_to @cuco_session, notice: "#{@cuco_session.name} was successfully updated."
+    else
+      render :edit
+    end
   end
 
   def destroy
     @cuco_session.destroy
-    redirect_to cuco_session_url, notice: "#{@cuco_session.name} was successfully destroyed."
+    redirect_to cuco_sessions_path, notice: "#{@cuco_session.name} was successfully destroyed."
   end
+  
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_cuco_session
+      @cuco_session = CucoSession.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def cuco_session_params
+      params.require(:cuco_session).permit(:name, :start_date, :end_date)
+    end
+
 end

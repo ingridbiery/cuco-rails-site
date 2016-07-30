@@ -11,21 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< 0f24c38bdbb227bb2b97b1e89ebe1b8aad74781b
 ActiveRecord::Schema.define(version: 20160725184140) do
-=======
-ActiveRecord::Schema.define(version: 20160724173210) do
-
-  create_table "calendars", force: :cascade do |t|
-    t.string   "google_id"
-    t.integer  "cuco_session_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.boolean  "members_only"
-  end
-
-  add_index "calendars", ["cuco_session_id"], name: "index_calendars_on_cuco_session_id"
->>>>>>> Connect Families and CucoSessions for membership in a session
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
@@ -57,6 +43,11 @@ ActiveRecord::Schema.define(version: 20160724173210) do
     t.string   "end_date"
   end
 
+  create_table "cuco_sessions_families", id: false, force: :cascade do |t|
+    t.integer "cuco_session_id", null: false
+    t.integer "family_id",       null: false
+  end
+
   create_table "dates", force: :cascade do |t|
     t.string  "public_calendar_gid"
     t.string  "member_calendar_gid"
@@ -69,11 +60,6 @@ ActiveRecord::Schema.define(version: 20160724173210) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "cuco_sessions_families", id: false, force: :cascade do |t|
-    t.integer "cuco_session_id", null: false
-    t.integer "family_id",       null: false
   end
 
   create_table "events", force: :cascade do |t|

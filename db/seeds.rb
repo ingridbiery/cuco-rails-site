@@ -28,7 +28,7 @@ they = Pronoun.create!(preferred_pronouns: "They/Them/Their")
 
 Family.destroy_all
 smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-jsp = smith.people.create!(first_name: "Jennifer", last_name: "Smith", dob: "1970/01/01".to_date, pronoun_id: she.id)
+jsp = smith.people.create!(first_name: "Jennifer", last_name: "Smith", pronoun_id: she.id)
 jsp.user = js
 smith.primary_adult_id = jsp.id
 smith.save
@@ -36,7 +36,7 @@ smith.people.create!(first_name: "Isabella", last_name: "Smith", dob: "2010/01/0
 smith.people.create!(first_name: "Andrew", last_name: "Smith", dob: "2012/01/01".to_date, pronoun_id: he.id)
 
 johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-ljp = johnson.people.create!(first_name: "Lisa", last_name: "Johnson", dob: "1970/01/01".to_date, pronoun_id: she.id)
+ljp = johnson.people.create!(first_name: "Lisa", last_name: "Johnson", pronoun_id: she.id)
 ljp.user = lj
 johnson.primary_adult_id = ljp.id
 johnson.save
@@ -44,7 +44,7 @@ johnson.people.create!(first_name: "Emma", last_name: "Johnson", dob: "2009/01/0
 johnson.people.create!(first_name: "Olivia", last_name: "Johnson", dob: "2011/01/01".to_date, pronoun_id: they.id)
 
 williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
-kwp = williams.people.create!(first_name: "Kimberly", last_name: "Williams", dob: "1970/01/01".to_date, pronoun_id: she.id)
+kwp = williams.people.create!(first_name: "Kimberly", last_name: "Williams", pronoun_id: she.id)
 williams.primary_adult_id = kwp.id
 williams.save
 williams.people.create!(first_name: "Christopher", last_name: "Williams", dob: "2000/01/01".to_date, pronoun_id: he.id)
@@ -59,6 +59,9 @@ s.courses.create!(title: "Washi Tape Crafts", short_title: "Washi",
                   max_students: 14, fee: 5, supplies: "", room_reqs: "",
                   time_reqs: "", drop_ins: false, additional_info: "",
                   assigned_room: "", assigned_period: 1)
+s.families << williams
+s.families << johnson
+                  
 f = CucoSession.create!(name: "2016 Fall", start_date: "2016/09/10".to_date, end_date: "2016/12/20".to_date)
 f.courses.create!(title: "Beginner Gymnastics", short_title: "Gymnastics",
                   description: "We will work on floor and beam skills, levels 1-5: mainly hops, jumps, turns, and light tumbling.
@@ -73,6 +76,7 @@ All ages welcome, but under 7 should be accompanied by an adult.
                   time_reqs: "Not first period. Second, third, or 4th is fine - cannot conflict with customization class.",
                   drop_ins: false, additional_info: "",
                   assigned_room: "", assigned_period: 2)
+f.families << williams
                 
 EventType.destroy_all
 EventType.create!(name: :course_offering)

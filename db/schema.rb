@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160723203914) do
-
-  create_table "calendars", force: :cascade do |t|
-    t.string   "google_id"
-    t.integer  "cuco_session_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.boolean  "members_only"
-  end
-
-  add_index "calendars", ["cuco_session_id"], name: "index_calendars_on_cuco_session_id"
+ActiveRecord::Schema.define(version: 20160725184140) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
@@ -49,19 +39,37 @@ ActiveRecord::Schema.define(version: 20160723203914) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "start_date"
+    t.string   "end_date"
+  end
+
+  create_table "dates", force: :cascade do |t|
+    t.string  "public_calendar_gid"
+    t.string  "member_calendar_gid"
+    t.integer "cuco_session_id"
+  end
+
+  add_index "dates", ["cuco_session_id"], name: "index_dates_on_cuco_session_id"
+
+  create_table "event_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.datetime "start_dt"
     t.datetime "end_dt"
-    t.integer  "calendar_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "googleid"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "google_id"
+    t.integer  "dates_id"
+    t.integer  "event_type_id"
   end
 
-  add_index "events", ["calendar_id"], name: "index_events_on_calendar_id"
+  add_index "events", ["dates_id"], name: "index_events_on_dates_id"
+  add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
 
   create_table "families", force: :cascade do |t|
     t.string   "name"

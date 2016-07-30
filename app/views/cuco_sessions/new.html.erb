@@ -3,21 +3,9 @@
 <% if (!user_signed_in? or !GoogleAPI.check_authorization?(current_user) or
        !current_user.can? :add_event, CucoSessionsController) %>
   For this to work, you need to be signed in as CUCO Calendar with google.
-  <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
+  <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %><br /><br />
 <% else %>
-  <%= form_tag confirm_dates_path do %>
-    <div>
-      <%= label_tag "Session Name" %>
-      <%= text_field_tag "cuco_session_name", "", :required => true %>
-    </div>
-    <div>
-      <%= label_tag "Location Start Date" %>
-      <%= date_field_tag "start_date", Date.today %>
-    </div>
-    <div>
-      <%= label_tag "Location End Date" %>
-      <%= date_field_tag "end_date", Date.today %>
-    </div>
-    <%= submit_tag "Calculate Dates" %>
-  <% end %>
+  <%= render 'form' %>
 <% end %>
+
+<%= link_to 'Back to Sessions', cuco_sessions_path %>

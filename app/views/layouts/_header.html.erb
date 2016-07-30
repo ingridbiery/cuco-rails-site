@@ -35,18 +35,15 @@
                 <%= link_to 'Rooms', rooms_path %>
               </li>
               
-    	        <% if current_user.can? :add_event, CucoSessionsController then %>
+    	        <% if current_user.can? :index, CucoSessionsController then %>
                 <li class="dropdown-menu-item">
                   <%= link_to 'Sessions', cuco_sessions_path %>
-                </li>              
-                <li class="dropdown-menu-item">
-                  <%= link_to 'New Session', new_cuco_session_path %>
                 </li>
               <% end %>
-            
-              <% if current_user.can? :index, :cuco_session then %>
+              
+    	        <% if current_user.can? :new, CucoSessionsController then %>
                 <li class="dropdown-menu-item">
-                  <%= link_to 'Sessions', cuco_sessions_path %>
+                  <%= link_to 'New Session', new_cuco_session_path %>
                 </li>
               <% end %>
             </ul>

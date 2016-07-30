@@ -1,0 +1,29 @@
+<%= form_for(@cuco_session) do |f| %>
+  <% if @cuco_session.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cuco_session.errors.count, "error") %> prohibited this session from being saved:</h2>
+
+      <ul>
+      <% @cuco_session.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :start_date %>
+    <%= f.date_field :start_date, value: @cuco_session.start_date %>
+  </div>
+  <div>
+    <%= f.label :end_date %>
+    <%= f.date_field :end_date, value: @cuco_session.end_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

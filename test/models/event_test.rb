@@ -9,8 +9,8 @@ class EventTest < ActiveSupport::TestCase
     assert @event.valid?
   end
   
-  test "title should be present" do
-    @event.title = nil
+  test "name should be present" do
+    @event.name = nil
     assert_not @event.valid?
   end
 
@@ -21,26 +21,6 @@ class EventTest < ActiveSupport::TestCase
 
   test "end_dt should be present" do
     @event.end_dt = nil
-    assert_not @event.valid?
-  end
-
-  test "calendar_id should be present" do
-    @event.calendar_id = nil
-    assert_not @event.valid?
-  end
-  
-  test "title should not be too short" do
-     @event.title = "a" * 4
-     assert_not @event.valid?
-  end
-
-  test "title should not be too long" do
-     @event.title = "a" * 31
-     assert_not @event.valid?
-  end
-
-  test "calendar_id should be a number" do
-    @event.calendar_id = ""
     assert_not @event.valid?
   end
 end

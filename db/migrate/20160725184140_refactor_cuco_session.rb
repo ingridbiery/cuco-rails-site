@@ -31,7 +31,7 @@ class RefactorCucoSession < ActiveRecord::Migration
     add_column :events, :members_only, :boolean
     add_reference :events, :dates, index: true, foreign_key: true
     add_reference :events, :event_type, index: true, foreign_key: true
-    remove_reference :events, :calendar, index: true, foreign_key: true
+    remove_reference :events, :calendar, index: true
     remove_column :events, :members_only, :boolean
   end
 end

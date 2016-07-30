@@ -39,7 +39,7 @@ class CucoSessionsController < ApplicationController
       if update_dates
         @cuco_session.dates.destroy unless @cuco_session.dates == nil
         d = Dates.create(cuco_session: @cuco_session)
-        d.calculate_dates
+        d.calculate_dates(current_user.token)
       end
       redirect_to @cuco_session, notice: "#{@cuco_session.name} was successfully updated."
     else

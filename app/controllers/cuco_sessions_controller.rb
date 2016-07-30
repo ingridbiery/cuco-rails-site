@@ -48,6 +48,7 @@ class CucoSessionsController < ApplicationController
   end
 
   def destroy
+    @cuco_session.dates.destroy_dates(current_user.token) unless @cuco_session.dates == nil
     @cuco_session.destroy
     redirect_to cuco_sessions_path, notice: "#{@cuco_session.name} was successfully destroyed."
   end

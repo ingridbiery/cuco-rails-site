@@ -11,7 +11,7 @@ class DatesController < ApplicationController
   
   # update each of the Events
   def update
-    @dates.update_dates(params[:results])
+    @dates.update_dates(current_user.token, params[:results])
     render :show
   end
 

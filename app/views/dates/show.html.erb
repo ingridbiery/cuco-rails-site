@@ -2,14 +2,14 @@
 <ul>
   <li><strong>Location Start</strong>: <%= @dates.cuco_session.start_date %></li>
   <li><strong>Location End</strong>: <%= @dates.cuco_session.end_date %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.course_offering} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.schedule_posted} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.member_reg} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.former_reg} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.new_reg} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.fees_posted} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.fees_due} %></li>
-  <% @dates.courses.each do |event| %>
+  <li><%= render partial: 'event', locals: {event: @dates.get_event(:course_offering)} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.get_event(:schedule_posted)} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.get_event(:member_reg)} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.get_event(:former_reg)} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.get_event(:new_reg)} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.get_event(:fees_posted)} %></li>
+  <li><%= render partial: 'event', locals: {event: @dates.get_event(:fees_due)} %></li>
+  <% @dates.get_courses.each do |event| %>
     <li><%= render partial: 'event', locals: {event: event} %></li>
   <% end %>  
 </ul>

@@ -62,14 +62,34 @@ class GoogleAPI
     event = Google::Apis::CalendarV3::Event.new(
       summary: title,
       description: title,
-      start: { date_time: start_dt,
-               time_zone: "America/New_York" },
-      end: { date_time: end_dt,
-             time_zone: "America/New_York" })
+      start: { date_time: start_dt },
+      end: { date_time: end_dt })
     result = service.insert_event(calendar_id, event)
     return result.id
   end
   
+  # update the given event
+  def self.update_event(token, calendar_id, event_id, title, start_dt, end_dt)
+    access_token = AccessToken.new token
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = access_token
+    event = Google::Apis::CalendarV3::Event.new(
+      summary: title,
+      description: title,
+      start: { date_time: start_dt },
+      end: { date_time: end_dt })
+    service.patch_event(calendar_id, event_id, event)
+  end
+
+  # destroy the given calendar
+  def self.destroy_calendar(token, calendar_id)
+    access_token = AccessToken.new token
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = access_token
+    service.delete_calendar(calendar_id)    
+  end
+
+
   # return the URL provided by google for the iframe needed to embed a google
   # calendar on our site. Show all calendars
   def self.url(signed_in)

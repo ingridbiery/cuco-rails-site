@@ -32,7 +32,6 @@ class RefactorCucoSession < ActiveRecord::Migration
     add_reference :events, :dates, index: true, foreign_key: true
     add_reference :events, :event_type, index: true, foreign_key: true
     remove_reference :events, :calendar, index: true, foreign_key: true
-    
-    create_join_table :dates, :events
+    remove_column :events, :members_only, :boolean
   end
 end

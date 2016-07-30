@@ -51,11 +51,6 @@ ActiveRecord::Schema.define(version: 20160725184140) do
 
   add_index "dates", ["cuco_session_id"], name: "index_dates_on_cuco_session_id"
 
-  create_table "dates_events", id: false, force: :cascade do |t|
-    t.integer "date_id",  null: false
-    t.integer "event_id", null: false
-  end
-
   create_table "event_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -69,7 +64,6 @@ ActiveRecord::Schema.define(version: 20160725184140) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "google_id"
-    t.boolean  "members_only"
     t.integer  "dates_id"
     t.integer  "event_type_id"
   end

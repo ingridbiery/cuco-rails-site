@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 week1:
-  title: "Week 1"
+  name: "Week 1"
   start_dt: 2016-06-04 20:06:01
   end_dt: 2016-06-04 20:06:01
-  calendar_id: 1
 
 week2:
-  title: "Week 2"
+  name: "Week 2"
   start_dt: 2016-06-04 20:06:01
   end_dt: 2016-06-04 20:06:01
-  calendar_id: 1

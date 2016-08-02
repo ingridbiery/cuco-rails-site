@@ -16,7 +16,7 @@
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
 	      <% if user_signed_in? and current_user.can? :index, :families %>
           <li class="nav-item nav-item-dropdown">
-            <a class="dropdown-trigger" href="#">Admin Settings</a>
+            <a class="dropdown-trigger" href="#">Admin</a>
             <ul class="dropdown-menu">
 
               <li class="dropdown-menu-item">
@@ -62,4 +62,14 @@
     <% end %></span>
 
   </div>
+  <% if CucoSession.current != nil %>
+    <p><span id="notice">Current Session: <%= CucoSession.current.name %></span></p>
+  <% elsif CucoSession.next != nil %>
+    <p><span id="notice">Next Session: <%= CucoSession.next.name %></span></p>
+  <% end %>
+  <% if Dates.next_event(current_user) != nil %>
+    <p><span id="notice">What's coming next: <%= Dates.next_event(current_user).status_text %></span></p>
+  <% else %>
+    <p><span id="notice">Dates not yet available. Please check back.</span></p>
+  <% end %>
 </header>

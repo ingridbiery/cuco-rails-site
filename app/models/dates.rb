@@ -32,9 +32,9 @@ class Dates < ActiveRecord::Base
     create_event(token, "Schedule Posted", all_tuesdays.first - 27,
                 all_tuesdays.first - 27, :schedule_posted)
     create_event(token, "Member Registration", all_tuesdays.first - 26,
-                all_tuesdays.first - 21, :member_reg)
+                all_tuesdays.first - 19, :member_reg)
     create_event(token, "Former Member Registration", all_tuesdays.first - 25,
-                all_tuesdays.first - 20, :former_reg)
+                all_tuesdays.first - 19, :former_reg)
     create_event(token, "New Member Registration", all_tuesdays.first - 24,
                 all_tuesdays.first - 19, :new_reg)
     create_event(token, "Fees Posted", all_tuesdays.first - 18,
@@ -66,6 +66,22 @@ class Dates < ActiveRecord::Base
   def destroy_dates(token)
     GoogleAPI.destroy_calendar(token, public_calendar_gid)
     GoogleAPI.destroy_calendar(token, member_calendar_gid)
+  end
+  
+  # find the next event (that is, the event whose date is soonest after today
+  # filtered for the given user's membership level)
+  def self.next_event(user)
+    events = Event.where('end_dt > ?', Time.now).order(end_dt: :asc)
+    if events.empty? then return nil end
+    event = events.first
+    if (user != nil and
+        user.membership == :former and
+        (event.event_type.name == "member_reg" or
+         event.event_type.name == "new_reg")) then
+      event = events.find_by(event_type: EventType.find_by_name(:former_reg))
+    end
+    # @todo put in other tests for event type
+    event
   end
   
   private

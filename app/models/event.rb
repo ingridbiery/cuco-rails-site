@@ -5,10 +5,16 @@ class Event < ActiveRecord::Base
   validates :start_dt, presence: true
   validates :end_dt, presence: true
 
-  # add one event to the google calendar and our database
-  def self.add_event(token, cal, label, start_dt, end_dt)
-    id = GoogleAPI.add_event(token, cal.google_id, label, start_dt, end_dt)
-    cal.events.create!(title: label, start_dt: start_dt, end_dt: start_dt,
-                       google_id: id)
+  # get a text description of this event
+  def status_text
+    if (start_dt != end_dt)
+      if (start_dt <= Time.now)
+        "#{name} ending #{end_dt}"
+      else
+        "#{name} from #{start_dt} to #{end_dt}"
+      end
+    else
+      "#{name} on #{start_dt}"
+    end
   end
 end

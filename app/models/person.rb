@@ -1,6 +1,6 @@
 class Person < ActiveRecord::Base
   belongs_to :family
-  has_one :pronoun
+  belongs_to :pronoun
   has_one :user # this is ok for an optional relationship
 
   default_scope -> { order(last_name: :asc) }

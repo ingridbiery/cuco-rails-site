@@ -1,7 +1,23 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-
-two:
-  name: MyString
+et_course_offering:
+  name: "course_offering"
+  
+et_schedule_posted:
+  name: "schedule_posted"
+  
+et_member_reg:
+  name: "member_reg"
+  
+et_former_reg:
+  name: "former_reg"
+  
+et_new_reg:
+  name: "new_reg"
+  
+et_fees_posted:
+  name: "fees_posted"
+  
+et_fees_due:
+  name: "fees_due"
+  
+et_courses:
+  name: "courses"

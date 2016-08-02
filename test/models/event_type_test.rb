@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EventTypeTest < ActiveSupport::TestCase
   def setup
-    @event_type = event_types(:one)
+    @event_type = event_types(:et_courses)
   end
   
   test "should be valid" do

@@ -3,6 +3,9 @@ require 'test_helper'
 class CucoSessionTest < ActiveSupport::TestCase
   def setup
     @cuco_session = cuco_sessions(:fall)
+    @winter = cuco_sessions(:winter)
+    @spring = cuco_sessions(:spring)
+    @fall = cuco_sessions(:fall)
   end
   
   test "should be valid" do
@@ -36,5 +39,43 @@ class CucoSessionTest < ActiveSupport::TestCase
   test "start date should be before end date" do
     @cuco_session.start_date = @cuco_session.end_date
     assert_not @cuco_session.valid?
+  end
+  
+  test "current should return current session when there is one" do
+    travel_to @fall.start_date.to_date + 1
+    assert_equal @fall, CucoSession.current
+  end
+
+  test "current should return nil when there isn't one" do
+    travel_to @fall.start_date.to_date - 1
+    current = CucoSession.current
+    assert_nil current
+  end
+
+  test "next should return next session when there is one" do
+    travel_to @fall.start_date.to_date - 1
+    assert_equal @fall, CucoSession.next
+  end
+
+  test "next should return nil when there isn't one" do
+    travel_to @fall.start_date.to_date + 1
+    next_session = CucoSession.next
+    assert_nil next_session
+  end
+
+  test "last should return last session when there is one" do
+    travel_to @fall.start_date.to_date - 1
+    assert_equal @spring, CucoSession.last
+  end
+
+  test "last should return current session when there is one" do
+    travel_to @fall.start_date.to_date + 1
+    assert_equal @fall, CucoSession.last
+  end
+
+  test "last should return nil when there isn't one" do
+    travel_to @winter.start_date.to_date - 1
+    last = CucoSession.last
+    assert_nil last
   end
 end

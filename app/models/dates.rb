@@ -74,13 +74,12 @@ class Dates < ActiveRecord::Base
     events = Event.where('end_dt > ?', Time.now).order(end_dt: :asc)
     if events.empty? then return nil end
     event = events.first
-    if (user != nil and
-        user.membership == :former and
-        (event.event_type.name == "member_reg" or
-         event.event_type.name == "new_reg")) then
-      event = events.find_by(event_type: EventType.find_by_name(:former_reg))
+    # all registrations end on the same date, so pick the right one
+    if (registration(event)) then event = self.pick_registration(events, user)
+    elsif (user == nil or user.membership == :new and
+           event.event_type.name.to_sym == :course_offering) then
+      event = events.find_by(event_type: EventType.find_by_name(:schedule_posted))
     end
-    # @todo put in other tests for event type
     event
   end
   
@@ -136,12 +135,34 @@ class Dates < ActiveRecord::Base
     
     # get the calendar id for the given event type
     def get_calendar_gid(type_name)
-      if (type_name.to_sym == :course_offering ||
-          type_name.to_sym == :member_reg ||
+      if (type_name.to_sym == :course_offering or
+          type_name.to_sym == :member_reg or
           type_name.to_sym == :former_reg)
         member_calendar_gid
       else
         public_calendar_gid
+      end
+    end
+    
+    # is this event one of the three registration events?
+    def self.registration(event)
+      if (event.event_type.name.to_sym == :member_reg or
+          event.event_type.name.to_sym == :former_reg or
+          event.event_type.name.to_sym == :new_reg)
+        true
+      else
+        false
+      end
+    end
+    
+    # pick the right registration event for the given user type
+    def self.pick_registration(events, user)
+      if (user == nil or user.membership == :new) then
+        events.find_by(event_type: EventType.find_by_name(:new_reg))
+      elsif (user.membership == :former)
+        events.find_by(event_type: EventType.find_by_name(:former_reg))
+      else
+        events.find_by(event_type: EventType.find_by_name(:member_reg))
       end
     end
 end

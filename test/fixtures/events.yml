@@ -46,14 +46,7 @@ fees_due:
   end_dt: 2016-08-30 23:30:00
   dates: fall_dates
   event_type: et_fees_due
-  
-schedule_posted:
-  name: "Schedule Posted"
-  start_dt: 2016-08-17 23:30:00
-  end_dt: 2016-08-17 23:30:00
-  dates: fall_dates
-  event_type: et_schedule_posted
-  
+
 week1:
   name: "Week 1"
   start_dt: 2016-09-13 09:45:00

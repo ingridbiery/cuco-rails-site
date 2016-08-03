@@ -70,18 +70,34 @@ class Dates < ActiveRecord::Base
   
   # find the next event (that is, the event whose date is soonest after today
   # filtered for the given user's membership level)
-  def self.next_event(user)
-    events = Event.where('end_dt > ?', Time.now).order(end_dt: :asc)
-    if events.empty? then return nil end
-    event = events.first
+  def next_event(user)
+    upcoming_events = get_upcoming_events
+    return nil if upcoming_events.empty?
+    event = upcoming_events.first
     # all registrations end on the same date, so pick the right one
-    if (registration(event)) then event = self.pick_registration(events, user)
+    if (is_registration?(event)) then event = get_registration(user)
     elsif (user == nil or user.membership == :new and
            event.event_type.name.to_sym == :course_offering) then
       event = events.find_by(event_type: EventType.find_by_name(:schedule_posted))
     end
     event
   end
+  
+  # figure out if membership signups are currently open
+  def membership_signup?(user)
+    upcoming_events = get_upcoming_events
+    # if the next event is a registration event
+    if (!upcoming_events.empty? and is_registration?(upcoming_events.first))
+      # get the right registration event for the current user type
+      # if that event has already started, signups are open for this user
+      if (get_registration(user).start_dt <= Time.now)
+        return true
+      end
+    end
+    # all other situations mean registration is not yet open
+    return false
+  end
+    
   
   private
     # create an event and add it to the google calendar
@@ -145,7 +161,7 @@ class Dates < ActiveRecord::Base
     end
     
     # is this event one of the three registration events?
-    def self.registration(event)
+    def is_registration?(event)
       if (event.event_type.name.to_sym == :member_reg or
           event.event_type.name.to_sym == :former_reg or
           event.event_type.name.to_sym == :new_reg)
@@ -155,8 +171,8 @@ class Dates < ActiveRecord::Base
       end
     end
     
-    # pick the right registration event for the given user type
-    def self.pick_registration(events, user)
+    # get the right registration event for the given user type
+    def get_registration(user)
       if (user == nil or user.membership == :new) then
         events.find_by(event_type: EventType.find_by_name(:new_reg))
       elsif (user.membership == :former)
@@ -164,5 +180,10 @@ class Dates < ActiveRecord::Base
       else
         events.find_by(event_type: EventType.find_by_name(:member_reg))
       end
+    end
+    
+    # return just the events that havent finished yet
+    def get_upcoming_events
+      events.where('end_dt > ?', Time.now).order(end_dt: :asc)
     end
 end

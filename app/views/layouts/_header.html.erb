@@ -60,16 +60,26 @@
       <%= link_to 'Log in', new_user_session_path %>
       <br /><%= link_to 'Sign up', new_user_registration_path %>
     <% end %></span>
-
   </div>
-  <% if CucoSession.current != nil %>
-    <p><span id="notice">Current Session: <%= CucoSession.current.name %></span></p>
-  <% elsif CucoSession.next != nil %>
-    <p><span id="notice">Next Session: <%= CucoSession.next.name %></span></p>
+  
+  <% if !@current_cuco_session.nil? %>
+    <div id="notice">Current Session: <%= @current_cuco_session.name %>.
+    <% if !@next_event_in_current.nil? %>
+      <%= @next_event_in_current.status_text %>
+    <% else %>
+      No upcoming events.
+    <% end %>
+    </div>
   <% end %>
-  <% if Dates.next_event(current_user) != nil %>
-    <p><span id="notice">What's coming next: <%= Dates.next_event(current_user).status_text %></span></p>
-  <% else %>
-    <p><span id="notice">Dates not yet available. Please check back.</span></p>
+  <% if !@next_cuco_session.nil? %>
+    <div id="notice">Next Session: <%= @next_cuco_session.name %>.
+    <% if !@next_event_in_next.nil? %>
+      <%= @next_event_in_next.status_text %>
+      <% if @membership_signup %>
+        <strong>SIGN UP NOW (this is not a link yet)</strong>
+      <% end %>
+    <% else %>
+      Dates not set yet. Please check back soon.
+    <% end %>
   <% end %>
 </header>

@@ -9,6 +9,22 @@ class ApplicationController < ActionController::Base
   # after signing in), which is what the :unless prevents
   before_filter :store_current_location, :unless => :devise_controller?
   
+  # find information about current session and upcoming events to display in header
+  before_filter :get_session_info
+  def get_session_info
+    @current_cuco_session = CucoSession.current
+    @next_event_in_current = nil
+    if !@current_cuco_session.nil? then
+      @next_event_in_current = @current_cuco_session.dates.next_event(current_user)
+    end
+    @next_cuco_session = CucoSession.next
+    @next_event_in_next = nil
+    if !@next_cuco_session.nil? then
+      @next_event_in_next = @next_cuco_session.dates.next_event(current_user)
+      @membership_signup = @next_cuco_session.dates.membership_signup?(current_user)
+    end
+  end
+  
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception

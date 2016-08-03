@@ -7,14 +7,21 @@ class Event < ActiveRecord::Base
 
   # get a text description of this event
   def status_text
-    if (start_dt != end_dt)
-      if (start_dt <= Time.now)
+    # if the start and end days are different
+    if start_dt.to_date != end_dt.to_date
+      # if the event has already started
+      if start_dt <= Time.now
         "#{name} ending #{end_dt.strftime("%-m/%-d/%Y at %l:%M%P")}"
-      else
+      else # the event has different start and end days and hasn't started yet
         "#{name} from #{start_dt.strftime("%-m/%-d/%Y at %l:%M%P")} to #{end_dt.strftime("%-m/%-d/%Y at %l:%M%P")}"
       end
-    else
-      "#{name} on #{start_dt.strftime("%-m/%-d/%Y at %l:%M%P")}"
+    else # the event has the same start and end day
+      # is the start and end time the same
+      if start_dt == end_dt
+        "#{name} on #{start_dt.strftime("%-m/%-d/%Y at %l:%M%P")}"
+      else # start and end day is the same, but time is different
+        "#{name} on #{start_dt.strftime("%-m/%-d/%Y from %l:%M%P")} to #{end_dt.strftime("%l:%M%P")}"
+      end
     end
   end
 end

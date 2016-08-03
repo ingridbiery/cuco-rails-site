@@ -1,5 +1,5 @@
 <strong><%= event.name %></strong>:
 <ul>
-  <li>Start: <%= event.start_dt %></li>
-  <li>End: <%= event.end_dt %></li>
+  <li>Start: <%= event.start_dt.strftime("%-m/%-d/%Y at %l:%M%P") %></li>
+  <li>End: <%= event.end_dt.strftime("%-m/%-d/%Y at %l:%M%P") %></li>
 </ul>

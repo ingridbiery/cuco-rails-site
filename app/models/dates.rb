@@ -101,7 +101,7 @@ class Dates < ActiveRecord::Base
       event_type = EventType.find_by_name(:courses)
       start_dt = Time.zone.parse("#{date} #{event_type.start_time.strftime("%H:%M")}")
       end_dt = Time.zone.parse("#{date} #{event_type.end_time.strftime("%H:%M")}")
-      create_event(token, event_type, start_dt, end_dt, "#{event_type.display_name} #{number}")
+      create_event(token, event_type, start_dt, end_dt, "#{event_type.display_name} #{number+1}")
     end
     
     # create the actual event and add it to the google calendar

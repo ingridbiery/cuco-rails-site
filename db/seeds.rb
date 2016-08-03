@@ -7,8 +7,6 @@ end
 Role.destroy_all
 role_a = Role.create!(name: "admin")
 role_ga = Role.create!(name: "google_admin")
-role_m = Role.create!(name: "member")
-role_fm = Role.create!(name: "former_member")
 role_b = Role.create!(name: "board_member")
 role_u = Role.create!(name: "user")
 

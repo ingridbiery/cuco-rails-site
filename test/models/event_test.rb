@@ -22,6 +22,7 @@ class EventTest < ActiveSupport::TestCase
     # new member
     @new = users(:new)
     
+    # these sample events are all appropriate dates for fall session
     @course_offering = events(:course_offering)
     @schedule_posted = events(:schedule_posted)
     @member_reg = events(:member_reg)

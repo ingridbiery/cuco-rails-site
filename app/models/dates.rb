@@ -22,8 +22,8 @@ class Dates < ActiveRecord::Base
     # find all Tuesdays between start and stop (by getting all dates between
     # start and end, then selecting all days where wday is 2 which is Tuesday's
     # number)
-    all_tuesdays = (Date.parse(cuco_session.start_date)..
-                    Date.parse(cuco_session.end_date)).select {|d| d.wday == 2}
+    all_tuesdays = (cuco_session.start_date..
+                    cuco_session.end_date).select {|d| d.wday == 2}
 
     # store the basic dates (eventually, these constants might be configurable
     # somewhere online, but for now, we'll hardcode and we'll like it!)

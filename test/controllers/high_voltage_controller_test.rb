@@ -22,4 +22,10 @@ class HighVoltageControllerTest < ActionDispatch::IntegrationTest
     get page_path("expectations")
     assert_response :success
   end
+  
+  test "should get FAQ" do
+    get page_path("faq")
+    assert_response :success
+  end
+
 end

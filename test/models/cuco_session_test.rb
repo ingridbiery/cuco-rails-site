@@ -29,4 +29,12 @@ class CucoSessionTest < ActiveSupport::TestCase
     @cuco_session.save
     assert_not duplicate_cuco_session.valid?
   end
+  
+  # trying to test for start_date and end_date presence
+  # breaks cuco_sessions#valid_dates so we'll just skip that
+  
+  test "start date should be before end date" do
+    @cuco_session.start_date = @cuco_session.end_date
+    assert_not @cuco_session.valid?
+  end
 end

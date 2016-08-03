@@ -26,10 +26,9 @@ Rails.application.routes.draw do
   # create a new session
   resources :cuco_sessions do
     resources :courses
+    resources :dates, :only => [:show, :edit, :update]
   end
   
-  post "confirm_dates" => 'cuco_sessions#confirm_dates'
-
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

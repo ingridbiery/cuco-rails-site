@@ -3,34 +3,52 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   
-  setup do
-    @user = users(:lj)
+  def setup
+    @admin = users(:lj)
+    @admin.roles << roles(:admin)
+    @user = users(:js)
+    @user.roles << roles(:user)
   end
 
-  test "users index should fail when not logged in" do
+  #############################################################################
+  # index
+  #############################################################################
+
+  test "anonymous should not get index" do
     get :index
-    assert_response 302
-    assert_redirected_to new_user_session_path
+    assert_redirected_to root_path
   end
-  
-  test "users index when logged in" do
+
+  test "user should not get index" do
     sign_in @user
+    get :index
+    assert_redirected_to root_path
+  end
+
+  test "admin should get index" do
+    sign_in @admin
     get :index
     assert_response :success
   end
-  
-  test "user show should fail when not logged in" do
+
+  #############################################################################
+  # show
+  #############################################################################
+
+  test "anonymous should not get show" do
     get :show, id: @user.id
-    assert_response 302
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
-    
-  test "user show when logged in" do
+
+  test "user should get show for self" do
     sign_in @user
     get :show, id: @user.id
     assert_response :success
   end
-  
-  # there are other things in the controller that should be tested here
-  
+
+  test "user should not get show for someone else" do
+    sign_in @user
+    get :show, id: @admin.id
+    assert_redirected_to root_path
+  end
 end

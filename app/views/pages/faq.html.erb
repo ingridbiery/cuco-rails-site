@@ -1,0 +1,105 @@
+<%= content_for :page_title, 'FAQ - Columbus Unschoolers Cooperative (CUCO)' %>
+
+<h2>CUCO’s Frequently Asked Questions:</h2>
+<ul>
+  <li><%= link_to 'Can I bring kids that are not part of my family?', page_path("faq", anchor: 'not_my_kids') %></li>
+  <li><%= link_to 'What are the volunteer requirements?', page_path("faq", anchor: 'volunteer') %></li>
+  <li><%= link_to 'What if I can\'t afford the fees?', page_path("faq", anchor: 'fees_help') %></li>
+  <li><%= link_to 'Where do we meet?', page_path("faq", anchor: 'where') %></li>
+  <li><%= link_to 'When do we meet?', page_path("faq", anchor: 'when') %></li>
+  <li><%= link_to 'What are the co-op participation requirements?', page_path("faq", anchor: 'participation_reqs') %></li>
+  <li><%= link_to 'What do you mean by "unschooling principles"?', page_path("faq", anchor: 'unschooling') %></li>
+  <li><%= link_to 'How do I become a member?', page_path("faq", anchor: 'membership_reqs') %></li>
+  <li><%= link_to 'How much does it cost to become a member?', page_path("faq", anchor: 'cost') %></li>
+  <li><%= link_to 'When should I keep my child home?', page_path("faq", anchor: 'stay_home') %></li>
+</ul>
+
+<h4><%= content_tag(:a, 'Can I bring kids that are not part of my family?', :name => 'not_my_kids') %></h4>
+<p>As a co-op, full participation from most families is required for everything to run smoothly. However, there are a few rare cases where a family is already engaged in a child care arrangement or where a family would like to be involved in co-op but the parent(s) need to work and are unable to bring their own children. As long as this remains a rare exception, we are happy to try to accommodate everyone. Each family must pay the full membership fee, the host family should try to contribute a little extra volunteering or an absent parent can volunteer away from co-op, and each exception needs to be approved by the board of directors. Please request approval from <%= mail_to "help@columbusunschoolers.com" %>.</p>
+<p>If you are caring for a baby, there is no need for their family to pay the membership fee. Once the child is two, is not always under your direct supervision, or wants to sign up for a class, their family needs to join.</p>
+
+<h4><%= content_tag(:a, 'What are the volunteer requirements?', :name => 'volunteer') %></h4>
+<p>Each family must help with either setup before co-op, or cleanup after co-op (there is no need to sign up for these jobs). Each family should also aim for at least two jobs each session. Each family must do at least one job each session. If all jobs have already been taken, or you are unable to volunteer in any of the available jobs, let us know and we can find something else for you to do.</p>
+<p>Some job possibilities are:</p>
+<ul>
+  <li>prepare and teach a class on your own</li>
+  <li>be a member of a team that prepares and teaches a class</li>
+  <li>assist in a class</li>
+  <li>be in a room while kids do their own thing, helping to resolve conflicts and help kids take turns with limited materials and toys</li>
+</ul>
+<p>Every effort will be made to take your preferences into consideration, however, there may be times when you’ll need to play a role that is not your first choice. Our members need to be flexible and willing to cover whatever needs to be covered.</p>
+
+<h4><%= content_tag(:a, 'What if I can\'t afford the fees?', :name => 'fees_help') %></h4>
+<p>Financial assistance is available. We can give a partial or total waiver of the membership fee. There is no form to fill out. Simply contact our treasurer at <%= mail_to "fees@columbusunschoolers.com" %>. The treasurer is authorized to waive fees without consulting with anyone else, so your privacy is assured. Class fees are more challenging since those are simply passed along to individual teachers who use them for supplies. There are always free options each period. But if there is a need, we can consider changing our policies, so don't be afraid to ask.
+
+<h4><%= content_tag(:a, 'Where do we meet?', :name => 'where') %></h4>
+<p>We meet at Feddersen Community Center, 3911 Dresden St. Columbus (<%= link_to "map", "http://maps.google.com/maps?q=3911+Dresden+St,+Columbus,+OH&amp;hl=en&amp;sll=39.961176,-82.998794&amp;sspn=0.738922,0.983276&amp;z=16" %>). Please be very careful with your belongings. Feddersen does not keep lost and found items for more than a few days.<%= content_tag(:a, 'When do we meet?', :name => 'when') %><br /></p>
+
+<h4><%= content_tag(:a, 'When do we meet?', :name => 'when') %></h4>
+<p>We meet every Tuesday during sessions, which last approximately six weeks each, with occasional other meetings in advance for signup, orientation, and getting to know each other. See the <%= link_to "calendar", calendar_path %> for specific dates.</p>
+<p>Our first class begins promptly at 10:00 and the day ends by 3:00. There are four 55-minute periods for classes:</p>
+<ul>
+  <li>Arrival Time (9:30– 9:55)</li>
+  <li>Period 1 (10:00 – 10:55)</li>
+  <li>Period 2 (11:00 - 11:55)</li>
+  <li>Lunch (12:00 - 12:55)</li>
+  <li>Period 3 (1:00 - 1:55)</li>
+  <li>Period 4 (2:00 - 2:55)</li>
+</ul>
+<p>Many of our members attend the full day, but it is not necessary to attend for the entire day.</p>
+<p>Parents may not drop off children. A parent must remain with children and be available to work while their children are there. If you occasionally need to leave, you must make arrangements with another co-op parent to be responsible for your children.</p>
+<p>If you are just curious and would like to see the co-op in action before becoming a member or offering to teach, please contact <%= mail_to "help@columbusunschoolers.com" %> to make arrangements.</p>
+
+<h4><%= content_tag(:a, 'What are the co-op participation requirements?', :name => 'participation_reqs') %></h4>
+<p>You must be willing to make a firm commitment to:</p>
+<ol>
+  <li>Arrive on time for your classes.</li>
+  <li>Attend and participate on a weekly basis.</li>
+  <li>Abide by the <%= link_to "CUCO Expectations", page_path("expectations") %>.</li>
+  <li>Ensure that your children understand and agree to abide by the <%= link_to "CUCO Expectations", page_path("expectations") %>.</li>
+  <li>Pay all applicable fees (see <%= link_to "How much does it cost to become a member?", page_path("faq", anchor: 'cost') %>)</li>
+  <li>Become a member of The Columbus Unschoolers' Co-op Google group.</li>
+  <li>Be willing to help out during the day as needed (see <%= link_to "What are the volunteer requirements", page_path("faq", anchor: 'volunteer') %>)</li>
+  <li>Check the master schedule posted online or in the lobby as soon as you arrive each week to see where you are assigned during each period. This generally stays the same, but if someone is absent the scheduler may need to move some things around. Just look for your name.</li>
+  <li>Let the co-op Google group and the person responsible for the morning juggle know if for some reason you cannot attend one of the weeks of the session.</li>
+</ol>
+<p>Parents may not drop off children. A parent must remain with children and be available to work while their children are there. If you occasionally need to leave, you must make arrangements with another co-op parent to be responsible for your children.</p>
+<p>In an effort to reinforce the fact that we are a community and not just a source of classes, students must plan to attend at least two periods and lunch every week.</p>
+<p>When a family signs up for the co-op, they are making a commitment to attend and participate every week, barring emergency. Teachers have purchased supplies, organized games, and prepared materials and activities based on who is supposed to be in the class. The assistants have been assigned to specific classes and, if there isn't enough assistance in a given class, it can be a hardship on both the teachers and the students.</p>
+<p>When a family does need to miss a week, it is that family’s responsibility to let the co-op know as far in advance as possible that they won't be there.</p>
+<p>Once you become a member, you will be added to the Columbus Unschoolers Co-op Google group, where you can post information and ask questions. The Google group is the only formal communication vehicle for the co-op.</p>
+
+<h4><%= content_tag(:a, 'What do you mean by "unschooling principles"?', :name => 'unschooling') %></h4>
+<p>We recognize that some of our members will not have much knowledge of or experience with unschooling. Pam Sorooshian wrote an informative essay called <%= link_to 'Principles of Unschooling', 'http://sandradodd.com/pam/principles.html' %>. Being an unschooling co-op does not mean that we expect each member family will live these principles all the time. However, it is expected that while at co-op, certain core principles will be followed:</p>
+<ul>
+  <li>Children will be treated with as much respect as adults, although they may need more guidance. If discipline is necessary, it will be handled respectfully. Shaming students is never appropriate.</li>
+  <li>No one will be signed up for a class they are not interested in attending.</li>
+  <li>Testing for the purpose of assigning grades will not be done.</li>
+  <li>Competition and judging need to be handled carefully, with the input of the community.</li>
+</ul>
+<p>Anyone who is unsure of how to approach teaching a class in this manner is welcome to volunteer in other ways, and/or consult with the e-group or other members to become more comfortable with how to apply unschooling principles.</p>
+
+<h4><%= content_tag(:a, 'How do I become a member?', :name => 'membership_reqs') %></h4>
+<p>If you are interested in joining please contact <%= mail_to "help@columbusunschoolers.com" %>. We will need your name and preferred e-mail address to have an account set up for your family. If we are already at capacity you will be advised that your name has been put on the wait-list.</p>
+
+<h4><%= content_tag(:a, 'How much does it cost to become a member?', :name => 'cost') %></h4>
+<p>Members pay a per-family non-refundable membership fee of $25 per session (4 sessions per year, usually about six weeks each) to cover administrative costs, including our donation to the rec center. Financial records will be available for review by any member or prospective member. Financial aid is available to families that need it.</p>
+<p>In addition to the membership fee, some classes will have a fee associated with them in order to cover supplies or pay outside teachers. Our class offerings are limited to what our members offer so the number of free classes varies each session. However, there is always at least one free class each period.</p>
+
+<h4><%= content_tag(:a, 'When should I keep my child home?', :name => 'stay_home') %></h4>
+<p>Your child is too ill to go to co-op if he or she has any of the following symptoms:</p>
+<ul>
+  <li>Seems very tired and needs bed rest (common with flu symptoms)</li>
+  <li>Has vomiting or diarrhea in the past 24 hours.</li>
+  <li>Becomes short of breath or has increase in wheezing during normal activity.</li>
+  <li>Has a cough that interrupts his normal activity.</li>
+  <li>Has a temperature above 100 F by mouth.</li>
+  <li>Has yellow or green drainage from nose or eye(s).</li>
+  <li>Breaks out in a rash.</li>
+</ul>
+<p><strong>*Your child should not go to co-op until his/her temperature is below 100 F without the use of a fever reducing medication for 24 hours and is feeling better.</strong>
+<h5><strong>Contagious Disease</strong></h5>
+<p>A contagious disease is one that can be spread by close contact with another person or object. Examples include strep throat, pink eye, vomiting/diarrhea and chickenpox. A disease is often most contagious 24 hours before the child shows signs of illness. It is very hard to prevent the spread of germs in the co-op setting. However, good hand washing is the best prevention both in and out of co-op.</p>
+<p>If your child has been prescribed antibiotics, they should be on the antibiotics a full 24 hours before returning to co-op. If an antibiotic has been prescribed, be sure not to skip any doses and to take the full course of medication.</p>
+<p>In the case of <strong>head lice</strong>, keep your child home until he/she is nit-free.</p>
+<p>Here is a link to information about other childhood diseases: <%= link_to "When to Send Your Child Back to School", "http://www.kidsgrowth.com/resources/articledetail.cfm?id=1261" %></p>

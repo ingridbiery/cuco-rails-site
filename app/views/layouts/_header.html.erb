@@ -4,14 +4,17 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
       	<li><%= link_to 'Home', root_path %></li>
+      	<% if user_signed_in? %>
+        	<li><%= link_to 'My Info', user_path(current_user) %></li>
+        <% end %>
 	      <li><%= link_to 'Calendar', calendar_path %></li>
-	      <li>FAQ</li>
+	      <li><%= link_to 'FAQ', page_path("faq") %></li>
 	      <li><%= link_to 'Expectations', page_path("expectations") %></li>
 	      <li><%= link_to 'A Day at CUCO', page_path("dayatcuco") %></li>
 
 
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
-	      <% if user_signed_in? %>
+	      <% if user_signed_in? and current_user.can? :index, :families %>
           <li class="nav-item nav-item-dropdown">
             <a class="dropdown-trigger" href="#">Admin Settings</a>
             <ul class="dropdown-menu">
@@ -36,18 +39,15 @@
                 <%= link_to 'Rooms', rooms_path %>
               </li>
               
-    	        <% if current_user.can? :add_event, CucoSessionsController then %>
+    	        <% if current_user.can? :index, CucoSessionsController then %>
                 <li class="dropdown-menu-item">
                   <%= link_to 'Sessions', cuco_sessions_path %>
-                </li>              
-                <li class="dropdown-menu-item">
-                  <%= link_to 'New Session', new_cuco_session_path %>
                 </li>
               <% end %>
-            
-              <% if current_user.can? :index, :cuco_session then %>
+              
+    	        <% if current_user.can? :new, CucoSessionsController then %>
                 <li class="dropdown-menu-item">
-                  <%= link_to 'Sessions', cuco_sessions_path %>
+                  <%= link_to 'New Session', new_cuco_session_path %>
                 </li>
               <% end %>
             </ul>

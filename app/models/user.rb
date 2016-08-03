@@ -13,13 +13,25 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+  # note that presence: true doesn't work with booleans (because false is
+  # not present)
+  validates :notification_list, inclusion: [true, false]
+                    
+  # do some stuff each time a new user is created
+  after_create :after_create_action
                     
   # needed for action_access to control access to specific parts of our site
   # based on user roles. Needs to get all the roles for this user
   def clearance_levels
     roles.pluck(:name)
   end
-
+  
+  # a new user has just been created
+  # add the user to the user role
+  def after_create_action
+    roles << Role.find_by(name: "user")
+  end
+    
   # the name of this user. If there is no Person associated with this User yet,
   # return the email address
   def name

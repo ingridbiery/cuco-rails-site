@@ -1,4 +1,6 @@
 class FamiliesController < ApplicationController
+  # this is not what we want except in development
+  let :user, :all
   before_action :set_family, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 

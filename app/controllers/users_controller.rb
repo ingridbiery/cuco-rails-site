@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  let :admin, :index
+  let :all, [:show, :edit, :destroy] # we will restrict in show to only show own user
+  before_action :set_user, only: [:show, :destroy]
   before_action :authenticate_user!
   
   # GET /users
@@ -9,25 +11,21 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-  end
-
-  # GET /users/1/edit
-  def edit
-  end
-
-  # PATCH/PUT /users/1
-  def update
-    if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
-    else
-      render :edit
+    # only show the user if it is the current user
+    unless params[:id].to_i == current_user.id
+      not_authorized! path: root_path, message: "That's not you!"
     end
   end
 
   # DELETE /users/1
   def destroy
-    @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed.'
+    # only show the user if it is the current user
+    unless params[:id].to_i == current_user.id
+      not_authorized! path: root_path, message: "That's not you!"
+    else
+      @user.destroy
+      redirect_to users_url, notice: 'User was successfully destroyed.'
+    end
   end
 
   private
@@ -35,9 +33,7 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
     end
-
-    # Only allow a trusted parameter "white list" through.
-    def user_params
-      params[:user].permit(:email)
-    end
+    
+    # trusted params are handled in the application controller since we don't
+    # do new/create edit/update here
 end

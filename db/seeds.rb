@@ -5,19 +5,18 @@ else
 end
 
 Role.destroy_all
-role_a = Role.create!(name: "admin")
+role_w = Role.create!(name: "web_team")
 role_ga = Role.create!(name: "google_admin")
 role_b = Role.create!(name: "board_member")
 role_u = Role.create!(name: "user")
 
 User.destroy_all
 js = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'js@example.com', notification_list: true)
-js.roles << role_a
-js.roles << role_m
+js.roles << role_w
 lj = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'lj@example.com', notification_list: true)
 cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'cucocalendar@gmail.com', notification_list: false)
 cuco_calendar.roles << role_ga
-cuco_calendar.roles << role_a
+cuco_calendar.roles << role_w
 
 Pronoun.destroy_all
 he = Pronoun.create!(preferred_pronouns: "He/Him/His")
@@ -77,11 +76,35 @@ All ages welcome, but under 7 should be accompanied by an adult.
 f.families << williams
                 
 EventType.destroy_all
-EventType.create!(name: :course_offering)
-EventType.create!(name: :schedule_posted)
-EventType.create!(name: :member_reg)
-EventType.create!(name: :former_reg)
-EventType.create!(name: :new_reg)
-EventType.create!(name: :fees_posted)
-EventType.create!(name: :fees_due)
-EventType.create!(name: :courses)
+EventType.create!(name: :course_offering, display_name: "Class Offerings",
+                  start_date_offset: 33, start_time: Time.parse("23:30"),
+                  end_date_offset: 28, end_time: Time.parse("23:30"),
+                  members_only: true, registration: false)
+EventType.create!(name: :schedule_posted, display_name: "Schedule Posted",
+                  start_date_offset: 27, start_time: Time.parse("12:00"),
+                  end_date_offset: 27, end_time: Time.parse("12:00"),
+                  members_only: false, registration: false)
+EventType.create!(name: :member_reg, display_name: "Member Registration",
+                  start_date_offset: 26, start_time: Time.parse("23:30"),
+                  end_date_offset: 19, end_time: Time.parse("23:30"),
+                  members_only: true, registration: true)
+EventType.create!(name: :former_reg, display_name: "Former Member Registration",
+                  start_date_offset: 25, start_time: Time.parse("23:30"),
+                  end_date_offset: 19, end_time: Time.parse("23:30"),
+                  members_only: true, registration: true)
+EventType.create!(name: :new_reg, display_name: "New Member Registration",
+                  start_date_offset: 24, start_time: Time.parse("23:30"),
+                  end_date_offset: 19, end_time: Time.parse("23:30"),
+                  members_only: false, registration: true)
+EventType.create!(name: :fees_posted, display_name: "Fees Posted",
+                  start_date_offset: 18, start_time: Time.parse("23:30"),
+                  end_date_offset: 18, end_time: Time.parse("23:30"),
+                  members_only: false, registration: false)
+EventType.create!(name: :fees_due, display_name: "Fees Due",
+                  start_date_offset: 14, start_time: Time.parse("23:30"),
+                  end_date_offset: 14, end_time: Time.parse("23:30"),
+                  members_only: false, registration: false)
+EventType.create!(name: :courses, display_name: "Week",
+                  start_date_offset: 0, start_time: Time.parse("09:45"),
+                  end_date_offset: 0, end_time: Time.parse("15:15"),
+                  members_only: false, registration: false)

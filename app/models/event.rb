@@ -9,12 +9,12 @@ class Event < ActiveRecord::Base
   def status_text
     if (start_dt != end_dt)
       if (start_dt <= Time.now)
-        "#{name} ending #{end_dt}"
+        "#{name} ending #{end_dt.strftime("%-m/%-d/%Y at %I:%M%P")}"
       else
-        "#{name} from #{start_dt} to #{end_dt}"
+        "#{name} from #{start_dt.strftime("%-m/%-d/%Y at %I:%M%P")} to #{end_dt.strftime("%-m/%-d/%Y at %I:%M%P")}"
       end
     else
-      "#{name} on #{start_dt}"
+      "#{name} on #{start_dt.strftime("%-m/%-d/%Y at %I:%M%P")}"
     end
   end
 end

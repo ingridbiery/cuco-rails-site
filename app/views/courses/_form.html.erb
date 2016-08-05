@@ -12,6 +12,17 @@
     </div>
   <% end %>
 
+  <% if user_signed_in? and current_user.can? :new, CucoSessionsController then %>
+    <%=f.label :room %>
+    <%= f.collection_select(:assigned_room, Room.all, :id, :name) %>
+    <%=f.label :period %>
+    [Placeholder] <br>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <hr />
+  <% end %>
+
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>

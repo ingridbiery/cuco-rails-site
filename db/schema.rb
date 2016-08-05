@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725184140) do
+ActiveRecord::Schema.define(version: 20160805041501) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160725184140) do
     t.text     "time_reqs"
     t.boolean  "drop_ins"
     t.text     "additional_info"
-    t.string   "assigned_room"
+    t.integer  "assigned_room"
     t.integer  "assigned_period"
     t.integer  "cuco_session_id"
     t.datetime "created_at",      null: false
@@ -95,6 +95,14 @@ ActiveRecord::Schema.define(version: 20160725184140) do
 
   add_index "people", ["family_id", "created_at"], name: "index_people_on_family_id_and_created_at"
   add_index "people", ["family_id"], name: "index_people_on_family_id"
+
+  create_table "periods", force: :cascade do |t|
+    t.string   "name"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "pronouns", force: :cascade do |t|
     t.string "preferred_pronouns"

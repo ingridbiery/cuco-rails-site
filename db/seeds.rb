@@ -51,6 +51,11 @@ williams.people.create!(first_name: "Christopher", last_name: "Williams", dob: "
 williams.people.create!(first_name: "David", last_name: "Williams", dob: "2002/01/01".to_date, pronoun_id: he.id)
 williams.people.create!(first_name: "Matthew", last_name: "Williams", dob: "2005/01/01".to_date, pronoun_id: he.id)
 
+Room.destroy_all
+meetingRoom = Room.create!(name: "Meeting Room")
+gym = Room.create!(name: "Gym")
+bigArtRoom = Room.create!(name: "Big Art Room")
+
 CucoSession.destroy_all
 s = CucoSession.create!(name: "2016 Spring", start_date: "2016/03/20".to_date, end_date: "2016/05/20".to_date)
 s.courses.create!(title: "Washi Tape Crafts", short_title: "Washi",
@@ -58,7 +63,7 @@ s.courses.create!(title: "Washi Tape Crafts", short_title: "Washi",
                   min_age: 6, max_age: 100, age_firm: false, min_students: 2,
                   max_students: 14, fee: 5, supplies: "", room_reqs: "",
                   time_reqs: "", drop_ins: false, additional_info: "",
-                  assigned_room: "", assigned_period: 1)
+                  assigned_room: meetingRoom.id,  assigned_period: 1)
 f = CucoSession.create!(name: "2016 Fall", start_date: "2016/09/10".to_date, end_date: "2016/12/20".to_date)
 f.courses.create!(title: "Beginner Gymnastics", short_title: "Gymnastics",
                   description: "We will work on floor and beam skills, levels 1-5: mainly hops, jumps, turns, and light tumbling.
@@ -72,7 +77,7 @@ All ages welcome, but under 7 should be accompanied by an adult.
                   room_reqs: "We need mats. I would prefer the upstairs dance room.",
                   time_reqs: "Not first period. Second, third, or 4th is fine - cannot conflict with customization class.",
                   drop_ins: false, additional_info: "",
-                  assigned_room: "", assigned_period: 2)
+                  assigned_room: gym.id, assigned_period: 2)
                 
 EventType.destroy_all
 EventType.create!(name: :course_offering)

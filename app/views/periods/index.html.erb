@@ -4,7 +4,7 @@
   <% @periods.each do |period| %>
     <tr>
       <td><%= link_to period.name, edit_period_path(period) %></td>
-      <td>(<%= period.start_time.strftime("%l:%M%P") %> - <%= period.end_time.strftime("%l:%M%P") %>)</td>
+      <td>(<%= period.start_time.strftime("%l:%M%P") %> - <%= period.end_time.strftime("%l:%M%P ") %>)</td>
       <td><%= link_to image_tag('wrench.png'), edit_period_path(period),
               title: "Edit #{period.name}" %></td>
       <td><%= link_to image_tag('delete.png'), period, method: :delete,

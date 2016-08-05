@@ -96,14 +96,6 @@ ActiveRecord::Schema.define(version: 20160805041501) do
   add_index "people", ["family_id", "created_at"], name: "index_people_on_family_id_and_created_at"
   add_index "people", ["family_id"], name: "index_people_on_family_id"
 
-  create_table "periods", force: :cascade do |t|
-    t.string   "name"
-    t.time     "start_time"
-    t.time     "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "pronouns", force: :cascade do |t|
     t.string "preferred_pronouns"
   end

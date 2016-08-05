@@ -4,7 +4,6 @@ class CreatePeriods < ActiveRecord::Migration
       t.string :name
       t.time :start_time
       t.time :end_time
-      t.references :course, index: true, foreign_key: true
 
       t.timestamps null: false
     end

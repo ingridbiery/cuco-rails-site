@@ -11,6 +11,9 @@ class CucoSession < ActiveRecord::Base
   validates :end_date, presence: true
   validate :valid_dates
   
+  # maximum number of kids per sesson
+  MAX_KIDS = 100
+  
   # get the current session, if there is one (the session where today is between
   # the start and end dates of the rec center)
   def self.current
@@ -34,6 +37,22 @@ class CucoSession < ActiveRecord::Base
   def self.last
     cuco_sessions = CucoSession.where('start_date < ?', Time.now).order(start_date: :desc)
     cuco_sessions.first.presence
+  end
+  
+  # is this session currently full? That is, are there 100 or more kids signed up
+  # we might want to make this limit configurable in the future, but for now,
+  # it's hardcoded
+  def full?
+    return num_kids >= MAX_KIDS
+  end
+  
+  # return the number of kids signed up so far
+  def num_kids
+    num = 0
+    families.each do |family|
+      num += family.num_kids
+    end
+    num
   end
 
   private

@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
     if !@next_cuco_session.nil? and !@next_cuco_session.dates.nil? then
       @next_event_in_next = @next_cuco_session.dates.next_event(current_user)
       @membership_signup = @next_cuco_session.dates.membership_signup?(current_user)
+      @full = @next_cuco_session.full?
     end
   end
   

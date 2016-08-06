@@ -82,15 +82,26 @@
     <% if !@next_event_in_next.nil? %>
       <%= @next_event_in_next.status_text %>
       <% if @membership_signup %>
-        <strong>Membership signups are open.</strong>
-        <% if !user_signed_in? %>
-          <strong>Please <%= link_to 'log in', new_user_session_path %> to be able to sign up</strong>
-        <% elsif current_user.person.nil? %>
-          <strong>Please enter or finish entering your <%= link_to 'family information', user_path(current_user) %> to be able to sign up</strong>
-        <% elsif current_user.person.family.cuco_sessions.include? @next_cuco_session %>
-          <strong>You are already a member</strong>
+        <% if @full %>
+          <strong>This session is full with <%= @next_cuco_session.num_kids %> out of <%= CucoSession::MAX_KIDS %>.<br/>
+          Be sure you're on our 
+          <% if user_signed_in? %>
+            <% link_to "notification list", user_path(current_user) %>
+          <% else %>
+            <%= link_to "notification list", new_user_registration_path %>
+          <% end %>
+          for reminders about future sessions.</strong>
         <% else %>
-          <strong>SIGN UP NOW (this is not a link yet)</strong>
+          <strong>Membership signups are open with <%= @next_cuco_session.num_kids %> out of <%= CucoSession::MAX_KIDS %> currently enrolled.</strong><br/>
+          <% if !user_signed_in? %>
+            <strong>Please <%= link_to 'log in', new_user_session_path %> to be able to sign up</strong>
+          <% elsif current_user.person.nil? %>
+            <strong>Please enter or finish entering your <%= link_to 'family information', user_path(current_user) %> to be able to sign up</strong>
+          <% elsif current_user.person.family.cuco_sessions.include? @next_cuco_session %>
+            <strong>You are already a member</strong>
+          <% else %>
+            <strong>SIGN UP NOW (this is not a link yet)</strong>
+          <% end %>
         <% end %>
       <% end %>
     <% else %>

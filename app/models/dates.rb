@@ -72,7 +72,7 @@ class Dates < ActiveRecord::Base
     event
   end
   
-  # figure out if membership signups are currently open
+  # figure out if membership signups are currently open for the given user type
   def membership_signup?(user)
     upcoming_events = get_upcoming_events
     # if the next event is a registration event

@@ -5,8 +5,8 @@ class PeriodsControllerTest < ActionController::TestCase
 
   def setup
     @period = periods(:first)
-    @admin = users(:lj)
-    @admin.roles << roles(:admin)
+    @web_team = users(:lj)
+    @web_team.roles << roles(:web_team)
     @user = users(:js)
     @user.roles << roles(:user)
   end
@@ -26,8 +26,8 @@ class PeriodsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "admin should get index" do
-    sign_in @admin
+  test "web_team should get index" do
+    sign_in @web_team
     get :index
     assert_response :success
   end
@@ -60,8 +60,8 @@ class PeriodsControllerTest < ActionController::TestCase
     assert_redirected_to periods_path
   end
 
-  test "admin should get new" do
-    sign_in @admin
+  test "web_team should get new" do
+    sign_in @web_team
     get :new
     assert_response :success
   end

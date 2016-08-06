@@ -1,7 +1,8 @@
 class CucoSession < ActiveRecord::Base
   has_many :courses, dependent: :destroy
   has_one :dates, dependent: :destroy
-  has_and_belongs_to_many :families
+  has_many :memberships, dependent: :destroy
+  has_many :families, through: :memberships
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },
                    uniqueness: { message: "already exists." }

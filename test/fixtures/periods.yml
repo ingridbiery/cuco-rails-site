@@ -1,0 +1,36 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+before:
+  name: "before"
+  start_time: "09:30:00"
+  end_time: "10:00:00"
+
+first:
+  name: "first"
+  start_time: "10:00:00"
+  end_time: "11:00:00"
+
+second:
+  name: "second"
+  start_time: "11:00:00"
+  end_time: "12:00:00"
+
+lunch:
+  name: "lunch"
+  start_time: "12:00:00"
+  end_time: "13:00:00"
+
+third:
+  name: "third"
+  start_time: "13:00:00"
+  end_time: "14:00:00"
+
+fourth:
+  name: "fourth"
+  start_time: "14:00:00"
+  end_time: "15:00:00"
+
+after:
+  name: "after"
+  start_time: "15:00:00"
+  end_time: "15:30:00"

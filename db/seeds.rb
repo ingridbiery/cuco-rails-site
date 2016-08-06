@@ -83,3 +83,7 @@ EventType.create!(name: :new_reg)
 EventType.create!(name: :fees_posted)
 EventType.create!(name: :fees_due)
 EventType.create!(name: :courses)
+
+Period.destroy_all
+Period.create!(name: "First", start_time: "10:00:00", end_time: "11:00:00")
+Period.create!(name: "Second", start_time: "11:00:00", end_time: "12:00:00")

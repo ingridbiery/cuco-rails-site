@@ -5,7 +5,7 @@ else
 end
 
 Role.destroy_all
-role_a = Role.create!(name: "admin")
+role_w = Role.create!(name: "web_team")
 role_ga = Role.create!(name: "google_admin")
 role_m = Role.create!(name: "member")
 role_fm = Role.create!(name: "former_member")
@@ -14,12 +14,12 @@ role_u = Role.create!(name: "user")
 
 User.destroy_all
 js = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'js@example.com', notification_list: true)
-js.roles << role_a
+js.roles << role_w
 js.roles << role_m
 lj = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'lj@example.com', notification_list: true)
 cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'cucocalendar@gmail.com', notification_list: false)
 cuco_calendar.roles << role_ga
-cuco_calendar.roles << role_a
+cuco_calendar.roles << role_w
 
 Pronoun.destroy_all
 he = Pronoun.create!(preferred_pronouns: "He/Him/His")

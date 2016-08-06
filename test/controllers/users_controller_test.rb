@@ -4,8 +4,8 @@ class UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   
   def setup
-    @admin = users(:lj)
-    @admin.roles << roles(:admin)
+    @web_team = users(:lj)
+    @web_team.roles << roles(:web_team)
     @user = users(:js)
     @user.roles << roles(:user)
   end
@@ -25,8 +25,8 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
-  test "admin should get index" do
-    sign_in @admin
+  test "web team should get index" do
+    sign_in @web_team
     get :index
     assert_response :success
   end
@@ -48,7 +48,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "user should not get show for someone else" do
     sign_in @user
-    get :show, id: @admin.id
+    get :show, id: @web_team.id
     assert_redirected_to root_path
   end
 end

@@ -12,20 +12,51 @@ class ApplicationController < ActionController::Base
   # find information about current session and upcoming events to display in header
   before_filter :get_session_info
   def get_session_info
-    @current_cuco_session = CucoSession.current
-    @next_event_in_current = nil
-    if !@current_cuco_session.nil? and !@current_cuco_session.dates.nil? then
-      @next_event_in_current = @current_cuco_session.dates.next_event(current_user)
-    end
-    @next_cuco_session = CucoSession.next
-    @next_event_in_next = nil
-    if !@next_cuco_session.nil? and !@next_cuco_session.dates.nil? then
-      @next_event_in_next = @next_cuco_session.dates.next_event(current_user)
-      @membership_signup = @next_cuco_session.dates.membership_signup?(current_user)
-      @full = @next_cuco_session.full?
+    get_current_session_info
+    get_next_session_info
+  end
+
+  # set the text to display for the current session in @current_session_info
+  def get_current_session_info
+    cuco_session = CucoSession.current
+    if !cuco_session.nil? then
+      @current_session_info = "Current Session: #{cuco_session.name}."
+      if !cuco_session.dates.nil? then
+        next_event = cuco_session.dates.next_event(current_user)
+        if next_event.nil? then
+          @current_session_info += "No upcoming events"
+        else
+          @current_session_info += next_event.status_text
+        end
+      end
     end
   end
-  
+
+  # set the text to display for the next session in @next_session_info
+  # if signups are open, we will also set @membership_signup_info, and @next_cuco_session
+  def get_next_session_info
+    cuco_session = CucoSession.next
+    if !cuco_session.nil? then
+      @next_session_info = "Next Session: #{cuco_session.name}."
+      if !cuco_session.dates.nil? then
+        next_event = cuco_session.dates.next_event(current_user)
+        if !next_event.nil? then
+          @next_session_info += next_event.status_text
+          if cuco_session.dates.membership_signup?(current_user) then
+            @next_cuco_session = cuco_session
+            if cuco_session.full?
+              @membership_signup_info = "This session is full with #{cuco_session.num_kids} out of #{CucoSession::MAX_KIDS} kids enrolled"
+            else
+              @membership_signup_info = "Membership signups are open with #{cuco_session.num_kids} out of #{CucoSession::MAX_KIDS} kids currently enrolled."
+            end
+          end
+        end
+      else
+        @next_session_text += "Dates not set yet. Please check back soon."
+      end
+    end
+  end
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception

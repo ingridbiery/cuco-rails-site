@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725184140) do
+ActiveRecord::Schema.define(version: 20160804192757) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20160725184140) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "start_date"
-    t.string   "end_date"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "dates", force: :cascade do |t|
@@ -53,8 +53,15 @@ ActiveRecord::Schema.define(version: 20160725184140) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "display_name"
+    t.integer  "start_date_offset"
+    t.time     "start_time"
+    t.integer  "end_date_offset"
+    t.time     "end_time"
+    t.boolean  "members_only"
+    t.boolean  "registration"
   end
 
   create_table "events", force: :cascade do |t|
@@ -81,6 +88,16 @@ ActiveRecord::Schema.define(version: 20160725184140) do
     t.datetime "updated_at",       null: false
     t.integer  "primary_adult_id"
   end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "family_id"
+    t.integer  "cuco_session_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "memberships", ["cuco_session_id"], name: "index_memberships_on_cuco_session_id"
+  add_index "memberships", ["family_id"], name: "index_memberships_on_family_id"
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"

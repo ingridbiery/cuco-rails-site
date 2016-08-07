@@ -4,6 +4,10 @@ class UserTest < ActiveSupport::TestCase
 
   def setup
     @user = users(:js)
+    @person = people(:jennifer)
+    @family = families(:smith)
+    @fall = cuco_sessions(:fall)
+    @spring = cuco_sessions(:spring)
   end
   
   test "should be valid" do
@@ -63,5 +67,37 @@ class UserTest < ActiveSupport::TestCase
   end
 
   #  can't test for boolean because rails will typecast
+  
+  test "user with no person should be :new" do
+    @user.person = nil
+    assert_equal :new, @user.membership
+  end
 
+  test "user with no membership should be :new" do
+    assert_equal :new, @user.membership
+  end
+
+  test "member of previous session should be :former after new session starts" do
+    travel_to @fall.start_date.to_date + 1
+    @user.person.family.cuco_sessions << @spring
+    assert_equal :former, @user.membership
+  end
+
+  test "member of previous session should be :member before new session starts" do
+    travel_to @fall.start_date.to_date - 1
+    @user.person.family.cuco_sessions << @spring
+    assert_equal :member, @user.membership
+  end
+
+  test "not member of previous session should be :former before new session starts" do
+    travel_to @fall.end_date.to_date + 1
+    @user.person.family.cuco_sessions << @spring
+    assert_equal :former, @user.membership
+  end
+
+  test "member of current session should be :member" do
+    travel_to @fall.start_date.to_date + 1
+    @user.person.family.cuco_sessions << @fall
+    assert_equal :member, @user.membership
+  end
 end

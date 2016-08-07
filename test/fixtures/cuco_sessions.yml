@@ -1,11 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-fall:
-  name: "2016 Fall"
-  start_date: "2016/09/01"
-  end_date: "2016/11/01"
+winter:
+  name: "2016 Winter"
+  start_date: 2016-01-01
+  end_date: 2016-02-28
 
 spring:
   name: "2016 Spring"
-  start_date: "2016/03/01"
-  end_date: "2016/05/01"
+  start_date: 2016-03-15
+  end_date: 2016-05-15
+
+fall:
+  name: "2016 Fall"
+  start_date: 2016-09-01
+  end_date: 2016-11-01
+

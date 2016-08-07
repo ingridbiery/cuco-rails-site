@@ -6,7 +6,6 @@ smith:
   city: "Columbus"
   state: "OH"
   zip: 43224
-  primary_adult_id: 1
 
 johnson:
   name: "Johnson"
@@ -14,7 +13,6 @@ johnson:
   city: "Columbus"
   state: "OH"
   zip: 43224
-  primary_adult_id: 3
 
 williams:
   name: "Williams"
@@ -22,4 +20,3 @@ williams:
   city: "Columbus"
   state: "OH"
   zip: 43224
-  primary_adult_id: 4

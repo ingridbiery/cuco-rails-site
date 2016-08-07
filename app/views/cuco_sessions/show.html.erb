@@ -2,11 +2,15 @@
 
 <h2>Session <%= @cuco_session.name %></h2>
 
-<h3>Dates</h3>
-<% if @cuco_session.dates == nil %>
-  Edit this session to have dates automatically calculated
-<% else %>
-  Show <%= link_to "dates", cuco_session_dates_path(@cuco_session, @cuco_session.dates) %>
+<% if user_signed_in? and current_user.can? :show, DatesController %>
+  <h3>Dates</h3>
+  <% if @cuco_session.dates == nil %>
+    <% if user_signed_in? and current_user.can? :edit, DatesController %>
+      Edit this session to have dates automatically calculated
+    <% end %>
+  <% else %>
+    Show <%= link_to "dates", cuco_session_dates_path(@cuco_session, @cuco_session.dates) %>
+  <% end %>
 <% end %>
 
 <h3>Courses (<%= @cuco_session.courses.count %>)
@@ -19,6 +23,11 @@
     </ul>
   <% end %>
 
-<%= link_to 'Edit', edit_cuco_session_path(@cuco_session) %> |
-<%= link_to 'Destroy', @cuco_session, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% if user_signed_in? and current_user.can? :edit, CucoSessionsController %>
+  <%= link_to 'Edit', edit_cuco_session_path(@cuco_session) %> |
+<% end %>
+<% if user_signed_in? and current_user.can? :destroy, CucoSessionsController and
+       GoogleAPI.check_authorization?(current_user) %>
+  <%= link_to 'Destroy', @cuco_session, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% end %>
 <%= link_to "Back to Sessions", cuco_sessions_path %>

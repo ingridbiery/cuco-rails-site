@@ -16,7 +16,7 @@
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
 	      <% if user_signed_in? and current_user.can? :index, :families %>
           <li class="nav-item nav-item-dropdown">
-            <a class="dropdown-trigger" href="#">Admin Settings</a>
+            <a class="dropdown-trigger" href="#">Admin</a>
             <ul class="dropdown-menu">
 
               <li class="dropdown-menu-item">
@@ -39,13 +39,19 @@
                 <%= link_to 'Rooms', rooms_path %>
               </li>
               
-    	        <% if current_user.can? :index, CucoSessionsController then %>
+              <% if current_user.can? :index, EventTypesController %>
+                <li class="dropdown-menu-item">
+                  <%= link_to 'Event Types', event_types_path %>
+                </li>
+              <% end %>
+              
+    	        <% if current_user.can? :index, CucoSessionsController %>
                 <li class="dropdown-menu-item">
                   <%= link_to 'Sessions', cuco_sessions_path %>
                 </li>
               <% end %>
               
-    	        <% if current_user.can? :new, CucoSessionsController then %>
+    	        <% if current_user.can? :new, CucoSessionsController %>
                 <li class="dropdown-menu-item">
                   <%= link_to 'New Session', new_cuco_session_path %>
                 </li>
@@ -64,6 +70,46 @@
       <%= link_to 'Log in', new_user_session_path %>
       <br /><%= link_to 'Sign up', new_user_registration_path %>
     <% end %></span>
-
   </div>
+  
+  <% if !@current_cuco_session.nil? %>
+    <div id="notice">Current Session: <%= @current_cuco_session.name %>.
+    <% if !@next_event_in_current.nil? %>
+      <%= @next_event_in_current.status_text %>
+    <% else %>
+      No upcoming events.
+    <% end %>
+    </div>
+  <% end %>
+  <% if !@next_cuco_session.nil? %>
+    <div id="notice">Next Session: <%= @next_cuco_session.name %>.
+    <% if !@next_event_in_next.nil? %>
+      <%= @next_event_in_next.status_text %>
+      <% if @membership_signup %>
+        <% if @full %>
+          <strong>This session is full with <%= @next_cuco_session.num_kids %> out of <%= CucoSession::MAX_KIDS %>.<br/>
+          Be sure you're on our 
+          <% if user_signed_in? %>
+            <% link_to "notification list", user_path(current_user) %>
+          <% else %>
+            <%= link_to "notification list", new_user_registration_path %>
+          <% end %>
+          for reminders about future sessions.</strong>
+        <% else %>
+          <strong>Membership signups are open with <%= @next_cuco_session.num_kids %> out of <%= CucoSession::MAX_KIDS %> currently enrolled.</strong><br/>
+          <% if !user_signed_in? %>
+            <strong>Please <%= link_to 'log in', new_user_session_path %> to be able to sign up</strong>
+          <% elsif current_user.person.nil? %>
+            <strong>Please enter or finish entering your <%= link_to 'family information', user_path(current_user) %> to be able to sign up</strong>
+          <% elsif current_user.person.family.cuco_sessions.include? @next_cuco_session %>
+            <strong>You are already a member</strong>
+          <% else %>
+            <strong>SIGN UP NOW (this is not a link yet)</strong>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      Dates not set yet. Please check back soon.
+    <% end %>
+  <% end %>
 </header>

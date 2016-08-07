@@ -1,5 +1,7 @@
 class Family < ActiveRecord::Base
   has_many :people, dependent: :destroy
+  has_many :memberships, dependent: :destroy
+  has_many :cuco_sessions, through: :memberships
   default_scope -> { order(name: :asc) }
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false },
@@ -27,4 +29,12 @@ class Family < ActiveRecord::Base
     end
     return nil
   end
+  
+  # get the number of kids in this family
+  def num_kids
+    return 0 if people.nil?
+    # adults have nil for the date of birth
+    people.where.not(dob: nil).count
+  end
+  
 end

@@ -4,8 +4,16 @@ js:
   encrypted_password: "password"
   email: "js@example.com"
   notification_list: true
+  person: jennifer
 
 lj:
   encrypted_password: "password"
   email: "lj@example.com"
   notification_list: false
+  person: lisa
+  
+new:
+  encrypted_password: "password"
+  email: "new@example.com"
+  notification_list: false
+

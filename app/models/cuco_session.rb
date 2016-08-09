@@ -46,13 +46,22 @@ class CucoSession < ActiveRecord::Base
     return num_kids >= MAX_KIDS
   end
   
-  # return the number of kids signed up so far
-  def num_kids
-    num = 0
+  # return the kids signed up for this session
+  def kids
+    result = []
     families.each do |family|
-      num += family.num_kids
+      result += family.kids
     end
-    num
+    result
+  end
+  
+  # return the adults signed up for this session
+  def adults
+    result = []
+    families.each do |family|
+      result += family.adults
+    end
+    result
   end
 
   private

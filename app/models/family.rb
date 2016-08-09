@@ -30,11 +30,18 @@ class Family < ActiveRecord::Base
     return nil
   end
   
-  # get the number of kids in this family
-  def num_kids
-    return 0 if people.nil?
+  # get the kids in this family
+  def kids
+    return [] if people.nil?
     # adults have nil for the date of birth
-    people.where.not(dob: nil).count
+    people.where.not(dob: nil)
   end
-  
+
+  # get the adults in this family
+  def adults
+    return [] if people.nil?
+    # adults have nil for the date of birth
+    people.where(dob: nil)
+  end
+
 end

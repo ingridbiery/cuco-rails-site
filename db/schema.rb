@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804192757) do
+ActiveRecord::Schema.define(version: 20160809205716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  add_index "courses", ["cuco_session_id"], name: "index_courses_on_cuco_session_id", using: :btree
 
   create_table "cuco_sessions", force: :cascade do |t|
     t.string   "name"
@@ -92,6 +94,8 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.integer  "primary_adult_id"
   end
 
+  add_index "families", ["primary_adult_id"], name: "index_families_on_primary_adult_id", using: :btree
+
   create_table "memberships", force: :cascade do |t|
     t.integer  "family_id"
     t.integer  "cuco_session_id"
@@ -115,6 +119,7 @@ ActiveRecord::Schema.define(version: 20160804192757) do
 
   add_index "people", ["family_id", "created_at"], name: "index_people_on_family_id_and_created_at", using: :btree
   add_index "people", ["family_id"], name: "index_people_on_family_id", using: :btree
+  add_index "people", ["pronoun_id"], name: "index_people_on_pronoun_id", using: :btree
 
   create_table "periods", force: :cascade do |t|
     t.string   "name"
@@ -140,6 +145,9 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.integer "role_id", null: false
     t.integer "user_id", null: false
   end
+
+  add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id", using: :btree
+  add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
@@ -171,11 +179,16 @@ ActiveRecord::Schema.define(version: 20160804192757) do
   add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "courses", "cuco_sessions"
   add_foreign_key "dates", "cuco_sessions"
   add_foreign_key "events", "dates"
   add_foreign_key "events", "event_types"
+  add_foreign_key "families", "people", column: "primary_adult_id"
   add_foreign_key "memberships", "cuco_sessions"
   add_foreign_key "memberships", "families"
   add_foreign_key "people", "families"
+  add_foreign_key "people", "pronouns"
+  add_foreign_key "roles_users", "roles"
+  add_foreign_key "roles_users", "users"
   add_foreign_key "users", "people"
 end

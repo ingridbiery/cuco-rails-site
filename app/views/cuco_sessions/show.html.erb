@@ -22,28 +22,6 @@
     <% end %>
     </ul>
   <% end %>
-  
-<h3>People</h3>
-  <h4>Kids (<%= @cuco_session.kids.count %>)</h4>
-  <div>
-  <% @cuco_session.kids.each do |kid| %>
-    <%= kid.first_name %> <%= kid.last_name %>,
-  <% end %>
-  </div>
-  <div>
-  <h4>Adults (<%= @cuco_session.adults.count %>)</h4>
-  <% @cuco_session.adults.each do |adult| %>
-    <%= adult.first_name %> <%= adult.last_name %>,
-  <% end %>
-  </div>
-
-<h3>Families (<%= @cuco_session.families.count %>)</h3>
-<div>
-<% @cuco_session.families.each do |family| %>
-  <%= family.name %>,
-<% end %>
-</div>
-
 
 <% if user_signed_in? and current_user.can? :edit, CucoSessionsController %>
   <%= link_to 'Edit', edit_cuco_session_path(@cuco_session) %> |

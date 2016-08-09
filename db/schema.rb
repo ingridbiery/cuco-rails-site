@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160804192757) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "courses", force: :cascade do |t|
     t.string   "title"
     t.string   "short_title"
@@ -49,7 +52,7 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.integer "cuco_session_id"
   end
 
-  add_index "dates", ["cuco_session_id"], name: "index_dates_on_cuco_session_id"
+  add_index "dates", ["cuco_session_id"], name: "index_dates_on_cuco_session_id", using: :btree
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name"
@@ -75,8 +78,8 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.integer  "event_type_id"
   end
 
-  add_index "events", ["dates_id"], name: "index_events_on_dates_id"
-  add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
+  add_index "events", ["dates_id"], name: "index_events_on_dates_id", using: :btree
+  add_index "events", ["event_type_id"], name: "index_events_on_event_type_id", using: :btree
 
   create_table "families", force: :cascade do |t|
     t.string   "name"
@@ -96,8 +99,8 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "memberships", ["cuco_session_id"], name: "index_memberships_on_cuco_session_id"
-  add_index "memberships", ["family_id"], name: "index_memberships_on_family_id"
+  add_index "memberships", ["cuco_session_id"], name: "index_memberships_on_cuco_session_id", using: :btree
+  add_index "memberships", ["family_id"], name: "index_memberships_on_family_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
@@ -110,8 +113,8 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.text     "social_media"
   end
 
-  add_index "people", ["family_id", "created_at"], name: "index_people_on_family_id_and_created_at"
-  add_index "people", ["family_id"], name: "index_people_on_family_id"
+  add_index "people", ["family_id", "created_at"], name: "index_people_on_family_id_and_created_at", using: :btree
+  add_index "people", ["family_id"], name: "index_people_on_family_id", using: :btree
 
   create_table "periods", force: :cascade do |t|
     t.string   "name"
@@ -125,7 +128,7 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.string "preferred_pronouns"
   end
 
-  add_index "pronouns", ["preferred_pronouns"], name: "index_pronouns_on_preferred_pronouns", unique: true
+  add_index "pronouns", ["preferred_pronouns"], name: "index_pronouns_on_preferred_pronouns", unique: true, using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -164,8 +167,15 @@ ActiveRecord::Schema.define(version: 20160804192757) do
     t.boolean  "notification_list"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["person_id"], name: "index_users_on_person_id"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "dates", "cuco_sessions"
+  add_foreign_key "events", "dates"
+  add_foreign_key "events", "event_types"
+  add_foreign_key "memberships", "cuco_sessions"
+  add_foreign_key "memberships", "families"
+  add_foreign_key "people", "families"
+  add_foreign_key "users", "people"
 end

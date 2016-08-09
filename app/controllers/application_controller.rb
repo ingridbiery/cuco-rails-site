@@ -45,9 +45,9 @@ class ApplicationController < ActionController::Base
           if cuco_session.dates.membership_signup?(current_user) then
             @next_cuco_session = cuco_session
             if cuco_session.full?
-              @membership_signup_info = "This session is full with #{cuco_session.num_kids} out of #{CucoSession::MAX_KIDS} kids enrolled"
+              @membership_signup_info = "This session is full with #{cuco_session.kids.count} out of #{CucoSession::MAX_KIDS} kids enrolled"
             else
-              @membership_signup_info = "Membership signups are open with #{cuco_session.num_kids} out of #{CucoSession::MAX_KIDS} kids currently enrolled."
+              @membership_signup_info = "Membership signups are open with #{cuco_session.kids.count} out of #{CucoSession::MAX_KIDS} kids currently enrolled."
             end
           end
         end

@@ -43,7 +43,7 @@ class CucoSession < ActiveRecord::Base
   # we might want to make this limit configurable in the future, but for now,
   # it's hardcoded
   def full?
-    return num_kids >= MAX_KIDS
+    return kids.count >= MAX_KIDS
   end
   
   # return the kids signed up for this session

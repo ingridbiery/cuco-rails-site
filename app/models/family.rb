@@ -2,6 +2,8 @@ class Family < ActiveRecord::Base
   has_many :people, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :cuco_sessions, through: :memberships
+  has_many :kids, -> { where.not(dob: nil) }, class_name: 'Person', foreign_key: :family_id
+  has_many :adults, -> { where(dob: nil) }, class_name: 'Person', foreign_key: :family_id
   default_scope -> { order(name: :asc) }
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false },
@@ -30,18 +32,4 @@ class Family < ActiveRecord::Base
     return nil
   end
   
-  # get the kids in this family
-  def kids
-    return [] if people.nil?
-    # adults have nil for the date of birth
-    people.where.not(dob: nil)
-  end
-
-  # get the adults in this family
-  def adults
-    return [] if people.nil?
-    # adults have nil for the date of birth
-    people.where(dob: nil)
-  end
-
 end

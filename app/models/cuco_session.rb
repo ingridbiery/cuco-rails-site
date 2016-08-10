@@ -3,6 +3,8 @@ class CucoSession < ActiveRecord::Base
   has_one :dates, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :families, through: :memberships
+  has_many :kids, through: :families
+  has_many :adults, through: :families
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },
                    uniqueness: { message: "already exists." }
@@ -46,24 +48,6 @@ class CucoSession < ActiveRecord::Base
     return kids.count >= MAX_KIDS
   end
   
-  # return the kids signed up for this session
-  def kids
-    result = []
-    families.each do |family|
-      result += family.kids
-    end
-    result
-  end
-  
-  # return the adults signed up for this session
-  def adults
-    result = []
-    families.each do |family|
-      result += family.adults
-    end
-    result
-  end
-
   private
     # make sure the dates work
     def valid_dates

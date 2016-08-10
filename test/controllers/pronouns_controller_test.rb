@@ -17,7 +17,7 @@ class PronounsControllerTest < ActionController::TestCase
 
   test "anonymous should not get index" do
     get :index
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "user should get index" do
@@ -38,12 +38,12 @@ class PronounsControllerTest < ActionController::TestCase
 
   test "anonymous should not get new" do
     get :new
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "anonymous should not get create" do
-    put :create, pronoun: @pronoun.attributes
-    assert_redirected_to new_user_session_url
+    post :create, pronoun: @pronoun.attributes
+    assert_redirected_to root_url
   end
 
   test "user should get new" do
@@ -55,7 +55,7 @@ class PronounsControllerTest < ActionController::TestCase
   test "user should get create" do
     sign_in @user
     assert_difference('Pronoun.count', 1) do
-      put :create, pronoun: {preferred_pronouns: "a/b/c"}
+      post :create, pronoun: {preferred_pronouns: "a/b/c"}
     end
     assert_redirected_to pronouns_path
   end
@@ -66,30 +66,50 @@ class PronounsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "web team should get create" do
+    sign_in @web_team
+    assert_difference('Pronoun.count', 1) do
+      post :create, pronoun: {preferred_pronouns: "a/b/c"}
+    end
+    assert_redirected_to pronouns_path
+  end
+
   #############################################################################
   # edit/update
   #############################################################################
 
   test "anonymous should not get edit" do
     get :edit, id: @pronoun.id
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "anonymous should not get update" do
-    put :update, id: @pronoun.id, pronoun: @pronoun
-    assert_redirected_to new_user_session_url
+    patch :update, id: @pronoun.id, pronoun: @pronoun
+    assert_redirected_to root_url
   end
 
-  test "user should get edit" do
+  test "user should not get edit" do
     sign_in @user
+    get :edit, id: @pronoun.id
+    assert_redirected_to root_url
+  end
+
+  test "user should not get update" do
+    sign_in @user
+    patch :update, id: @pronoun.id, pronoun: @pronoun.attributes
+    assert_redirected_to root_url
+  end
+
+  test "web team should get edit" do
+    sign_in @web_team
     get :edit, id: @pronoun.id
     assert_response :success
   end
 
-  test "user should get update" do
-    sign_in @user
-    put :update, id: @pronoun.id, pronoun: @pronoun.attributes
-    assert_redirected_to pronouns_path
+  test "web team should get update" do
+    sign_in @web_team
+    patch :update, id: @pronoun.id, pronoun: @pronoun.attributes
+    assert_redirected_to pronouns_url
   end
 
   #############################################################################
@@ -98,15 +118,21 @@ class PronounsControllerTest < ActionController::TestCase
 
   test "anonymous should not get destroy" do
     delete :destroy, :id => @pronoun.id
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "user should not get destroy" do
     sign_in @user
-    assert_difference('Pronoun.count', -1) do
-      delete :destroy, :id => @pronoun.id
-    end
+    delete :destroy, :id => @pronoun.id
+    assert_redirected_to root_url
+  end
 
-    assert_redirected_to pronouns_path
+  test "web team should get destroy" do
+    sign_in @web_team
+    # create a new pronoun to destroy so we know it has no people referencing it
+    p = Pronoun.create(preferred_pronouns: "a/b/c")
+    assert_difference 'Pronoun.count', -1 do
+      delete :destroy, :id => p.id
+    end
   end
 end

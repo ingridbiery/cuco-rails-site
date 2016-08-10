@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_cuco_session
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /cuco_sessions/:cuco_session_id/courses
   def index

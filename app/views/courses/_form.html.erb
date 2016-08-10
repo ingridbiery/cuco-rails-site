@@ -12,7 +12,7 @@
     </div>
   <% end %>
 
-  <% if user_signed_in? and current_user.can? :new, CucoSessionsController then %>
+  <% if user_signed_in? and current_user.can? :edit, PeriodsController then %>
     <%=f.label :room %>
     <%= f.collection_select(:room_id, Room.all, :id, :name) %>
     <%=f.label :period %>

@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_cuco_session
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /cuco_sessions/:cuco_session_id/courses
   def index
@@ -59,7 +60,8 @@ class CoursesController < ApplicationController
                                      :max_age, :age_firm, :min_students,
                                      :max_students, :fee, :supplies,
                                      :room_reqs, :time_reqs,
-                                     :drop_ins, :additional_info)
+                                     :drop_ins, :additional_info, :room_id,
+                                     :period_id)
     end
 
 end

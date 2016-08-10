@@ -23,22 +23,28 @@
                 <%= link_to 'Families', families_path %>
               </li>
 
-              <li class="dropdown-menu-item">
-                <%= link_to 'Users', users_path %>
-              </li>
-              
+              <% if current_user.can? :index, UsersController %>
+                <li class="dropdown-menu-item">
+                  <%= link_to 'Users', users_path %>
+                </li>
+              <% end %>
+
               <li class="dropdown-menu-item">
                 <%= link_to 'Pronouns', pronouns_path %>
               </li>
 
-              <li class="dropdown-menu-item">
-                <%= link_to 'Periods', periods_path %>
-              </li>
+              <% if current_user.can? :edit, PeriodsController %>
+                <li class="dropdown-menu-item">
+                  <%= link_to 'Periods', periods_path %>
+                </li>
+              <% end %>
 
-              <li class="dropdown-menu-item">
-                <%= link_to 'Rooms', rooms_path %>
-              </li>
-              
+              <% if current_user.can? :edit, RoomsController %>
+                <li class="dropdown-menu-item">
+                  <%= link_to 'Rooms', rooms_path %>
+                </li>
+              <% end %>
+
               <% if current_user.can? :index, EventTypesController %>
                 <li class="dropdown-menu-item">
                   <%= link_to 'Event Types', event_types_path %>

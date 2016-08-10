@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809205716) do
+ActiveRecord::Schema.define(version: 20160810175847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,14 +31,16 @@ ActiveRecord::Schema.define(version: 20160809205716) do
     t.text     "time_reqs"
     t.boolean  "drop_ins"
     t.text     "additional_info"
-    t.string   "assigned_room"
-    t.integer  "assigned_period"
+    t.integer  "period_id"
     t.integer  "cuco_session_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "room_id"
   end
 
   add_index "courses", ["cuco_session_id"], name: "index_courses_on_cuco_session_id", using: :btree
+  add_index "courses", ["period_id"], name: "index_courses_on_period_id", using: :btree
+  add_index "courses", ["room_id"], name: "index_courses_on_room_id", using: :btree
 
   create_table "cuco_sessions", force: :cascade do |t|
     t.string   "name"
@@ -180,10 +182,11 @@ ActiveRecord::Schema.define(version: 20160809205716) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "courses", "cuco_sessions"
+  add_foreign_key "courses", "periods"
+  add_foreign_key "courses", "rooms"
   add_foreign_key "dates", "cuco_sessions"
   add_foreign_key "events", "dates"
   add_foreign_key "events", "event_types"
-  add_foreign_key "families", "people", column: "primary_adult_id"
   add_foreign_key "memberships", "cuco_sessions"
   add_foreign_key "memberships", "families"
   add_foreign_key "people", "families"

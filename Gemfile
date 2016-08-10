@@ -17,9 +17,9 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'google-api-client'
 gem 'action_access'
+gem 'pg'
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'byebug'
   gem 'spring'
   gem 'figaro'
@@ -30,6 +30,5 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end

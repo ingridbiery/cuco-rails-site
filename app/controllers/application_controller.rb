@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
           end
         end
       else
-        @next_session_text += "Dates not set yet. Please check back soon."
+        @next_session_info += "Dates not set yet. Please check back soon."
       end
     end
   end

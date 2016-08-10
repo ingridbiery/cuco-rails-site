@@ -54,6 +54,10 @@ meetingRoom = Room.create!(name: "Meeting Room")
 gym = Room.create!(name: "Gym")
 bigArtRoom = Room.create!(name: "Big Art Room")
 
+Period.destroy_all
+first = Period.create!(name: "First")
+second = Period.create!(name: "Second")
+
 CucoSession.destroy_all
 s = CucoSession.create!(name: "2016 Spring", start_date: "2016/03/20".to_date, end_date: "2016/05/20".to_date)
 s.courses.create!(title: "Washi Tape Crafts", short_title: "Washi",
@@ -61,7 +65,7 @@ s.courses.create!(title: "Washi Tape Crafts", short_title: "Washi",
                   min_age: 6, max_age: 100, age_firm: false, min_students: 2,
                   max_students: 14, fee: 5, supplies: "", room_reqs: "",
                   time_reqs: "", drop_ins: false, additional_info: "",
-                  assigned_room: meetingRoom.id,  assigned_period: 1)
+                  room_id: meetingRoom.id,  period_id: first.id)
 s.families << williams
 s.families << johnson
                   
@@ -78,7 +82,7 @@ All ages welcome, but under 7 should be accompanied by an adult.
                   room_reqs: "We need mats. I would prefer the upstairs dance room.",
                   time_reqs: "Not first period. Second, third, or 4th is fine - cannot conflict with customization class.",
                   drop_ins: false, additional_info: "",
-                  assigned_room: gym.id, assigned_period: 2)
+                  room_id: gym.id, period_id: second.id)
 f.families << williams
                 
 EventType.destroy_all

@@ -8,6 +8,10 @@ class CucoSessionsController < ApplicationController
   end
   
   def show
+    # store rooms and periods so we only fetch them once and they're always in
+    # the same order
+    @rooms = Room.all
+    @periods = Period.all
   end
 
   def new

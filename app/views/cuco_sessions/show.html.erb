@@ -16,8 +16,35 @@
 <h3>Courses (<%= @cuco_session.courses.count %>)
   <%= link_to image_tag('add.png'), new_cuco_session_course_path(@cuco_session), title: "Add New Class to Session" %></h3>
   <% if @cuco_session.courses.any? %>
+    <table>
+      <tr>
+        <th></th>
+        <% @rooms.each do |room| %>
+          <th><%= room.name %></th>
+        <% end %>
+      </tr>
+      <% @periods.each do |period| %>
+        <tr>
+          <td><%= period.name %><br/>(<%= period.start_time.strftime("%l:%M%P") %>-
+                                  <%= period.end_time.strftime("%l:%M%P") %>)</td>
+          <% @rooms.each do |room| %>
+            <td>
+              <% courses = @cuco_session.courses.where(room: room).where(period: period) %>
+              <% if !courses.empty? %>
+                <% if courses.first.short_title.length == 0 %>
+                  <%= link_to courses.first.title, [@cuco_session, courses.first] %>
+                <% else %>
+                  <%= link_to courses.first.short_title, [@cuco_session, courses.first] %>
+                <% end %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
     <ul>
-    <% @cuco_session.courses.each do |course| %>
+    <h4>Unassigned</h4>
+    <% @cuco_session.courses.where(room: nil).where(period: nil).each do |course| %>
       <li><%= link_to course.title, [@cuco_session, course] %></li>
     <% end %>
     </ul>

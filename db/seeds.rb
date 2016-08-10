@@ -55,8 +55,8 @@ gym = Room.create!(name: "Gym")
 bigArtRoom = Room.create!(name: "Big Art Room")
 
 Period.destroy_all
-first = Period.create!(name: "First")
-second = Period.create!(name: "Second")
+first = Period.create!(name: "First", start_time: "10:00:00", end_time: "11:00:00")
+second = Period.create!(name: "Second", start_time: "11:00:00", end_time: "12:00:00")
 
 CucoSession.destroy_all
 s = CucoSession.create!(name: "2016 Spring", start_date: "2016/03/20".to_date, end_date: "2016/05/20".to_date)
@@ -119,6 +119,3 @@ EventType.create!(name: :courses, display_name: "Week",
                   end_date_offset: 0, end_time: Time.parse("15:15"),
                   members_only: false, registration: false)
 
-Period.destroy_all
-Period.create!(name: "First", start_time: "10:00:00", end_time: "11:00:00")
-Period.create!(name: "Second", start_time: "11:00:00", end_time: "12:00:00")

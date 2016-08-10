@@ -4,13 +4,6 @@ class RefactorCucoSession < ActiveRecord::Migration
     add_column :cuco_sessions, :start_date, :string
     add_column :cuco_sessions, :end_date, :string
     
-    # get rid of calendars table
-    drop_table :calendars do |t|
-      t.string   :google_id
-      t.integer  :cuco_session_id
-      t.boolean  :members_only
-    end
-
     # create an event types table (for things like fees_due, schedule_posted, etc.)
     create_table :event_types do |t|
       t.string :name
@@ -33,5 +26,12 @@ class RefactorCucoSession < ActiveRecord::Migration
     add_reference :events, :event_type, index: true, foreign_key: true
     remove_reference :events, :calendar, index: true
     remove_column :events, :members_only, :boolean
+
+    # get rid of calendars table
+    drop_table :calendars do |t|
+      t.string   :google_id
+      t.integer  :cuco_session_id
+      t.boolean  :members_only
+    end
   end
 end

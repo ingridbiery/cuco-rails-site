@@ -1,5 +1,11 @@
 <h1>Editing <%= @cuco_session.name %></h1>
 
-<%= render 'form' %>
+<% if (!user_signed_in? or !GoogleAPI.check_authorization?(current_user) or
+       !current_user.can? :edit, CucoSessionsController) %>
+  For this to work, you need to be signed in as CUCO Calendar with google.
+  <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %><br /><br />
+<% else %>
+  <%= render 'form' %>
+<% end %>
 
 <%= link_to 'Show', cuco_session_path %>

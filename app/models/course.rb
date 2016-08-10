@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
   belongs_to :cuco_session
-  has_one :room
+  belongs_to :room
+  belongs_to :period
 
   # allow one to use @course.room in views
   def room

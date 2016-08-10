@@ -41,6 +41,24 @@ class User < ActiveRecord::Base
       email
     end
   end
+  
+  # this user's membership status. One of:
+  # :new    -- never been a member
+  # :former -- has been a member, but not in the current or previous session
+  #            provided the current session hasn't started yet
+  # :member -- member in the current session or the last session if there is no
+  #            current session
+  def membership
+    if person.nil? then :new
+    else
+      cuco_sessions = person.family.cuco_sessions
+      if cuco_sessions.empty? then :new
+      elsif cuco_sessions.include? CucoSession.current then :member
+      elsif CucoSession.current.nil? and cuco_sessions.include? CucoSession.last then :member
+      else :former
+      end
+    end
+  end
 
   # needed for authorization of a google account (so we can update a google
   # calendar, for example)

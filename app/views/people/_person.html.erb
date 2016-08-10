@@ -1,12 +1,7 @@
 <tr id="person-<%= person.id %>">
-  <td><%= link_to person.name, [@family, person] %></td>
-  <td class="dob"><%= person.dob %></td>
-
-  <% if person.id == @family.primary_adult_id %>
-    <td class="primary_adult">PRIMARY</td>
-  <% else %>
-    <td></td>
-  <% end %>
+  <% if person.id == @family.primary_adult_id %><td class="primary_adult"><% else %><td><% end %>
+    <%= link_to person.name, [@family, person] %>
+  </td>
 
   <% if person.pronoun_id %>
     <td class="pronouns"><%= person.preferred_pronouns %></td>
@@ -14,7 +9,10 @@
     <td><div id="error_explanation">PLEASE EDIT TO SELECT PRONOUN PREFERENCE</div></td>
   <% end %>
 
-  <td class="timestamp"><%= person.created_at %></td>
+  <td class="age">
+    <%= person.age %>
+  </td>
+
   <td><%= link_to 'Show', family_person_path(@family, person) %></td>
   <td><%= link_to 'Edit', edit_family_person_path(@family, person) %></td>
   <td><%= link_to 'Destroy', family_person_path(@family, person), method: :delete, data: { confirm: 'Are you sure?' } %></td>

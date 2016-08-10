@@ -1,6 +1,6 @@
 class Person < ActiveRecord::Base
   belongs_to :family
-  has_one :pronoun
+  belongs_to :pronoun
   has_one :user # this is ok for an optional relationship
 
   default_scope -> { order(last_name: :asc) }
@@ -28,6 +28,15 @@ class Person < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
-
-  protected
+  
+  # return the person's age. If they're an adult, they won't have a dob in the
+  # system, so deal with nil
+  def age
+    if dob == nil
+      nil
+    else
+      now = Time.now.utc.to_date
+      now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    end
+  end
 end

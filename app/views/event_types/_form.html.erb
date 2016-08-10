@@ -1,0 +1,50 @@
+<%= form_for [@event_type] do |f| %>
+  <% if @event_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_type.errors.count, "error") %> prohibited this event type from being saved:</h2>
+
+      <ul>
+      <% @event_type.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :display_name %><br>
+    <%= f.text_field :display_name %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date_offset %><br>
+    <%= f.number_field :start_date_offset %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.time_field :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date_offset %><br>
+    <%= f.number_field :end_date_offset %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.time_field :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :members_only %>
+    <%= f.check_box :members_only %><br />
+  </div>
+  <div class="field">
+    <%= f.label :registration %>
+    <%= f.check_box :registration %><br />
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

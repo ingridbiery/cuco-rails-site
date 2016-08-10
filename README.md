@@ -8,7 +8,7 @@ Password: 9cAN67Gw
 
 ## Development Setup on C9.io
 
-Click on the "Wiki" link in Gogs (above) to see step-by-step setup instructions.
+Click [here](https://gitlab.com/cuco/cuco-rails-site/wikis/development-setup) to see step-by-step setup instructions.
 
 ## The Seven Rules of a Great Git Commit Message
 <http://chris.beams.io/posts/git-commit/>

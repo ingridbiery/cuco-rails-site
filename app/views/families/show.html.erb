@@ -4,47 +4,30 @@
   <h2>The <strong><%= @family.name %></strong> Family</h2>
 </p>
 
-<% if @family.primary_adult_id? %>
-  <div id="notice">
-    The <strong>Primary Adult</strong> is <strong><%= @family.primary_adult.first_name %></strong>.
-  </div><br>
-<% else %>
-  <div id="error_explanation">PLEASE CREATE OR CHOOSE A PRIMARY ADULT</div><br>
-<% end %>
-
 <% if @family.user != nil %>
   <div id="notice">
     The <strong>user</strong> for this family is <strong><%= link_to @family.user.name, @family.user %></strong>.
-  </div><br>
+  </div><br/>
 <% else %>
   <div id="error_explanation">PLEASE CREATE YOURSELF AS A PERSON IN THIS FAMILY OR EDIT YOURSELF BELOW AND CHECK "THIS IS ME"</div><br>
 <% end %>
 
 <p>
-  <strong>Street address:</strong>
-  <%= @family.street_address %>
+  <strong>Address:</strong><br/>
+  <%= @family.street_address %><br/>
+  <%= @family.city %>, <%= @family.state %> <%= @family.zip %><br/>
 </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @family.city %>
-</p>
+<% if @family.cuco_sessions != nil %>
+  <h3>Membership</h3>
+  You have been a member in the following sessions:
+  <ul>
+  <% @family.cuco_sessions.each do |cuco_session| %>
+    <li><%= link_to cuco_session.name, @cuco_session %></li>
+  <% end %>
+  </ul>
+<% end %>
 
-<p>
-  <strong>State:</strong>
-  <%= @family.state %>
-</p>
-
-<p>
-  <strong>Zip:</strong>
-  <%= @family.zip %>
-</p>
-
-<p>
-  <strong>Created:</strong>
-  <%= @family.created_at %>
-</p>
-<hr />
 <h3>People in Family (<%= @family.people.count %>)
 <%= link_to image_tag('add.png'), new_family_person_path(@family), title: "Add New Person to Family" %></h3>
 <% if @family.people.any? %>
@@ -55,6 +38,7 @@
     </tbody>
   </table>
 <% end %>
+<br/>
 
 <%= link_to 'Edit', edit_family_path(@family) %> |
 <%= link_to "Back to List of Families", families_path %>

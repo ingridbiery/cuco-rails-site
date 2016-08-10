@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  let :admin, :index
+  let :web_team, :index
   let :all, [:show, :edit, :destroy] # we will restrict in show to only show own user
   before_action :set_user, only: [:show, :destroy]
   before_action :authenticate_user!

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PronounsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @pronoun = pronouns(:they)

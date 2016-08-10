@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RoomsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @room = rooms(:gym)

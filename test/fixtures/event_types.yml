@@ -2,9 +2,9 @@ et_course_offering:
   name: "course_offering"
   display_name: "Course Offerings"
   start_date_offset: 31
-  start_time: 23:30
+  start_time: "23:30"
   end_date_offset: 28
-  end_time: 23:30
+  end_time: "23:30"
   members_only: true
   registration: false
   
@@ -12,9 +12,9 @@ et_schedule_posted:
   name: "schedule_posted"
   display_name: "Schedule Posted"
   start_date_offset: 31
-  start_time: 23:30
+  start_time: "12:00"
   end_date_offset: 28
-  end_time: 23:30
+  end_time: "12:00"
   members_only: false
   registration: false
   
@@ -22,9 +22,9 @@ et_member_reg:
   name: "member_reg"
   display_name: "Member Registration"
   start_date_offset: 31
-  start_time: 23:30
+  start_time: "23:30"
   end_date_offset: 28
-  end_time: 23:30
+  end_time: "23:30"
   members_only: true
   registration: true
   
@@ -32,9 +32,9 @@ et_former_reg:
   name: "former_reg"
   display_name: "Former Member Registration"
   start_date_offset: 31
-  start_time: 23:30
+  start_time: "23:30"
   end_date_offset: 28
-  end_time: 23:30
+  end_time: "23:30"
   members_only: true
   registration: true
   
@@ -42,9 +42,9 @@ et_new_reg:
   name: "new_reg"
   display_name: "New Member Registration"
   start_date_offset: 31
-  start_time: 23:30
+  start_time: "23:30"
   end_date_offset: 28
-  end_time: 23:30
+  end_time: "23:30"
   members_only: false
   registration: true
   
@@ -52,9 +52,9 @@ et_fees_posted:
   name: "fees_posted"
   display_name: "Fees Posted"
   start_date_offset: 31
-  start_time: 23:30
+  start_time: "23:30"
   end_date_offset: 28
-  end_time: 23:30
+  end_time: "23:30"
   members_only: false
   registration: false
 
@@ -63,9 +63,9 @@ et_fees_due:
   name: "fees_due"
   display_name: "Fees Due"
   start_date_offset: 31
-  start_time: 23:30
+  start_time: "23:30"
   end_date_offset: 28
-  end_time: 23:30
+  end_time: "23:30"
   members_only: false
   registration: false
   
@@ -73,8 +73,8 @@ et_courses:
   name: "courses"
   display_name: "Week"
   start_date_offset: 31
-  start_time: 23:30
+  start_time: "23:30"
   end_date_offset: 28
-  end_time: 23:30
+  end_time: "23:30"
   members_only: false
   registration: false

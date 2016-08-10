@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809211501) do
+ActiveRecord::Schema.define(version: 20160810175847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,11 +31,11 @@ ActiveRecord::Schema.define(version: 20160809211501) do
     t.text     "time_reqs"
     t.boolean  "drop_ins"
     t.text     "additional_info"
-    t.integer  "room_id"
     t.integer  "period_id"
     t.integer  "cuco_session_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "room_id"
   end
 
   add_index "courses", ["cuco_session_id"], name: "index_courses_on_cuco_session_id", using: :btree
@@ -187,7 +187,6 @@ ActiveRecord::Schema.define(version: 20160809211501) do
   add_foreign_key "dates", "cuco_sessions"
   add_foreign_key "events", "dates"
   add_foreign_key "events", "event_types"
-  add_foreign_key "families", "people", column: "primary_adult_id"
   add_foreign_key "memberships", "cuco_sessions"
   add_foreign_key "memberships", "families"
   add_foreign_key "people", "families"

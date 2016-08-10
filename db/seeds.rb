@@ -19,12 +19,14 @@ cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'cucocale
 cuco_calendar.roles << role_ga
 cuco_calendar.roles << role_w
 
+# families have to get destroyed before Pronouns because that triggers
+# destroying people which ensures that we have no lingering foreign keys
+Family.destroy_all
 Pronoun.destroy_all
 he = Pronoun.create!(preferred_pronouns: "He/Him/His")
 she = Pronoun.create!(preferred_pronouns: "She/Her/Hers")
 they = Pronoun.create!(preferred_pronouns: "They/Them/Their")
 
-Family.destroy_all
 smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
 jsp = smith.people.create!(first_name: "Jennifer", last_name: "Smith", pronoun_id: she.id)
 jsp.user = js
@@ -49,6 +51,10 @@ williams.people.create!(first_name: "Christopher", last_name: "Williams", dob: "
 williams.people.create!(first_name: "David", last_name: "Williams", dob: "2002/01/01".to_date, pronoun_id: he.id)
 williams.people.create!(first_name: "Matthew", last_name: "Williams", dob: "2005/01/01".to_date, pronoun_id: he.id)
 
+# CucoSessions have to be destroyed before Rooms and Periods since that triggers
+# destruction of Rooms which have foreign_key references to rooms and periods
+CucoSession.destroy_all
+
 Room.destroy_all
 meetingRoom = Room.create!(name: "Meeting Room")
 gym = Room.create!(name: "Gym")
@@ -58,7 +64,6 @@ Period.destroy_all
 first = Period.create!(name: "First", start_time: "10:00:00", end_time: "11:00:00")
 second = Period.create!(name: "Second", start_time: "11:00:00", end_time: "12:00:00")
 
-CucoSession.destroy_all
 s = CucoSession.create!(name: "2016 Spring", start_date: "2016/03/20".to_date, end_date: "2016/05/20".to_date)
 s.courses.create!(title: "Washi Tape Crafts", short_title: "Washi",
                   description: "We will use washi (patterned Japanese tape) and other materials to create one craft per week. Students are also free to work on their own creations and to work on the same project for weeks at a time. All materials will be provided, but you are welcome to bring your own washi tape, if you’d like.",

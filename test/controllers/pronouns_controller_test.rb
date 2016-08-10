@@ -134,5 +134,6 @@ class PronounsControllerTest < ActionController::TestCase
     assert_difference 'Pronoun.count', -1 do
       delete :destroy, :id => p.id
     end
+    assert_redirected_to pronouns_url
   end
 end

@@ -1,14 +1,14 @@
 <% provide(:title, @course.title) %>
 
-<% if @course.assigned_room? or @course.assigned_period%>
-  <% if @course.assigned_room? %>
+<% if @course.room_id? or @course.period_id%>
+  <% if @course.room_id? %>
     <strong>Assigned Room:</strong>
     <%= @course.room %>
   <% end %>
   
-  <% if @course.assigned_period? %>
+  <% if @course.period_id? %>
     <strong>Assigned Period:</strong>
-    <%= @course.assigned_period %>
+    <%= @course.period %>
   <% end %>
 
   <hr />

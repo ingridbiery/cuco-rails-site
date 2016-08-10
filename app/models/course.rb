@@ -5,7 +5,10 @@ class Course < ActiveRecord::Base
 
   # allow one to use @course.room in views
   def room
-    Room.find(assigned_room).name
+    Room.find(room_id).name
   end
   
+  def period
+    Period.find(period_id).name
+  end
 end

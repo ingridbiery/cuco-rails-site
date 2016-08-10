@@ -14,9 +14,9 @@
 
   <% if user_signed_in? and current_user.can? :new, CucoSessionsController then %>
     <%=f.label :room %>
-    <%= f.collection_select(:assigned_room, Room.all, :id, :name) %>
+    <%= f.collection_select(:room_id, Room.all, :id, :name) %>
     <%=f.label :period %>
-    [Placeholder] <br>
+    <%= f.collection_select(:period_id, Period.all, :id, :name) %> <br>
     <div class="actions">
       <%= f.submit %>
     </div>

@@ -59,8 +59,8 @@ class CoursesController < ApplicationController
                                      :max_age, :age_firm, :min_students,
                                      :max_students, :fee, :supplies,
                                      :room_reqs, :time_reqs,
-                                     :drop_ins, :additional_info, :assigned_room,
-                                     :assigned_period)
+                                     :drop_ins, :additional_info, :room_id,
+                                     :period_id)
     end
 
 end

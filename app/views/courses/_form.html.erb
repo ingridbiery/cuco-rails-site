@@ -24,11 +24,12 @@
   <% end %>
   <% if user_signed_in? and (current_user.can? :edit, RoomsController or
                              current_user.can? :edit, PeriodsController) then %>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-    <hr />
   <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <hr />
 
   <div class="field">
     <%= f.label :title %><br/>

@@ -82,7 +82,7 @@
 
   <div class="field">
     <%= f.label :fee %><br/>
-    <%= f.text_field :fee %><br/>
+    <%= number_field(:course, :fee, in: 0.0..999.50, step: 0.5) %><br/>
     <em>What is the class fee per person (for materials only unless a non-parent
     teacher is being paid which should be made clear in the description)</em>
   </div>

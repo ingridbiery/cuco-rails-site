@@ -1,6 +1,5 @@
 class PeriodsController < ApplicationController
-  let :web_team, [:edit, :update, :destroy, :create, :new]
-  let :all, [:show, :index]
+  let :web_team, [:all]
   before_action :set_period, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 

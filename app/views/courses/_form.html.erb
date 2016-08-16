@@ -22,9 +22,6 @@
     <%=f.label :period %>
     <%= f.collection_select(:period_id, Period.all, :id, :name) %> <br/>
   <% end %>
-  <% if user_signed_in? and (current_user.can? :edit, RoomsController or
-                             current_user.can? :edit, PeriodsController) then %>
-  <% end %>
 
   <div class="actions">
     <%= f.submit %>

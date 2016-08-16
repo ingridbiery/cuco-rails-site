@@ -41,7 +41,11 @@
 
 <p>
   <strong>Course Fee:</strong>
-  <%= number_to_currency(@course.fee) %>
+  <% if @course.fee and @course.fee != 0 %>
+    <%= number_to_currency(@course.fee, precision: 0) %>
+  <% else %>
+    FREE
+  <% end %>
 </p>
 
 <p>
@@ -92,4 +96,4 @@
 <h3>Students in Course</h3>
 
 <%= link_to 'Edit', edit_cuco_session_course_path %> |
-<%= link_to "Back to List of Courses", cuco_session_courses_path %>
+<%= link_to "Back to #{@cuco_session.name} Session", cuco_session_path(@cuco_session) %>

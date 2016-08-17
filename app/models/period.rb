@@ -5,4 +5,9 @@ class Period < ActiveRecord::Base
                                    message: "has already been added." }
   validates :start_time, presence: true, uniqueness: true
   validates :end_time, presence: true, uniqueness: true
+  
+  # a standard way of displaying the timing of the period
+  def duration_text
+    start_time.strftime("%l:%M%P") + " - " + end_time.strftime("%l:%M%P")
+  end
 end

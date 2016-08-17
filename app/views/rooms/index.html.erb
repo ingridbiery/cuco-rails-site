@@ -1,17 +1,8 @@
 <h1>Available Rooms</h1>
+(Click to edit)
 
-<table>
+<ul>
   <% @rooms.each do |room| %>
-    <tr>
-      <td><%= link_to room.name, edit_room_path(room) %></td>
-      <td><%= link_to image_tag('wrench.png'), edit_room_path(room),
-              title: "Edit #{room.name}" %></td>
-      <td><%= link_to image_tag('delete.png'), room, method: :delete,
-              data: { confirm: 'Are you sure?' }, title: "Delete #{room.name}" %></td>
-    </tr>
+    <li><%= link_to room.name, edit_room_path(room) %></li>
   <% end %>
-</table>
-
-<br>
-
-<%= link_to image_tag("add.png"), new_room_path, title: "Add New Room" %>
+</ul>

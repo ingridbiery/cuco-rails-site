@@ -20,9 +20,15 @@ js = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'js@example.com', no
 js.roles << role_w
 
 lj = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'lj@example.com', notification_list: true)
+
 cuco_calendar = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'cucocalendar@gmail.com', notification_list: false)
 cuco_calendar.roles << role_ga
 cuco_calendar.roles << role_w
+
+web_team = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'webteam@example.com', notification_list: false)
+web_team.roles << role_w
+
+user = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'user@example.com', notification_list: false)
 
 # families have to get destroyed before Pronouns because that triggers
 # destroying people which ensures that we have no lingering foreign keys

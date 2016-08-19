@@ -25,8 +25,7 @@
       </tr>
       <% @periods.each do |period| %>
         <tr>
-          <td><%= period.name %><br/>(<%= period.start_time.strftime("%l:%M%P") %>-
-                                  <%= period.end_time.strftime("%l:%M%P") %>)</td>
+          <td><%= period.name %><br/>(<%= period.duration_text %>)</td>
           <% @rooms.each do |room| %>
             <td>
               <% courses = @cuco_session.courses.where(room: room).where(period: period) %>

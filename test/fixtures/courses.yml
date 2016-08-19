@@ -17,7 +17,7 @@ one:
   additional_info: MyText
   room_id: 1
   period_id: 1
-  cuco_session_id: 1
+  cuco_session_id: winter
 
 two:
   title: MyString
@@ -36,4 +36,4 @@ two:
   additional_info: MyText
   room_id: 1
   period_id: 1
-  cuco_session_id: 1
+  cuco_session_id: spring

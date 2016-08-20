@@ -11,6 +11,14 @@
     </div>
   <% end %>
 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <hr />
+
+  <h2>Family Info</h2>
+
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -37,6 +45,39 @@
     <%= f.label :zip %><br>
     <%= f.text_field :zip %>
   </div>
+  
+  <hr />
+  
+  <h2>Emergency Contact Info</h2>
+  
+  <div class="field">
+    <%= f.label "First Name" %><br>
+    <%= f.text_field :ec_first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Last Name" %><br>
+    <%= f.text_field :ec_last_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Phone Number" %><br>
+    <%= f.text_field :ec_phone %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Is it ok to send text messages?" %><br />
+    <%= f.radio_button :ec_text, 'true', :checked => true %>
+    <%= f.label :ec_text_true, "Yes" %>
+    <%= f.radio_button :ec_text, 'false' %>
+    <%= f.label :ec_text_false, "No" %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Relationship to Child(ren)" %><br>
+    <%= f.text_field :ec_relationship %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

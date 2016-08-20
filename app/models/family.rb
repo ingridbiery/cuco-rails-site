@@ -20,7 +20,7 @@ class Family < ActiveRecord::Base
                             length: { maximum: 50 }
   validates :ec_last_name, presence: true,
                             length: { maximum: 50 }
-  validates :ec_text, presence: true
+  validates :ec_text, presence: true, allow_blank: true
   validates :ec_relationship, presence: true,
                               length: { maximum: 50 }
 

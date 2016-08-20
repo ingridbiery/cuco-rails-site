@@ -18,6 +18,18 @@
   <%= @family.city %>, <%= @family.state %> <%= @family.zip %><br/>
 </p>
 
+<p>
+  <strong>Emergency Contact:</strong><br />
+  <%= @family.ec_first_name %> <%= @family.ec_last_name %><br />
+  <%= number_to_phone(@family.ec_phone, area_code: true) %><br />
+  Ok to Text? <% if @family.ec_text? %>
+                <strong>Yes</strong>
+              <% else %>
+                <strong>No</strong>
+              <% end %><br />
+  Relationship to Child(ren): <strong><%= @family.ec_relationship %></strong>
+</p>
+
 <% if @family.cuco_sessions != nil %>
   <h3>Membership</h3>
   You have been a member in the following sessions:

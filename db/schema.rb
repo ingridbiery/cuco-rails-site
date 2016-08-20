@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20160820022506) do
     t.integer  "primary_adult_id"
     t.string   "ec_first_name"
     t.string   "ec_last_name"
-    t.integer  "ec_phone"
+    t.string   "ec_phone"
     t.boolean  "ec_text"
     t.string   "ec_relationship"
   end

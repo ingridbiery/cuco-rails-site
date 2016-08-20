@@ -16,7 +16,17 @@ class Family < ActiveRecord::Base
   validates :zip, presence: true,
                   length: { minimum: 5, maximum: 5 },
                   numericality: true
-         
+  validates :ec_first_name, presence: true,
+                            length: { maximum: 50 }
+  validates :ec_last_name, presence: true,
+                            length: { maximum: 50 }
+  validates :ec_phone, presence: true,
+                       numericality: true
+  validates :ec_text, presence: true
+  validates :ec_relationship, presence: true,
+                              length: { maximum: 50 }
+
+
   # get the person object for the primary adult of this family         
   def primary_adult
     Person.find_by_id(primary_adult_id)

@@ -22,13 +22,11 @@
     <%=f.label :period %>
     <%= f.collection_select(:period_id, Period.all, :id, :name, {include_blank: true}) %> <br/>
   <% end %>
-  <% if user_signed_in? and (current_user.can? :edit, RoomsController or
-                             current_user.can? :edit, PeriodsController) then %>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-    <hr />
-  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <hr />
 
   <div class="field">
     <%= f.label :title %><br/>
@@ -84,7 +82,7 @@
 
   <div class="field">
     <%= f.label :fee %><br/>
-    <%= f.text_field :fee %><br/>
+    $<%= number_field(:course, :fee, in: 0..999, step: 1) %><br/>
     <em>What is the class fee per person (for materials only unless a non-parent
     teacher is being paid which should be made clear in the description)</em>
   </div>

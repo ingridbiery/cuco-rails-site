@@ -34,43 +34,9 @@ class PeriodsControllerTest < ActionController::TestCase
 
   #############################################################################
   # new/create
+  # (there is no new/create route)
   #############################################################################
 
-  test "anonymous should not get new" do
-    get :new
-    assert_redirected_to root_url
-  end
-
-  test "anonymous should not get create" do
-    put :create, period: @period.attributes
-    assert_redirected_to root_url
-  end
-
-  test "user should not get new" do
-    sign_in @user
-    get :new
-    assert_redirected_to root_url
-  end
-
-  test "user should not get create" do
-    sign_in @user
-    put :create, period: {name:"test", start_time: "00:00:00", end_time: "00:00:00"}
-    assert_redirected_to root_url
-  end
-
-  test "web_team should get create" do
-    sign_in @web_team
-    assert_difference('Period.count', 1) do
-      put :create, period: {name:"test", start_time: "00:00:00", end_time: "00:00:00"}
-    end
-    assert_redirected_to periods_path
-  end
-
-  test "web_team should get new" do
-    sign_in @web_team
-    get :new
-    assert_response :success
-  end
 
   #############################################################################
   # edit/update
@@ -112,17 +78,7 @@ class PeriodsControllerTest < ActionController::TestCase
 
   #############################################################################
   # destroy
+  # (there is no destroy route)
   #############################################################################
-
-  test "anonymous should not get destroy" do
-    delete :destroy, :id => @period.id
-    assert_redirected_to root_url
-  end
-
-  test "user should not get destroy" do
-    sign_in @user
-    delete :destroy, :id => @period.id
-    assert_redirected_to root_url
-  end
 
 end

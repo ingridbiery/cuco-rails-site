@@ -15,9 +15,9 @@ one:
   time_reqs: MyText
   drop_ins: false
   additional_info: MyText
-  room_id: 1
-  period_id: 1
-  cuco_session_id: winter
+  room: gym
+  period: first
+  cuco_session: winter
 
 two:
   title: MyString
@@ -34,6 +34,6 @@ two:
   time_reqs: MyText
   drop_ins: false
   additional_info: MyText
-  room_id: 1
-  period_id: 1
-  cuco_session_id: spring
+  room: auditorium
+  period: second
+  cuco_session: spring

@@ -72,15 +72,6 @@ EventType.create!(name: :fees_posted, display_name: "Fees Posted",start_date_off
 EventType.create!(name: :fees_due, display_name: "Fees Due",start_date_offset: 14, start_time: Time.parse("23:30"),end_date_offset: 14, end_time: Time.parse("23:30"),members_only: false, registration: false)
 EventType.create!(name: :courses, display_name: "Week",start_date_offset: 0, start_time: Time.parse("09:45"),end_date_offset: 0, end_time: Time.parse("15:15"),members_only: false, registration: false)
 
-Period.destroy_all
-Period.create!(name: "Before", start_time: "09:30", end_time: "9:55")
-Period.create!(name: "First", start_time: "10:00", end_time: "10:55")
-Period.create!(name: "Second", start_time: "11:00", end_time: "11:55")
-Period.create!(name: "Lunch", start_time: "12:00", end_time: "12:55")
-Period.create!(name: "Third", start_time: "13:00", end_time: "13:55")
-Period.create!(name: "Fourth", start_time: "14:00", end_time: "14:55")
-Period.create!(name: "After", start_time: "15:00", end_time: "15:30")
-
 CucoSession.destroy_all
 s141 = CucoSession.create!(name: '2011 Spring', start_date: '“2011/04/04”'.to_date, end_date: '“2011/05/13”'.to_date)
 s142 = CucoSession.create!(name: '2011 Fall I', start_date: '“2011/09/12”'.to_date, end_date: '“2011/10/29”'.to_date)

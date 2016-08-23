@@ -5,35 +5,35 @@ one:
   short_title: MyString
   description: MyText
   min_age: 1
-  max_age: 1
+  max_age: 11
   age_firm: false
   min_students: 1
-  max_students: 1
-  fee: 1.5
+  max_students: 11
+  fee: 1
   supplies: MyText
   room_reqs: MyText
   time_reqs: MyText
   drop_ins: false
   additional_info: MyText
-  assigned_room: MyString
-  assigned_period: 1
-  cuco_session_id: 1
+  room: gym
+  period: first
+  cuco_session: winter
 
 two:
   title: MyString
   short_title: MyString
   description: MyText
   min_age: 1
-  max_age: 1
+  max_age: 11
   age_firm: false
   min_students: 1
-  max_students: 1
-  fee: 1.5
+  max_students: 11
+  fee: 1
   supplies: MyText
   room_reqs: MyText
   time_reqs: MyText
   drop_ins: false
   additional_info: MyText
-  assigned_room: MyString
-  assigned_period: 1
-  cuco_session_id: 1
+  room: auditorium
+  period: second
+  cuco_session: spring

@@ -25,8 +25,11 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     
-    @course.save
-    redirect_to [@cuco_session, @course], notice: "#{@course.title} was successfully created."
+    if @course.save
+      redirect_to [@cuco_session, @course], notice: "#{@course.title} was successfully created."
+    else
+      render :new
+    end
   end
 
   # PATCH/PUT /cuco_sessions/:cuco_session_id/courses/1

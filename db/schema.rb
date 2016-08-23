@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20160820022506) do
     t.boolean  "age_firm"
     t.integer  "min_students"
     t.integer  "max_students"
-    t.float    "fee"
     t.text     "supplies"
     t.text     "room_reqs"
     t.text     "time_reqs"
@@ -36,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160820022506) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "room_id"
+    t.integer  "fee"
   end
 
   add_index "courses", ["cuco_session_id"], name: "index_courses_on_cuco_session_id", using: :btree

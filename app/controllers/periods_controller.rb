@@ -23,4 +23,9 @@ class PeriodsController < ApplicationController
     def set_period
       @period = Period.find(params[:id])
     end
+    
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def period_params
+      params.require(:period).permit(:name, :start_time, :end_time)
+    end
 end

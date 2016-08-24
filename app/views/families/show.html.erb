@@ -13,13 +13,13 @@
 <% end %>
 
 <p>
-  <strong>ADDRESS:</strong><br/>
+  <h3>Address</h3>
   <%= @family.street_address %><br/>
   <%= @family.city %>, <%= @family.state %> <%= @family.zip %><br/>
 </p>
 
 <p>
-  <strong>EMERGENCY CONTACT:</strong><br />
+  <h3>Emergency Contact Info</h3>
   <%= @family.ec_first_name %> <%= @family.ec_last_name %> (<%= @family.ec_relationship %>)<br />
   <%= number_to_phone(@family.ec_phone, area_code: true) %><br />
   <% if @family.ec_text? %>

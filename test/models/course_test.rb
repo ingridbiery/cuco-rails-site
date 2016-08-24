@@ -11,38 +11,38 @@ class CourseTest < ActiveSupport::TestCase
 
 #### TITLE ####
 
-  test "title should be present" do
-   @course.title = nil
+  test "name should be present" do
+   @course.name = nil
    assert_not @course.valid?
   end
 
-  ### We might want this but the seed file has a few with shorter titles
-  # test "title should not be too short" do
-  #   @course.title = "a" * 4
+  ### We might want this but the seed file has a few with shorter names
+  # test "name should not be too short" do
+  #   @course.name = "a" * 4
   #   assert_not @course.valid?
   # end
 
-  test "title should not be too long" do
-     @course.title = "a" * 101
+  test "name should not be too long" do
+     @course.name = "a" * 101
      assert_not @course.valid?
   end
 
 #### SHORT TITLE ####
 
-  ### We might want this but the seed file has many with no short title
-  # test "short title should be present" do
-  #   @course.short_title = nil
+  ### We might want this but the seed file has many with no short name
+  # test "short name should be present" do
+  #   @course.short_name = nil
   #   assert_not @course.valid?
   # end
 
   ### We might want this but the seed file has many that are longer
-  # test "short title should not be too short" do
-  #   @course.short_title = "a" * 2
+  # test "short name should not be too short" do
+  #   @course.short_name = "a" * 2
   #   assert_not @course.valid?
   # end
 
-  test "short title should not be too long" do
-     @course.short_title = "a" * 31
+  test "short name should not be too long" do
+     @course.short_name = "a" * 31
      assert_not @course.valid?
   end
 

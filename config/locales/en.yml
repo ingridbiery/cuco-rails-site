@@ -20,4 +20,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      family:
+        ec_first_name: "Emergency Contact First Name"
+        ec_last_name: "Emergency Contact Last Name"
+        ec_phone: "Emergency Contact Phone"
+        ec_text: "Emergency Contact SMS Preference"
+        ec_relationship: "Emregency Contact Relationship"

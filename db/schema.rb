@@ -94,6 +94,11 @@ ActiveRecord::Schema.define(version: 20160824024152) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "primary_adult_id"
+    t.string   "ec_first_name"
+    t.string   "ec_last_name"
+    t.string   "ec_phone"
+    t.boolean  "ec_text"
+    t.string   "ec_relationship"
   end
 
   add_index "families", ["primary_adult_id"], name: "index_families_on_primary_adult_id", using: :btree

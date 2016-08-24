@@ -57,7 +57,7 @@ class CoursesControllerTest < ActionController::TestCase
   test "user should get create" do
     sign_in @user
     c = @course.dup
-    c.title = "NEW NAME"
+    c.name = "NEW NAME"
     assert_difference('Course.count', 1) do
       post :create, cuco_session_id: @session.id, course: c.attributes
     end
@@ -73,7 +73,7 @@ class CoursesControllerTest < ActionController::TestCase
   test "web team should get create" do
     sign_in @web_team
     c = @course.dup
-    c.title = "NEW NAME"
+    c.name = "NEW NAME"
     assert_difference('Course.count', 1) do
       post :create, cuco_session_id: @session.id, course: c.attributes
     end

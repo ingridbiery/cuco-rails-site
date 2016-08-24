@@ -14,3 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= jquery.maskedinput
+
+jQuery(function($){
+   $("#family_ec_phone").mask("(999) 999-9999")});

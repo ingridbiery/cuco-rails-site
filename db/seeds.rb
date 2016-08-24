@@ -38,7 +38,7 @@ he = Pronoun.create!(preferred_pronouns: "He/Him/His")
 she = Pronoun.create!(preferred_pronouns: "She/Her/Hers")
 they = Pronoun.create!(preferred_pronouns: "They/Them/Their")
 
-smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
+smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, ec_first_name: "Thomas", ec_last_name: "Smith", ec_phone: "6146464644", ec_text: false, ec_relationship: "Father")
 jsp = smith.people.create!(first_name: "Jennifer", last_name: "Smith", pronoun_id: she.id)
 jsp.user = js
 smith.primary_adult_id = jsp.id
@@ -46,7 +46,7 @@ smith.save
 smith.people.create!(first_name: "Isabella", last_name: "Smith", dob: "2010/01/01".to_date, pronoun_id: they.id)
 smith.people.create!(first_name: "Andrew", last_name: "Smith", dob: "2012/01/01".to_date, pronoun_id: he.id)
 
-johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
+johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, ec_first_name: "Terri", ec_last_name: "Johnson", ec_phone: "6142325554", ec_text: true, ec_relationship: "Older Sister")
 ljp = johnson.people.create!(first_name: "Lisa", last_name: "Johnson", pronoun_id: she.id)
 ljp.user = lj
 johnson.primary_adult_id = ljp.id
@@ -54,7 +54,7 @@ johnson.save
 johnson.people.create!(first_name: "Emma", last_name: "Johnson", dob: "2009/01/01".to_date, pronoun_id: she.id)
 johnson.people.create!(first_name: "Olivia", last_name: "Johnson", dob: "2011/01/01".to_date, pronoun_id: they.id)
 
-williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224)
+williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, ec_first_name: "Tara", ec_last_name: "Williams", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
 kwp = williams.people.create!(first_name: "Kimberly", last_name: "Williams", pronoun_id: she.id)
 williams.primary_adult_id = kwp.id
 williams.save

@@ -6,6 +6,11 @@ smith:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  ec_first_name: "Todd"
+  ec_last_name: "Smith"
+  ec_phone: "6147897894"
+  ec_text: true
+  ec_relationship: "Father"
 
 johnson:
   name: "Johnson"
@@ -13,6 +18,12 @@ johnson:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  ec_first_name: "Jane"
+  ec_last_name: "Johnson"
+  ec_phone: "6145559874"
+  ec_text: true
+  ec_relationship: "Mother"
+
 
 williams:
   name: "Williams"
@@ -20,3 +31,8 @@ williams:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  ec_first_name: "Salik"
+  ec_last_name: "Somer"
+  ec_phone: "6144574455"
+  ec_text: false
+  ec_relationship: "Cousin"

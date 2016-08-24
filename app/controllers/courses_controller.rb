@@ -26,7 +26,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     
     if @course.save
-      redirect_to [@cuco_session, @course], notice: "#{@course.title} was successfully created."
+      redirect_to [@cuco_session, @course], notice: "#{@course.name} was successfully created."
     else
       render :new
     end
@@ -35,7 +35,7 @@ class CoursesController < ApplicationController
   # PATCH/PUT /cuco_sessions/:cuco_session_id/courses/1
   def update
     if @course.update(course_params)
-      redirect_to [@cuco_session, @course], notice: "#{@course.title} was successfully updated."
+      redirect_to [@cuco_session, @course], notice: "#{@course.name} was successfully updated."
     else
       render :edit
     end
@@ -44,7 +44,7 @@ class CoursesController < ApplicationController
   # DELETE /cuco_sessions/:cuco_session_id/courses/1
   def destroy
     @course.destroy
-    redirect_to cuco_session_courses_path, notice: "#{@course.title} was successfully destroyed."
+    redirect_to cuco_session_courses_path, notice: "#{@course.name} was successfully destroyed."
   end
 
   private
@@ -59,7 +59,7 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-      params.require(:course).permit(:title, :short_title, :description, :min_age,
+      params.require(:course).permit(:name, :short_name, :description, :min_age,
                                      :max_age, :age_firm, :min_students,
                                      :max_students, :fee, :supplies,
                                      :room_reqs, :time_reqs,

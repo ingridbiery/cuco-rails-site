@@ -3,10 +3,10 @@ class Course < ActiveRecord::Base
   belongs_to :room
   belongs_to :period
 
-  validates :title, presence: true,
-                    length: { maximum: 100 }
+  validates :name, presence: true,
+                   length: { maximum: 100 }
 
-  validates :short_title, length: { maximum: 30 }
+  validates :short_name, length: { maximum: 30 }
 
   validates :description, presence: true
 

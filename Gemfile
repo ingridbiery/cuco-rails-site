@@ -18,6 +18,7 @@ gem 'omniauth-google-oauth2'
 gem 'google-api-client'
 gem 'action_access'
 gem 'pg'
+gem 'simple_calendar'
 
 group :development, :test do
   gem 'byebug'

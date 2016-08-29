@@ -198,6 +198,8 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
+    simple_calendar (2.1.5)
+      rails (>= 3.0)
     spring (1.7.2)
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
@@ -247,6 +249,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 5.0.2)
   sdoc (~> 0.4.0)
+  simple_calendar
   spring
   turbolinks (~> 2.3.0)
   uglifier (~> 2.5.3)

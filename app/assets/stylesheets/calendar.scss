@@ -1,0 +1,11 @@
+// Place all the styles related to the Calendar controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.calendar-title {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.simple-calendar td {
+  height: 5*18px;
+}

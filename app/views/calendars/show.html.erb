@@ -1,3 +1,5 @@
-<%= month_calendar do |date| %>
-  <%= date %>
-<% end %>
+<div id="bootstrap-override">
+  <%= month_calendar do |date| %>
+    <%= date.day %>
+  <% end %>
+</div>

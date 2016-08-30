@@ -9,3 +9,11 @@
 .simple-calendar td {
   height: 5*18px;
 }
+
+// bootstrap does striped background for table-striped. We want to override
+// that for next & prev month, which is challenging. Adding an override tag
+// in the html and using it here works
+#bootstrap-override .simple-calendar td.prev-month,
+#bootstrap-override .simple-calendar td.next-month {
+  background-color: gray;
+}

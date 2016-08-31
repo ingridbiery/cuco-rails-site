@@ -1,12 +1,22 @@
 <% provide(:title, @course.name) %>
 
 <p>
-  <h2><%= @course.name %></h2>
+  <h2><%= @course.name %> (short version: <%= @course.short_name %>)</h2>
 </p>
 
 <p>
-  <strong>Short Name:</strong>
-  <%= @course.short_name %>
+  <strong>Room:</strong>
+  <% if !@course.room.nil? %>
+    <%= @course.room.name %>
+  <% else %>
+    not yet assigned
+  <% end %>
+  <strong>Period:</strong>
+  <% if !@course.period.nil? %>
+    <%= @course.period.name %>
+  <% else %>
+    not yet assigned
+  <% end %>
 </p>
 
 <p>
@@ -15,32 +25,19 @@
 </p>
 
 <p>
-  <strong>Minimum Age:</strong>
-  <%= @course.min_age %>
-</p>
-
-<p>
-  <strong>Maximum Age:</strong>
-  <%= @course.max_age %>
-</p>
-
-<p>
-  <strong>Age Limits Firm?:</strong>
+  <strong>Age Range:</strong>
+  <%= @course.min_age %> - <%= @course.max_age %> 
+  <strong>Firm?:</strong>
   <%= @course.age_firm %>
 </p>
 
 <p>
-  <strong>Minimum Number of Students:</strong>
-  <%= @course.min_students %>
+  <strong>Number of Students:</strong>
+  <%= @course.min_students %> - <%= @course.max_students %> (<%= @course.people.count %> signed up)
 </p>
 
 <p>
-  <strong>Maximum Number of Students:</strong>
-  <%= @course.max_students %>
-</p>
-
-<p>
-  <strong>Course Fee:</strong>
+  <strong>Fee:</strong>
   <% if @course.fee and @course.fee != 0 %>
     <%= number_to_currency(@course.fee, precision: 0) %>
   <% else %>
@@ -73,27 +70,16 @@
   <%= @course.additional_info %>
 </p>
 
-<p>
-  <strong>Room:</strong>
-  <% if !@course.room.nil? %>
-    <%= @course.room.name %>
-  <% else %>
-    not yet assigned
-  <% end %>
-</p>
-
-<p>
-  <strong>Period:</strong>
-  <% if !@course.period.nil? %>
-    <%= @course.period.name %>
-  <% else %>
-    not yet assigned
-  <% end %>
-</p>
-
 <hr />
 
-<h3>Students in Course</h3>
+<% if user_signed_in? and current_user.can? :show_students, CoursesController %>
+  <h3>Students in Course</h3>
+  <ul>
+  <% @course.people.each do |person| %>
+    <li><%= person.name %></li>
+  <% end %>
+  </ul>
+<% end %>
 
 <%= link_to 'Edit', edit_cuco_session_course_path %> |
 <%= link_to "Back to #{@cuco_session.name} Session", cuco_session_path(@cuco_session) %>

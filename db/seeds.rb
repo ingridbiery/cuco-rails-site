@@ -99,6 +99,11 @@ s10252 = CucoSession.create!(name: '2015 Spring', start_date: '“2015/03/23”'
 s11299 = CucoSession.create!(name: '2015 Fall', start_date: '“2015/09/14”'.to_date, end_date: '“2015/12/18”'.to_date)
 s11330 = CucoSession.create!(name: '2016 Winter', start_date: '“2016/01/11”'.to_date, end_date: '“2016/03/11”'.to_date)
 s12091 = CucoSession.create!(name: '2016 Spring', start_date: '“2016/03/21”'.to_date, end_date: '“2016/05/20”'.to_date)
+s12092 = CucoSession.create!(name: '2016 Fall', start_date: '“2016/09/11”'.to_date, end_date: '“2016/12/16”'.to_date)
+s12091.dates = Dates.create!(cuco_session: s12091)
+s12091.dates.calculate_dates
+s12092.dates = Dates.create!(cuco_session: s12092)
+s12092.dates.calculate_dates
 
 s12091.families << member_family
 

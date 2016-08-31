@@ -4,12 +4,16 @@
 
     <% @events.select { |e| e.start_dt.to_date <= date and date <= e.end_dt.to_date }.each do |event| %>
       <div class="simple-calendar-event">
-        <% if event.start_dt.to_date == date or event.end_dt.to_date == date %>
-          <%= event.start_dt.strftime("%l:%M%P") %>
-        <% else %>
+        <% if event.start_dt.to_date != date %>
           -
         <% end %>
+        <% if event.start_dt.to_date == date or event.end_dt.to_date == date %>
+          <%= event.start_dt.strftime("%l:%M%P") %>
+        <% end %>
         <%= event.name %>
+        <% if event.end_dt.to_date != date %>
+          -
+        <% end %>
       </div>
     <% end %>
   <% end %>

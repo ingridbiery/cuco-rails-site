@@ -12,11 +12,8 @@ class Dates < ActiveRecord::Base
     events.where(event_type: EventType.find_by_name(:courses))
   end
   
-  # calculate the dates for this session, and create the Event objects and all the google
-  # calendars and events
-  def calculate_dates(token)
-    self.public_calendar_gid = GoogleAPI.create_calendar(token, "Public #{cuco_session.name}")
-    self.member_calendar_gid = GoogleAPI.create_calendar(token, "Member #{cuco_session.name}")
+  # calculate the dates for this session, and create the Event objects
+  def calculate_dates
     self.save
 
     # find all Tuesdays between start and stop (by getting all dates between
@@ -28,33 +25,26 @@ class Dates < ActiveRecord::Base
     # store the basic dates
     EventType.all.each do |event_type|
       if (event_type.name.to_sym != :courses) then
-        create_planning_event(token, event_type, all_tuesdays.first)
+        create_planning_event(event_type, all_tuesdays.first)
       end
     end
 
     # store the unknown number of courses
     all_tuesdays.each_with_index do |tuesday, num|
-      create_course_event(token, tuesday, num)
+      create_course_event(tuesday, num)
     end
   end
   
   # the user has edited date information. Update all the events
-  def update_dates(token, new_dates)
+  def update_dates(new_dates)
     events.each do |event|
       if (event.event_type.name.to_sym != :courses) then
-        update_event(token, event, new_dates[event.event_type.name])
+        update_event(event, new_dates[event.event_type.name])
       end
     end
     get_courses.each_with_index do |event, num|
-      update_event(token, event, new_dates[:weeks]["#{num+1}"])
+      update_event(event, new_dates[:weeks]["#{num+1}"])
     end
-  end
-  
-  # destroy the google calendars for this session. The dates object in the
-  # database will be destroyed automatically
-  def destroy_dates(token)
-    GoogleAPI.destroy_calendar(token, public_calendar_gid)
-    GoogleAPI.destroy_calendar(token, member_calendar_gid)
   end
   
   # find the next event (that is, the event whose date is soonest after today
@@ -90,30 +80,28 @@ class Dates < ActiveRecord::Base
   
   private
     # create a planning event
-    def create_planning_event(token, event_type, first_class_date)
+    def create_planning_event(event_type, first_class_date)
       start_dt = Time.zone.parse("#{first_class_date - event_type.start_date_offset} #{event_type.start_time.strftime("%H:%M")}")
       end_dt = Time.zone.parse("#{first_class_date - event_type.end_date_offset} #{event_type.end_time.strftime("%H:%M")}")
-      create_event(token, event_type, start_dt, end_dt, event_type.display_name)
+      create_event(event_type, start_dt, end_dt, event_type.display_name)
     end
     
     # create a course event
-    def create_course_event(token, date, number)
+    def create_course_event(date, number)
       event_type = EventType.find_by_name(:courses)
       start_dt = Time.zone.parse("#{date} #{event_type.start_time.strftime("%H:%M")}")
       end_dt = Time.zone.parse("#{date} #{event_type.end_time.strftime("%H:%M")}")
-      create_event(token, event_type, start_dt, end_dt, "#{event_type.display_name} #{number+1}")
+      create_event(event_type, start_dt, end_dt, "#{event_type.display_name} #{number+1}")
     end
     
-    # create the actual event and add it to the google calendar
-    def create_event(token, event_type, start_dt, end_dt, name)
-      gid = GoogleAPI.add_event(token, get_calendar_gid(event_type), event_type.display_name,
-                                start_dt.utc.iso8601, end_dt.utc.iso8601)
+    # create the actual event
+    def create_event(event_type, start_dt, end_dt, name)
       events.create!(name: name, start_dt: start_dt, end_dt: end_dt,
-                     event_type: event_type, google_id: gid)
+                     event_type: event_type)
     end
 
     # update a single event object
-    def update_event(token, event, new_info)
+    def update_event(event, new_info)
       event.name = new_info[:label]
       event.start_dt = Time.zone.parse("#{new_info[:start_date]} #{event.event_type.start_time.strftime("%H:%M")}")
       if !new_info[:end_date].nil?
@@ -123,29 +111,17 @@ class Dates < ActiveRecord::Base
         # use the end time (which is generally the same, but not for courses)
         event.end_dt = Time.zone.parse("#{new_info[:start_date]} #{event.event_type.end_time.strftime("%H:%M")}")
       end
-      GoogleAPI.update_event(token, get_calendar_gid(event.event_type),
-                             event.google_id, event.name,
-                             event.start_dt.utc.iso8601, event.end_dt.utc.iso8601)
       event.save
     end
 
-    # get the calendar id for the given event type
-    def get_calendar_gid(event_type)
-      if (event_type.members_only)
-        member_calendar_gid
-      else
-        public_calendar_gid
-      end
-    end
-    
     # get the right registration event for the given user type
     def get_registration(user)
       if (user.nil? or user.membership == :new) then
-        events.find_by(event_type: EventType.find_by_name(:new_reg))
+        get_event(:new_reg)
       elsif (user.membership == :former)
-        events.find_by(event_type: EventType.find_by_name(:former_reg))
+        get_event(:former_reg)
       else
-        events.find_by(event_type: EventType.find_by_name(:member_reg))
+        get_event(:member_reg)
       end
     end
     

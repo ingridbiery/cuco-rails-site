@@ -1,5 +1,5 @@
 class DatesController < ApplicationController
-  let :google_admin, :all
+  let :web_team, :all
   before_action :set_dates
   before_action :set_cuco_session
 
@@ -11,7 +11,7 @@ class DatesController < ApplicationController
   
   # update each of the Events
   def update
-    @dates.update_dates(current_user.token, params[:results])
+    @dates.update_dates(params[:results])
     render :show
   end
 

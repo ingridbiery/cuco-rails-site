@@ -52,8 +52,7 @@
 <% if user_signed_in? and current_user.can? :edit, CucoSessionsController %>
   <%= link_to 'Edit', edit_cuco_session_path(@cuco_session) %> |
 <% end %>
-<% if user_signed_in? and current_user.can? :destroy, CucoSessionsController and
-       GoogleAPI.check_authorization?(current_user) %>
+<% if user_signed_in? and current_user.can? :destroy, CucoSessionsController %>
   <%= link_to 'Destroy', @cuco_session, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <% end %>
 <%= link_to "Back to Sessions", cuco_sessions_path %>

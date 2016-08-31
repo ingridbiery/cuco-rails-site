@@ -1,0 +1,19 @@
+// Place all the styles related to the Calendar controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.calendar-title {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+// bootstrap does striped background for table-striped. We want to override
+// that for next & prev month, which is challenging. Adding an override tag
+// in the html and using it here works
+#bootstrap-override .simple-calendar td.prev-month,
+#bootstrap-override .simple-calendar td.next-month {
+  background-color: #ccc;
+}
+
+.simple-calendar-event {
+  font-size: x-small;
+}

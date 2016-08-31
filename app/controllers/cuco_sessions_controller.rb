@@ -1,5 +1,5 @@
 class CucoSessionsController < ApplicationController
-  let :google_admin, :all
+  let :web_team, :all
   let :all, [:index, :show]
   before_action :set_cuco_session, only: [:show, :edit, :update, :destroy]
 
@@ -25,7 +25,7 @@ class CucoSessionsController < ApplicationController
     @cuco_session = CucoSession.new(cuco_session_params)
     if @cuco_session.save
       d = Dates.create(cuco_session: @cuco_session)
-      d.calculate_dates(current_user.token)
+      d.calculate_dates
       redirect_to @cuco_session, notice: "#{@cuco_session.name} was successfully created."
     else
       render :new
@@ -43,7 +43,7 @@ class CucoSessionsController < ApplicationController
       if update_dates
         @cuco_session.dates.destroy unless @cuco_session.dates == nil
         d = Dates.create(cuco_session: @cuco_session)
-        d.calculate_dates(current_user.token)
+        d.calculate_dates
       end
       redirect_to @cuco_session, notice: "#{@cuco_session.name} was successfully updated."
     else
@@ -52,7 +52,6 @@ class CucoSessionsController < ApplicationController
   end
 
   def destroy
-    @cuco_session.dates.destroy_dates(current_user.token) unless @cuco_session.dates == nil
     @cuco_session.destroy
     redirect_to cuco_sessions_path, notice: "#{@cuco_session.name} was successfully destroyed."
   end

@@ -33,5 +33,7 @@ module Workspace
       port: 587,
       enable_starttls_auto: true
     }
+    
+    config.beginning_of_week = :sunday
   end
 end

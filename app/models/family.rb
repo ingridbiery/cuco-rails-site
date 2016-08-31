@@ -6,17 +6,17 @@ class Family < ActiveRecord::Base
   has_many :adults, -> { where(dob: nil) }, class_name: 'Person', foreign_key: :family_id
   default_scope -> { order(name: :asc) }
   
-  ONLY_LETTERS = /\A[a-zA-Z ]+$\z/
-  ONLY_LETTERS_MESSAGE = "can only contain letters."
+  LEGAL_CHARACTERS = /\A[a-zA-Z. \-\(\)\/]*\z/
+  LEGAL_CHARACTERS_MESSAGE = "contains invalid characters"
   
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false },
                    length: { maximum: 50 },
-                   format: { with: ONLY_LETTERS, message: ONLY_LETTERS_MESSAGE }
+                   format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
   validates :street_address, presence: true
   validates :city, presence: true,
                    length: { maximum: 50 },
-                   format: { with: ONLY_LETTERS, message: ONLY_LETTERS_MESSAGE }
+                   format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
   validates :state, presence: true,
                     length: { minimum: 2, maximum: 2 }
   validates :zip, presence: true,
@@ -24,13 +24,13 @@ class Family < ActiveRecord::Base
                   numericality: true
   validates :ec_first_name, presence: true,
                             length: { maximum: 50 },
-                            format: { with: ONLY_LETTERS, message: ONLY_LETTERS_MESSAGE }
+                            format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
   validates :ec_last_name, presence: true,
                             length: { maximum: 50 },
-                            format: { with: ONLY_LETTERS, message: ONLY_LETTERS_MESSAGE }
+                            format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
   validates :ec_relationship, presence: true,
                               length: { maximum: 50 },
-                              format: { with: ONLY_LETTERS, message: ONLY_LETTERS_MESSAGE }
+                              format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
 
 
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations

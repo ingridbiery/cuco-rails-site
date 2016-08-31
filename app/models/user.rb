@@ -22,8 +22,10 @@ class User < ActiveRecord::Base
                     
   # needed for action_access to control access to specific parts of our site
   # based on user roles. Needs to get all the roles for this user
+  # membership is calculated rather than stored in the db, so include that too
+  # (it is one of :new, :former, or :member)
   def clearance_levels
-    roles.pluck(:name)
+    roles.pluck(:name) << membership.to_s
   end
   
   # a new user has just been created

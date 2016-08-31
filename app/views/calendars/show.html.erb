@@ -1,5 +1,11 @@
 <div id="bootstrap-override">
   <%= month_calendar do |date| %>
     <%= date.day %>
+
+    <% @events.select { |e| e.start_dt.to_date <= date and date <= e.end_dt.to_date }.each do |event| %>
+      <div class="simple-calendar-event">
+        &nbsp<%= event.name %>
+      </div>
+    <% end %>
   <% end %>
 </div>

@@ -30,6 +30,8 @@ web_team.roles << role_w
 
 user = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'user@example.com', notification_list: false)
 
+member = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'member@example.com', notification_list: false)
+
 # families have to get destroyed before Pronouns because that triggers
 # destroying people which ensures that we have no lingering foreign keys
 Family.destroy_all
@@ -62,6 +64,10 @@ williams.people.create!(first_name: "Christopher", last_name: "Williams", dob: "
 williams.people.create!(first_name: "David", last_name: "Williams", dob: "2002/01/01".to_date, pronoun_id: he.id)
 williams.people.create!(first_name: "Matthew", last_name: "Williams", dob: "2005/01/01".to_date, pronoun_id: he.id)
 
+member_family = Family.create!(name: "Member", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, ec_first_name: "Contact", ec_last_name: "Member", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
+memberp = member_family.people.create!(first_name: "First", last_name: "Member", pronoun_id: she.id)
+memberp.user = member
+
 EventType.destroy_all
 EventType.create!(name: :course_offering, display_name: "Class Offerings",start_date_offset: 33, start_time: Time.parse("23:30"),end_date_offset: 28, end_time: Time.parse("23:30"),members_only: true, registration: false)
 EventType.create!(name: :schedule_posted, display_name: "Schedule Posted",start_date_offset: 27, start_time: Time.parse("12:00"),end_date_offset: 27, end_time: Time.parse("12:00"),members_only: false, registration: false)
@@ -93,6 +99,8 @@ s10252 = CucoSession.create!(name: '2015 Spring', start_date: '“2015/03/23”'
 s11299 = CucoSession.create!(name: '2015 Fall', start_date: '“2015/09/14”'.to_date, end_date: '“2015/12/18”'.to_date)
 s11330 = CucoSession.create!(name: '2016 Winter', start_date: '“2016/01/11”'.to_date, end_date: '“2016/03/11”'.to_date)
 s12091 = CucoSession.create!(name: '2016 Spring', start_date: '“2016/03/21”'.to_date, end_date: '“2016/05/20”'.to_date)
+
+s12091.families << member_family
 
 Room.destroy_all
 meeting = Room.create!(name: "Meeting Room")

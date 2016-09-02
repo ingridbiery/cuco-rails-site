@@ -3,7 +3,8 @@ class CourseSignup < ActiveRecord::Base
   
   belongs_to :course
   belongs_to :person
-  
+  validates :person_id, :uniqueness => {:scope=>:course_id, :message => "person already signed up for course"}
+
   validate :course_capacity
   validate :student_age_firm
 
@@ -20,10 +21,11 @@ class CourseSignup < ActiveRecord::Base
   end
   
   def student_age
-    if person.age != nil
-      if person.age < course.min_age
+    age = person.age_on(course.cuco_session.start_date)
+    if age != nil
+      if age < course.min_age
         errors.add("Student", "too young for course")
-      elsif person.age > course.max_age
+      elsif age > course.max_age
         errors.add("Student", "too old for course")
       end
     end

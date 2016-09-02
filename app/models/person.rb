@@ -31,14 +31,18 @@ class Person < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
   
-  # return the person's age. If they're an adult, they won't have a dob in the
-  # system, so deal with nil
+  # return the person's age today
   def age
+    age_on(Time.now.utc.to_date)
+  end
+  
+  # return the person's age on the given date. If they're an adult, they won't have a dob in the
+  # system, so deal with nil
+  def age_on(date)
     if dob == nil
       nil
     else
-      now = Time.now.utc.to_date
-      now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+      date.year - dob.year - ((date.month > dob.month || (date.month == dob.month && date.day >= dob.day)) ? 0 : 1)
     end
   end
 end

@@ -2,16 +2,9 @@
 <ul>
   <li><strong>Location Start</strong>: <%= @dates.cuco_session.start_date %></li>
   <li><strong>Location End</strong>: <%= @dates.cuco_session.end_date %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.get_event(:course_offering)} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.get_event(:schedule_posted)} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.get_event(:member_reg)} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.get_event(:former_reg)} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.get_event(:new_reg)} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.get_event(:fees_posted)} %></li>
-  <li><%= render partial: 'event', locals: {event: @dates.get_event(:fees_due)} %></li>
-  <% @dates.get_courses.each do |event| %>
+  <% @dates.events.sort_by{|e| e[:start_dt]}.each do |event| %>
     <li><%= render partial: 'event', locals: {event: event} %></li>
-  <% end %>  
+  <% end %>
 </ul>
 
 <%= link_to 'Edit', edit_cuco_session_dates_path(@cuco_session, @dates) %> |

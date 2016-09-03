@@ -6,19 +6,20 @@ class Course < ActiveRecord::Base
   has_many :people, through: :course_signups
 
   validates :name, presence: true,
-                   length: { maximum: 100 }
+                   length: { minimum: 3, maximum: 100 }
 
-  validates :short_name, length: { maximum: 30 }
+  validates :short_name, presence: true,
+                         length: { minimum: 3, maximum: 30 }
 
   validates :description, presence: true
 
-  validates :min_age, length: { maximum: 3 }, numericality: true
-  validates :max_age, length: { maximum: 3 }, numericality: true
+  validates :min_age, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
+  validates :max_age, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
 
-  validates :min_students, length: { maximum: 3 }, numericality: true
-  validates :max_students, length: { maximum: 3 }, numericality: true
+  validates :min_students, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
+  validates :max_students, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
 
-  validates :fee, length: { maximum: 3 }, numericality: true, allow_blank: true
+  validates :fee, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 999 }
 
   validate :age_ranges
   validate :student_ranges

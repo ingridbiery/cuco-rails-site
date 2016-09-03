@@ -6,31 +6,40 @@ class Family < ActiveRecord::Base
   has_many :adults, -> { where(dob: nil) }, class_name: 'Person', foreign_key: :family_id
   default_scope -> { order(name: :asc) }
   
-  LEGAL_CHARACTERS = /\A[a-zA-Z. \-\(\)\/]*\z/
-  LEGAL_CHARACTERS_MESSAGE = "contains invalid characters"
+  SHORT_LEGAL_CHARS = /\A[a-zA-Z.' ]*\z/
+  SHORT_LEGAL_CHARS_LIST = "letters, space, period, apostrophe."
+  LONG_LEGAL_CHARS = /\A[a-zA-Z. \-\(\)\/']*\z/
+  LONG_LEGAL_CHARS_LIST = "letters, space, period, apostrophe, dash, parentheses, slash."
+  LEGAL_CHARS_MSG = "contains invalid characters. Valid characters: "
   
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false },
                    length: { maximum: 50 },
-                   format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
+                   format: { with: LONG_LEGAL_CHARS,
+                             message: LEGAL_CHARS_MSG + LONG_LEGAL_CHARS_LIST}
   validates :street_address, presence: true
   validates :city, presence: true,
                    length: { maximum: 50 },
-                   format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
+                   format: { with: SHORT_LEGAL_CHARS,
+                             message: LEGAL_CHARS_MSG + SHORT_LEGAL_CHARS_LIST }
   validates :state, presence: true,
-                    length: { minimum: 2, maximum: 2 }
+                    format: { with: /\A[A-Z][A-Z]\z/,
+                             message: "should be two capital letters" }
   validates :zip, presence: true,
                   length: { minimum: 5, maximum: 5 },
                   numericality: true
   validates :ec_first_name, presence: true,
                             length: { maximum: 50 },
-                            format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
+                            format: { with: SHORT_LEGAL_CHARS,
+                                      message: LEGAL_CHARS_MSG + SHORT_LEGAL_CHARS_LIST }
   validates :ec_last_name, presence: true,
                             length: { maximum: 50 },
-                            format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
+                            format: { with: LONG_LEGAL_CHARS,
+                                      message: LEGAL_CHARS_MSG  + LONG_LEGAL_CHARS_LIST}
   validates :ec_relationship, presence: true,
                               length: { maximum: 50 },
-                              format: { with: LEGAL_CHARACTERS, message: LEGAL_CHARACTERS_MESSAGE }
+                              format: { with: SHORT_LEGAL_CHARS,
+                                        message: LEGAL_CHARS_MSG + SHORT_LEGAL_CHARS_LIST }
 
 
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations

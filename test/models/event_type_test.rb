@@ -9,18 +9,35 @@ class EventTypeTest < ActiveSupport::TestCase
     assert @event_type.valid?
   end
   
+  #############################################################################
+  # name
+  #############################################################################
+
   test "name should be present" do
     @event_type.name = nil
     assert_not @event_type.valid?
   end
+
+  #############################################################################
+  # display name
+  #############################################################################
 
   test "display_name should be present" do
     @event_type.display_name = nil
     assert_not @event_type.valid?
   end
 
+  #############################################################################
+  # offsets
+  #############################################################################
+
   test "start_date_offset should be present" do
     @event_type.start_date_offset = nil
+    assert_not @event_type.valid?
+  end
+
+  test "start_date_offset should be an integer" do
+    @event_type.start_date_offset = 10.3
     assert_not @event_type.valid?
   end
 
@@ -28,6 +45,15 @@ class EventTypeTest < ActiveSupport::TestCase
     @event_type.end_date_offset = nil
     assert_not @event_type.valid?
   end
+
+  test "end_date_offset should be an integer" do
+    @event_type.end_date_offset = 10.3
+    assert_not @event_type.valid?
+  end
+
+  #############################################################################
+  # time
+  #############################################################################
 
   test "start_time should be present" do
     @event_type.start_time = nil
@@ -39,18 +65,18 @@ class EventTypeTest < ActiveSupport::TestCase
     assert_not @event_type.valid?
   end
 
-  # can't test for presence of booleans because false is not present
+  #############################################################################
+  # flags (boolean values are hard to test because of typecasting)
+  #############################################################################
   
-  test "start_date_offset should be an integer" do
-    @event_type.start_date_offset = 10.3
+  test "members only should be present" do
+    @event_type.members_only = nil
     assert_not @event_type.valid?
   end
 
-  test "end_date_offset should be an integer" do
-    @event_type.end_date_offset = 10.3
+  test "registration should be present" do
+    @event_type.registration = nil
     assert_not @event_type.valid?
   end
-
-  # can't test for boolean because rails will typecast
 
 end

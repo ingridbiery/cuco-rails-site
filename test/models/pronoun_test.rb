@@ -9,6 +9,10 @@ class PronounTest < ActiveSupport::TestCase
     assert @pronoun.valid?
   end
   
+  #############################################################################
+  # preferred pronouns
+  #############################################################################
+
   test "preferred_pronouns should be present" do
     @pronoun.preferred_pronouns = nil
     assert_not @pronoun.valid?

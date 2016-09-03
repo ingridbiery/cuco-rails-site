@@ -10,6 +10,10 @@ class PeriodTest < ActiveSupport::TestCase
     assert @period.valid?
   end
 
+  #############################################################################
+  # name
+  #############################################################################
+
   test "name should be present" do
    @period.name = nil
    assert_not @period.valid?
@@ -21,6 +25,10 @@ class PeriodTest < ActiveSupport::TestCase
    assert_not duplicate_period.valid?
   end
 
+  #############################################################################
+  # start time
+  #############################################################################
+
   test "start_time should be present" do
     @period.start_time = nil
     assert_not @period.valid?
@@ -31,6 +39,10 @@ class PeriodTest < ActiveSupport::TestCase
     duplicate_period.start_time = @period.start_time
     assert_not duplicate_period.valid?
   end
+
+  #############################################################################
+  # end time
+  #############################################################################
 
   test "end_time should be present" do
     @period.end_time = nil

@@ -9,18 +9,12 @@ class PersonTest < ActiveSupport::TestCase
     assert @person.valid?
   end
   
+  #############################################################################
+  # first name
+  #############################################################################
+
   test "first_name should be present" do
     @person.first_name = nil
-    assert_not @person.valid?
-  end
-
-  test "last_name should be present" do
-    @person.last_name = nil
-    assert_not @person.valid?
-  end
-  
-  test "family_id should be present" do
-    @person.family_id = nil
     assert_not @person.valid?
   end
 
@@ -29,8 +23,26 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
   end
 
+  #############################################################################
+  # last name
+  #############################################################################
+
+  test "last_name should be present" do
+    @person.last_name = nil
+    assert_not @person.valid?
+  end
+  
   test "last_name should not be too long" do
     @person.last_name = "a" * 31
+    assert_not @person.valid?
+  end
+
+  #############################################################################
+  # family id
+  #############################################################################
+
+  test "family_id should be present" do
+    @person.family_id = nil
     assert_not @person.valid?
   end
 

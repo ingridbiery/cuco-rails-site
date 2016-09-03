@@ -9,6 +9,10 @@ class RoleTest < ActiveSupport::TestCase
     assert @role.valid?
   end
   
+  #############################################################################
+  # name
+  #############################################################################
+
   test "name should be present" do
     @role.name = nil
     assert_not @role.valid?

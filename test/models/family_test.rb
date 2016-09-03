@@ -9,7 +9,9 @@ class FamilyTest < ActiveSupport::TestCase
     assert @family.valid?
   end
 
-#### name ####
+  #############################################################################
+  # name
+  #############################################################################
 
   test "name should be present" do
     @family.name = nil
@@ -24,23 +26,31 @@ class FamilyTest < ActiveSupport::TestCase
   test "name should be unique" do
     duplicate_family = @family.dup
     duplicate_family.name = @family.name.upcase
-    @family.save
     assert_not duplicate_family.valid?
   end
 
-  test "name should only contain letters" do
-    @family.name = "Smith1"
+  test "name can contain certain non letter characters" do
+    @family.name = "Smith-Jones/The Third.Five ()"
+    assert @family.valid?
+  end
+
+  test "name can not contain other non letter characters" do
+    @family.name = "Smith [1]"
     assert_not @family.valid?
   end
 
-#### street_address ####
+  #############################################################################
+  # street address
+  #############################################################################
 
   test "street_address should be present" do
     @family.street_address = nil
     assert_not @family.valid?
   end
 
-#### city ####
+  #############################################################################
+  # city
+  #############################################################################
 
   test "city should be present" do
     @family.city = nil
@@ -52,29 +62,43 @@ class FamilyTest < ActiveSupport::TestCase
     assert_not @family.valid?
   end
 
-  test "city should only contain letters" do
-    @family.city = "Columbus1"
+  test "city can contain certain non letter characters" do
+    @family.city = "St. Louis"
+    assert @family.valid?
+    @family.city = "B'klyn"
+    assert @family.valid?
+  end
+
+  test "city can not contain other non letter characters" do
+    @family.city = "Smith-Jones/The Third.Five ()"
     assert_not @family.valid?
   end
 
-#### state ####
+  #############################################################################
+  # state
+  #############################################################################
 
   test "state should be present" do
     @family.state = nil
     assert_not @family.valid?
   end
 
-  test "state should not be too short" do
+  test "state should be two capital letters" do
     @family.state = "a" * 1
     assert_not @family.valid?
-  end
-
-  test "state should not be too long" do
     @family.state = "a" * 3
     assert_not @family.valid?
+    @family.state = "aa"
+    assert_not @family.valid?
+    @family.state = "12"
+    assert_not @family.valid?
+    @family.state = "AB"
+    assert @family.valid?
   end
 
-#### zip ####
+  #############################################################################
+  # zip
+  #############################################################################
 
   test "zip should be present" do
     @family.zip = nil
@@ -96,7 +120,9 @@ class FamilyTest < ActiveSupport::TestCase
     assert_not @family.valid?
   end
 
-#### ec_first_name ####
+  #############################################################################
+  # emergency contact first name
+  #############################################################################
 
   test "ec_first_name should be present" do
     @family.ec_first_name = nil
@@ -108,12 +134,21 @@ class FamilyTest < ActiveSupport::TestCase
     assert_not @family.valid?
   end
 
-  test "ec_first_name should only contain letters" do
-    @family.ec_first_name = "Jennifer3"
+  test "ec_first_name can contain certain non letter characters" do
+    @family.ec_first_name = "St. Louis"
+    assert @family.valid?
+    @family.ec_first_name = "B'klyn"
+    assert @family.valid?
+  end
+
+  test "ec_first_name can not contain other non letter characters" do
+    @family.ec_first_name = "Smith-Jones/The Third.Five ()"
     assert_not @family.valid?
   end
 
-#### ec_last_name ####
+  #############################################################################
+  # emergency contact last name
+  #############################################################################
 
   test "ec_last_name should be present" do
     @family.ec_last_name = nil
@@ -125,19 +160,40 @@ class FamilyTest < ActiveSupport::TestCase
     assert_not @family.valid?
   end
 
-  test "ec_last_name should only contain letters" do
-    @family.ec_first_name = "Smith4"
+  test "ec_last_name can contain certain non letter characters" do
+    @family.ec_last_name = "Smith-Jones/The Third.Five ()"
+    assert @family.valid?
+  end
+
+  test "ec_last_name can not contain other non letter characters" do
+    @family.ec_last_name = "Smith [1]"
     assert_not @family.valid?
   end
 
-#### ec_phone ####
+  #############################################################################
+  # emergency contact phone
+  #############################################################################
 
   test "ec_phone should be present" do
     @family.ec_phone = nil
     assert_not @family.valid?
   end
 
-#### ec_relationship ####
+  test "ec_phone should be a valid phone number" do
+    @family.ec_phone = "(614)555-1212"
+    assert @family.valid?
+    @family.ec_phone = "6145551212"
+    assert @family.valid?
+  end
+
+  test "ec_phone should not be letters" do
+    @family.ec_phone = "(614)555-slkj"
+    assert_not @family.valid?
+  end
+
+  #############################################################################
+  # emergency contact relationship
+  #############################################################################
 
   test "ec_relationship should be present" do
     @family.ec_relationship = nil
@@ -149,8 +205,15 @@ class FamilyTest < ActiveSupport::TestCase
     assert_not @family.valid?
   end
 
-  test "ec_relationship should only contain letters" do
-    @family.ec_relationship = "Father5"
+  test "ec_relationship can contain certain non letter characters" do
+    @family.ec_relationship = "St. Louis"
+    assert @family.valid?
+    @family.ec_relationship = "B'klyn"
+    assert @family.valid?
+  end
+
+  test "ec_relationship can not contain other non letter characters" do
+    @family.ec_relationship = "Smith-Jones/The Third.Five ()"
     assert_not @family.valid?
   end
 

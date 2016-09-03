@@ -9,54 +9,69 @@ class CourseTest < ActiveSupport::TestCase
     assert @course.valid?
   end
 
-#### TITLE ####
+  #############################################################################
+  # name
+  #############################################################################
 
   test "name should be present" do
    @course.name = nil
    assert_not @course.valid?
   end
 
-  ### We might want this but the seed file has a few with shorter names
-  # test "name should not be too short" do
-  #   @course.name = "a" * 4
-  #   assert_not @course.valid?
-  # end
+  test "name should not be too short" do
+    @course.short_name = "a" * 2
+    assert_not @course.valid?
+  end
 
   test "name should not be too long" do
      @course.name = "a" * 101
      assert_not @course.valid?
   end
 
-#### SHORT TITLE ####
+  #############################################################################
+  # short name
+  #############################################################################
 
-  ### We might want this but the seed file has many with no short name
-  # test "short name should be present" do
-  #   @course.short_name = nil
-  #   assert_not @course.valid?
-  # end
+  test "short name should be present" do
+    @course.short_name = nil
+    assert_not @course.valid?
+  end
 
-  ### We might want this but the seed file has many that are longer
-  # test "short name should not be too short" do
-  #   @course.short_name = "a" * 2
-  #   assert_not @course.valid?
-  # end
+  test "short name should not be too short" do
+    @course.short_name = "a" * 2
+    assert_not @course.valid?
+  end
 
   test "short name should not be too long" do
      @course.short_name = "a" * 31
      assert_not @course.valid?
   end
 
-#### DESCRIPTION ####
+  #############################################################################
+  # description
+  #############################################################################
 
   test "description should be present" do
     @course.description = nil
     assert_not @course.valid?
   end
 
-#### AGE ####
+  #############################################################################
+  # min age
+  #############################################################################
 
-  test "min age should not be too long" do
-     @course.min_age = 1111
+  test "min age should be present" do
+     @course.min_age = nil
+     assert_not @course.valid?
+  end
+
+  test "min age should be >= 0" do
+     @course.min_age = -1
+     assert_not @course.valid?
+  end
+
+  test "min age should be <= 100" do
+     @course.min_age = 101
      assert_not @course.valid?
   end
 
@@ -65,8 +80,22 @@ class CourseTest < ActiveSupport::TestCase
     assert_not @course.valid?
   end
 
-  test "max age should not be too long" do
-     @course.max_age = 1111
+  #############################################################################
+  # max age
+  #############################################################################
+
+  test "max age should be present" do
+     @course.max_age = nil
+     assert_not @course.valid?
+  end
+
+  test "max age should be >= 0" do
+     @course.max_age = -1
+     assert_not @course.valid?
+  end
+
+  test "max age should be <= 100" do
+     @course.max_age = 101
      assert_not @course.valid?
   end
   
@@ -75,15 +104,31 @@ class CourseTest < ActiveSupport::TestCase
     assert_not @course.valid?
   end
 
+  #############################################################################
+  # age range
+  #############################################################################
+
   test "min age should be less than max age" do
     @course.min_age = @course.max_age
     assert_not @course.valid?
   end
 
-#### STUDENTS ####
+  #############################################################################
+  # min students
+  #############################################################################
 
-  test "min students should not be too long" do
-     @course.min_students = 1111
+  test "min students should be present" do
+     @course.min_students = nil
+     assert_not @course.valid?
+  end
+
+  test "min students should be >= 0" do
+     @course.min_students = -1
+     assert_not @course.valid?
+  end
+
+  test "min students should be <= 100" do
+     @course.min_students = 101
      assert_not @course.valid?
   end
 
@@ -92,8 +137,22 @@ class CourseTest < ActiveSupport::TestCase
     assert_not @course.valid?
   end
 
-  test "max students should not be too long" do
-     @course.max_students = 1111
+  #############################################################################
+  # max students
+  #############################################################################
+
+  test "max students should be present" do
+     @course.max_students = nil
+     assert_not @course.valid?
+  end
+
+  test "max students should be >= 0" do
+     @course.max_students = -1
+     assert_not @course.valid?
+  end
+
+  test "max students should be <= 100" do
+     @course.max_students = 101
      assert_not @course.valid?
   end
 
@@ -102,21 +161,42 @@ class CourseTest < ActiveSupport::TestCase
     assert_not @course.valid?
   end
 
+  #############################################################################
+  # student range
+  #############################################################################
+
   test "min students should be less than max students" do
     @course.min_students = @course.max_students
     assert_not @course.valid?
   end
 
-#### FEE ####
+  #############################################################################
+  # fee
+  #############################################################################
+
+  test "fee should be present" do
+    @course.fee = nil
+    assert_not @course.valid?
+  end
+
+  test "fee should be >= 0" do
+     @course.fee = -1
+     assert_not @course.valid?
+  end
+
+  test "fee should be < 1000" do
+     @course.fee = 1000
+     assert_not @course.valid?
+  end
 
   test "fee should not be letters" do
     @course.fee = "aa"
     assert_not @course.valid?
   end
 
-  test "fee should not be too long" do
-     @course.fee = 1000
-     assert_not @course.valid?
+  test "fee should allow decimal" do
+     @course.fee = 10.5
+     assert @course.valid?
   end
 
 end

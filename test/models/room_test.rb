@@ -9,6 +9,10 @@ class RoomTest < ActiveSupport::TestCase
     assert @room.valid?
   end
   
+  #############################################################################
+  # name
+  #############################################################################
+
   test "name should be present" do
     @room.name = nil
     assert_not @room.valid?

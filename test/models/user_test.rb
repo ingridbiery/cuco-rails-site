@@ -14,19 +14,13 @@ class UserTest < ActiveSupport::TestCase
     assert @user.valid?
   end
   
+  #############################################################################
+  # email
+  #############################################################################
+
   test "email should be present" do
     @user.email = "      "
     assert_not @user.valid?
-  end
-  
-  test "notification_list should be true/false" do
-    @user.notification_list = nil
-    assert_not @user.valid?
-  end
-
-  test "notification_list should allow false" do
-    @user.notification_list = false
-    assert @user.valid?
   end
   
   test "email should not be too long" do
@@ -66,8 +60,24 @@ class UserTest < ActiveSupport::TestCase
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
 
-  #  can't test for boolean because rails will typecast
+  #############################################################################
+  # notification list
+  #############################################################################
+
+  test "notification_list should be true/false" do
+    @user.notification_list = nil
+    assert_not @user.valid?
+  end
+
+  test "notification_list should allow false" do
+    @user.notification_list = false
+    assert @user.valid?
+  end
   
+  #############################################################################
+  # membership type
+  #############################################################################
+
   test "user with no person should be :new" do
     @user.person = nil
     assert_equal :new, @user.membership

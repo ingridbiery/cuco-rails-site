@@ -12,6 +12,10 @@ class CucoSessionTest < ActiveSupport::TestCase
     assert @cuco_session.valid?
   end
   
+  #############################################################################
+  # name
+  #############################################################################
+
   test "name should be present" do
     @cuco_session.name = "    "
     assert_not @cuco_session.valid?
@@ -33,6 +37,9 @@ class CucoSessionTest < ActiveSupport::TestCase
     assert_not duplicate_cuco_session.valid?
   end
   
+  #############################################################################
+  # dates/events
+  #############################################################################
   # trying to test for start_date and end_date presence
   # breaks cuco_sessions#valid_dates so we'll just skip that
   

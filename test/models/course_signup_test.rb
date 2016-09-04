@@ -4,6 +4,9 @@ class CourseSignupTest < ActiveSupport::TestCase
   def setup
     @course_signup = course_signups(:one)
     @adult = people(:kimberly)
+    @course1 = courses(:one)
+    @course2 = courses(:two)
+    @period1 = periods(:first)
   end
 
   test "should be valid" do
@@ -11,12 +14,26 @@ class CourseSignupTest < ActiveSupport::TestCase
   end
 
   #############################################################################
-  # unique
+  # duplicates
   #############################################################################
   
   test "person/course pair should be unique" do
     new_signup = @course_signup.dup
     assert_not new_signup.valid?
+  end
+
+  test "warn when person signed up for another course in same period" do
+    @course1.period = @period1
+    @course1.save
+    @course_signup.course = @course1
+    @course_signup.save
+    @course2.period = @period1
+    @course2.cuco_session_id = @course1.cuco_session_id
+    @course2.save
+    new_signup = @course_signup.dup
+    new_signup.course = @course2
+    assert new_signup.valid?
+    assert_not new_signup.safe?
   end
 
   #############################################################################

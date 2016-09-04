@@ -3,7 +3,7 @@ class CourseSignup < ActiveRecord::Base
   
   belongs_to :course
   belongs_to :person
-  validates :person_id, :uniqueness => {:scope=>:course_id, :message => "person already signed up for course"}
+  validates :person_id, :uniqueness => {:scope=>:course_id, :message => "already signed up for course"}
 
   validate :course_capacity
   validate :student_age_firm
@@ -33,10 +33,21 @@ class CourseSignup < ActiveRecord::Base
 
   warnings do
     validate :student_age_suggestion
+    validate :one_signup_per_period
 
     def student_age_suggestion
       if !course.age_firm
         student_age
+      end
+    end
+    
+    def one_signup_per_period
+      pid = course.period.id
+      csid = course.cuco_session.id
+      signups = CourseSignup.where(person: person).joins(:course).where(courses: {cuco_session_id: csid,
+                                                                                  period_id: pid})
+      if signups.count != 0
+        errors.add("Student", "already has another class this period")
       end
     end
   end

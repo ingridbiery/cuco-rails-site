@@ -38,8 +38,8 @@ class Family < ActiveRecord::Base
                                       message: LEGAL_CHARS_MSG  + LONG_LEGAL_CHARS_LIST}
   validates :ec_relationship, presence: true,
                               length: { maximum: 50 },
-                              format: { with: SHORT_LEGAL_CHARS,
-                                        message: LEGAL_CHARS_MSG + SHORT_LEGAL_CHARS_LIST }
+                              format: { with: LONG_LEGAL_CHARS,
+                                        message: LEGAL_CHARS_MSG + LONG_LEGAL_CHARS_LIST }
 
 
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations

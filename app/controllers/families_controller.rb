@@ -1,6 +1,7 @@
 class FamiliesController < ApplicationController
-  # this is not what we want except in development
-  let :user, :all
+  let :member, :all
+  let :web_team, :all
+  let :user, [:show, :new, :create, :update]
   before_action :set_family, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
@@ -17,12 +18,8 @@ class FamiliesController < ApplicationController
     if current_user.person != nil then
       family_id = current_user.person.family_id
     end
-    # only show the family if it is the current user's family or
-    # the current user and family are available for an association
-    unless params[:id] == family_id.to_s or 
-           (family_id == nil and @family.user == nil)
-      not_authorized! path: families_path, message: "That's not your family!"
-    end
+
+    is_this_my_family(family_id)
   end
 
   # GET /families/new
@@ -36,12 +33,8 @@ class FamiliesController < ApplicationController
     if current_user.person != nil then
       family_id = current_user.person.family_id
     end
-    # only show the family if it is the current user's family or
-    # the current user and family are available for an association
-    unless params[:id] == family_id.to_s or 
-           (family_id == nil and @family.user == nil)
-      not_authorized! path: families_path, message: "That's not your family!"
-    end
+
+    is_this_my_family(family_id)
   end
 
   def create
@@ -69,7 +62,18 @@ class FamiliesController < ApplicationController
     redirect_to families_url, notice: "#{@family.name} was successfully destroyed."
   end
 
+  # only show the family if it is the current user's family or
+  # the current user and family are available for an association
+  def is_this_my_family(family_id)
+    unless params[:id] == family_id.to_s or
+      (family_id == nil and @family.user == nil) or
+      current_user.can? :index, UsersController
+    not_authorized! path: families_path, message: "That's not your family!"
+    end
+  end
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_family
       @family = Family.find(params[:id])

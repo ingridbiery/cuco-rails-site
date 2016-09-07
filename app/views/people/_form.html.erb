@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label "Birthday" %><br>
-    <%= f.date_select :dob %>
+    <%= f.date_select :dob, start_year: Date.today.year, end_year: Date.today.year-100 %>
   </div>
   <div class="field">
     <%= f.label "Pronouns" %><br>

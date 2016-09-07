@@ -11,6 +11,13 @@
     </div>
   <% end %>
 
+  <% if @family.people.any? %>
+    <div class="field">
+      <strong>Adult attending CUCO for the family</strong><br>
+      <%= f.collection_select(:primary_adult_id, @family.people, :id, :first_name) %>
+    </div>
+  <% end %><br />
+
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -23,12 +30,6 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <% if @family.people.any? %>
-    <div class="field">
-      <%= f.label :primary_adult %><br>
-      <%= f.collection_select(:primary_adult_id, @family.people, :id, :first_name) %>
-    </div>
-  <% end %>
   <div class="field">
     <%= f.label :street_address %><br>
     <%= f.text_field :street_address %>
@@ -45,9 +46,9 @@
     <%= f.label :zip %><br>
     <%= f.text_field :zip %>
   </div>
-  
+
   <hr />
-  
+
   <h2>Emergency Contact Info</h2>
   <p><em>This should be someone who is not regularly attending CUCO.</em></p>
 

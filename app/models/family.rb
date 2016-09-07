@@ -5,6 +5,7 @@ class Family < ActiveRecord::Base
   has_many :kids, -> { where.not(dob: nil) }, class_name: 'Person', foreign_key: :family_id
   has_many :adults, -> { where(dob: nil) }, class_name: 'Person', foreign_key: :family_id
   default_scope -> { order(name: :asc) }
+  accepts_nested_attributes_for :people
   
   SHORT_LEGAL_CHARS = /\A[a-zA-Z.' ]*\z/
   SHORT_LEGAL_CHARS_LIST = "letters, space, period, apostrophe."

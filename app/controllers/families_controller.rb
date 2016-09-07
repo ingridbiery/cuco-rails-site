@@ -26,6 +26,7 @@ class FamiliesController < ApplicationController
   def new
     @family = Family.new
     @family.state = "OH"
+    @person = Person.new
   end
 
   # GET /families/1/edit
@@ -38,8 +39,12 @@ class FamiliesController < ApplicationController
   end
 
   def create
+    byebug
     @family = Family.new(family_params)
+    @person = Person.new(people_params)
     if @family.save
+      @family.primary_adult_id = @family.person.first.id
+      @family.save
       # let the user know what we just did
       redirect_to @family, notice: "#{@family.name} was successfully created."
     else

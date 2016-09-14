@@ -1,9 +1,10 @@
 class FamiliesController < ApplicationController
   let :member, :all
   let :web_team, :all
+  let :web_team, :access_any_family
   let :user, [:show, :new, :create, :update]
   before_action :set_family, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :check_authorization
 
   # GET /families
   def index
@@ -12,14 +13,7 @@ class FamiliesController < ApplicationController
 
   # GET /families/1
   def show
-    @family = Family.find(params[:id])
     @families = Family.all
-
-    if current_user.person != nil then
-      family_id = current_user.person.family_id
-    end
-
-    is_this_my_family(family_id)
   end
 
   # GET /families/new
@@ -34,16 +28,17 @@ class FamiliesController < ApplicationController
     if current_user.person != nil then
       family_id = current_user.person.family_id
     end
-
-    is_this_my_family(family_id)
   end
 
   def create
-    byebug
     @family = Family.new(family_params)
-    @person = Person.new(people_params)
-    if @family.save
-      @family.primary_adult_id = @family.person.first.id
+    @person = Person.new(person_params)
+    if @family.valid? and @person.valid?
+      @family.save
+      @person.family_id = @family.id
+      @person.user = current_user
+      @person.save
+      @family.primary_adult_id = @person.id
       @family.save
       # let the user know what we just did
       redirect_to @family, notice: "#{@family.name} was successfully created."
@@ -69,12 +64,12 @@ class FamiliesController < ApplicationController
 
   # only show the family if it is the current user's family or
   # the current user and family are available for an association
-  def is_this_my_family(family_id)
-    unless params[:id] == family_id.to_s or
-      (family_id == nil and @family.user == nil) or
-      current_user.can? :index, UsersController
-    not_authorized! path: families_path, message: "That's not your family!"
-    end
+  def check_authorization
+    # unless current_user&.person.family == @family or
+    #         current_user&.can? :access_any_family
+    #   not_authorized! path: families_path, message: "That's not your family!"
+    # end
+    true
   end
 
   private
@@ -90,5 +85,9 @@ class FamiliesController < ApplicationController
                                      :zip, :primary_adult_id, :ec_first_name,
                                      :ec_last_name, :ec_phone, :ec_text,
                                      :ec_relationship)
+    end
+
+    def person_params
+      params.require(:family).require(:person).permit(:first_name, :last_name, :pronoun_id)
     end
 end

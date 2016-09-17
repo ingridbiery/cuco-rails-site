@@ -1,8 +1,9 @@
 class CoursesController < ApplicationController
   let [:web_team, :member], [:show_students]
+  let :member, :create_signup
   let :all, [:index, :show, :new, :edit, :create, :update, :destroy]
   before_action :set_cuco_session
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :create_signup]
 
   # GET /cuco_sessions/:cuco_session_id/courses
   def index
@@ -46,6 +47,11 @@ class CoursesController < ApplicationController
   def destroy
     @course.destroy
     redirect_to cuco_session_courses_path, notice: "#{@course.name} was successfully destroyed."
+  end
+  
+  def create_signup
+    @course.people << current_user.person
+    redirect_to cuco_session_courses_path(@course), notice: "#{current_user.person} added to #{@course}"
   end
 
   private

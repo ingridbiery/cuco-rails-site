@@ -64,20 +64,21 @@ class Dates < ActiveRecord::Base
   
   # figure out if membership signups are currently open for the given user type
   def membership_signup?(user)
-    upcoming_events = get_upcoming_events
-    # if the next event is a registration event
-    if (!upcoming_events.empty? and upcoming_events.first.event_type.registration)
-      # get the right registration event for the current user type
-      # if that event has already started, signups are open for this user
-      if (get_registration(user).start_dt <= Time.now)
-        return true
-      end
+    case user.membership
+    when :member
+      e = get_event(:member_reg)
+    when :former
+      e = get_event(:former_reg)
+    else
+      e = get_event(:new_reg)
     end
-    # all other situations mean registration is not yet open
-    return false
+    if (e.start_dt <= Time.now and Time.now <= e.end_dt)
+      return true
+    else
+      return false
+    end
   end
     
-  
   private
     # create a planning event
     def create_planning_event(event_type, first_class_date)

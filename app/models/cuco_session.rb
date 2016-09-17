@@ -48,6 +48,19 @@ class CucoSession < ActiveRecord::Base
     return kids.count >= MAX_KIDS
   end
   
+  # figure out if membership signups are currently open for the given user type
+  def membership_signup?(user)
+    # returns nil if dates nil, dates.membership_signup?(user) otherwise
+    dates&.membership_signup?(user)
+  end
+
+  # are course signups currently open. We currently allow course signups during
+  # the same times as membership signups, and the user has to have joined the
+  # current session
+  def course_signup?(user)
+    dates&.membership_signup?(user) and families.include? user&.person&.family
+  end
+  
   private
     # make sure the dates work
     def valid_dates

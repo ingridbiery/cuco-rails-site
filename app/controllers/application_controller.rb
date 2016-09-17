@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
         next_event = cuco_session.dates.next_event(current_user)
         if !next_event.nil? then
           @next_session_info += next_event.status_text
-          if cuco_session.dates.membership_signup?(current_user) then
+          if cuco_session.membership_signup?(current_user) then
             @next_cuco_session = cuco_session
             if cuco_session.full?
               @membership_signup_info = "This session is full with #{cuco_session.kids.count} out of #{CucoSession::MAX_KIDS} kids enrolled"

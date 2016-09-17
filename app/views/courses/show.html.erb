@@ -72,7 +72,12 @@
 
 <hr />
 
-<% if user_signed_in? and current_user.can? :show_students, CoursesController %>
+
+<% if @course.cuco_session.course_signup?(current_user) %>
+  <%= link_to 'Sign Up', create_signup_cuco_session_course_path, :method => :post %>
+<% end %>
+
+<% if current_user&.can? :show_students, CoursesController %>
   <h3>Students in Course</h3>
   <ul>
   <% @course.people.each do |person| %>

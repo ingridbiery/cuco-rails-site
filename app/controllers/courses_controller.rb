@@ -1,29 +1,31 @@
 class CoursesController < ApplicationController
+  # :show_students is not a method, just a label to indicate who is allowed to see
+  # the list of students in a course
   let [:web_team, :member], [:show_students]
-  let :member, :create_signup
-  let :all, [:index, :show, :new, :edit, :create, :update, :destroy]
+  # who can create/edit/etc. courses; for other than web_team, people will only be
+  # allowed to manage the courses they create
+  let [:web_team, :member, :former_member], [:new, :create, :edit, :update, :destroy]
+  # current members are the only ones who can manage signups, again, only their own
+  let :member, [:new_signup, :create_signup]
+  # anyone, including anonymous users, can view courses
+  let :all, [:index, :show]
   before_action :set_cuco_session
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :create_signup]
+  before_action :set_course, except: [:index]
 
-  # GET /cuco_sessions/:cuco_session_id/courses
   def index
     @courses = @cuco_session.courses.all
   end
 
-  # GET /cuco_sessions/:cuco_session_id/courses/1
   def show
   end
 
-  # GET /cuco_sessions/:cuco_session_id/courses/new
   def new
     @course = Course.new
   end
 
-  # GET /cuco_sessions/:cuco_session_id/courses/1/edit
   def edit
   end
 
-  # POST /cuco_sessions/:cuco_session_id/courses
   def create
     @course = Course.new(course_params)
     
@@ -34,7 +36,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /cuco_sessions/:cuco_session_id/courses/1
   def update
     if @course.update(course_params)
       redirect_to [@cuco_session, @course], notice: "#{@course.name} was successfully updated."
@@ -43,15 +44,23 @@ class CoursesController < ApplicationController
     end
   end
 
-  # DELETE /cuco_sessions/:cuco_session_id/courses/1
   def destroy
     @course.destroy
     redirect_to cuco_session_courses_path, notice: "#{@course.name} was successfully destroyed."
   end
   
+  def new_signup
+    @course_signup = CourseSignup.new()
+    @people = current_user.person.family.people
+  end
+  
   def create_signup
-    @course.people << current_user.person
-    redirect_to cuco_session_courses_path(@course), notice: "#{current_user.person} added to #{@course}"
+    @course_signup = CourseSignup.new(course_id: @course.id, person_id: params[:course_signup][:person_id])
+    if @course_signup.save
+      redirect_to [@cuco_session, @course], notice: "#{@course_signup.person.name} added to #{@course.name}"
+    else
+      render :new_signup
+    end
   end
 
   private

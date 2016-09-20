@@ -73,12 +73,12 @@
 <hr />
 
 
-<% if @course.cuco_session.course_signup?(current_user) %>
-  <%= link_to 'Sign Up', create_signup_cuco_session_course_path, :method => :post %>
-<% end %>
-
 <% if current_user&.can? :show_students, CoursesController %>
-  <h3>Students in Course</h3>
+  <h3>Students in Course (<%= @course.people.count %>)
+  <% if @course.cuco_session.course_signup?(current_user) %>
+    <%= link_to image_tag('add.png'), new_signup_cuco_session_course_path, title: "Add Person to Course" %></h3>
+  <% end %></h3>
+
   <ul>
   <% @course.people.each do |person| %>
     <li><%= person.name %></li>

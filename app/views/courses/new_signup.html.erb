@@ -1,0 +1,25 @@
+<h1>New Course Signup for <%= @course.name %></h1>
+
+<%= form_for @course_signup, url: create_signup_cuco_session_course_path do |f| %>
+  <% if @course_signup.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@course_signup.errors.count, "error") %> prohibited this signup from being saved:</h2>
+
+      <ul>
+      <% @course_signup.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Person" %><br>
+    <%= f.collection_select :person_id, @people, :id, :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', :back %>

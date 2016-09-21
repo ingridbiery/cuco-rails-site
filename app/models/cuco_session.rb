@@ -5,6 +5,7 @@ class CucoSession < ActiveRecord::Base
   has_many :families, through: :memberships
   has_many :kids, through: :families
   has_many :adults, through: :families
+  has_many :people, through: :families
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },
                    uniqueness: { message: "already exists." }

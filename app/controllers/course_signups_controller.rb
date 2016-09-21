@@ -1,5 +1,6 @@
 class CourseSignupsController < ApplicationController
-  let :member, :all
+  let [:member, :web_team], [:new, :create, :destroy]
+  let :web_team, :manage_all_users
   before_action :set_cuco_session, :set_course, :set_people
 
   def new
@@ -24,7 +25,11 @@ class CourseSignupsController < ApplicationController
   private
     # get the people that this user can add to a course
     def set_people
-      @people = current_user.person.family.people
+      if current_user&.can? :manage_all_users, :course_signup
+        @people = @cuco_session.people
+      else
+        @people = current_user&.person&.family.people
+      end
     end
 
     def set_course

@@ -86,7 +86,7 @@
       <% else %> (age <%= person.age %>)
       <% end %>
       <% if @course.cuco_session.course_signup?(current_user) and
-         current_user&.person.family.people.include? person %>
+         @people.include? person %>
         <%= link_to image_tag('delete.png'), cuco_session_course_course_signup_path(@cuco_session, @course, CourseSignup.find_by(course_id: @course.id, person_id: person.id)), method: :delete,
               data: { confirm: 'Are you sure?' }, title: "Delete #{person.name}" %>
       <% end %>

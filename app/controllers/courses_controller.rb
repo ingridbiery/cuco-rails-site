@@ -10,7 +10,8 @@ class CoursesController < ApplicationController
   # anyone, including anonymous users, can view courses
   let :all, [:index, :show]
   before_action :set_cuco_session
-  before_action :set_course, except: [:index]
+  before_action :set_course, except: :index
+  before_action :set_people, only: :show
 
   def index
     @courses = @cuco_session.courses.all
@@ -50,6 +51,15 @@ class CoursesController < ApplicationController
   end
   
   private
+
+    # get the people that this user can remove to a course
+    def set_people
+      if current_user&.can? :manage_all_users, :course_signup
+        @people = @cuco_session.people
+      else
+        @people = current_user&.person&.family&.people
+      end
+    end
 
     def set_course
       @course = Course.find(params[:id])

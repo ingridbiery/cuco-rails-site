@@ -80,14 +80,15 @@
   <% end %></h3>
 
   <ul>
-  <% @course.people.each do |person| %>
+  <% @course.course_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
+    <% person = course_signup.person %>
     <li><%= person.name %>
       <% if person.age.nil? %> (adult)
       <% else %> (age <%= person.age %>)
       <% end %>
       <% if @course.cuco_session.course_signup?(current_user) and
-         @people.include? person %>
-        <%= link_to image_tag('delete.png'), destroy_signup_cuco_session_course_path(@cuco_session, CourseSignup.find_by(course_id: @course.id, person_id: person.id)), method: :delete,
+            @people.include? person %>
+        <%= link_to image_tag('delete.png'), destroy_signup_cuco_session_course_path(@cuco_session, course_signup), method: :delete,
               data: { confirm: 'Are you sure?' }, title: "Delete #{person.name}" %>
       <% end %>
     </li>

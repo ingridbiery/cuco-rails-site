@@ -5,7 +5,7 @@ class Person < ActiveRecord::Base
   has_many :course_signups
   has_many :courses, through: :course_signups
 
-  default_scope -> { order(last_name: :asc) }
+  default_scope -> { order(first_name: :asc) }
   validates :first_name, presence: true,
                          length: { maximum: 30 }
   validates :last_name, presence: true,

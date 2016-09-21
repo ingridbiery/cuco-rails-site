@@ -1,5 +1,5 @@
 class CourseSignupsController < ApplicationController
-  let :member, [:new, :create]
+  let :member, :all
   before_action :set_cuco_session
   before_action :set_course
 
@@ -15,6 +15,12 @@ class CourseSignupsController < ApplicationController
     else
       render :new_signup
     end
+  end
+  
+  def destroy
+    @course_signup = CourseSignup.find(params[:id])
+    @course_signup.destroy
+    redirect_to [@cuco_session, @course], notice: "#{@course_signup.person.name} was successfully removed from #{@course.name}."
   end
 
   private

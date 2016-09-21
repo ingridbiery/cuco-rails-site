@@ -4,7 +4,7 @@ class FamiliesController < ApplicationController
   let :web_team, :access_any_family
   let :user, [:show, :new, :create, :edit, :update]
   before_action :set_family, only: [:show, :edit, :update, :destroy]
-  before_action :check_authorization
+  before_action :check_authorization, except: :index
 
   # GET /families
   def index
@@ -62,12 +62,11 @@ class FamiliesController < ApplicationController
     redirect_to families_url, notice: "#{@family.name} was successfully destroyed."
   end
 
-  # only show/edit the family if it is the current user's family or
-  # the current user and family are available for an association
+  # only show/edit the family if it is the current user's family
   def check_authorization
-     unless current_user&.person.family == @family
-       not_authorized! path: families_path, message: "That's not your family!"
-     end
+    unless current_user&.person&.family == @family
+      not_authorized! path: families_path, message: "That's not your family!"
+    end
   end
 
   private

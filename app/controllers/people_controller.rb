@@ -1,7 +1,9 @@
 class PeopleController < ApplicationController
+  let :web_team, :all
+  let :web_team, :access_any_family
+  let [:user, :member], [:show, :new, :create, :edit, :update]
   before_action :set_family
   before_action :set_person, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   # GET /families/:family_id/people
   def index

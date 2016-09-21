@@ -81,7 +81,11 @@
 
   <ul>
   <% @course.people.each do |person| %>
-    <li><%= person.name %></li>
+    <li><%= person.name %>
+      <% if person.age.nil? %> (adult)
+      <% else %> (age <%= person.age %>)
+      <% end %>
+    </li>
   <% end %>
   </ul>
 <% end %>

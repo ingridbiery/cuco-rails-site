@@ -39,8 +39,8 @@ class Family < ActiveRecord::Base
                                       message: LEGAL_CHARS_MSG  + LONG_LEGAL_CHARS_LIST}
   validates :ec_relationship, presence: true,
                               length: { maximum: 50 },
-                              format: { with: SHORT_LEGAL_CHARS,
-                                        message: LEGAL_CHARS_MSG + SHORT_LEGAL_CHARS_LIST }
+                              format: { with: LONG_LEGAL_CHARS,
+                                        message: LEGAL_CHARS_MSG + LONG_LEGAL_CHARS_LIST }
 
   validates_each :ec_first_name, :ec_last_name do |record, attr, value|
     record.errors.add(attr, 'must start with upper case') if value =~ /\A[[:lower:]]/

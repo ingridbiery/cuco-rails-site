@@ -15,5 +15,8 @@
 
   <td><%= link_to 'Show', family_person_path(@family, person) %></td>
   <td><%= link_to 'Edit', edit_family_person_path(@family, person) %></td>
-  <td><%= link_to 'Destroy', family_person_path(@family, person), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <% if current_user&.can? :index, UsersController %>
+    <td><%= link_to 'Destroy', family_person_path(@family, person), 
+            method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <% end %>
 </tr>

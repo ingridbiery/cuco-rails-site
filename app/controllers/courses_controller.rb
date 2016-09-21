@@ -49,20 +49,6 @@ class CoursesController < ApplicationController
     redirect_to cuco_session_courses_path, notice: "#{@course.name} was successfully destroyed."
   end
   
-  def new_signup
-    @course_signup = CourseSignup.new()
-    @people = current_user.person.family.people
-  end
-  
-  def create_signup
-    @course_signup = CourseSignup.new(course_id: @course.id, person_id: params[:course_signup][:person_id])
-    if @course_signup.save
-      redirect_to [@cuco_session, @course], notice: "#{@course_signup.person.name} added to #{@course.name}"
-    else
-      render :new_signup
-    end
-  end
-
   private
 
     def set_course

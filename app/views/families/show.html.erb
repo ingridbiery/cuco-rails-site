@@ -55,5 +55,7 @@
 <% end %>
 <br/>
 
-<%= link_to 'Edit', edit_family_path(@family) %> |
-<%= link_to "Back to List of Families", families_path %>
+<%= link_to 'Edit', edit_family_path(@family) %>
+<% if current_user&.can? :index, FamiliesController %>
+  | <%= link_to "Back to List of Families", families_path %>
+<% end %>

@@ -42,6 +42,9 @@ class Family < ActiveRecord::Base
                               format: { with: SHORT_LEGAL_CHARS,
                                         message: LEGAL_CHARS_MSG + SHORT_LEGAL_CHARS_LIST }
 
+  validates_each :ec_first_name, :ec_last_name do |record, attr, value|
+    record.errors.add(attr, 'must start with upper case') if value =~ /\A[[:lower:]]/
+  end
 
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations
   

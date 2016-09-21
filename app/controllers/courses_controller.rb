@@ -1,7 +1,10 @@
 class CoursesController < ApplicationController
+  # :manage_all_users_signups is not a method, just a label to indicate who is allowed
+  # to add/remove signups for everyone (instead of just their family)
+  let :web_team, :manage_all_users_signups
   # :show_students is not a method, just a label to indicate who is allowed to see
   # the list of students in a course
-  let [:web_team, :member], [:show_students]
+  let [:web_team, :member], :show_students
   # who can create/edit/etc. courses; for other than web_team, people will only be
   # allowed to manage the courses they create
   let [:web_team, :member, :former_member], [:new, :create, :edit, :update, :destroy]
@@ -73,7 +76,7 @@ class CoursesController < ApplicationController
 
     # get the people that this user can remove to a course
     def set_people
-      if current_user&.can? :manage_all_users, :course_signup
+      if current_user&.can? :manage_all_users_signups, :courses
         @people = @cuco_session.people
       else
         @people = current_user&.person&.family&.people

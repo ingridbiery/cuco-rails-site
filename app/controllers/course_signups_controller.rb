@@ -1,11 +1,9 @@
 class CourseSignupsController < ApplicationController
   let :member, :all
-  before_action :set_cuco_session
-  before_action :set_course
+  before_action :set_cuco_session, :set_course, :set_people
 
   def new
     @course_signup = CourseSignup.new()
-    @people = current_user.person.family.people
   end
   
   def create
@@ -13,7 +11,7 @@ class CourseSignupsController < ApplicationController
     if @course_signup.save
       redirect_to [@cuco_session, @course], notice: "#{@course_signup.person.name} added to #{@course.name}"
     else
-      render :new_signup
+      render :new
     end
   end
   
@@ -24,6 +22,10 @@ class CourseSignupsController < ApplicationController
   end
 
   private
+    # get the people that this user can add to a course
+    def set_people
+      @people = current_user.person.family.people
+    end
 
     def set_course
       @course = Course.find(params[:course_id])

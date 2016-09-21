@@ -1,4 +1,4 @@
-<h1>New Course Signup for <%= @course.name %></h1>
+<h1>Sign up student for <%= @course.name %></h1>
 
 <%= form_for [@cuco_session, @course, @course_signup] do |f| %>
   <% if @course_signup.errors.any? %>
@@ -14,11 +14,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label "Person" %><br>
+    <%= f.label "Student" %><br>
     <%= f.collection_select :person_id, @people, :id, :name %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Add to course" %>
   </div>
 <% end %>
 

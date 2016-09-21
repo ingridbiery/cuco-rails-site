@@ -6,6 +6,11 @@ class Person < ActiveRecord::Base
   has_many :courses, through: :course_signups
 
   default_scope -> { order(first_name: :asc) }
+
+  validates_each :first_name, :last_name do |record, attr, value|
+    record.errors.add(attr, 'must start with upper case') if value =~ /\A[[:lower:]]/
+  end
+
   validates :first_name, presence: true,
                          length: { maximum: 30 }
   validates :last_name, presence: true,

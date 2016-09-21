@@ -1,6 +1,6 @@
 <h1>Sign up student for <%= @course.name %></h1>
 
-<%= form_for [@cuco_session, @course, @course_signup] do |f| %>
+<%= form_for @course_signup, url: create_signup_cuco_session_course_path do |f| %>
   <% if @course_signup.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@course_signup.errors.count, "error") %> prohibited this signup from being saved:</h2>

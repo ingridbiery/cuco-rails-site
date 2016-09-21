@@ -6,12 +6,12 @@ class CoursesController < ApplicationController
   # allowed to manage the courses they create
   let [:web_team, :member, :former_member], [:new, :create, :edit, :update, :destroy]
   # current members are the only ones who can manage signups, again, only their own
-  let :member, [:new_signup, :create_signup]
+  let :member, [:new_signup, :create_signup, :destroy_signup]
   # anyone, including anonymous users, can view courses
   let :all, [:index, :show]
   before_action :set_cuco_session
-  before_action :set_course, except: :index
-  before_action :set_people, only: :show
+  before_action :set_course, except: [:index, :destroy_signup]
+  before_action :set_people, only: [:show, :new_signup, :create_signup]
 
   def index
     @courses = @cuco_session.courses.all
@@ -50,6 +50,25 @@ class CoursesController < ApplicationController
     redirect_to cuco_session_courses_path, notice: "#{@course.name} was successfully destroyed."
   end
   
+  def new_signup
+    @course_signup = CourseSignup.new()
+  end
+  
+  def create_signup
+    @course_signup = CourseSignup.new(course_id: @course.id, person_id: params[:course_signup][:person_id])
+    if @course_signup.save
+      redirect_to [@cuco_session, @course], notice: "#{@course_signup.person.name} added to #{@course.name}"
+    else
+      render :new_signup
+    end
+  end
+  
+  def destroy_signup
+    @course_signup = CourseSignup.find(params[:id])
+    @course_signup.destroy
+    redirect_to [@cuco_session, @course_signup.course], notice: "#{@course_signup.person.name} was successfully removed from #{@course_signup.course.name}."
+  end
+
   private
 
     # get the people that this user can remove to a course

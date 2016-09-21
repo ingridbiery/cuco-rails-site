@@ -26,7 +26,11 @@ Rails.application.routes.draw do
   
   resources :cuco_sessions do
     resources :courses do
-      resources :course_signups, :only => [:new, :create, :destroy]
+      member do
+        get :new_signup # add a new_signup route to the course
+        post :create_signup # add a create_signup route to the course
+        delete :destroy_signup # add a delete_signup route to the course
+      end
     end
     resources :dates, :only => [:show, :edit, :update]
   end

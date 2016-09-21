@@ -76,7 +76,7 @@
 <% if current_user&.can? :show_students, CoursesController %>
   <h3>Students in Course (<%= @course.people.count %>)
   <% if @course.cuco_session.course_signup?(current_user) %>
-    <%= link_to image_tag('add.png'), new_signup_cuco_session_course_path, title: "Add Person to Course" %></h3>
+    <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course), title: "Add Person to Course" %></h3>
   <% end %></h3>
 
   <ul>

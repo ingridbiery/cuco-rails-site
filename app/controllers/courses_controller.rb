@@ -74,7 +74,7 @@ class CoursesController < ApplicationController
 
   private
 
-    # get the people that this user can remove to a course
+    # get the people that this user can add or remove from a course
     def set_people
       if current_user&.can? :manage_all_users_signups, :courses
         @people = @cuco_session.people

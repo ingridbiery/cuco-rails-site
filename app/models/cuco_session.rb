@@ -50,16 +50,16 @@ class CucoSession < ActiveRecord::Base
   end
   
   # figure out if membership signups are currently open for the given user type
-  def membership_signup?(user)
-    # returns nil if dates nil, dates.membership_signup?(user) otherwise
-    dates&.membership_signup?(user)
+  def membership_signups_open?(user)
+    # returns nil if dates nil, dates.membership_signups_open?(user) otherwise
+    dates&.membership_signups_open?(user)
   end
 
   # are course signups currently open. We currently allow course signups during
   # the same times as membership signups, and the user has to have joined the
   # current session
-  def course_signup?(user)
-    dates&.membership_signup?(user) and families.include? user&.person&.family
+  def course_signups_open?(user)
+    dates&.membership_signups_open?(user) and families.include? user&.person&.family
   end
   
   private

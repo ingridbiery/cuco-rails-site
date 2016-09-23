@@ -5,6 +5,7 @@ class CucoSession < ActiveRecord::Base
   has_many :families, through: :memberships
   has_many :kids, through: :families
   has_many :adults, through: :families
+  has_many :people, through: :families
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },
                    uniqueness: { message: "already exists." }
@@ -46,6 +47,19 @@ class CucoSession < ActiveRecord::Base
   # it's hardcoded
   def full?
     return kids.count >= MAX_KIDS
+  end
+  
+  # figure out if membership signups are currently open for the given user type
+  def membership_signups_open?(user)
+    # returns nil if dates nil, dates.membership_signups_open?(user) otherwise
+    dates&.membership_signups_open?(user)
+  end
+
+  # are course signups currently open. We currently allow course signups during
+  # the same times as membership signups, and the user has to have joined the
+  # current session
+  def course_signups_open?(user)
+    dates&.membership_signups_open?(user) and families.include? user&.person&.family
   end
   
   private

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   # the calendar page url is /calendar. We get it through the
   # calendar controller, show method
-  get "calendar" => 'calendars#show'
+  get 'calendar' => 'calendars#show'
 
   # RESTful resources for family and people models, i.e. /people/new, /families/edit, etc...
   resources :families do
@@ -24,12 +24,17 @@ Rails.application.routes.draw do
   resources :pronouns, :event_types
   resources :rooms, :periods, :only => [:index, :edit, :update]
   
-  # create a new session
   resources :cuco_sessions do
-    resources :courses
+    resources :courses do
+      member do
+        get :new_signup # add a new_signup route to the course
+        post :create_signup # add a create_signup route to the course
+        delete :destroy_signup # add a delete_signup route to the course
+      end
+    end
     resources :dates, :only => [:show, :edit, :update]
   end
-  
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

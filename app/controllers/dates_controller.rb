@@ -11,7 +11,7 @@ class DatesController < ApplicationController
   
   # update each of the Events
   def update
-    params[:dates][:events_attributes].values.each do |event_params|
+    dates_params[:events_attributes].values.each do |event_params|
       event = Event.find(event_params[:id])
       event.name = event_params[:name]
       # this is the railsy way of listing 5 parameters to Time.zone.local,
@@ -33,4 +33,7 @@ class DatesController < ApplicationController
       @cuco_session = CucoSession.find(params[:cuco_session_id])
     end
     
+    def dates_params
+      params.require(:dates).permit( { events_attributes: [:id, :name, :start_dt, :end_dt] } )
+    end
 end

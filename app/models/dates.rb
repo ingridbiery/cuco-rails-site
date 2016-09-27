@@ -1,6 +1,7 @@
 class Dates < ActiveRecord::Base
   belongs_to :cuco_session
   has_many :events, dependent: :destroy
+  accepts_nested_attributes_for :events
   
   # find an event in the events list given the event type
   def get_event(type_name)
@@ -32,18 +33,6 @@ class Dates < ActiveRecord::Base
     # store the unknown number of courses
     all_tuesdays.each_with_index do |tuesday, num|
       create_course_event(tuesday, num)
-    end
-  end
-  
-  # the user has edited date information. Update all the events
-  def update_dates(new_dates)
-    events.each do |event|
-      if (event.event_type.name.to_sym != :courses) then
-        update_event(event, new_dates[event.event_type.name])
-      end
-    end
-    get_courses.each_with_index do |event, num|
-      update_event(event, new_dates[:weeks]["#{num+1}"])
     end
   end
   
@@ -99,20 +88,6 @@ class Dates < ActiveRecord::Base
     def create_event(event_type, start_dt, end_dt, name)
       events.create!(name: name, start_dt: start_dt, end_dt: end_dt,
                      event_type: event_type)
-    end
-
-    # update a single event object
-    def update_event(event, new_info)
-      event.name = new_info[:label]
-      event.start_dt = Time.zone.parse("#{new_info[:start_date]} #{event.event_type.start_time.strftime("%H:%M")}")
-      if !new_info[:end_date].nil?
-        event.end_dt = Time.zone.parse("#{new_info[:end_date]} #{event.event_type.end_time.strftime("%H:%M")}")
-      else
-        # there is no end_date in the form -- use the start_date again, but
-        # use the end time (which is generally the same, but not for courses)
-        event.end_dt = Time.zone.parse("#{new_info[:start_date]} #{event.event_type.end_time.strftime("%H:%M")}")
-      end
-      event.save
     end
 
     # get the right registration event for the given user type

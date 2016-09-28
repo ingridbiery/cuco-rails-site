@@ -29,6 +29,6 @@ class DatesController < ApplicationController
     end
     
     def dates_params
-      params.require(:dates).permit( { events_attributes: [:id, :name, :start_dt, :end_dt, :event_type_id] } )
+      params.require(:dates).permit( { events_attributes: [:id, :name, :start_dt, :end_dt, :event_type_id, :_destroy] } )
     end
 end

@@ -1,0 +1,24 @@
+<li>
+  <% if f.object.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(f.object.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <ul>
+      <% f.object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label "Start" %>
+    <%= f.datetime_select :start_dt %>
+  </div>
+  <div>
+    <%= f.label "End" %>
+    <%= f.datetime_select :end_dt %>
+  </div>
+</li>

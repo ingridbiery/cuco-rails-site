@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
   validates :name, presence: true
   validates :start_dt, presence: true
   validates :end_dt, presence: true
+  validate :start_not_after_end
 
   # get a text description of this event
   def status_text
@@ -24,4 +25,11 @@ class Event < ActiveRecord::Base
       end
     end
   end
+  
+  private
+    def start_not_after_end
+      if start_dt > end_dt
+        errors.add("Start Time", "(#{start_dt}) is after End time (#{end_dt})")
+      end
+    end
 end

@@ -1,29 +1,7 @@
-<% if @dates.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@dates.errors.count, "error") %> prohibited these dates from being saved:</h2>
-    <ul>
-    <% @dates.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <%= form_for @dates, :url => cuco_session_dates_path, :method => :patch do |f| %>
   <ul>
-    <%= f.fields_for :events, f.object.events.order(:start_dt) do |ff| %>
-      <li><div>
-        <%= ff.label :name %>
-        <%= ff.text_field :name %>
-      </div>
-      <div>
-        <%= ff.label "Start" %>
-        <%= ff.datetime_select :start_dt %>
-      </div>
-      <div>
-        <%= ff.label "End" %>
-        <%= ff.datetime_select :end_dt %>
-      </div></li>
+    <%= f.fields_for :events do |event_fields| %>
+      <%= render 'event_fields', f: event_fields %>
     <% end %>
   </ul>
   <%= f.submit "Update dates" %>

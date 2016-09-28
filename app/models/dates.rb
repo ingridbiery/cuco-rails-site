@@ -1,7 +1,7 @@
 class Dates < ActiveRecord::Base
   belongs_to :cuco_session
-  has_many :events, dependent: :destroy
-  accepts_nested_attributes_for :events
+  has_many :events, -> { order(start_dt: :asc) }, dependent: :destroy
+  accepts_nested_attributes_for :events, allow_destroy: true
   
   # find an event in the events list given the event type
   def get_event(type_name)

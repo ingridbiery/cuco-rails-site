@@ -14,6 +14,10 @@
     <%= f.text_field :name %>
   </div>
   <div>
+    <%= f.label :event_type %>
+    <%= f.collection_select(:event_type_id, EventType.all, :id, :name) %>
+  </div>
+  <div>
     <%= f.label "Start" %>
     <%= f.datetime_select :start_dt %>
   </div>

@@ -1,4 +1,14 @@
 <%= form_for @dates, :url => cuco_session_dates_path, :method => :patch do |f| %>
+  <% if @dates.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dates.errors.count, "error") %> prohibited these dates from being saved:</h2>
+      <ul>
+      <% @dates.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   <ul>
     <%= f.fields_for :events do |event_fields| %>
       <%= render 'event_fields', f: event_fields %>

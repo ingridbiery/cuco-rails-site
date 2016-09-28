@@ -2,6 +2,7 @@ class Dates < ActiveRecord::Base
   belongs_to :cuco_session
   has_many :events, -> { order(start_dt: :asc) }, dependent: :destroy
   accepts_nested_attributes_for :events, allow_destroy: true
+  validate :required_events
   
   # find an event in the events list given the event type
   def get_event(type_name)
@@ -104,5 +105,17 @@ class Dates < ActiveRecord::Base
     # return just the events that havent finished yet
     def get_upcoming_events
       events.where('end_dt > ?', Time.now).order(end_dt: :asc)
+    end
+    
+    def required_events
+      if (get_event(:new_reg).nil?)
+        errors.add("New Member Registration", "missing")
+      end
+      if (get_event(:former_reg).nil?)
+        errors.add("Former Member Registration", "missing")
+      end
+      if (get_event(:member_reg).nil?)
+        errors.add("Member Registration", "missing")
+      end
     end
 end

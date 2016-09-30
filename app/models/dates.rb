@@ -1,6 +1,8 @@
 class Dates < ActiveRecord::Base
   belongs_to :cuco_session
-  has_many :events, dependent: :destroy
+  has_many :events, -> { order(start_dt: :asc) }, dependent: :destroy
+  accepts_nested_attributes_for :events, allow_destroy: true
+  validate :required_events
   
   # find an event in the events list given the event type
   def get_event(type_name)
@@ -32,18 +34,6 @@ class Dates < ActiveRecord::Base
     # store the unknown number of courses
     all_tuesdays.each_with_index do |tuesday, num|
       create_course_event(tuesday, num)
-    end
-  end
-  
-  # the user has edited date information. Update all the events
-  def update_dates(new_dates)
-    events.each do |event|
-      if (event.event_type.name.to_sym != :courses) then
-        update_event(event, new_dates[event.event_type.name])
-      end
-    end
-    get_courses.each_with_index do |event, num|
-      update_event(event, new_dates[:weeks]["#{num+1}"])
     end
   end
   
@@ -101,20 +91,6 @@ class Dates < ActiveRecord::Base
                      event_type: event_type)
     end
 
-    # update a single event object
-    def update_event(event, new_info)
-      event.name = new_info[:label]
-      event.start_dt = Time.zone.parse("#{new_info[:start_date]} #{event.event_type.start_time.strftime("%H:%M")}")
-      if !new_info[:end_date].nil?
-        event.end_dt = Time.zone.parse("#{new_info[:end_date]} #{event.event_type.end_time.strftime("%H:%M")}")
-      else
-        # there is no end_date in the form -- use the start_date again, but
-        # use the end time (which is generally the same, but not for courses)
-        event.end_dt = Time.zone.parse("#{new_info[:start_date]} #{event.event_type.end_time.strftime("%H:%M")}")
-      end
-      event.save
-    end
-
     # get the right registration event for the given user type
     def get_registration(user)
       if (user.nil? or user.membership == :new) then
@@ -129,5 +105,17 @@ class Dates < ActiveRecord::Base
     # return just the events that havent finished yet
     def get_upcoming_events
       events.where('end_dt > ?', Time.now).order(end_dt: :asc)
+    end
+    
+    def required_events
+      if (get_event(:new_reg).nil?)
+        errors.add("New Member Registration", "missing")
+      end
+      if (get_event(:former_reg).nil?)
+        errors.add("Former Member Registration", "missing")
+      end
+      if (get_event(:member_reg).nil?)
+        errors.add("Member Registration", "missing")
+      end
     end
 end

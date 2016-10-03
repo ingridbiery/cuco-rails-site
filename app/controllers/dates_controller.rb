@@ -12,8 +12,8 @@ class DatesController < ApplicationController
   # update each of the Events
   def update
     if @dates.update_attributes(dates_params)
-      # dates gets updated before its events, so revalidate dates after
-      # the update
+      # dates gets updated before its events, so check for missing and duplicate
+      # events after the update
       if @dates.has_required_events?
         flash[:notice] = "Successfully updated dates."
         redirect_to [@cuco_session, @dates]

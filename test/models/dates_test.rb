@@ -32,8 +32,85 @@ class DatesTest < ActiveSupport::TestCase
     @fees_due = events(:fees_due)
     @week1 = events(:week1)
     @week2 = events(:week2)
+    @other = events(:other)
   end
   
+  #############################################################################
+  # missing events
+  #############################################################################
+  test "missing member registration" do
+    @member_reg.destroy
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "missing former member registration" do
+    @former_reg.destroy
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "missing new member registration" do
+    @new_reg.destroy
+    assert_not @fall.dates.has_required_events?
+  end
+  
+  #############################################################################
+  # duplicate events
+  #############################################################################
+
+  test "duplicate course offering error" do
+    new_event = @course_offering.dup
+    new_event.save
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "duplicate schedule posted error" do
+    new_event = @schedule_posted.dup
+    new_event.save
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "duplicate member registration error" do
+    new_event = @member_reg.dup
+    new_event.save
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "duplicate former member registration error" do
+    new_event = @former_reg.dup
+    new_event.save
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "duplicate new member registration error" do
+    new_event = @new_reg.dup
+    new_event.save
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "duplicate fees posted error" do
+    new_event = @fees_posted.dup
+    new_event.save
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "duplicate fees due error" do
+    new_event = @fees_due.dup
+    new_event.save
+    assert_not @fall.dates.has_required_events?
+  end
+
+  test "duplicate courses ok" do
+    new_event = @week1.dup
+    new_event.save
+    assert @fall.dates.has_required_events?
+  end
+
+  test "duplicate other ok" do
+    new_event = @other.dup
+    new_event.save
+    assert @fall.dates.has_required_events?
+  end
+
   #############################################################################
   # next event
   #############################################################################

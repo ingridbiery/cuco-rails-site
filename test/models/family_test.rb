@@ -166,7 +166,7 @@ class FamilyTest < ActiveSupport::TestCase
   end
 
   test "ec_last_name can not contain other non letter characters" do
-    @family.ec_last_name = "Smith [1]"
+    @family.name = "Smith $#@"
     assert_not @family.valid?
   end
 
@@ -213,7 +213,7 @@ class FamilyTest < ActiveSupport::TestCase
   end
 
   test "ec_relationship can not contain other non letter characters" do
-    @family.ec_relationship = "Smith-Jones/The Third.Five ()"
+    @family.ec_relationship = "Smith []"
     assert_not @family.valid?
   end
 

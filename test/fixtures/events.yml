@@ -60,3 +60,10 @@ week2:
   end_dt: 2016-09-20 15:15:00
   dates: fall_dates
   event_type: et_courses
+
+other:
+  name: "Party"
+  start_dt: 2016-09-27 09:45:00
+  end_dt: 2016-09-27 15:15:00
+  dates: fall_dates
+  event_type: et_other

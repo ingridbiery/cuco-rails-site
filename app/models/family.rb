@@ -33,9 +33,9 @@ class Family < ActiveRecord::Base
                             format: { with: SHORT_LEGAL_CHARS,
                                       message: LEGAL_CHARS_MSG + SHORT_LEGAL_CHARS_LIST }
   validates :ec_last_name, presence: true,
-                            length: { maximum: 50 },
-                            format: { with: LONG_LEGAL_CHARS,
-                                      message: LEGAL_CHARS_MSG  + LONG_LEGAL_CHARS_LIST}
+                           length: { maximum: 50 },
+                           format: { with: LONG_LEGAL_CHARS,
+                                     message: LEGAL_CHARS_MSG  + LONG_LEGAL_CHARS_LIST}
   validates :ec_relationship, presence: true,
                               length: { maximum: 50 },
                               format: { with: LONG_LEGAL_CHARS,

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Volunteer Job Types</h1>
+
+<ul>
+  <% @volunteer_job_types.each do |volunteer_job_type| %>
+    <li><%= link_to volunteer_job_type.name, volunteer_job_type %></li>
+  <% end %>
+</ul>
+
+<br>
+
+<%= link_to 'New Volunteer job type', new_volunteer_job_type_path %>

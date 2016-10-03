@@ -28,6 +28,74 @@ fees_due = EventType.create!(name: :fees_due, display_name: "Fees Due",start_dat
 courses = EventType.create!(name: :courses, display_name: "Week",start_date_offset: 0, start_time: Time.parse("09:45"),end_date_offset: 0, end_time: Time.parse("15:15"),members_only: false, registration: false)
 other = EventType.create!(name: :other, display_name: "Other",start_date_offset: 0, start_time: Time.parse("23:30"),end_date_offset: 0, end_time: Time.parse("23:30"),members_only: true, registration: false)
 
+print "Volunteer Job Types\n"
+VolunteerJobType.destroy_all
+teacher = VolunteerJobType.create!(name: :extra_helper, description: "Perform a job away from co-op.")
+teacher = VolunteerJobType.create!(name: :teacher, description: "Teach a class.")
+ta = VolunteerJobType.create!(name: :teaching_assistant, description: "* Help teacher with set up, if needed.
+* Assist teacher during class time.
+* Help with clean up, if needed.")
+monitor = VolunteerJobType.create!(name: :room_monitor, description: "Help supervise a class.")
+vol_mgr = VolunteerJobType.create!(name: :volunteer_manager, description: "* Have a cell phone for members to text/call in if they aren’t coming that day.
+* Check googlegroup to find out who is going to miss co-op or be late.
+* Assign free adults to fill in for those who are absent.
+* Assist people with checking in.
+* Direct volunteers to their positions and parents and students to their classrooms.
+* Let unknown visitors know that the location is being used for a closed activity.
+* Answer questions as necessary.")
+set_up = VolunteerJobType.create!(name: :set_up_manager, description: "* Be there when the building opens.
+* Put out the book/board/nametags, etc.
+* Make sure all of the jobs on the board get done.
+* If people are milling around, encourage them to take a card and do a job.
+* Assist people with checking in.
+* Direct volunteers to their positions and parents and students to their classrooms.
+* Let unknown visitors know that the location is being used for a closed activity.
+* Answer questions as necessary.")
+gym = VolunteerJobType.create!(name: :gym_monitor, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
+
+It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
+
+* Keep gym equipment in the gym.
+* Run interference, if needed, between big kid/little kid play.
+* At end of co-op day: return equipment to front desk.")
+game = VolunteerJobType.create!(name: :game_room_monitor, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
+
+It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
+
+* Before first class: get foosballs from front desk.
+* All day: monitor play, as needed, to ensure that kids that want to play get the chance.
+* After last class: return equipment to front desk and turn off lights.")
+auditorium = VolunteerJobType.create!(name: :auditorium_monitor, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
+
+It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
+
+* All day: monitor and run interference, if needed, between big kid/little kid play and keep kids off the stage.
+* After last class: return toys to storage area under stage and turn off lights.")
+floater = VolunteerJobType.create!(name: :floater, description: "Position starts at beginning of class time and ends when the next class time begins. You need to generally know your way around the building, where our storage is, roughly where the classrooms are, etc. You can learn this at orientation. It is fine to sit and read, work on your computer, knit, etc. as long as you are attending to the following expectations.
+* At the beginning of the class period, check each classroom. Make sure all volunteers are where they need to be. If one is late or missing without having notified the check-in desk, use the unassigned volunteers list to fill the empty spot and make a note for the volunteer manager that you have found a replacement.
+* Be available in the hallway to provide teachers with any help they need - provide assistance or find someone who can.
+* Keep halls clear and kids moving - direct to class or free time area or find parent. If kids are being loud in the lobby or hall, direct them to the gym or auditorium.
+* If child wants to leave class, escort them to their parent or a free play area and notify parent as to where their child is.
+* In an emergency, gather all family members from classrooms.
+* Before the rec center opens to the public, let unknown visitors know that we are having a closed activity.
+* Answer questions as necessary.")
+clean_up = VolunteerJobType.create!(name: :clean_up_manager, description: "* Be the last one to leave
+* Put away the board/nametags, etc. Take home the book if no one else has.
+* Make sure all of the jobs on the board get done. If people are milling around, encourage them to take a card and do a job. If there are not enough volunteers, check outside.
+* Make sure people sign their cards, or do it for them.
+* If a job is not done thoroughly, check the card and let the person know how to do it better next time.
+* Put any lost and found items in our cupboard.")
+adult = VolunteerJobType.create!(name: :adult_with_child, description: "This is used for people who want or need to be in the classroom with their child, but do not take any official role in running the course or monitoring the room. Of course, their help is appreciated when needed.")
+playground = VolunteerJobType.create!(name: :playground_monitor, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
+
+You MUST have a cell phone that you keep charged and carry with you to perform this job. If a child needs to be found, you will need to coordinate with the downstairs floater to determine if they're in a free play area or have wandered off.")
+lunch_clean = VolunteerJobType.create!(name: :lunch_clean_up_manager, description: "One person to be responsible for getting the chairs and tables put away in the closet. Other members should help, but you are responsible for making sure it gets finished. You should make an announcement 10-15 minutes before lunch is over to remind everyone to clean up after themselves.
+One person responsible for sweeping the floor.
+These jobs may run past the end of lunch so should be taken by someone who is either free after lunch, or planning to be in the auditorium.")
+lunch_timer = VolunteerJobType.create!(name: :lunch_time_keeper, description: "Make an announcement about 10-15 minutes before the end of lunch to remind people to help wipe down tables and chairs and return them to their carts.")
+unassigned = VolunteerJobType.create!(name: :unassigned_volunteer, description: "Adult available to help in a given period.")
+child = VolunteerJobType.create!(name: :child_with_adult, description: "This can be used for a small child who needs to be in the room with their adult but will not be participating in the class, using up a spot or materials.")
+
 print "Pronouns\n"
 User.destroy_all
 Family.destroy_all

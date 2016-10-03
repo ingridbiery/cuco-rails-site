@@ -2,18 +2,9 @@ class Dates < ActiveRecord::Base
   belongs_to :cuco_session
   has_many :events, -> { order(start_dt: :asc) }, dependent: :destroy
   accepts_nested_attributes_for :events, allow_destroy: true
-  validate :required_events
-  
-  # find an event in the events list given the event type
-  def get_event(type_name)
-    events.find_by(event_type: EventType.find_by_name(type_name))
-  end
+  # can't make required types a validation because on update, this object
+  # gets updated before its events, so we'll just call it as a method
 
-  # get all the courses
-  def get_courses
-    events.where(event_type: EventType.find_by_name(:courses))
-  end
-  
   # calculate the dates for this session, and create the Event objects
   def calculate_dates
     self.save
@@ -26,7 +17,8 @@ class Dates < ActiveRecord::Base
 
     # store the basic dates
     EventType.all.each do |event_type|
-      if (event_type.name.to_sym != :courses) then
+      if (event_type.name.to_sym != :courses and
+          event_type.name.to_sym != :other) then
         create_planning_event(event_type, all_tuesdays.first)
       end
     end
@@ -68,8 +60,38 @@ class Dates < ActiveRecord::Base
       return false
     end
   end
-    
+
+  def has_required_events?
+    valid = true
+
+    # look for missing types that are required
+    req_types = EventType.select {|event_type| (event_type.name.to_sym == :new_reg or
+                                                event_type.name.to_sym == :former_reg or
+                                                event_type.name.to_sym == :member_reg)}
+    req_types.each do |event_type|
+      if events.where(event_type_id: event_type.id).count == 0
+        errors.add(event_type.name, "missing")
+        valid = false
+      end
+    end
+
+    # look for duplicates where they are not allowed
+    nodup_types = EventType.where.not(name: :courses).where.not(name: :other)
+    nodup_types.each do |event_type|
+      if events.where(event_type_id: event_type.id).count > 1
+        errors.add(event_type.name, "appears more than once")
+        valid = false
+      end
+    end
+    valid
+  end
+
   private
+    # find an event in the events list given the event type
+    def get_event(type_name)
+      events.find_by(event_type: EventType.find_by_name(type_name))
+    end
+
     # create a planning event
     def create_planning_event(event_type, first_class_date)
       start_dt = Time.zone.parse("#{first_class_date - event_type.start_date_offset} #{event_type.start_time.strftime("%H:%M")}")
@@ -105,17 +127,5 @@ class Dates < ActiveRecord::Base
     # return just the events that havent finished yet
     def get_upcoming_events
       events.where('end_dt > ?', Time.now).order(end_dt: :asc)
-    end
-    
-    def required_events
-      if (get_event(:new_reg).nil?)
-        errors.add("New Member Registration", "missing")
-      end
-      if (get_event(:former_reg).nil?)
-        errors.add("Former Member Registration", "missing")
-      end
-      if (get_event(:member_reg).nil?)
-        errors.add("Member Registration", "missing")
-      end
     end
 end

@@ -15,18 +15,16 @@ class Person < ActiveRecord::Base
                          length: { maximum: 30 }
   validates :last_name, presence: true,
                         length: { maximum: 30 }
+
   # it would be nice to validate dob for datetime, but it is not simple so we'll skip it
   # we would like to require it for kids and skip it for adults, but that is not
   # high priority, so we're allowing it to be skipped for now.
-  #validates :family_id, presence: true,
-  #                      numericality: true
-
-  # we want to require pronouns unless we're auto-creating a user or an admin is
-  # creating it for someone. This doesn't quite do that, but again, it's not a
-  # priority and this is close enough.
+  
   validates :pronoun_id, presence: true,
-                         numericality: true,
-                         on: :update
+                         numericality: true
+
+  validates :family_id, presence: true,
+                        numericality: true
 
   def preferred_pronouns
     Pronoun.find(pronoun_id).preferred_pronouns

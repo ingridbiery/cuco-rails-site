@@ -11,18 +11,18 @@
     </div>
   <% end %>
 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <hr />
+
   <% if @family.people.any? %>
     <div class="field">
       <strong>Adult attending CUCO for the family</strong><br>
       <%= f.collection_select(:primary_adult_id, @family.people, :id, :name) %>
     </div>
   <% end %><br />
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
-  <hr />
 
   <h2>Family Info</h2>
 

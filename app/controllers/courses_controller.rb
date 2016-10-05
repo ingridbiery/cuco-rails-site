@@ -60,7 +60,15 @@ class CoursesController < ApplicationController
   def create_signup
     @course_signup = CourseSignup.new(course_id: @course.id, person_id: params[:course_signup][:person_id])
     if @course_signup.save
-      redirect_to [@cuco_session, @course], notice: "#{@course_signup.person.name} added to #{@course.name}"
+      if @course_signup.safe?
+        notice = "#{@course_signup.person.name} added to #{@course.name}"
+      else
+        notice = "#{@course_signup.person.name} added to #{@course.name} with warnings."
+        @course_signup.warnings.full_messages.each do |message|
+          notice += "#{message}"
+        end
+      end
+      redirect_to [@cuco_session, @course], notice: "#{notice}"
     else
       render :new_signup
     end

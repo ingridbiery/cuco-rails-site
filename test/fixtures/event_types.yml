@@ -78,3 +78,13 @@ et_courses:
   end_time: "23:30"
   members_only: false
   registration: false
+
+et_other:
+  name: "other"
+  display_name: "Other"
+  start_date_offset: 0
+  start_time: "11:00"
+  end_date_offset: 0
+  end_time: "15:00"
+  members_only: false
+  registration: false

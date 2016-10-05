@@ -2,7 +2,7 @@
 <ul>
   <li><strong>Location Start</strong>: <%= @dates.cuco_session.start_date %></li>
   <li><strong>Location End</strong>: <%= @dates.cuco_session.end_date %></li>
-  <% @dates.events.sort_by{|e| e[:start_dt]}.each do |event| %>
+  <% @dates.events.each do |event| %>
     <li><%= render partial: 'event', locals: {event: event} %></li>
   <% end %>
 </ul>

@@ -1,17 +1,10 @@
 class Dates < ActiveRecord::Base
   belongs_to :cuco_session
-  has_many :events, dependent: :destroy
-  
-  # find an event in the events list given the event type
-  def get_event(type_name)
-    events.find_by(event_type: EventType.find_by_name(type_name))
-  end
+  has_many :events, -> { order(start_dt: :asc) }, dependent: :destroy
+  accepts_nested_attributes_for :events, allow_destroy: true
+  # can't make required types a validation because on update, this object
+  # gets updated before its events, so we'll just call it as a method
 
-  # get all the courses
-  def get_courses
-    events.where(event_type: EventType.find_by_name(:courses))
-  end
-  
   # calculate the dates for this session, and create the Event objects
   def calculate_dates
     self.save
@@ -24,7 +17,8 @@ class Dates < ActiveRecord::Base
 
     # store the basic dates
     EventType.all.each do |event_type|
-      if (event_type.name.to_sym != :courses) then
+      if (event_type.name.to_sym != :courses and
+          event_type.name.to_sym != :other) then
         create_planning_event(event_type, all_tuesdays.first)
       end
     end
@@ -32,18 +26,6 @@ class Dates < ActiveRecord::Base
     # store the unknown number of courses
     all_tuesdays.each_with_index do |tuesday, num|
       create_course_event(tuesday, num)
-    end
-  end
-  
-  # the user has edited date information. Update all the events
-  def update_dates(new_dates)
-    events.each do |event|
-      if (event.event_type.name.to_sym != :courses) then
-        update_event(event, new_dates[event.event_type.name])
-      end
-    end
-    get_courses.each_with_index do |event, num|
-      update_event(event, new_dates[:weeks]["#{num+1}"])
     end
   end
   
@@ -63,22 +45,53 @@ class Dates < ActiveRecord::Base
   end
   
   # figure out if membership signups are currently open for the given user type
-  def membership_signup?(user)
-    upcoming_events = get_upcoming_events
-    # if the next event is a registration event
-    if (!upcoming_events.empty? and upcoming_events.first.event_type.registration)
-      # get the right registration event for the current user type
-      # if that event has already started, signups are open for this user
-      if (get_registration(user).start_dt <= Time.now)
-        return true
+  def membership_signups_open?(user)
+    case user.membership
+    when :member
+      e = get_event(:member_reg)
+    when :former
+      e = get_event(:former_reg)
+    else
+      e = get_event(:new_reg)
+    end
+    if (e.start_dt <= Time.now and Time.now <= e.end_dt)
+      return true
+    else
+      return false
+    end
+  end
+
+  def has_required_events?
+    valid = true
+
+    # look for missing types that are required
+    req_types = EventType.select {|event_type| (event_type.name.to_sym == :new_reg or
+                                                event_type.name.to_sym == :former_reg or
+                                                event_type.name.to_sym == :member_reg)}
+    req_types.each do |event_type|
+      if events.where(event_type_id: event_type.id).count == 0
+        errors.add(event_type.name, "missing")
+        valid = false
       end
     end
-    # all other situations mean registration is not yet open
-    return false
+
+    # look for duplicates where they are not allowed
+    nodup_types = EventType.where.not(name: :courses).where.not(name: :other)
+    nodup_types.each do |event_type|
+      if events.where(event_type_id: event_type.id).count > 1
+        errors.add(event_type.name, "appears more than once")
+        valid = false
+      end
+    end
+    valid
   end
-    
-  
+
   private
+    # find an event in the events list given the event type
+    def get_event(type_name)
+      events.find_by(event_type: EventType.find_by_name(type_name))
+    end
+
     # create a planning event
     def create_planning_event(event_type, first_class_date)
       start_dt = Time.zone.parse("#{first_class_date - event_type.start_date_offset} #{event_type.start_time.strftime("%H:%M")}")
@@ -98,20 +111,6 @@ class Dates < ActiveRecord::Base
     def create_event(event_type, start_dt, end_dt, name)
       events.create!(name: name, start_dt: start_dt, end_dt: end_dt,
                      event_type: event_type)
-    end
-
-    # update a single event object
-    def update_event(event, new_info)
-      event.name = new_info[:label]
-      event.start_dt = Time.zone.parse("#{new_info[:start_date]} #{event.event_type.start_time.strftime("%H:%M")}")
-      if !new_info[:end_date].nil?
-        event.end_dt = Time.zone.parse("#{new_info[:end_date]} #{event.event_type.end_time.strftime("%H:%M")}")
-      else
-        # there is no end_date in the form -- use the start_date again, but
-        # use the end time (which is generally the same, but not for courses)
-        event.end_dt = Time.zone.parse("#{new_info[:start_date]} #{event.event_type.end_time.strftime("%H:%M")}")
-      end
-      event.save
     end
 
     # get the right registration event for the given user type

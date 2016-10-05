@@ -1,28 +1,35 @@
 class CoursesController < ApplicationController
-  let [:web_team, :member], [:show_students]
-  let :all, [:index, :show, :new, :edit, :create, :update, :destroy]
+  # :manage_all_users_signups is not a method, just a label to indicate who is allowed
+  # to add/remove signups for everyone (instead of just their family)
+  let :web_team, :manage_all_users_signups
+  # :show_students is not a method, just a label to indicate who is allowed to see
+  # the list of students in a course
+  let [:web_team, :member], :show_students
+  # who can create/edit/etc. courses; for other than web_team, people will only be
+  # allowed to manage the courses they create
+  let [:web_team, :member, :former_member], [:new, :create, :edit, :update, :destroy]
+  # current members are the only ones who can manage signups, again, only their own
+  let :member, [:new_signup, :create_signup, :destroy_signup]
+  # anyone, including anonymous users, can view courses
+  let :all, [:index, :show]
   before_action :set_cuco_session
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, except: [:index, :destroy_signup]
+  before_action :set_people, only: [:show, :new_signup, :create_signup]
 
-  # GET /cuco_sessions/:cuco_session_id/courses
   def index
     @courses = @cuco_session.courses.all
   end
 
-  # GET /cuco_sessions/:cuco_session_id/courses/1
   def show
   end
 
-  # GET /cuco_sessions/:cuco_session_id/courses/new
   def new
     @course = Course.new
   end
 
-  # GET /cuco_sessions/:cuco_session_id/courses/1/edit
   def edit
   end
 
-  # POST /cuco_sessions/:cuco_session_id/courses
   def create
     @course = Course.new(course_params)
     
@@ -33,7 +40,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /cuco_sessions/:cuco_session_id/courses/1
   def update
     if @course.update(course_params)
       redirect_to [@cuco_session, @course], notice: "#{@course.name} was successfully updated."
@@ -42,13 +48,40 @@ class CoursesController < ApplicationController
     end
   end
 
-  # DELETE /cuco_sessions/:cuco_session_id/courses/1
   def destroy
     @course.destroy
     redirect_to cuco_session_courses_path, notice: "#{@course.name} was successfully destroyed."
   end
+  
+  def new_signup
+    @course_signup = CourseSignup.new()
+  end
+  
+  def create_signup
+    @course_signup = CourseSignup.new(course_id: @course.id, person_id: params[:course_signup][:person_id])
+    if @course_signup.save
+      redirect_to [@cuco_session, @course], notice: "#{@course_signup.person.name} added to #{@course.name}"
+    else
+      render :new_signup
+    end
+  end
+  
+  def destroy_signup
+    @course_signup = CourseSignup.find(params[:id])
+    @course_signup.destroy
+    redirect_to [@cuco_session, @course_signup.course], notice: "#{@course_signup.person.name} was successfully removed from #{@course_signup.course.name}."
+  end
 
   private
+
+    # get the people that this user can add or remove from a course
+    def set_people
+      if current_user&.can? :manage_all_users_signups, :courses
+        @people = @cuco_session.people
+      else
+        @people = current_user&.person&.family&.people
+      end
+    end
 
     def set_course
       @course = Course.find(params[:id])

@@ -22,14 +22,8 @@ class EventTest < ActiveSupport::TestCase
   # date/time
   #############################################################################
 
-  test "start_dt should be present" do
-    @event.start_dt = nil
+  test "end_dt should not be before start_dt" do
+    @event.start_dt = @event.end_dt + 1.day
     assert_not @event.valid?
   end
-
-  test "end_dt should be present" do
-    @event.end_dt = nil
-    assert_not @event.valid?
-  end
-  
 end

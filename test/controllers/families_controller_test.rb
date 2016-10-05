@@ -59,24 +59,23 @@ class FamiliesControllerTest < ActionController::TestCase
     sign_in @user_without_fam
     f = @family.dup
     f.name = "NEW NAME"
+    family_attributes = f.attributes
+    p = @kimberly.dup
+    p.first_name = "NEW NAME"
+    family_attributes[:person] = p.attributes
     assert_difference('Family.count', 1) do
-      post :create, family: f.attributes, person: @kimberly.attributes
+      post :create, family: family_attributes
     end
   end
 
   test "user with family should not get new" do
-    sign_in @user
     get :new
-    assert_response :success
+    assert_redirected_to root_url
   end
 
   test "user with family should not get create" do
-    sign_in @user
-    f = @family.dup
-    f.name = "NEW NAME"
-    assert_difference('Family.count', 1) do
-      post :create, family: f.attributes
-    end
+    post :create, family: @family.attributes
+    assert_redirected_to root_url
   end
 
   #############################################################################

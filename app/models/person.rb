@@ -23,8 +23,9 @@ class Person < ActiveRecord::Base
   validates :pronoun_id, presence: true,
                          numericality: true
 
-  validates :family_id, presence: true,
-                        numericality: true
+  # don't validate for family id since it shouldn't be possible for the user to get
+  # into that situation, but programmatically there is a moment when the first user
+  # and family are validated but not saved yet.
 
   def preferred_pronouns
     Pronoun.find(pronoun_id).preferred_pronouns

@@ -7,6 +7,11 @@ class FamiliesControllerTest < ActionController::TestCase
     @family = families(:johnson)
     @user = users(:js)
     @user.roles << roles(:user)
+    @kimberly = people(:kimberly)
+    @user_without_fam = users(:new)
+    @user_without_fam.roles << roles(:user)
+    @web_team = users(:lj)
+    @web_team.roles << roles(:web_team)
   end
 
   #############################################################################
@@ -18,8 +23,14 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "user should get index" do
+  test "user should not get index" do
     sign_in @user
+    get :index
+    assert_redirected_to root_path
+  end
+
+  test "web_team should get index" do
+    sign_in @web_team
     get :index
     assert_response :success
   end
@@ -38,13 +49,28 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "user should get new" do
+  test "user without family should get new" do
+    sign_in @user_without_fam
+    get :new
+    assert_response :success
+  end
+
+  test "user without family should get create" do
+    sign_in @user_without_fam
+    f = @family.dup
+    f.name = "NEW NAME"
+    assert_difference('Family.count', 1) do
+      post :create, family: f.attributes, person: @kimberly.attributes
+    end
+  end
+
+  test "user with family should not get new" do
     sign_in @user
     get :new
     assert_response :success
   end
 
-  test "user should get create" do
+  test "user with family should not get create" do
     sign_in @user
     f = @family.dup
     f.name = "NEW NAME"

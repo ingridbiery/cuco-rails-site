@@ -23,6 +23,11 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
   end
 
+  test "first_name should start with a capital letter" do
+    @person.first_name = "aaaaaa"
+    assert_not @person.valid?
+  end
+
   #############################################################################
   # last name
   #############################################################################
@@ -34,6 +39,20 @@ class PersonTest < ActiveSupport::TestCase
   
   test "last_name should not be too long" do
     @person.last_name = "a" * 31
+    assert_not @person.valid?
+  end
+
+  test "last_name should start with a capital letter" do
+    @person.last_name = "ssssss"
+    assert_not @person.valid?
+  end
+
+  #############################################################################
+  # pronoun id
+  #############################################################################
+
+  test "pronoun_id should exist" do
+    @person.pronoun_id = nil
     assert_not @person.valid?
   end
 

@@ -6,12 +6,15 @@ class CoursesControllerTest < ActionController::TestCase
   def setup
     @course = courses(:one)
     @session = cuco_sessions(:winter)
+    @fall = cuco_sessions(:fall)
     @web_team = users(:lj)
     @web_team.roles << roles(:web_team)
     @user = users(:js)
     @user.roles << roles(:user)
+    @person = people(:member_person)
     @member = users(:member)
-    travel_to @session.start_date + 1.day
+    @fall.families << @member.person.family
+    travel_to @fall.start_date + 1
   end
 
   #############################################################################

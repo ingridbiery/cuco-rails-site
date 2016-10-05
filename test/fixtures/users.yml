@@ -21,4 +21,4 @@ member:
   encrypted_password: "password"
   email: "member@example.com"
   notification_list: false
-  person: kimberly
+  person: member_person

@@ -36,3 +36,15 @@ williams:
   ec_phone: "6144574455"
   ec_text: false
   ec_relationship: "Cousin"
+
+member_family:
+  name: "Member"
+  street_address: "Street Addr"
+  city: "Columbus"
+  state: "OH"
+  zip: 43224
+  ec_first_name: "X"
+  ec_last_name: "X"
+  ec_phone: "6145551212"
+  ec_text: false
+  ec_relationship: "Cousin"

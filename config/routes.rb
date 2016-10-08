@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :volunteer_job_types
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   devise_for :users, :path_names => { :sign_up => "register" },
@@ -35,6 +34,8 @@ Rails.application.routes.draw do
     end
     resources :dates, :only => [:show, :edit, :update]
   end
+
+  resources :course_roles
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

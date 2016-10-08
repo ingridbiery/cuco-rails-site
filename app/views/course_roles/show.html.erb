@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @course_role.name %>
+</p>
+
+<p>
+  <strong>Is this a volunteer job:</strong>
+  <%= @course_role.is_worker %>
+</p>
+
+<p>
+  <strong>Display Weight:</strong>
+  <%= @course_role.display_weight %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= simple_format(@course_role.description) %>
+</p>
+
+<%= link_to 'Edit', edit_course_role_path(@course_role) %> |
+<%= link_to 'Back', course_roles_path %>

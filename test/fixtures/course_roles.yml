@@ -3,7 +3,11 @@
 one:
   name: MyString
   description: MyString
+  is_worker: true
+  display_weight: 1
 
 two:
   name: MyString
   description: MyString
+  is_worker: false
+  display_weight: 2

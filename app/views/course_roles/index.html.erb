@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Course Roles</h1>
+
+<ul>
+  <% @course_roles.each do |course_role| %>
+    <li><%= link_to course_role.name, course_role %></li>
+  <% end %>
+</ul>
+
+<br>
+
+<%= link_to 'New Course role', new_course_role_path %>

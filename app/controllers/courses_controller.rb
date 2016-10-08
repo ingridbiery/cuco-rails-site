@@ -65,7 +65,7 @@ class CoursesController < ApplicationController
       else
         notice = "#{@course_signup.person.name} added to #{@course.name} with warnings."
         @course_signup.warnings.full_messages.each do |message|
-          notice += "#{message}"
+          notice += " #{message}"
         end
       end
       redirect_to [@cuco_session, @course], notice: "#{notice}"

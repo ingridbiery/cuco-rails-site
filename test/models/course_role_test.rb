@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class VolunteerJobTypeTest < ActiveSupport::TestCase
+class CourseRoleTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

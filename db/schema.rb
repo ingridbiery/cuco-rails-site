@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< 60fd2b96702dfaaf6e2eb4b4d96862d983fb2623
-ActiveRecord::Schema.define(version: 20161020210810) do
-=======
 ActiveRecord::Schema.define(version: 20161003213808) do
->>>>>>> first pass at volunteer job types
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,11 +28,13 @@ ActiveRecord::Schema.define(version: 20161003213808) do
   create_table "course_signups", force: :cascade do |t|
     t.integer  "course_id"
     t.integer  "person_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "course_role_id"
   end
 
   add_index "course_signups", ["course_id"], name: "index_course_signups_on_course_id", using: :btree
+  add_index "course_signups", ["course_role_id"], name: "index_course_signups_on_course_role_id", using: :btree
   add_index "course_signups", ["person_id"], name: "index_course_signups_on_person_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
@@ -206,6 +204,7 @@ ActiveRecord::Schema.define(version: 20161003213808) do
   add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "course_signups", "course_roles"
   add_foreign_key "course_signups", "courses"
   add_foreign_key "course_signups", "people"
   add_foreign_key "courses", "cuco_sessions"

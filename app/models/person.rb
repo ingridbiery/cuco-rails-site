@@ -5,6 +5,9 @@ class Person < ActiveRecord::Base
   has_many :course_signups, dependent: :destroy
   has_many :courses, through: :course_signups
 
+  scope :kid, -> { where.not(dob: nil) }
+  scope :adult, -> { where(dob: nil) }
+  
   default_scope -> { order(first_name: :asc) }
 
   validates_each :first_name, :last_name do |record, attr, value|

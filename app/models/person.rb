@@ -6,6 +6,10 @@ class Person < ActiveRecord::Base
   has_many :courses, through: :course_signups
 
   default_scope -> { order(last_name: :asc) }
+
+  scope :kid, -> { where.not(dob: nil) }
+  scope :adult, -> { where(dob: nil) }
+  
   validates :first_name, presence: true,
                          length: { maximum: 30 }
   validates :last_name, presence: true,

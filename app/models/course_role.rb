@@ -1,4 +1,6 @@
 class CourseRole < ActiveRecord::Base
+  has_many :course_signups
+  
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true
   # note that presence: true doesn't work with booleans (because false is

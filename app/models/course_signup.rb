@@ -3,8 +3,15 @@ class CourseSignup < ActiveRecord::Base
   
   belongs_to :course
   belongs_to :person
-  validates :person_id, :uniqueness => {:scope=>:course_id, :message => "already signed up for course"}
+  belongs_to :course_role
 
+  scope :student, -> { joins(:course_role).where(course_roles: { name: :student }) }
+  scope :waiting_list, -> { joins(:course_role).where(course_roles: { name: :waiting_list }) }
+  scope :unassigned_volunteer, -> { joins(:course_role).where(course_roles: { name: :unassigned_volunteer }) }
+  scope :non_student_non_worker, -> { joins(:course_role).where(course_roles: { name: :non_student_non_worker }) }
+  scope :volunteer, -> { joins(:course_role).where(course_roles: { is_worker: true }) }
+  
+  validates :person_id, uniqueness: { scope: :course_id, message: "already signed up for course"}
   validate :course_capacity
   validate :student_age_firm
 

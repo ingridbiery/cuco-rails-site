@@ -4,6 +4,11 @@ class Course < ActiveRecord::Base
   belongs_to :period
   has_many :course_signups, dependent: :destroy
   has_many :people, through: :course_signups
+  has_many :students, -> { CourseSignup.student }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :waiting_list_members, -> { CourseSignup.waiting_list }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :unassigned_volunteers, -> { CourseSignup.unassigned_volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :non_student_non_workers, -> { CourseSignup.non_student_non_worker }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :volunteers, -> { CourseSignup.volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
 
   validates :name, presence: true,
                    length: { minimum: 3, maximum: 100 }

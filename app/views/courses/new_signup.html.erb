@@ -14,8 +14,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label "Student" %><br>
+    <%= f.label "Person" %><br>
     <%= f.collection_select :person_id, @people, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label "Role in Class" %><br>
+    <%= f.collection_select :course_role_id, CourseRole.all, :id, :name %>
   </div>
   <div class="actions">
     <%= f.submit "Add to course" %>

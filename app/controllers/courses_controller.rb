@@ -60,8 +60,9 @@ class CoursesController < ApplicationController
   end
   
   def create_signup
-    @course_signup = CourseSignup.new(course_signup_params)
-    # this next line validates the course_signup
+    @course_signup = CourseSignup.new(course_id: @course.id, 
+                                      person_id: params[:course_signup][:person_id],
+                                      course_role_id: params[:course_signup][:course_role_id])
     if @course_signup.save
       # and now, we check if there are any warnings
       if @course_signup.safe?

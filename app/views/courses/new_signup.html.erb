@@ -20,7 +20,11 @@
   </div>
   <div class="field">
     <%= f.label "Role in Class" %><br>
+<<<<<<< 7d506ace7b6e17686e840409afc6124cad63c155
     <%= f.collection_select :course_role_id, CourseRole.all, :id, :name, selected: @student_id %>
+=======
+    <%= f.collection_select :course_role_id, CourseRole.all, :id, :name %>
+>>>>>>> add course role to signups and allow selection of role
   </div>
   <div class="actions">
     <%= f.submit "Add to course" %>

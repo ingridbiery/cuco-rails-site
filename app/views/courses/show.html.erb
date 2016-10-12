@@ -73,27 +73,12 @@
 <hr />
 
 
-<% if current_user&.can? :show_students, CoursesController %>
-  <h3>Students in Course (<%= @course.people.count %>)
-  <% if @course.cuco_session.course_signups_open?(current_user) %>
-    <%= link_to image_tag('add.png'), new_signup_cuco_session_course_path(@cuco_session, @course), title: "Add Person to Course" %></h3>
-  <% end %></h3>
-
-  <ul>
-  <% @course.course_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
-    <% person = course_signup.person %>
-    <li><%= person.name %>
-      <% if person.age.nil? %> (adult)
-      <% else %> (age <%= person.age %>)
-      <% end %>
-      <% if @course.cuco_session.course_signups_open?(current_user) and
-            @people.include? person %>
-        <%= link_to image_tag('delete.png'), destroy_signup_cuco_session_course_path(@cuco_session, course_signup), method: :delete,
-              data: { confirm: 'Are you sure?' }, title: "Delete #{person.name}" %>
-      <% end %>
-    </li>
-  <% end %>
-  </ul>
+<% if current_user&.can? :show_students, :courses %>
+  <%= render 'students' %>
+  <%= render 'waiting_list' %>
+  <%= render 'volunteers' %>
+  <%= render 'non_student_non_workers' %>
+  <%= render 'unassigned_volunteers' %>
 <% end %>
 
 <%= link_to 'Edit', edit_cuco_session_course_path %> |

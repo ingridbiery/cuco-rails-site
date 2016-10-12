@@ -2,7 +2,7 @@
 
 <ul><% @course.volunteer_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
   <% person = course_signup.person %>
-  <li><%= person.name %>: <%= course_signup.course_role.name.titleize %>
+  <li><%= person.name %> <%= course_signup.course_role.name %>
     <% if @course.cuco_session.course_signups_open?(current_user) and
           @people.include? person %>
       <%= link_to image_tag('delete.png'), destroy_signup_cuco_session_course_path(@cuco_session, course_signup), method: :delete,

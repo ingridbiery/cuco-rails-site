@@ -28,12 +28,14 @@ class CourseSignup < ActiveRecord::Base
   end
   
   def student_age
-    age = person.age_on(course.cuco_session.start_date)
-    if age != nil
-      if age < course.min_age
-        errors.add("Student", "too young for course")
-      elsif age > course.max_age
-        errors.add("Student", "too old for course")
+    if course_role.name == :student
+      age = person.age_on(course.cuco_session.start_date)
+      if age != nil
+        if age < course.min_age
+          errors.add("Student", "too young for course")
+        elsif age > course.max_age
+          errors.add("Student", "too old for course")
+        end
       end
     end
   end

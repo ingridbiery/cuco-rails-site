@@ -54,7 +54,7 @@ clean_up = CourseRole.create!(name: :clean_up_manager, is_worker: true, display_
 * Make sure all of the jobs on the board get done. If people are milling around, encourage them to take a card and do a job. If there are not enough volunteers, check outside.
 * If a job is not done thoroughly, try to figure out who did the job and teach them how to do it better next time.
 * Put lost and found and cleaning supplies away after everything is done.")
-gym = CourseRole.create!(name: :gym_monitor, is_worker: true, display_weight: 7, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
+gym_monitor = CourseRole.create!(name: :gym_monitor, is_worker: true, display_weight: 7, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
@@ -62,21 +62,21 @@ It is also important that volunteers use their best judgment rather than blindly
 * Keep gym equipment in the gym.
 * Run interference, if needed, between big kid/little kid play.
 * After last class: make sure gym clean up card from nametag tree is completed.")
-game = CourseRole.create!(name: :game_room_monitor, is_worker: true, display_weight: 8, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
+game_monitor = CourseRole.create!(name: :game_room_monitor, is_worker: true, display_weight: 8, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
 * Before first class: make sure game room set up card from nametag tree is completed.
 * All day: monitor play, as needed, to ensure that kids that want to play get the chance.
 * After last class: make sure clean up card from nametag tree is completed.")
-auditorium = CourseRole.create!(name: :auditorium_monitor, is_worker: true, display_weight: 9, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
+auditorium_monitor = CourseRole.create!(name: :auditorium_monitor, is_worker: true, display_weight: 9, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
 * Before first class: make auditorium set up card from nametag tree is completed.
 * All day: monitor and run interference, if needed, between big kid/little kid play and keep kids off the stage.
 * After last class: make sure auditorium clean up card from nametag tree is completed.")
-playground = CourseRole.create!(name: :playground_monitor, is_worker: true, display_weight: 10, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
+playground_monitor = CourseRole.create!(name: :playground_monitor, is_worker: true, display_weight: 10, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
 
 You MUST have a cell phone that you keep charged and carry with you to perform this job. If a child needs to be found, you will need to coordinate with the downstairs floater to determine if they're in a free play area or have wandered off.")
 floater = CourseRole.create!(name: :floater, is_worker: true, display_weight: 11, description: "Position starts at beginning of class time and ends when the next class time begins. You need to generally know your way around the building, where our storage is, roughly where the classrooms are, etc. You can learn this at orientation. It is fine to sit and read, work on your computer, knit, etc. as long as you are attending to the following expectations.
@@ -1943,4 +1943,6 @@ s12091.families << member_family
 print("\n")
 
 print "Course Signups"
+print("\n")
+print "Volunteer Signups"
 print("\n")

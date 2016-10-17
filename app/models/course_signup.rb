@@ -16,7 +16,7 @@ class CourseSignup < ActiveRecord::Base
   validate :student_age_firm
 
   def course_capacity
-    if course.max_students == course.people.count
+    if course.max_students == course.student_signups.count
       errors.add("Max students", "has been reached")
     end
   end

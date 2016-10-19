@@ -20,7 +20,7 @@
   </div>
   <div class="field">
     <%= f.label "Role in Class" %><br>
-    <%= f.collection_select :course_role_id, CourseRole.all, :id, :name %>
+    <%= f.collection_select :course_role_id, CourseRole.all, :id, :name, selected: @student_id %>
   </div>
   <div class="actions">
     <%= f.submit "Add to course" %>

@@ -55,6 +55,8 @@ class CoursesController < ApplicationController
   
   def new_signup
     @course_signup = CourseSignup.new()
+    # we want student to be selected by default
+    @student_id = CourseRole.find_by(name: :student).id
   end
   
   def create_signup

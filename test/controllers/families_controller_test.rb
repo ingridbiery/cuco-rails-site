@@ -95,13 +95,14 @@ class FamiliesControllerTest < ActionController::TestCase
   test "user should not get edit" do
     sign_in @user
     get :edit, id: @family.id
+    byebug
     assert_redirected_to families_url
   end
 
   test "user should not get update" do
     sign_in @user
     patch :update, id: @family.id, family: @family.attributes
-    assert_redirected_to @family
+    assert_redirected_to families_url
   end
 
   #############################################################################
@@ -113,15 +114,15 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "user should get destroy" do
+  test "user should not get destroy" do
     sign_in @user
     # create a new family to destroy so we know it has no users referencing it
     f = @family.dup
     f.name = "NEW NAME"
     f.save
-    assert_difference 'Family.count', -1 do
+    assert_difference 'Family.count', 0 do
       delete :destroy, :id => f.id
     end
-    assert_redirected_to families_url
+    assert_redirected_to root_url
   end
 end

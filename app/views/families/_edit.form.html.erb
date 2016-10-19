@@ -19,7 +19,7 @@
 
   <% if @family.people.any? %>
     <div class="field">
-      <strong>Adult attending CUCO for the family</strong><br>
+      <strong>The primary adult who will be responsible for this family's children at CUCO on a regular basis:</strong><br>
       <%= f.collection_select(:primary_adult_id, @family.people, :id, :name) %>
     </div>
   <% end %><br />

@@ -1,6 +1,39 @@
 <h1>Editing <strong><%= @family.name %></strong> Family</h1>
 
-<%= render 'edit.form' %>
+<%= form_for(@family) do |f| %>
+  <% if @family.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@family.errors.count, "error") %> prohibited this family from being saved:</h2>
+
+      <ul>
+      <% @family.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <hr />
+
+  <% if @family.people.any? %>
+    <div class="field">
+      <strong>The primary adult who will be responsible for this family's children at CUCO on a regular basis:</strong><br>
+      <%= f.collection_select(:primary_adult_id, @family.people, :id, :name) %>
+    </div>
+  <% end %><br />
+
+  <%= render 'family_form', f: f %>
+  <hr />
+  <%= render 'emergency_form', f: f %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Show', @family %> |
 <% if current_user&.can? :index, UsersController %>

@@ -2,7 +2,7 @@ class Course < ActiveRecord::Base
   belongs_to :cuco_session
   belongs_to :room
   belongs_to :period
-  has_many :course_signups
+  has_many :course_signups, dependent: :destroy
   has_many :people, through: :course_signups
 
   validates :name, presence: true,

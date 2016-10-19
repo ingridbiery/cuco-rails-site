@@ -17,9 +17,9 @@ class CoursesControllerTest < ActionController::TestCase
   # index
   #############################################################################
 
-  test "anonymous should not get index" do
+  test "anonymous should get index" do
     get :index, cuco_session_id: @session.id
-    assert_redirected_to new_user_session_url
+    assert_response :success
   end
 
   test "user should get index" do
@@ -40,28 +40,24 @@ class CoursesControllerTest < ActionController::TestCase
 
   test "anonymous should not get new" do
     get :new, cuco_session_id: @session.id
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "anonymous should not get create" do
     post :create, cuco_session_id: @session.id, course: @course.attributes
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
-  test "user should get new" do
+  test "user should not get new" do
     sign_in @user
     get :new, cuco_session_id: @session.id
-    assert_response :success
+    assert_redirected_to root_url
   end
 
-  test "user should get create" do
+  test "user should not get create" do
     sign_in @user
-    c = @course.dup
-    c.name = "NEW NAME"
-    assert_difference('Course.count', 1) do
-      post :create, cuco_session_id: @session.id, course: c.attributes
-    end
-    assert_response :redirect
+    post :create, cuco_session_id: @session.id, course: @course.attributes
+    assert_redirected_to root_url
   end
 
   test "web team should get new" do
@@ -86,24 +82,24 @@ class CoursesControllerTest < ActionController::TestCase
 
   test "anonymous should not get edit" do
     get :edit, cuco_session_id: @session.id, id: @course.id
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "anonymous should not get update" do
     patch :update, cuco_session_id: @session.id, id: @course.id, course: @course
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
-  test "user should get edit" do
+  test "user should not get edit" do
     sign_in @user
     get :edit, cuco_session_id: @session.id, id: @course.id
-    assert_response :success
+    assert_redirected_to root_url
   end
 
-  test "user should get update" do
+  test "user should not get update" do
     sign_in @user
-    patch :update, cuco_session_id: @session.id, id: @course.id, course: @course.attributes
-    assert_response :redirect
+    patch :update, cuco_session_id: @session.id, id: @course.id, course: @course
+    assert_redirected_to root_url
   end
 
   test "web team should get edit" do
@@ -124,13 +120,13 @@ class CoursesControllerTest < ActionController::TestCase
 
   test "anonymous should not get destroy" do
     delete :destroy, cuco_session_id: @session.id, id: @course.id
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
-  test "user should get destroy" do
+  test "user should not get destroy" do
     sign_in @user
     delete :destroy, cuco_session_id: @session.id, id: @course.id
-    assert_redirected_to cuco_session_courses_url
+    assert_redirected_to root_url
   end
 
   test "web team should get destroy" do

@@ -58,16 +58,8 @@ class PersonTest < ActiveSupport::TestCase
 
   #############################################################################
   # family id
+  # no validation on family id since we have a moment programmatically
+  # when it is not set yet.
   #############################################################################
-
-  test "family_id should be present" do
-    @person.family_id = nil
-    assert_not @person.valid?
-  end
-
-  test "family_id should be a number" do
-    @person.family_id = "a"
-    assert_not @person.valid?
-  end
 
 end

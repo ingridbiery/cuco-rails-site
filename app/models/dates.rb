@@ -46,6 +46,7 @@ class Dates < ActiveRecord::Base
   
   # figure out if membership signups are currently open for the given user type
   def membership_signups_open?(user)
+    return false if user.nil?
     case user.membership
     when :member
       e = get_event(:member_reg)

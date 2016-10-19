@@ -95,7 +95,6 @@ class FamiliesControllerTest < ActionController::TestCase
   test "user should not get edit" do
     sign_in @user
     get :edit, id: @family.id
-    byebug
     assert_redirected_to families_url
   end
 

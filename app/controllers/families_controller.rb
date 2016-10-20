@@ -1,29 +1,25 @@
 class FamiliesController < ApplicationController
   let :member, :all
-  let :web_team, :all
-  let :web_team, :access_any_family
   let :user, [:show, :new, :create, :edit, :update]
-  before_action :set_family, only: [:show, :edit, :update, :destroy]
-  before_action :check_authorization, except: :index
+  before_action :set_family, except: [:new, :create, :index]
+  before_action :must_have_no_family, only: [:new, :create]
+  before_action :must_have_family, only: [:edit, :update, :destroy]
+  before_action :must_be_my_family, only: [:edit, :update, :destroy]
 
-  # GET /families
   def index
     @families = Family.paginate(page: params[:page])
   end
 
-  # GET /families/1
   def show
     @families = Family.all
   end
 
-  # GET /families/new
   def new
     @family = Family.new
     @family.state = "OH"
     @person = Person.new
   end
 
-  # GET /families/1/edit
   def edit
     if current_user.person != nil then
       family_id = current_user.person.family_id
@@ -47,7 +43,6 @@ class FamiliesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /families/1
   def update
     if @family.update(family_params)
       redirect_to @family, notice: "#{@family.name} was successfully updated."
@@ -56,17 +51,29 @@ class FamiliesController < ApplicationController
     end
   end
 
-  # DELETE /families/1
   def destroy
     @family.destroy
     redirect_to families_url, notice: "#{@family.name} was successfully destroyed."
   end
 
-  # only show/edit the family if it is the current user's family and check
-  # to make sure user is not already in a family.
-  def check_authorization
+  # throw an error if this is not the current user's family
+  def must_be_my_family
     unless current_user&.person&.family == @family
       not_authorized! path: families_path, message: "That's not your family!"
+    end
+  end
+
+  # throw an error if the current user already has a family
+  def must_have_no_family
+    unless current_user&.person&.family.nil?
+      not_authorized! path: families_path, message: "You already have a family!"
+    end
+  end
+
+  # throw an error if the current user does not have a family
+  def must_have_family
+    unless !current_user&.person&.family.nil?
+      not_authorized! path: families_path, message: "You do not have a family!"
     end
   end
 

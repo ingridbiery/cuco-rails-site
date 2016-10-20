@@ -11,9 +11,14 @@ lj:
   email: "lj@example.com"
   notification_list: false
   person: lisa
-  
+
 new:
   encrypted_password: "password"
   email: "new@example.com"
   notification_list: false
 
+member:
+  encrypted_password: "password"
+  email: "member@example.com"
+  notification_list: false
+  person: kimberly

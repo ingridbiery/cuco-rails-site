@@ -23,6 +23,11 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
   end
 
+  test "first_name should start with a capital letter" do
+    @person.first_name = "aaaaaa"
+    assert_not @person.valid?
+  end
+
   #############################################################################
   # last name
   #############################################################################
@@ -37,18 +42,24 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
   end
 
+  test "last_name should start with a capital letter" do
+    @person.last_name = "ssssss"
+    assert_not @person.valid?
+  end
+
+  #############################################################################
+  # pronoun id
+  #############################################################################
+
+  test "pronoun_id should exist" do
+    @person.pronoun_id = nil
+    assert_not @person.valid?
+  end
+
   #############################################################################
   # family id
+  # no validation on family id since we have a moment programmatically
+  # when it is not set yet.
   #############################################################################
-
-  test "family_id should be present" do
-    @person.family_id = nil
-    assert_not @person.valid?
-  end
-
-  test "family_id should be a number" do
-    @person.family_id = "a"
-    assert_not @person.valid?
-  end
 
 end

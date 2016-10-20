@@ -146,6 +146,11 @@ class FamilyTest < ActiveSupport::TestCase
     assert_not @family.valid?
   end
 
+  test "ec_first_name should start with a capital letter" do
+    @family.ec_first_name = "aaaaaa"
+    assert_not @family.valid?
+  end
+
   #############################################################################
   # emergency contact last name
   #############################################################################
@@ -167,6 +172,11 @@ class FamilyTest < ActiveSupport::TestCase
 
   test "ec_last_name can not contain other non letter characters" do
     @family.name = "Smith $#@"
+    assert_not @family.valid?
+  end
+
+  test "ec_last_name should start with a capital letter" do
+    @family.ec_last_name = "ssssss"
     assert_not @family.valid?
   end
 

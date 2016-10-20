@@ -13,7 +13,7 @@ class CoursesController < ApplicationController
   # anyone, including anonymous users, can view courses
   let :all, [:index, :show]
   before_action :set_cuco_session
-  before_action :set_course, except: [:index, :destroy_signup]
+  before_action :set_course, except: [:new, :create, :index, :destroy_signup]
   before_action :set_people, only: [:show, :new_signup, :create_signup]
 
   def index

@@ -12,6 +12,10 @@
   <div id="error_explanation">PLEASE CREATE YOURSELF AS A PERSON IN THIS FAMILY OR EDIT YOURSELF BELOW AND CHECK "THIS IS ME"</div><br>
 <% end %>
 
+<strong><%= @family.primary_adult.name %></strong> (<%= link_to 'Click to Change', 
+            edit_family_path(@family) %>) is the primary adult who will be
+            responsible for this family's children at CUCO on a regular basis.
+
 <p>
   <h3>Address</h3>
   <%= @family.street_address %><br/>
@@ -41,7 +45,7 @@
 
 <h3>People in Family (<%= @family.people.count %>)
 <%= link_to image_tag('add.png'), new_family_person_path(@family), title: "Add New Person to Family" %></h3>
-<% if @family.people.any? %>
+<% if @family.people.present? %>
   <table>
     <%= render "people/person_header" %>
     <tbody>
@@ -51,5 +55,7 @@
 <% end %>
 <br/>
 
-<%= link_to 'Edit', edit_family_path(@family) %> |
-<%= link_to "Back to List of Families", families_path %>
+<%= link_to 'Edit', edit_family_path(@family) %>
+<% if current_user&.can? :index, FamiliesController %>
+  | <%= link_to "Back to List of Families", families_path %>
+<% end %>

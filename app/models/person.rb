@@ -2,25 +2,30 @@ class Person < ActiveRecord::Base
   belongs_to :family
   belongs_to :pronoun
   has_one :user # this is ok for an optional relationship
-  has_many :course_signups
+  has_many :course_signups, dependent: :destroy
   has_many :courses, through: :course_signups
 
-  default_scope -> { order(last_name: :asc) }
+  default_scope -> { order(first_name: :asc) }
+
+  validates_each :first_name, :last_name do |record, attr, value|
+    record.errors.add(attr, 'must start with upper case') if value =~ /\A[[:lower:]]/
+  end
+
   validates :first_name, presence: true,
                          length: { maximum: 30 }
   validates :last_name, presence: true,
                         length: { maximum: 30 }
+
   # it would be nice to validate dob for datetime, but it is not simple so we'll skip it
   # we would like to require it for kids and skip it for adults, but that is not
   # high priority, so we're allowing it to be skipped for now.
-  validates :family_id, presence: true,
-                        numericality: true
-  # we want to require pronouns unless we're auto-creating a user or an admin is
-  # creating it for someone. This doesn't quite do that, but again, it's not a
-  # priority and this is close enough.
+  
   validates :pronoun_id, presence: true,
-                         numericality: true,
-                         on: :update
+                         numericality: true
+
+  # don't validate for family id since it shouldn't be possible for the user to get
+  # into that situation, but programmatically there is a moment when the first user
+  # and family are validated but not saved yet.
 
   def preferred_pronouns
     Pronoun.find(pronoun_id).preferred_pronouns

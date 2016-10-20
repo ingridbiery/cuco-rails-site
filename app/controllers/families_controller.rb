@@ -1,10 +1,11 @@
 class FamiliesController < ApplicationController
-  let :member, :all
+  let :web_team, :all
+  let :web_team, :manage_all
+  let :member, :index
   let :user, [:show, :new, :create, :edit, :update]
   before_action :set_family, except: [:new, :create, :index]
   before_action :must_have_no_family, only: [:new, :create]
-  before_action :must_have_family, only: [:edit, :update, :destroy]
-  before_action :must_be_my_family, only: [:edit, :update, :destroy]
+  before_action :must_be_my_family, only: [:show, :edit, :update, :destroy]
 
   def index
     @families = Family.paginate(page: params[:page])
@@ -57,8 +58,10 @@ class FamiliesController < ApplicationController
   end
 
   # throw an error if this is not the current user's family
+  # unless this user is exempt
   def must_be_my_family
-    unless current_user&.person&.family == @family
+    unless (current_user&.person&.family == @family or
+            current_user&.can? :manage_all, :families)
       not_authorized! path: families_path, message: "That's not your family!"
     end
   end
@@ -67,13 +70,6 @@ class FamiliesController < ApplicationController
   def must_have_no_family
     unless current_user&.person&.family.nil?
       not_authorized! path: families_path, message: "You already have a family!"
-    end
-  end
-
-  # throw an error if the current user does not have a family
-  def must_have_family
-    unless !current_user&.person&.family.nil?
-      not_authorized! path: families_path, message: "You do not have a family!"
     end
   end
 

@@ -2,7 +2,7 @@ class Person < ActiveRecord::Base
   belongs_to :family
   belongs_to :pronoun
   has_one :user # this is ok for an optional relationship
-  has_many :course_signups
+  has_many :course_signups, dependent: :destroy
   has_many :courses, through: :course_signups
 
   default_scope -> { order(first_name: :asc) }

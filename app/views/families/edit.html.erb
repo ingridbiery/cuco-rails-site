@@ -36,7 +36,7 @@
 <% end %>
 
 <%= link_to 'Show', @family %> |
-<% if current_user&.can? :index, UsersController %>
+<% if current_user&.can? :destroy, :families %>
   <%= link_to 'Destroy', @family, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <% end %>
 <%= link_to 'Back', :back %>

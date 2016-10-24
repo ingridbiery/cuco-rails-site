@@ -3,7 +3,7 @@ require 'test_helper'
 class CourseSignupTest < ActiveSupport::TestCase
   def setup
     @course_signup = course_signups(:one)
-    @adult = people(:kimberly)
+    @adult = people(:lisa)
     @course1 = courses(:one)
     @course2 = courses(:two)
     @period1 = periods(:first)
@@ -42,7 +42,7 @@ class CourseSignupTest < ActiveSupport::TestCase
   
   test "signup should not be allowed when course is full" do
     course = @course_signup.course
-    course.max_students = course.people.count
+    course.max_students = course.student_signups.count
     course.save
     new_signup = @course_signup.dup
     new_signup.person = @person

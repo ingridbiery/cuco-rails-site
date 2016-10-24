@@ -7,4 +7,8 @@ one:
 two:
   family: williams
   cuco_session: winter
+  
+three:
+  family: member_family
+  cuco_session: winter
 

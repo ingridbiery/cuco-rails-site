@@ -187,7 +187,7 @@ class CoursesControllerTest < ActionController::TestCase
   # course signups
   #############################################################################
   test "course signups" do
-    print "this does not include any tests for course signups\n"
+    print "CoursesControllerTest needs signup tests"
   end
 
 end

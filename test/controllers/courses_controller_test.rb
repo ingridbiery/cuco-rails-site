@@ -172,7 +172,7 @@ class CoursesControllerTest < ActionController::TestCase
     assert_difference 'Course.count', -1 do
       delete :destroy, cuco_session_id: @session.id, id: @course.id
     end
-    assert_redirected_to cuco_session_courses_url, cuco_session_id: @session_id
+    assert_redirected_to cuco_session_courses_url(@session.id)
   end
 
   test "web team should get destroy" do
@@ -180,14 +180,14 @@ class CoursesControllerTest < ActionController::TestCase
     assert_difference 'Course.count', -1 do
       delete :destroy, cuco_session_id: @session.id, id: @course.id
     end
-    assert_redirected_to cuco_session_courses_url, cuco_session_id: @session_id
+    assert_redirected_to cuco_session_courses_url(@session.id)
   end
 
   #############################################################################
   # course signups
   #############################################################################
   test "course signups" do
-    print "CoursesControllerTest needs signup tests"
+    print "\nCoursesControllerTest needs signup tests\n"
   end
 
 end

@@ -23,12 +23,12 @@ class CourseSignup < ActiveRecord::Base
   
   def student_age_firm
     if course.age_firm
-      student_age
+      check_student_age
     end
   end
   
-  def student_age
-    if course_role.name == :student
+  def check_student_age
+    if course_role.name.to_sym == :student
       age = person.age_on(course.cuco_session.start_date)
       if age != nil
         if age < course.min_age
@@ -46,7 +46,7 @@ class CourseSignup < ActiveRecord::Base
 
     def student_age_suggestion
       if !course.age_firm
-        student_age
+        check_student_age
       end
     end
     

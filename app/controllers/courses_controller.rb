@@ -76,6 +76,8 @@ class CoursesController < ApplicationController
       end
       redirect_to [@cuco_session, @course], notice: "#{notice}"
     else
+      @show_role = true
+      @show_role = false if CourseRole.find(params[:course_signup][:course_role_id]) == "student"
       render :new_signup
     end
   end

@@ -4,12 +4,9 @@ class Person < ActiveRecord::Base
   has_one :user # this is ok for an optional relationship
   has_many :course_signups, dependent: :destroy
   has_many :courses, through: :course_signups
+  before_create :upcase_names
 
   default_scope -> { order(first_name: :asc) }
-
-  validates_each :first_name, :last_name do |record, attr, value|
-    record.errors.add(attr, 'must start with upper case') if value =~ /\A[[:lower:]]/
-  end
 
   validates :first_name, presence: true,
                          length: { maximum: 30 }
@@ -50,4 +47,17 @@ class Person < ActiveRecord::Base
       date.year - dob.year - ((date.month > dob.month || (date.month == dob.month && date.day >= dob.day)) ? 0 : 1)
     end
   end
+
+  private
+    # make sure names start with an uppercase
+    def upcase_names
+      upcase first_name
+      upcase last_name
+    end
+
+    # upcase the first letter of the given name      
+    def upcase name
+      name[0].upcase + name[1,name.length]
+    end
+
 end

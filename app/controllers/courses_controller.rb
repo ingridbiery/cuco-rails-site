@@ -54,9 +54,11 @@ class CoursesController < ApplicationController
   end
   
   def new_signup
+    @show_role = true
+    @show_role = false if params[:type] == "student"
     @course_signup = CourseSignup.new()
     # we want student to be selected by default
-    @student_id = CourseRole.find_by(name: :student).id
+    @course_signup.course_role_id = CourseRole.find_by(name: params[:type]).id
   end
   
   def create_signup

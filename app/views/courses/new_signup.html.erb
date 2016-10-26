@@ -18,10 +18,14 @@
     <%= f.label "Person" %><br>
     <%= f.collection_select :person_id, @people, :id, :name %>
   </div>
-  <div class="field">
-    <%= f.label "Role in Class" %><br>
-    <%= f.collection_select :course_role_id, CourseRole.all, :id, :name, selected: @student_id %>
-  </div>
+  <% if @show_role %>
+    <div class="field">
+      <%= f.label "Role in Class" %><br>
+      <%= f.collection_select :course_role_id, CourseRole.all, :id, :name, selected: @course_signup.course_role_id %>
+    </div>
+  <% else %>
+    <%= f.hidden_field :course_role_id, value: @course_signup.course_role_id %>
+  <% end %>
   <div class="actions">
     <%= f.submit "Add to course" %>
   </div>

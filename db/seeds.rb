@@ -28,24 +28,10 @@ fees_due = EventType.create!(name: :fees_due, display_name: "Fees Due",start_dat
 courses = EventType.create!(name: :courses, display_name: "Week",start_date_offset: 0, start_time: Time.parse("09:45"),end_date_offset: 0, end_time: Time.parse("15:15"),members_only: false, registration: false)
 other = EventType.create!(name: :other, display_name: "Other",start_date_offset: 0, start_time: Time.parse("23:30"),end_date_offset: 0, end_time: Time.parse("23:30"),members_only: true, registration: false)
 
-<<<<<<< d46141e1ecd8e41a9120223a7cd75e66728e2569
-<<<<<<< 77e23d2ccaba70eafe4867f3f5cba78a2a812f62
-=======
->>>>>>> change volunteer job type to course role
 print "Course Roles\n"
 CourseRole.destroy_all
 teacher = CourseRole.create!(name: :teacher, is_worker: true, display_weight: 1, description: "Teach a class.")
 ta = CourseRole.create!(name: :teaching_assistant, is_worker: true, display_weight: 2, description: "* Help teacher with set up, if needed.
-<<<<<<< d46141e1ecd8e41a9120223a7cd75e66728e2569
-=======
-print "Volunteer Job Types\n"
-VolunteerJobType.destroy_all
-extra_helper = VolunteerJobType.create!(name: :extra_helper, description: "Perform a job away from co-op.")
-teacher = VolunteerJobType.create!(name: :teacher, description: "Teach a class.")
-ta = VolunteerJobType.create!(name: :teaching_assistant, description: "* Help teacher with set up, if needed.
->>>>>>> update volunteer job descriptions, include student, waiting_list, etc.
-=======
->>>>>>> change volunteer job type to course role
 * Assist teacher during class time.
 * Help with clean up, if needed.")
 monitor = CourseRole.create!(name: :room_monitor, is_worker: true, display_weight: 3, description: "Help supervise a class.")
@@ -63,32 +49,12 @@ set_up = CourseRole.create!(name: :set_up_manager, is_worker: true, display_weig
 * Direct volunteers to their positions and parents and students to their classrooms.
 * Let unknown visitors know that the location is being used for a closed activity.
 * Answer questions as necessary.")
-<<<<<<< d46141e1ecd8e41a9120223a7cd75e66728e2569
-<<<<<<< 77e23d2ccaba70eafe4867f3f5cba78a2a812f62
 clean_up = CourseRole.create!(name: :clean_up_manager, is_worker: true, display_weight: 6, description: "* Be the last one to leave
-=======
-clean_up = VolunteerJobType.create!(name: :clean_up_manager, description: "* Be the last one to leave
->>>>>>> update volunteer job descriptions, include student, waiting_list, etc.
-=======
-clean_up = CourseRole.create!(name: :clean_up_manager, is_worker: true, display_weight: 6, description: "* Be the last one to leave
->>>>>>> change volunteer job type to course role
 * Put away the board/nametags, etc. Take home the book if no one else has.
 * Make sure all of the jobs on the board get done. If people are milling around, encourage them to take a card and do a job. If there are not enough volunteers, check outside.
 * If a job is not done thoroughly, try to figure out who did the job and teach them how to do it better next time.
 * Put lost and found and cleaning supplies away after everything is done.")
-<<<<<<< 89a9680f6747727693afc921afb9a5d5936a9df0
-<<<<<<< d46141e1ecd8e41a9120223a7cd75e66728e2569
-<<<<<<< 77e23d2ccaba70eafe4867f3f5cba78a2a812f62
 gym_monitor = CourseRole.create!(name: :gym_monitor, is_worker: true, display_weight: 7, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
-=======
-gym = VolunteerJobType.create!(name: :gym_monitor, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
->>>>>>> update volunteer job descriptions, include student, waiting_list, etc.
-=======
-gym = CourseRole.create!(name: :gym_monitor, is_worker: true, display_weight: 7, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
->>>>>>> change volunteer job type to course role
-=======
-gym_monitor = CourseRole.create!(name: :gym_monitor, is_worker: true, display_weight: 7, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
->>>>>>> allow for volunteer signups
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
@@ -96,74 +62,30 @@ It is also important that volunteers use their best judgment rather than blindly
 * Keep gym equipment in the gym.
 * Run interference, if needed, between big kid/little kid play.
 * After last class: make sure gym clean up card from nametag tree is completed.")
-<<<<<<< 89a9680f6747727693afc921afb9a5d5936a9df0
-<<<<<<< d46141e1ecd8e41a9120223a7cd75e66728e2569
-<<<<<<< 77e23d2ccaba70eafe4867f3f5cba78a2a812f62
 game_monitor = CourseRole.create!(name: :game_room_monitor, is_worker: true, display_weight: 8, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
-=======
-game = VolunteerJobType.create!(name: :game_room_monitor, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
->>>>>>> update volunteer job descriptions, include student, waiting_list, etc.
-=======
-game = CourseRole.create!(name: :game_room_monitor, is_worker: true, display_weight: 8, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
->>>>>>> change volunteer job type to course role
-=======
-game_monitor = CourseRole.create!(name: :game_room_monitor, is_worker: true, display_weight: 8, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
->>>>>>> allow for volunteer signups
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
 * Before first class: make sure game room set up card from nametag tree is completed.
 * All day: monitor play, as needed, to ensure that kids that want to play get the chance.
 * After last class: make sure clean up card from nametag tree is completed.")
-<<<<<<< 89a9680f6747727693afc921afb9a5d5936a9df0
-<<<<<<< d46141e1ecd8e41a9120223a7cd75e66728e2569
-<<<<<<< 77e23d2ccaba70eafe4867f3f5cba78a2a812f62
 auditorium_monitor = CourseRole.create!(name: :auditorium_monitor, is_worker: true, display_weight: 9, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
-=======
-auditorium = VolunteerJobType.create!(name: :auditorium_monitor, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
->>>>>>> update volunteer job descriptions, include student, waiting_list, etc.
-=======
-auditorium = CourseRole.create!(name: :auditorium_monitor, is_worker: true, display_weight: 9, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
->>>>>>> change volunteer job type to course role
-=======
-auditorium_monitor = CourseRole.create!(name: :auditorium_monitor, is_worker: true, display_weight: 9, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
->>>>>>> allow for volunteer signups
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
 * Before first class: make auditorium set up card from nametag tree is completed.
 * All day: monitor and run interference, if needed, between big kid/little kid play and keep kids off the stage.
 * After last class: make sure auditorium clean up card from nametag tree is completed.")
-<<<<<<< 89a9680f6747727693afc921afb9a5d5936a9df0
-<<<<<<< d46141e1ecd8e41a9120223a7cd75e66728e2569
-<<<<<<< 77e23d2ccaba70eafe4867f3f5cba78a2a812f62
 playground_monitor = CourseRole.create!(name: :playground_monitor, is_worker: true, display_weight: 10, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
 
 You MUST have a cell phone that you keep charged and carry with you to perform this job. If a child needs to be found, you will need to coordinate with the downstairs floater to determine if they're in a free play area or have wandered off.")
 floater = CourseRole.create!(name: :floater, is_worker: true, display_weight: 11, description: "Position starts at beginning of class time and ends when the next class time begins. You need to generally know your way around the building, where our storage is, roughly where the classrooms are, etc. You can learn this at orientation. It is fine to sit and read, work on your computer, knit, etc. as long as you are attending to the following expectations.
-=======
-playground = VolunteerJobType.create!(name: :playground_monitor, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
-
-You MUST have a cell phone that you keep charged and carry with you to perform this job. If a child needs to be found, you will need to coordinate with the downstairs floater to determine if they're in a free play area or have wandered off.")
-floater = VolunteerJobType.create!(name: :floater, description: "Position starts at beginning of class time and ends when the next class time begins. You need to generally know your way around the building, where our storage is, roughly where the classrooms are, etc. You can learn this at orientation. It is fine to sit and read, work on your computer, knit, etc. as long as you are attending to the following expectations.
->>>>>>> update volunteer job descriptions, include student, waiting_list, etc.
-=======
-playground = CourseRole.create!(name: :playground_monitor, is_worker: true, display_weight: 10, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
-=======
-playground_monitor = CourseRole.create!(name: :playground_monitor, is_worker: true, display_weight: 10, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
->>>>>>> allow for volunteer signups
-
-You MUST have a cell phone that you keep charged and carry with you to perform this job. If a child needs to be found, you will need to coordinate with the downstairs floater to determine if they're in a free play area or have wandered off.")
-floater = CourseRole.create!(name: :floater, is_worker: true, display_weight: 11, description: "Position starts at beginning of class time and ends when the next class time begins. You need to generally know your way around the building, where our storage is, roughly where the classrooms are, etc. You can learn this at orientation. It is fine to sit and read, work on your computer, knit, etc. as long as you are attending to the following expectations.
->>>>>>> change volunteer job type to course role
 * At the beginning of the class period, check each classroom. Make sure all volunteers are where they need to be. If one is late or missing without having notified the check-in desk, use the unassigned volunteers list to fill the empty spot and make a note for the volunteer manager that you have found a replacement.
 * Be available in the hallway to provide teachers with any help they need - provide assistance or find someone who can.
 * Make sure co-op expectations including facility rules are being followed in halls and lobby. Remember to speak respectfully and look for solutions rather than focusing on inappropriate behavior.
 * Be familiar with emergency procedures and help as needed in case of emergency.
 * Before the facility opens to the public, let unknown visitors know that we are having a closed activity.
 * Answer questions as necessary.")
-<<<<<<< d46141e1ecd8e41a9120223a7cd75e66728e2569
-<<<<<<< 77e23d2ccaba70eafe4867f3f5cba78a2a812f62
 lunch_clean = CourseRole.create!(name: :lunch_clean_up_manager, is_worker: true, display_weight: 12, description: "One person to be responsible for getting the chairs and tables put away in the closet. Other members should help, but you are responsible for making sure it gets finished. You should make an announcement 10-15 minutes before lunch is over to remind everyone to clean up after themselves.
 One person responsible for sweeping the floor.
 These jobs may run past the end of lunch so should be taken by someone who is either free after lunch, or planning to be in the auditorium.")
@@ -173,27 +95,6 @@ unassigned = CourseRole.create!(name: :unassigned_volunteer, is_worker: false, d
 student = CourseRole.create!(name: :student, is_worker: false, display_weight: 15, description: "A student in the class.")
 non_student = CourseRole.create!(name: :non_student_non_worker, is_worker: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
 waiting_list = CourseRole.create!(name: :waiting_list, is_worker: false, display_weight: 17, description: "Someone who wants to be a student in a full class. If a spot opens up, the first person on the waiting list will automatically be signed up. If this class is taught in a future session, students on previous waiting lists will have priority signing up.")
-=======
-lunch_clean = VolunteerJobType.create!(name: :lunch_clean_up_manager, description: "One person to be responsible for getting the chairs and tables put away in the closet. Other members should help, but you are responsible for making sure it gets finished. You should make an announcement 10-15 minutes before lunch is over to remind everyone to clean up after themselves.
-One person responsible for sweeping the floor.
-These jobs may run past the end of lunch so should be taken by someone who is either free after lunch, or planning to be in the auditorium.")
-lunch_timer = VolunteerJobType.create!(name: :lunch_time_keeper, description: "Make an announcement about 10-15 minutes before the end of lunch to remind people to help wipe down tables and chairs and return them to their carts.")
-unassigned = VolunteerJobType.create!(name: :unassigned_volunteer, description: "Adult available to help in a given period.")
-non_student = VolunteerJobType.create!(name: :non_student, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
-student = VolunteerJobType.create!(name: :student, description: "A student in the class.")
-waiting_list = VolunteerJobType.create!(name: :waiting_list, description: "Someone who wants to be a student in a full class. If a spot opens up, the first person on the waiting list will automatically be signed up. If this class is taught in a future session, students on previous waiting lists will have priority signing up.")
->>>>>>> update volunteer job descriptions, include student, waiting_list, etc.
-=======
-lunch_clean = CourseRole.create!(name: :lunch_clean_up_manager, is_worker: true, display_weight: 12, description: "One person to be responsible for getting the chairs and tables put away in the closet. Other members should help, but you are responsible for making sure it gets finished. You should make an announcement 10-15 minutes before lunch is over to remind everyone to clean up after themselves.
-One person responsible for sweeping the floor.
-These jobs may run past the end of lunch so should be taken by someone who is either free after lunch, or planning to be in the auditorium.")
-lunch_timer = CourseRole.create!(name: :lunch_time_keeper, is_worker: true, display_weight: 13, description: "Make an announcement about 10-15 minutes before the end of lunch to remind people to help wipe down tables and chairs and return them to their carts.")
-extra_helper = CourseRole.create!(name: :extra_helper, is_worker: true, display_weight: 5, description: "Perform a job away from co-op.")
-unassigned = CourseRole.create!(name: :unassigned_volunteer, is_worker: false, display_weight: 14, description: "Adult available to help in a given period.")
-student = CourseRole.create!(name: :student, is_worker: false, display_weight: 15, description: "A student in the class.")
-non_student = CourseRole.create!(name: :non_student_non_worker, is_worker: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
-waiting_list = CourseRole.create!(name: :waiting_list, is_worker: false, display_weight: 17, description: "Someone who wants to be a student in a full class. If a spot opens up, the first person on the waiting list will automatically be signed up. If this class is taught in a future session, students on previous waiting lists will have priority signing up.")
->>>>>>> change volunteer job type to course role
 
 print "Pronouns\n"
 User.destroy_all
@@ -2041,7 +1942,7 @@ print "Memberships"
 s12091.families << member_family
 print("\n")
 
-print "Course Signups"
+print "Student Signups"
 print("\n")
 print "Volunteer Signups"
 print("\n")

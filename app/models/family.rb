@@ -6,6 +6,7 @@ class Family < ActiveRecord::Base
   has_many :adults, -> { where(dob: nil) }, class_name: 'Person', foreign_key: :family_id
   default_scope -> { order(name: :asc) }
   accepts_nested_attributes_for :people
+  before_create :upcase_names
   
   SHORT_LEGAL_CHARS = /\A[a-zA-Z.' ]*\z/
   SHORT_LEGAL_CHARS_LIST = "letters, space, period, apostrophe."
@@ -42,12 +43,7 @@ class Family < ActiveRecord::Base
                               format: { with: LONG_LEGAL_CHARS,
                                         message: LEGAL_CHARS_MSG + LONG_LEGAL_CHARS_LIST }
 
-  validates_each :ec_first_name, :ec_last_name do |record, attr, value|
-    record.errors.add(attr, 'must start with upper case') if value =~ /\A[[:lower:]]/
-  end
-
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations
-  
   VALID_PHONE_FORMAT = /\A(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?\z/
   validates :ec_phone, format: { with: VALID_PHONE_FORMAT },
                        presence: true
@@ -71,22 +67,33 @@ class Family < ActiveRecord::Base
   
   protected
   
-   def clean_phone_number
-     # As long as there is a valid phone number in the field, the following
-     # will call the strip_bad_characters function below on the phone number
-     # entered into that field.
-     unless self.errors.any?
-       self[:ec_phone] = strip_bad_characters(:ec_phone)
-     end
-   end
+    # As long as there is a valid phone number in the field, the following
+    # will call the strip_bad_characters function below on the phone number
+    # entered into that field.
+    def clean_phone_number
+      unless self.errors.any?
+        self[:ec_phone] = strip_bad_characters(:ec_phone)
+      end
+    end
   
-   def strip_bad_characters(attr)
-     # This will strip any parentheses, dashes, and spaces from the phone number
-     # leaving only a 10-digit integer. This 10-digit integer will then be added
-     # to the database and accessible as @person.phone. See the person#show view
-     # for an example of how to format this into a more human-readable format.
-     input = read_attribute_before_type_cast(attr)
-     input.gsub(/[^\d+!x]/, '') if input
-   end
+    # This will strip any parentheses, dashes, and spaces from the phone number
+    # leaving only a 10-digit integer. This 10-digit integer will then be added
+    # to the database and accessible as @person.phone. See the person#show view
+    # for an example of how to format this into a more human-readable format.
+    def strip_bad_characters(attr)
+      input = read_attribute_before_type_cast(attr)
+      input.gsub(/[^\d+!x]/, '') if input
+    end
+   
+    # make sure names start with an uppercase
+    def upcase_names
+      upcase name
+      upcase ec_first_name
+      upcase ec_last_name
+    end
 
+    # upcase the first letter of the given name      
+    def upcase name
+      name[0].upcase + name[1,name.length]
+    end
 end

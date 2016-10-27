@@ -16,7 +16,11 @@
   <%= f.hidden_field :course_id, value: @course.id %>
   <div class="field">
     <%= f.label "Person" %><br>
-    <%= f.collection_select :person_id, @people, :id, :name %>
+    <% if @show_role %>
+      <%= f.collection_select :person_id, @people, :id, :name, include_blank: true %>
+    <% else %>
+      <%= f.collection_select :person_id, @people, :id, :name %>
+    <% end %>
   </div>
   <% if @show_role %>
     <div class="field">

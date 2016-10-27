@@ -4,13 +4,17 @@
   <% end %>
 </h3>
 
-<ul><% @course.volunteer_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
+<ul><% @course.volunteer_signups.each do |course_signup| %>
   <% person = course_signup.person %>
-  <li><%= person.name %>: <%= course_signup.course_role.name.titleize %>
-    <% if @course.cuco_session.course_signups_open?(current_user) and
-          @people.include? person %>
+  <li><%= course_signup.course_role.name.titleize %>
+    <% if person %>
+      : <%= person&.name %>
+    <% end %>
+    <% if (@course.cuco_session.course_signups_open?(current_user) and
+           @people.include? person) or
+          current_user&.can? :manage_all_users_signups, :courses %>
       <%= link_to image_tag('delete.png'), destroy_signup_cuco_session_course_path(@cuco_session, course_signup), method: :delete,
-            data: { confirm: 'Are you sure?' }, title: "Delete #{person.name}" %>
+            data: { confirm: 'Are you sure?' }, title: "Delete #{course_signup.name}" %>
     <% end %>
   </li>
 <% end %></ul>

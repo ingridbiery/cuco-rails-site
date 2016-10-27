@@ -67,9 +67,9 @@ class CoursesController < ApplicationController
     if @course_signup.save
       # and now, we check if there are any warnings
       if @course_signup.safe?
-        notice = "#{@course_signup.person.name} added to #{@course.name}"
+        notice += "#{@course_signup.name} added to #{@course.name}"
       else
-        notice = "#{@course_signup.person.name} added to #{@course.name} with warnings."
+        notice = "#{@course_signup.name} added to #{@course.name} with warnings."
         @course_signup.warnings.full_messages.each do |message|
           notice += " #{message}"
         end
@@ -85,7 +85,7 @@ class CoursesController < ApplicationController
   def destroy_signup
     @course_signup = CourseSignup.find(params[:id])
     @course_signup.destroy
-    redirect_to [@cuco_session, @course_signup.course], notice: "#{@course_signup.person.name} was successfully removed from #{@course_signup.course.name}."
+    redirect_to [@cuco_session, @course_signup.course], notice: "#{@course_signup.name} was successfully removed from #{@course_signup.course.name}."
   end
 
   private

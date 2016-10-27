@@ -11,7 +11,7 @@ class CourseSignup < ActiveRecord::Base
   scope :non_student_non_worker, -> { joins(:course_role).where(course_roles: { name: :non_student_non_worker }) }
   scope :volunteer, -> { joins(:course_role).where(course_roles: { is_worker: true }) }
   
-  validates :person_id, uniqueness: { scope: :course_id, message: "already signed up for course"}
+  validate :person_validity
   validate :course_capacity
   validate :student_age_firm
 
@@ -39,6 +39,16 @@ class CourseSignup < ActiveRecord::Base
       end
     end
   end
+  
+  # get a name to display in the notice
+  def name
+    result = course_role.name
+    if person
+      result += " : #{person.name}"
+    end
+    result
+  end
+
 
   warnings do
     validate :student_age_suggestion
@@ -56,7 +66,14 @@ class CourseSignup < ActiveRecord::Base
       signups = CourseSignup.where(person: person).joins(:course).where(courses: {cuco_session_id: csid,
                                                                                   period_id: pid})
       if signups.count != 0
-        errors.add("Student", "already has another class this period")
+        errors.add("Person", "already has another class this period")
+      end
+    end
+    
+    def person_validity
+      # if this is a not a job, it needs a person
+      if !course_role.is_worker and !person
+        errors.add("Person", "is blank for a non-worker role: #{course_role.name}")
       end
     end
   end

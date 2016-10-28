@@ -59,9 +59,11 @@ class CourseSignup < ActiveRecord::Base
   end
   
   def one_signup_per_class
-    signups = CourseSignup.where(person: person).where(course: course)
-    if signups.count != 0
-      errors.add("Person", "already signed up for this course")
+    if person
+      signups = CourseSignup.where(person: person).where(course: course)
+      if signups.count != 0
+        errors.add("Person", "already signed up for this course")
+      end
     end
   end
 

@@ -3,20 +3,23 @@ class CourseSignupsController < ApplicationController
   # to add/remove signups for everyone (instead of just their family)
   let :web_team, :manage_all_users_signups
   # current members are the only ones who can manage signups, again, only their own
-  let :member, [:new, :create, :destroy]
+  let :member, :all
 
+  before_action :set_show_role
   before_action :set_cuco_session
   before_action :set_course, except: [:destroy]
-  before_action :set_people, only: [:new, :create]
+  before_action :set_course_signup, except: [:new, :create]
+  before_action :set_people, except: [:destroy]
 
   def new
-    @show_role = true
-    @show_role = false if params[:type] == "student"
     @course_signup = CourseSignup.new()
     # we want student to be selected by default
     @course_signup.course_role_id = CourseRole.find_by(name: params[:type]).id
   end
   
+  def edit
+  end
+
   def create
     @course_signup = CourseSignup.new(course_signup_params)
     # this next line validates the course_signup
@@ -32,19 +35,33 @@ class CourseSignupsController < ApplicationController
       end
       redirect_to [@cuco_session, @course], notice: "#{notice}"
     else
-      @show_role = true
-      @show_role = false if CourseRole.find(params[:course_signup][:course_role_id]) == "student"
       render :new_signup
     end
   end
   
+  def update
+    if @course_signup.update(course_signup_params)
+      redirect_to [@cuco_session, @course], notice: "#{@course_signup.name} was successfully updated."
+    else
+      render :edit
+    end
+  end
+
   def destroy
-    @course_signup = CourseSignup.find(params[:id])
     @course_signup.destroy
     redirect_to [@cuco_session, @course_signup.course], notice: "#{@course_signup.name} was successfully removed from #{@course_signup.course.name}."
   end
 
   private
+  
+    # determine if we want to show the role in the form
+    def set_show_role
+      if params[:type] == "student"
+        @show_role = false
+      else
+        @show_role = true
+      end
+    end
 
     # get the people that this user can add or remove from a course
     def set_people
@@ -53,6 +70,10 @@ class CourseSignupsController < ApplicationController
       else
         @people = current_user&.person&.family&.people
       end
+    end
+
+    def set_course_signup
+      @course_signup = CourseSignup.find(params[:id])
     end
 
     def set_course

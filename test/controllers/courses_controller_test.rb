@@ -183,11 +183,4 @@ class CoursesControllerTest < ActionController::TestCase
     assert_redirected_to cuco_session_courses_url(@session.id)
   end
 
-  #############################################################################
-  # course signups
-  #############################################################################
-  test "course signups" do
-    print "\nCoursesControllerTest needs signup tests\n"
-  end
-
 end

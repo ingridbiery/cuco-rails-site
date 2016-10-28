@@ -146,9 +146,9 @@ class FamilyTest < ActiveSupport::TestCase
     assert_not @family.valid?
   end
 
-  test "ec_first_name should start with a capital letter" do
+  test "ec_first_name should fix all lowercase" do
     @family.ec_first_name = "aaaaaa"
-    assert_not @family.valid?
+    assert @family.valid?
   end
 
   #############################################################################
@@ -175,9 +175,9 @@ class FamilyTest < ActiveSupport::TestCase
     assert_not @family.valid?
   end
 
-  test "ec_last_name should start with a capital letter" do
+  test "ec_last_name should fix all lowercase" do
     @family.ec_last_name = "ssssss"
-    assert_not @family.valid?
+    assert @family.valid?
   end
 
   #############################################################################

@@ -11,9 +11,20 @@ class CourseSignup < ActiveRecord::Base
   scope :non_student_non_worker, -> { joins(:course_role).where(course_roles: { name: :non_student_non_worker }) }
   scope :volunteer, -> { joins(:course_role).where(course_roles: { is_worker: true }) }
   
-  validate :person_validity
   validate :course_capacity
-  validate :student_age_firm
+  validate :student_age_if_firm
+  validate :person_validity
+  # it's always illegal to have multiple signups per class, but a warning to have multiple signups per period
+  validate :one_signup_per_class
+
+  # get a name to display notices
+  def name
+    result = course_role.name
+    if person
+      result += " : #{person.name}"
+    end
+    result
+  end
 
   def course_capacity
     if course.max_students == course.student_signups.count
@@ -21,7 +32,7 @@ class CourseSignup < ActiveRecord::Base
     end
   end
   
-  def student_age_firm
+  def student_age_if_firm
     if course.age_firm
       check_student_age
     end
@@ -39,22 +50,26 @@ class CourseSignup < ActiveRecord::Base
       end
     end
   end
-  
-  # get a name to display in the notice
-  def name
-    result = course_role.name
-    if person
-      result += " : #{person.name}"
+
+  # if this is a not a job, it needs a person
+  def person_validity
+    if !course_role.is_worker and !person
+      errors.add("Person", "is blank for a non-worker role: #{course_role.name}")
     end
-    result
+  end
+  
+  def one_signup_per_class
+    signups = CourseSignup.where(person: person).where(course: course)
+    if signups.count != 0
+      errors.add("Person", "already signed up for this course")
+    end
   end
 
-
   warnings do
-    validate :student_age_suggestion
+    validate :student_age_if_suggestion
     validate :one_signup_per_period
 
-    def student_age_suggestion
+    def student_age_if_suggestion
       if !course.age_firm
         check_student_age
       end
@@ -70,12 +85,6 @@ class CourseSignup < ActiveRecord::Base
       end
     end
     
-    def person_validity
-      # if this is a not a job, it needs a person
-      if !course_role.is_worker and !person
-        errors.add("Person", "is blank for a non-worker role: #{course_role.name}")
-      end
-    end
   end
 
 end

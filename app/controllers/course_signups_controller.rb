@@ -3,7 +3,7 @@ class CourseSignupsController < ApplicationController
   # to add/remove signups for everyone (instead of just their family)
   let :web_team, :manage_all_users_signups
   # current members are the only ones who can manage signups, again, only their own
-  let :member, :all
+  let :member, [:new, :create, :edit, :update, :destroy]
 
   before_action :set_show_role
   before_action :set_cuco_session
@@ -35,7 +35,7 @@ class CourseSignupsController < ApplicationController
       end
       redirect_to [@cuco_session, @course], notice: "#{notice}"
     else
-      render :new_signup
+      render :new
     end
   end
   

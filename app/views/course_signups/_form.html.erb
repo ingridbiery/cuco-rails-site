@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= f.hidden_field :course_id, value: @course.id %>
+  
   <div class="field">
     <%= f.label "Person" %><br>
     <% if @show_role %>

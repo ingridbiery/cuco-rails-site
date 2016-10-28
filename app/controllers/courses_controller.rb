@@ -53,41 +53,6 @@ class CoursesController < ApplicationController
     redirect_to cuco_session_courses_path, notice: "#{@course.name} was successfully destroyed."
   end
   
-  def new_signup
-    @show_role = true
-    @show_role = false if params[:type] == "student"
-    @course_signup = CourseSignup.new()
-    # we want student to be selected by default
-    @course_signup.course_role_id = CourseRole.find_by(name: params[:type]).id
-  end
-  
-  def create_signup
-    @course_signup = CourseSignup.new(course_signup_params)
-    # this next line validates the course_signup
-    if @course_signup.save
-      # and now, we check if there are any warnings
-      if @course_signup.safe?
-        notice += "#{@course_signup.name} added to #{@course.name}"
-      else
-        notice = "#{@course_signup.name} added to #{@course.name} with warnings."
-        @course_signup.warnings.full_messages.each do |message|
-          notice += " #{message}"
-        end
-      end
-      redirect_to [@cuco_session, @course], notice: "#{notice}"
-    else
-      @show_role = true
-      @show_role = false if CourseRole.find(params[:course_signup][:course_role_id]) == "student"
-      render :new_signup
-    end
-  end
-  
-  def destroy_signup
-    @course_signup = CourseSignup.find(params[:id])
-    @course_signup.destroy
-    redirect_to [@cuco_session, @course_signup.course], notice: "#{@course_signup.name} was successfully removed from #{@course_signup.course.name}."
-  end
-
   private
 
     # get the people that this user can add or remove from a course
@@ -117,8 +82,4 @@ class CoursesController < ApplicationController
                                      :period_id)
     end
 
-    def course_signup_params
-      params.require(:course_signup).permit(:course_id, :person_id,
-                                            :course_role_id)
-    end
 end

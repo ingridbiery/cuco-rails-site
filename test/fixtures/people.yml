@@ -37,8 +37,20 @@ christopher:
   pronoun: he
   family: williams
 
-member_person:
-  first_name: "Member"
+membership1_person:
+  first_name: "Membership1"
   last_name: "Last"
   pronoun: he
-  family: member_family
+  family: membership1_family
+
+membership2_person:
+  first_name: "Membership2"
+  last_name: "Last"
+  pronoun: he
+  family: membership2_family
+
+membership3_person:
+  first_name: "Membership3"
+  last_name: "Last"
+  pronoun: he
+  family: membership3_family

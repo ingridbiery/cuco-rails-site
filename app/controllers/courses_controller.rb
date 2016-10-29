@@ -8,13 +8,11 @@ class CoursesController < ApplicationController
   # who can create/edit/etc. courses; for other than web_team, people will only be
   # allowed to manage the courses they create
   let [:web_team, :member, :former_member], [:new, :create, :edit, :update, :destroy]
-  # current members are the only ones who can manage signups, again, only their own
-  let :member, [:new_signup, :create_signup, :destroy_signup]
   # anyone, including anonymous users, can view courses
   let :all, [:index, :show]
   before_action :set_cuco_session
-  before_action :set_course, except: [:new, :create, :index, :destroy_signup]
-  before_action :set_people, only: [:show, :new_signup, :create_signup]
+  before_action :set_course, except: [:new, :create, :index]
+  before_action :set_people, only: [:show]
 
   def index
     @courses = @cuco_session.courses.all

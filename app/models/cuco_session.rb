@@ -62,6 +62,11 @@ class CucoSession < ActiveRecord::Base
     dates&.membership_signups_open?(user) and families.include? user&.person&.family
   end
   
+  # are course offerings currently open.
+  def course_offerings_open?
+    dates&.course_offerings_open?
+  end
+
   private
     # make sure the dates work
     def valid_dates

@@ -11,8 +11,8 @@ class CoursesControllerTest < ActionController::TestCase
     @web_team.roles << roles(:web_team)
     @user = users(:js)
     @user.roles << roles(:user)
-    @person = people(:member_person)
-    @member = users(:member)
+    @person = people(:membership1_person)
+    @member = users(:membership1)
     @fall.families << @member.person.family
     travel_to @fall.start_date + 1
   end

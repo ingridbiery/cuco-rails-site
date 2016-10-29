@@ -62,6 +62,16 @@ class Dates < ActiveRecord::Base
     end
   end
 
+  # figure out if course offerings are currently open
+  def course_offerings_open?
+    e = get_event(:course_offering)
+    if (e.start_dt <= Time.now and Time.now <= e.end_dt)
+      return true
+    else
+      return false
+    end
+  end
+
   def has_required_events?
     valid = true
 

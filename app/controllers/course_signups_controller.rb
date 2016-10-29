@@ -1,19 +1,29 @@
 class CourseSignupsController < ApplicationController
-  # :manage_all_users_signups is not a method, just a label to indicate who is allowed
-  # to add/remove signups for everyone (instead of just their family)
-  let :web_team, :manage_all_users_signups
-  # current members are the only ones who can manage signups, again, only their own
-  let :member, [:new, :create, :edit, :update, :destroy]
+  # this is a label indicating who is allowed
+  # to manage signups for everyone (instead of just their family) and at any time
+  let :web_team, :manage_all
+  # this is a label indicating who can create volunteer signups
+  # during course offering
+  let [:web_team, :member, :former], :offer_courses
+  # this is a label indicating who can create signups during registration
+  let [:web_team, :member], :register
+  # who is allowed to sign up during registration (only members which indicates
+  # membership fees have been paid)
+  let [:web_team, :member, :former], [:new, :create, :edit, :update, :destroy]
 
   before_action :set_show_role
   before_action :set_cuco_session
   before_action :set_course, except: [:destroy]
   before_action :set_course_signup, except: [:new, :create]
   before_action :set_people, except: [:destroy]
+  
+  # make sure the timing is right for new/create
+  before_action :new_create_authorized, only: [:new, :create]
 
+  # type is whatever we want the default role to be
   def new
     @course_signup = CourseSignup.new()
-    # we want student to be selected by default
+    # we want the given type to be selected by default
     @course_signup.course_role_id = CourseRole.find_by(name: params[:type]).id
   end
   
@@ -53,6 +63,47 @@ class CourseSignupsController < ApplicationController
   end
 
   private
+  
+    # make sure new and create are authorized
+    # during course_offering, those who can :offer_courses can new/create teachers
+    # during registration, those who can :register can new/create anything
+    # always, those who can :manage_all can new/create anything
+    def new_create_authorized
+      if @cuco_session.course_offerings_open?
+        if current_user&.can? :offer_courses, :course_signups
+          if is_student? and !current_user&.can? :manage_all, :course_signups
+            not_authorized! path: root_url, message: "It is not time for student course offering!"
+          end
+        else # current user can't offer courses
+          not_authorized! path: root_url, message: "You are not authorized to create signups during course offering!"
+        end
+      elsif @cuco_session.membership_signups_open?(current_user)
+        if !current_user&.can? :register, :course_signups
+          not_authorized! path: root_url, message: "You are not authorized to create signups during member signups!"
+        end
+      else # not course_offering or registration time
+        if !current_user&.can? :manage_all, :course_signups
+          not_authorized! path: root_url, message: "You are not authorized to create signups at all times!"
+        end
+      end
+    end
+  
+    # is this a student signup?
+    def is_student?
+      # for new, params[:type] will tell us which
+      if params[:type] == "student"
+        true
+      elsif params[:type] == "teacher"
+        false
+      else
+        # for create, we need to check what was selected
+        if CourseRole.find(params[:course_signup][:course_role_id]).name == "student"
+          true
+        else
+          false
+        end
+      end
+    end
   
     # determine if we want to show the role in the form
     def set_show_role

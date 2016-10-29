@@ -37,8 +37,32 @@ williams:
   ec_text: false
   ec_relationship: "Cousin"
 
-member_family:
-  name: "Member"
+membership1_family:
+  name: "Membership1"
+  street_address: "Street Addr"
+  city: "Columbus"
+  state: "OH"
+  zip: 43224
+  ec_first_name: "X"
+  ec_last_name: "X"
+  ec_phone: "6145551212"
+  ec_text: false
+  ec_relationship: "Cousin"
+
+membership2_family:
+  name: "Membership2"
+  street_address: "Street Addr"
+  city: "Columbus"
+  state: "OH"
+  zip: 43224
+  ec_first_name: "X"
+  ec_last_name: "X"
+  ec_phone: "6145551212"
+  ec_text: false
+  ec_relationship: "Cousin"
+
+membership3_family:
+  name: "Membership3"
   street_address: "Street Addr"
   city: "Columbus"
   state: "OH"

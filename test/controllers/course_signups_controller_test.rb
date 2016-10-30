@@ -316,7 +316,7 @@ class CourseSignupsControllerTest < ActionController::TestCase
   #############################################################################
   # student during registration (allowed for certain users)
   # member of winter is :former_member during this time
-  # member of spring is :member during this time
+  # member of fall is :member during this time
   #############################################################################
 
   test "anonymous should not get new for student during registration" do
@@ -345,13 +345,13 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "member should get new for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    new_test @spring_member, :student
+    new_test @fall_member, :student
     assert_response :success
   end
 
   test "member should get create for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    create_success @spring_member, :student
+    create_success @fall_member, :student
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
@@ -411,13 +411,13 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "member should get new for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    new_test @spring_member, :teacher
+    new_test @fall_member, :teacher
     assert_response :success
   end
 
   test "member should get create for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    create_success @spring_member, :teacher
+    create_success @fall_member, :teacher
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
@@ -442,6 +442,466 @@ class CourseSignupsControllerTest < ActionController::TestCase
   test "web team should get create for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
     create_success @web_team, :teacher
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  #############################################################################
+  # edit/update
+  #############################################################################
+
+  #############################################################################
+  # student during course offering (not allowed)
+  # member of winter is :former_member during fall course offering
+  # member of spring is :member during fall course offering
+  #############################################################################
+
+  test "anonymous should not get edit for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test nil, :student, @person
+    assert_redirected_to root_url
+  end
+
+  test "anonymous should not get update for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test nil, :student, @person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get edit for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test @user, :student, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get update for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test @user, :student, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get edit for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get update for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get edit for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test @winter_member, :student, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get update for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test @winter_member, :student, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "web team should get edit for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test @web_team, :student, @web_team.person
+    assert_response :success
+  end
+
+  test "web team should get update for student during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test @web_team, :student, @web_team.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+  
+  #############################################################################
+  # teacher during course_offering (generally not allowed)
+  # member of winter is :former_member during fall course offering
+  # member of spring is :member during fall course offering
+  #############################################################################
+
+  test "anonymous should not get edit for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test nil, :teacher, @person
+    assert_redirected_to root_url
+  end
+
+  test "anonymous should not get update for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test nil, :teacher, @person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get edit for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test @user, :teacher, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get update for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test @user, :teacher, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get edit for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get update for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get edit for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test @winter_member, :teacher, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get update for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test @winter_member, :teacher, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "web team should get edit for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    edit_test @web_team, :teacher, @web_team.person
+    assert_response :success
+  end
+
+  test "web team should get update for teacher during course offering" do
+    travel_to @fall_course_offering.start_dt + 1.day
+    update_test @web_team, :teacher, @web_team.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+  
+  #############################################################################
+  # student after course offering but before registration (generally not allowed)
+  # member of winter is :former_member during this time
+  # member of spring is :member during this time
+  #############################################################################
+
+  test "anonymous should not get edit for student between offering and registration" do
+    travel_to @fall_member_reg.end_dt + 1.day
+    edit_test nil, :student, @person
+    assert_redirected_to root_url
+  end
+
+  test "anonymous should not get update for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test nil, :student, @person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get edit for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test @user, :student, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get update for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test @user, :student, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get edit for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get update for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get edit for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test @winter_member, :student, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get update for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test @winter_member, :student, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "web team should get edit for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test @web_team, :student, @web_team.person
+    assert_response :success
+  end
+
+  test "web team should get update for student between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test @web_team, :student, @web_team.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  #############################################################################
+  # teacher after course offering but before registration (generally not allowed)
+  # member of winter is :former_member during this time
+  # member of spring is :member during this time
+  #############################################################################
+
+  test "anonymous should not get edit for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test nil, :teacher, @person
+    assert_redirected_to root_url
+  end
+
+  test "anonymous should not get update for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test nil, :teacher, @person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get edit for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test @user, :teacher, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get update for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test @user, :teacher, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get edit for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get update for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get edit for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test @winter_member, :teacher, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get update for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test @winter_member, :teacher, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "web team should get edit for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    edit_test @web_team, :teacher, @web_team.person
+    assert_response :success
+  end
+
+  test "web team should get update for teacher between offering and registration" do
+    travel_to @fall_course_offering.end_dt + 1.day
+    update_test @web_team, :teacher, @web_team.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+  
+  #############################################################################
+  # student during registration (allowed for certain users)
+  # member of spring is :former_member during this time
+  # member of winter is :member during this time
+  #############################################################################
+
+  test "anonymous should not get edit for student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test nil, :student, @person
+    assert_redirected_to root_url
+  end
+
+  test "anonymous should not get update for student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test nil, :student, @person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get edit for student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @user, :student, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get update for student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @user, :student, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "member should get edit for student in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @fall_member, :student, @fall_member.person
+    assert_response :success
+  end
+
+  test "member should get update for student in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @fall_member, :student, @fall_member.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "member should not get edit for student in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @fall_member, :student, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should get not update for student in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @fall_member, :student, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get edit for student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get update for student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "web team should get edit for student in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @web_team, :student, @spring_member.person
+    assert_response :success
+  end
+
+  test "web team should get update for student in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @web_team, :student, @spring_member.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  #############################################################################
+  # teacher during registration (allowed for certain users)
+  # member of spring is :former_member during this time
+  # member of fall is :member during this time
+  #############################################################################
+
+  test "anonymous should not get edit for teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test nil, :teacher, @person
+    assert_redirected_to root_url
+  end
+
+  test "anonymous should not get update for teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test nil, :teacher, @person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get edit for teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @user, :teacher, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get update for teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @user, :teacher, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "member should get edit for empty teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @fall_member, :teacher, nil
+    assert_response :success
+  end
+
+  test "member should get update for empty teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @fall_member, :teacher, nil
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "member should get edit for teacher in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @fall_member, :teacher, @fall_member.person
+    assert_response :success
+  end
+
+  test "member should get update for teacher in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @fall_member, :teacher, @fall_member.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "member should not get edit for teacher in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @fall_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get update for teacher in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @fall_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get edit for teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get update for teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "web team should get edit for empty teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @web_team, :teacher, nil
+    assert_response :success
+  end
+
+  test "web team should get update for empty teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @web_team, :teacher, nil
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "web team should get edit for teacher in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @web_team, :teacher, @web_team.person
+    assert_response :success
+  end
+
+  test "web team should get update for teacher in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @web_team, :teacher, @web_team.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "web team should get edit for teacher in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    edit_test @web_team, :teacher, @spring_member.person
+    assert_response :success
+  end
+
+  test "web team should get update for teacher in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    update_test @web_team, :teacher, @spring_member.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
@@ -472,6 +932,22 @@ class CourseSignupsControllerTest < ActionController::TestCase
     end
   end
   
+  def edit_test user, type, person
+    sign_in user unless !user
+    @course_signup.course_role_id = get_role_id(type)
+    @course_signup.person = person
+    @course_signup.save
+    get :edit, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id
+  end
+
+  def update_test user, type, person
+    sign_in user unless !user
+    @course_signup.person = person
+    @course_signup.course_role_id = get_role_id(type)
+    @course_signup.save
+    patch :update, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id, course_signup: @course_signup.attributes
+  end
+
   def get_role_id type
     if (type == :teacher)
       @teacher.id

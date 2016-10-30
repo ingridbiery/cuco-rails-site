@@ -18,11 +18,22 @@ class CucoSession < ActiveRecord::Base
   MAX_KIDS = 100
   
   # get the current session, if there is one (the session where today is between
-  # the start and end dates of the rec center)
+  # the start date of registration (:member_reg) and end date of the rec center)
   def self.current
-    cuco_sessions = CucoSession.where('start_date <= ?', Time.now).where('end_date >= ?', Time.now)
-    # presence returns the object if it's there or nil if not
-    cuco_sessions.first.presence
+    cuco_sessions = CucoSession.where('start_date <= ?', Time.now).where('? <= end_date', Time.now)
+    if !cuco_sessions.empty?
+      return cuco_sessions.first
+    else # no active session, check if we're past the start of registration of next session
+      next_session = CucoSession.next
+      if next_session
+        next_member_reg = next_session.dates.events.find_by(event_type: EventType.find_by_name(:member_reg))
+        if next_member_reg.start_dt <= Time.now and Time.now <= next_session.end_date 
+          return next_session
+        end
+      end
+    end
+    # there is no active session, and we're not past registration for next
+    nil
   end
 
   # get the next session, if there is one (the first session whose start date is

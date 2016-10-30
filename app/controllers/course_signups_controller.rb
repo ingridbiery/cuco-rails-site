@@ -7,9 +7,10 @@ class CourseSignupsController < ApplicationController
   let [:web_team, :member, :former], :offer_courses
   # this is a label indicating who can create signups during registration
   let [:web_team, :member], :register
-  # who is allowed to sign up during registration (only members which indicates
-  # membership fees have been paid)
-  let [:web_team, :member, :former], [:new, :create, :edit, :update, :destroy]
+  # who is allowed to sign up ever (former members can create teaching jobs for classes
+  # they offer, but will need to become members to edit/update)
+  let [:web_team, :member, :former], [:new, :create]
+  let [:web_team, :member], [:edit, :update, :destroy]
 
   before_action :set_show_role
   before_action :set_cuco_session
@@ -19,6 +20,8 @@ class CourseSignupsController < ApplicationController
   
   # make sure the timing is right for new/create
   before_action :new_create_authorized, only: [:new, :create]
+  # make sure the timing is right for edit/update
+  before_action :edit_update_authorized, only: [:edit, :update]
 
   # type is whatever we want the default role to be
   def new
@@ -88,6 +91,24 @@ class CourseSignupsController < ApplicationController
       end
     end
   
+    # make sure edit and update are authorized
+    # during registration, those who can :register can edit/update their own and blank
+    # always, those who can :manage_all can edit/update anything
+    def edit_update_authorized
+      if @cuco_session.membership_signups_open?(current_user)
+        if current_user&.can? :register, :course_signups
+          if @course_signup.person and !@people.include? @course_signup.person and
+             !current_user&.can? :manage_all, :course_signups
+            not_authorized! path: root_url, message: "You are not authorized to edit that person's registration!"
+          end
+        else
+          not_authorized! path: root_url, message: "You are not authorized to edit all signups!"
+        end
+      elsif !current_user&.can? :manage_all, :course_signups
+        not_authorized! path: root_url, message: "You are not authorized to edit all signups!"
+      end
+    end
+
     # is this a student signup?
     def is_student?
       # for new, params[:type] will tell us which
@@ -116,7 +137,7 @@ class CourseSignupsController < ApplicationController
 
     # get the people that this user can add or remove from a course
     def set_people
-      if current_user&.can? :manage_all_users_signups, :courses
+      if current_user&.can? :manage_all, :course_signups
         @people = @cuco_session.people
       else
         @people = current_user&.person&.family&.people

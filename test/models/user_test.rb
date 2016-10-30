@@ -93,8 +93,8 @@ class UserTest < ActiveSupport::TestCase
     assert_equal :former, @user.membership
   end
 
-  test "member of previous session should be :member before new session starts" do
-    travel_to @fall.start_date.to_date - 1
+  test "member of previous session should be :member before new session registration starts" do
+    travel_to @fall.dates.events.find_by(event_type: EventType.find_by_name(:member_reg)).start_dt - 1.day
     @user.person.family.cuco_sessions << @spring
     assert_equal :member, @user.membership
   end

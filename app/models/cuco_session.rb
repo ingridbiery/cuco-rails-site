@@ -26,8 +26,8 @@ class CucoSession < ActiveRecord::Base
     else # no active session, check if we're past the start of registration of next session
       next_session = CucoSession.next
       if next_session
-        next_member_reg = next_session.dates.events.find_by(event_type: EventType.find_by_name(:member_reg))
-        if next_member_reg.start_dt <= Time.now and Time.now <= next_session.end_date 
+        next_member_reg = next_session&.dates&.events&.find_by(event_type: EventType.find_by_name(:member_reg))
+        if next_member_reg and next_member_reg.start_dt <= Time.now and Time.now <= next_session.end_date 
           return next_session
         end
       end

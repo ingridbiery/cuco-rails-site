@@ -23,9 +23,9 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
   end
 
-  test "first_name should start with a capital letter" do
+  test "first_name can not start with a capital letter" do
     @person.first_name = "aaaaaa"
-    assert_not @person.valid?
+    assert @person.valid?
   end
 
   #############################################################################
@@ -42,9 +42,9 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
   end
 
-  test "last_name should start with a capital letter" do
+  test "last_name can not start with a capital letter" do
     @person.last_name = "ssssss"
-    assert_not @person.valid?
+    assert @person.valid?
   end
 
   #############################################################################

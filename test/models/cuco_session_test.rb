@@ -54,7 +54,7 @@ class CucoSessionTest < ActiveSupport::TestCase
   end
 
   test "current should return nil when there isn't one" do
-    travel_to @fall.start_date.to_date - 1
+    travel_to @fall.end_date.to_date + 1
     current = CucoSession.current
     assert_nil current
   end

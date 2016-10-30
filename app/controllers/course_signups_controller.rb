@@ -16,12 +16,14 @@ class CourseSignupsController < ApplicationController
   before_action :set_cuco_session
   before_action :set_course, except: [:destroy]
   before_action :set_course_signup, except: [:new, :create]
-  before_action :set_people, except: [:destroy]
+  before_action :set_people
   
   # make sure the timing is right for new/create
   before_action :new_create_authorized, only: [:new, :create]
   # make sure the timing is right for edit/update
   before_action :edit_update_authorized, only: [:edit, :update]
+  # make sure the timing is right for destroy
+  before_action :destroy_authorized, only: :destroy
 
   # type is whatever we want the default role to be
   def new
@@ -72,21 +74,21 @@ class CourseSignupsController < ApplicationController
     # during registration, those who can :register can new/create anything
     # always, those who can :manage_all can new/create anything
     def new_create_authorized
-      if @cuco_session.course_offerings_open?
-        if current_user&.can? :offer_courses, :course_signups
-          if is_student? and !current_user&.can? :manage_all, :course_signups
-            not_authorized! path: root_url, message: "It is not time for student course offering!"
+      if !current_user&.can? :manage_all, :course_signups
+        if @cuco_session.course_offerings_open?
+          if current_user&.can? :offer_courses, :course_signups
+            if is_student?
+              not_authorized! path: root_url, message: "It is not time for student course offering!"
+            end
+          else # current user can't offer courses
+            not_authorized! path: root_url, message: "You are not authorized to create signups during course offering!"
           end
-        else # current user can't offer courses
-          not_authorized! path: root_url, message: "You are not authorized to create signups during course offering!"
-        end
-      elsif @cuco_session.membership_signups_open?(current_user)
-        if !current_user&.can? :register, :course_signups
-          not_authorized! path: root_url, message: "You are not authorized to create signups during member signups!"
-        end
-      else # not course_offering or registration time
-        if !current_user&.can? :manage_all, :course_signups
-          not_authorized! path: root_url, message: "You are not authorized to create signups at all times!"
+        elsif @cuco_session.membership_signups_open?(current_user)
+          if !current_user&.can? :register, :course_signups
+            not_authorized! path: root_url, message: "You are not authorized to create signups during member signups!"
+          end
+        else # not course_offering or registration time
+          not_authorized! path: root_url, message: "It is not time to create signups right now!"
         end
       end
     end
@@ -95,17 +97,42 @@ class CourseSignupsController < ApplicationController
     # during registration, those who can :register can edit/update their own and blank
     # always, those who can :manage_all can edit/update anything
     def edit_update_authorized
-      if @cuco_session.membership_signups_open?(current_user)
-        if current_user&.can? :register, :course_signups
-          if @course_signup.person and !@people.include? @course_signup.person and
-             !current_user&.can? :manage_all, :course_signups
-            not_authorized! path: root_url, message: "You are not authorized to edit that person's registration!"
+      if !current_user&.can? :manage_all, :course_signups
+        if @cuco_session.membership_signups_open?(current_user)
+          if current_user&.can? :register, :course_signups
+            if @course_signup.person and !@people.include? @course_signup.person
+              not_authorized! path: root_url, message: "You are not authorized to edit that person's registration!"
+            end
+          else # current user can't ever register course signups
+            not_authorized! path: root_url, message: "You are not authorized to edit signups!"
           end
-        else
-          not_authorized! path: root_url, message: "You are not authorized to edit all signups!"
+        else # membership signups are not open
+          not_authorized! path: root_url, message: "It is not time to edit signups right now!"
         end
-      elsif !current_user&.can? :manage_all, :course_signups
-        not_authorized! path: root_url, message: "You are not authorized to edit all signups!"
+      end
+    end
+
+    # make sure destroy is authorized
+    # during registration, those who can :register can destroy their own student signups
+    # but not their own teacher signups
+    # always, those who can :manage_all can edit/update anything
+    def destroy_authorized
+      if !current_user&.can? :manage_all, :course_signups
+        if @cuco_session.membership_signups_open?(current_user)
+          if current_user&.can? :register, :course_signups
+            if !is_student?
+              not_authorized! path: root_url, message: "You are not authorized to destroy teacher signups!"
+            else # is student
+              if !@people.include? @course_signup.person
+                not_authorized! path: root_url, message: "You are not authorized to destroy this person's signups!"
+              end
+            end
+          else # current user can't ever register course signups
+            not_authorized! path: root_url, message: "You are not authorized to destroy signups!"
+          end
+        else # membership signups are not open
+          not_authorized! path: root_url, message: "It is not time to destroy signups right now!"
+        end
       end
     end
 
@@ -117,8 +144,13 @@ class CourseSignupsController < ApplicationController
       elsif params[:type] == "teacher"
         false
       else
-        # for create, we need to check what was selected
-        if CourseRole.find(params[:course_signup][:course_role_id]).name == "student"
+        # for create/update, we need to check what was selected
+        if params[:course_signup]
+          role_id = params[:course_signup][:course_role_id]
+        else
+          role_id = @course_signup.course_role_id
+        end
+        if CourseRole.find(role_id).name == "student"
           true
         else
           false

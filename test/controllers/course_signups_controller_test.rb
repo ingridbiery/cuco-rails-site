@@ -906,6 +906,84 @@ class CourseSignupsControllerTest < ActionController::TestCase
   end
 
   #############################################################################
+  # destroy
+  #############################################################################
+
+  #############################################################################
+  # outside of registration time (generally not allowed)
+  #############################################################################
+
+  test "anonymous should not get destroy outside of registration" do
+    travel_to @fall_member_reg.start_dt - 1.day
+    destroy_test nil, :student, @person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get destroy outside of registration" do
+    travel_to @fall_member_reg.start_dt - 1.day
+    destroy_test @user, :student, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get destroy outside of registration" do
+    travel_to @fall_member_reg.start_dt - 1.day
+    destroy_test @winter_member, :student, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get destroy outside of registration" do
+    travel_to @fall_member_reg.start_dt - 1.day
+    destroy_test @fall_member, :student, @fall_member.person
+    assert_redirected_to root_url
+  end
+
+  test "web team should get destroy outside of registration" do
+    travel_to @fall_member_reg.start_dt - 1.day
+    destroy_test @web_team, :student, @web_team.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+  
+  #############################################################################
+  # during registration (allowed for certain users)
+  #############################################################################
+
+  test "anonymous should not get destroy during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    destroy_test nil, :student, @person
+    assert_redirected_to root_url
+  end
+
+  test "user should not get destroy during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    destroy_test @user, :student, @user.person
+    assert_redirected_to root_url
+  end
+
+  test "former member should not get destroy during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    destroy_test @winter_member, :student, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should get destroy for own family student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    destroy_test @fall_member, :student, @fall_member.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "member should not get destroy for own family teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    destroy_test @fall_member, :teacher, @fall_member.person
+    assert_redirected_to root_url
+  end
+
+  test "web team should get destroy during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    destroy_test @web_team, :student, @web_team.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  #############################################################################
   # HELPERS
   #############################################################################
 
@@ -946,6 +1024,14 @@ class CourseSignupsControllerTest < ActionController::TestCase
     @course_signup.course_role_id = get_role_id(type)
     @course_signup.save
     patch :update, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id, course_signup: @course_signup.attributes
+  end
+
+  def destroy_test user, type, person
+    sign_in user unless !user
+    @course_signup.person = person
+    @course_signup.course_role_id = get_role_id(type)
+    @course_signup.save
+    delete :destroy, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id
   end
 
   def get_role_id type

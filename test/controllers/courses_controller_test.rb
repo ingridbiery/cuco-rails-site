@@ -6,12 +6,15 @@ class CoursesControllerTest < ActionController::TestCase
   def setup
     @course = courses(:one)
     @session = cuco_sessions(:winter)
+    @fall = cuco_sessions(:fall)
     @web_team = users(:lj)
     @web_team.roles << roles(:web_team)
     @user = users(:js)
     @user.roles << roles(:user)
-    @member = users(:member)
-    travel_to @session.start_date + 1.day
+    @person = people(:membership1_person)
+    @member = users(:membership1)
+    @fall.families << @member.person.family
+    travel_to @fall.start_date + 1
   end
 
   #############################################################################
@@ -169,7 +172,7 @@ class CoursesControllerTest < ActionController::TestCase
     assert_difference 'Course.count', -1 do
       delete :destroy, cuco_session_id: @session.id, id: @course.id
     end
-    assert_redirected_to cuco_session_courses_url, cuco_session_id: @session_id
+    assert_redirected_to cuco_session_courses_url(@session.id)
   end
 
   test "web team should get destroy" do
@@ -177,14 +180,7 @@ class CoursesControllerTest < ActionController::TestCase
     assert_difference 'Course.count', -1 do
       delete :destroy, cuco_session_id: @session.id, id: @course.id
     end
-    assert_redirected_to cuco_session_courses_url, cuco_session_id: @session_id
-  end
-
-  #############################################################################
-  # course signups
-  #############################################################################
-  test "course signups" do
-    print "this does not include any tests for course signups\n"
+    assert_redirected_to cuco_session_courses_url(@session.id)
   end
 
 end

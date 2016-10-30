@@ -3,13 +3,15 @@ require 'test_helper'
 class CourseSignupTest < ActiveSupport::TestCase
   def setup
     @course_signup = course_signups(:one)
-    @adult = people(:kimberly)
+    @adult = people(:lisa)
     @course1 = courses(:one)
     @course2 = courses(:two)
     @period1 = periods(:first)
   end
 
   test "should be valid" do
+    # change the person so we don't have a duplicate signup
+    @course_signup.person = people(:emma)
     assert @course_signup.valid?
   end
 
@@ -42,7 +44,7 @@ class CourseSignupTest < ActiveSupport::TestCase
   
   test "signup should not be allowed when course is full" do
     course = @course_signup.course
-    course.max_students = course.people.count
+    course.max_students = course.student_signups.count
     course.save
     new_signup = @course_signup.dup
     new_signup.person = @person
@@ -71,6 +73,7 @@ class CourseSignupTest < ActiveSupport::TestCase
 
   test "too young signup should generate warning when age not firm" do
     course = @course_signup.course
+    @course_signup.person = people(:emma)
     course.age_firm = false
     course.min_age = @course_signup.person.age + 1
     course.save
@@ -84,6 +87,7 @@ class CourseSignupTest < ActiveSupport::TestCase
 
   test "too old signup should not be allowed when age firm" do
     course = @course_signup.course
+    @course_signup.person = people(:emma)
     course.age_firm = true
     course.max_age = @course_signup.person.age - 1
     course.save
@@ -100,6 +104,7 @@ class CourseSignupTest < ActiveSupport::TestCase
 
   test "too old signup should generate warning when age not firm" do
     course = @course_signup.course
+    @course_signup.person = people(:emma)
     course.age_firm = false
     course.max_age = @course_signup.person.age - 1
     course.save

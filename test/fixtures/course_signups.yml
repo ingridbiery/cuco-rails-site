@@ -3,7 +3,14 @@
 one:
   course: one
   person: isabella
+  course_role: student
 
 two:
   course: one
   person: christopher
+  course_role: student
+
+three:
+  course: one
+  person: kimberly
+  course_role: teacher

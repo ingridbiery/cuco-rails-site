@@ -1,0 +1,13 @@
+<% if @course.unassigned_volunteer_signups.count != 0 %>
+  <h3>Unassigned Volunteers</h3>
+  <ul><% @course.unassigned_volunteer_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
+    <% person = course_signup.person %>
+    <li><%= person.name %>
+      <% if @course.cuco_session.course_signups_open?(current_user) and
+            @people.include? person %>
+        <%= link_to image_tag('delete.png'), cuco_session_course_course_signup_path(@cuco_session, @course, course_signup), method: :delete,
+              data: { confirm: 'Are you sure?' }, title: "Delete #{person.name}" %>
+      <% end %>
+    </li>
+  <% end %></ul>
+<% end %>

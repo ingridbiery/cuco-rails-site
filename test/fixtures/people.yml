@@ -36,3 +36,21 @@ christopher:
   dob: 2000-01-01
   pronoun: he
   family: williams
+
+membership1_person:
+  first_name: "Membership1"
+  last_name: "Last"
+  pronoun: he
+  family: membership1_family
+
+membership2_person:
+  first_name: "Membership2"
+  last_name: "Last"
+  pronoun: he
+  family: membership2_family
+
+membership3_person:
+  first_name: "Membership3"
+  last_name: "Last"
+  pronoun: he
+  family: membership3_family

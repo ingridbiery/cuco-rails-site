@@ -46,7 +46,7 @@ class Dates < ActiveRecord::Base
   
   # figure out if membership signups are currently open for the given user type
   def membership_signups_open?(user)
-    return false if user.nil?
+    return false unless user
     case user.membership
     when :member
       e = get_event(:member_reg)
@@ -55,6 +55,16 @@ class Dates < ActiveRecord::Base
     else
       e = get_event(:new_reg)
     end
+    if (e.start_dt <= Time.now and Time.now <= e.end_dt)
+      return true
+    else
+      return false
+    end
+  end
+
+  # figure out if course offerings are currently open
+  def course_offerings_open?
+    e = get_event(:course_offering)
     if (e.start_dt <= Time.now and Time.now <= e.end_dt)
       return true
     else

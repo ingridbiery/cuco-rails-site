@@ -6,6 +6,9 @@ class Person < ActiveRecord::Base
   has_many :courses, through: :course_signups
   before_create :upcase_names
 
+  scope :kid, -> { where.not(dob: nil) }
+  scope :adult, -> { where(dob: nil) }
+  
   default_scope -> { order(first_name: :asc) }
 
   validates :first_name, presence: true,

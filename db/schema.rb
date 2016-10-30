@@ -16,14 +16,25 @@ ActiveRecord::Schema.define(version: 20161020210810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "course_roles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "is_worker"
+    t.integer  "display_weight"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "course_signups", force: :cascade do |t|
     t.integer  "course_id"
     t.integer  "person_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "course_role_id"
   end
 
   add_index "course_signups", ["course_id"], name: "index_course_signups_on_course_id", using: :btree
+  add_index "course_signups", ["course_role_id"], name: "index_course_signups_on_course_role_id", using: :btree
   add_index "course_signups", ["person_id"], name: "index_course_signups_on_person_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
@@ -193,6 +204,7 @@ ActiveRecord::Schema.define(version: 20161020210810) do
   add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "course_signups", "course_roles"
   add_foreign_key "course_signups", "courses"
   add_foreign_key "course_signups", "people"
   add_foreign_key "courses", "cuco_sessions"

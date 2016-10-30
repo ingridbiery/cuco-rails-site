@@ -17,8 +17,20 @@ new:
   email: "new@example.com"
   notification_list: false
 
-member:
+membership1:
   encrypted_password: "password"
-  email: "member@example.com"
+  email: "membership1@example.com"
   notification_list: false
-  person: kimberly
+  person: membership1_person
+
+membership2:
+  encrypted_password: "password"
+  email: "membership2@example.com"
+  notification_list: false
+  person: membership2_person
+
+membership3:
+  encrypted_password: "password"
+  email: "membership3@example.com"
+  notification_list: false
+  person: membership3_person

@@ -13,7 +13,9 @@ class FamiliesControllerTest < ActionController::TestCase
     @user_without_fam.roles << roles(:user)
     @web_team = users(:lj)
     @web_team.roles << roles(:web_team)
-    @member = users(:member)
+    @member = users(:membership1)
+    @fall = cuco_sessions(:fall)
+    @fall.families << @member.person.family
     travel_to @session.start_date + 1.day
   end
 
@@ -34,6 +36,7 @@ class FamiliesControllerTest < ActionController::TestCase
 
   test "member should get index" do
     sign_in @member
+    travel_to @fall.start_date + 1.day
     get :index
     assert_response :success
   end

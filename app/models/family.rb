@@ -2,8 +2,8 @@ class Family < ActiveRecord::Base
   has_many :people, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :cuco_sessions, through: :memberships
-  has_many :kids, -> { where.not(dob: nil) }, class_name: 'Person', foreign_key: :family_id
-  has_many :adults, -> { where(dob: nil) }, class_name: 'Person', foreign_key: :family_id
+  has_many :kids, -> { Person.kid }, class_name: 'Person', foreign_key: :family_id
+  has_many :adults, -> { Person.adult }, class_name: 'Person', foreign_key: :family_id
   default_scope -> { order(name: :asc) }
   accepts_nested_attributes_for :people
   before_create :upcase_names

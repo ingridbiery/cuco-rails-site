@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+teacher:
+  name: teacher
+  description: MyString
+  is_worker: true
+  display_weight: 1
+
+student:
+  name: student
+  description: MyString
+  is_worker: false
+  display_weight: 2

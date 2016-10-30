@@ -1,0 +1,35 @@
+<%= form_for [@cuco_session, @course, @course_signup] do |f| %>
+  <% if @course_signup.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@course_signup.errors.count, "error") %> prohibited this signup from being saved:</h2>
+
+      <ul>
+      <% @course_signup.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :course_id, value: @course.id %>
+  
+  <div class="field">
+    <%= f.label "Person" %><br>
+    <% if @show_role %>
+      <%= f.collection_select :person_id, @people, :id, :name, include_blank: true %>
+    <% else %>
+      <%= f.collection_select :person_id, @people, :id, :name %>
+    <% end %>
+  </div>
+  <% if @show_role %>
+    <div class="field">
+      <%= f.label "Role in Class" %><br>
+      <%= f.collection_select :course_role_id, CourseRole.all, :id, :name, selected: @course_signup.course_role_id %>
+    </div>
+  <% else %>
+    <%= f.hidden_field :course_role_id, value: @course_signup.course_role_id %>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

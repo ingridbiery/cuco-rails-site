@@ -1,0 +1,24 @@
+<h3>Volunteers
+  <% if @course.cuco_session.membership_signups_open?(current_user) %>
+    <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course, type: :teacher), title: "Add Person to Course" %>
+  <% end %>
+</h3>
+
+<ul><% @course.volunteer_signups.each do |course_signup| %>
+  <% person = course_signup.person %>
+  <li><%= course_signup.course_role.name.titleize %>
+    <% if person %>
+      : <%= person&.name %>
+    <% end %>
+    <% if @course.cuco_session.course_signups_open?(current_user) %>
+      <% if !person or @people.include? person %>
+        <%= link_to image_tag('wrench.png'), edit_cuco_session_course_course_signup_path(@cuco_session, @course, course_signup, type: :teacher) %>
+      <% end %>
+      <% if (!person and current_user&.can? :manage_all_users_signups, :course_signups) or
+            @people.include? person %>
+        <%= link_to image_tag('delete.png'), cuco_session_course_course_signup_path(@cuco_session, @course, course_signup), method: :delete,
+              data: { confirm: 'Are you sure?' }, title: "Delete #{course_signup.name}" %>
+      <% end %>
+    <% end %>
+  </li>
+<% end %></ul>

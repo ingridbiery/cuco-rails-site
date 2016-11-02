@@ -125,6 +125,9 @@ johnson.save
 mp = member_family.people.create!(first_name: "Steve", last_name: "Member", pronoun_id: he.id)
 member_family.primary_adult_id = mp.id
 member_family.save
+jwp = williams.people.create!(first_name: "John", last_name: "Williams", pronoun_id: they.id)
+williams.primary_adult_id = jwp.id
+williams.save
 print("\n")
 
 print "Users"

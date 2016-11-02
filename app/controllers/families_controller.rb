@@ -1,6 +1,6 @@
 class FamiliesController < ApplicationController
   let :web_team, :all
-  let :web_team, :manage_all
+  let :web_team, [:manage_all, :edit_primary]
   let :member, :index
   let :user, [:show, :new, :create, :edit, :update]
   before_action :set_family, except: [:new, :create, :index]
@@ -22,9 +22,6 @@ class FamiliesController < ApplicationController
   end
 
   def edit
-    if current_user.person != nil then
-      family_id = current_user.person.family_id
-    end
   end
 
   def create

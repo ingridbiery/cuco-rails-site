@@ -5,7 +5,7 @@ class CoursesControllerTest < ActionController::TestCase
 
   def setup
     @course = courses(:one)
-    @session = cuco_sessions(:winter)
+    @cuco_session = cuco_sessions(:winter)
     @fall = cuco_sessions(:fall)
     @web_team = users(:lj)
     @web_team.roles << roles(:web_team)
@@ -22,25 +22,25 @@ class CoursesControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should get index" do
-    get :index, cuco_session_id: @session.id
+    get :index, cuco_session_id: @cuco_session.id
     assert_response :success
   end
 
   test "user should get index" do
     sign_in @user
-    get :index, cuco_session_id: @session.id
+    get :index, cuco_session_id: @cuco_session.id
     assert_response :success
   end
 
   test "member should get index" do
     sign_in @member
-    get :index, cuco_session_id: @session.id
+    get :index, cuco_session_id: @cuco_session.id
     assert_response :success
   end
 
   test "web team should get index" do
     sign_in @web_team
-    get :index, cuco_session_id: @session.id
+    get :index, cuco_session_id: @cuco_session.id
     assert_response :success
   end
 
@@ -49,30 +49,30 @@ class CoursesControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get new" do
-    get :new, cuco_session_id: @session.id
+    get :new, cuco_session_id: @cuco_session.id
     assert_redirected_to root_url
   end
 
   test "anonymous should not get create" do
-    post :create, cuco_session_id: @session.id, course: @course.attributes
+    post :create, cuco_session_id: @cuco_session.id, course: @course.attributes
     assert_redirected_to root_url
   end
 
   test "user should not get new" do
     sign_in @user
-    get :new, cuco_session_id: @session.id
+    get :new, cuco_session_id: @cuco_session.id
     assert_redirected_to root_url
   end
 
   test "user should not get create" do
     sign_in @user
-    post :create, cuco_session_id: @session.id, course: @course.attributes
+    post :create, cuco_session_id: @cuco_session.id, course: @course.attributes
     assert_redirected_to root_url
   end
 
   test "member should get new" do
     sign_in @member
-    get :new, cuco_session_id: @session.id
+    get :new, cuco_session_id: @cuco_session.id
     assert_response :success
   end
 
@@ -81,14 +81,14 @@ class CoursesControllerTest < ActionController::TestCase
     c = @course.dup
     c.name = "NEW NAME"
     assert_difference('Course.count', 1) do
-      post :create, cuco_session_id: @session.id, course: c.attributes
+      post :create, cuco_session_id: @cuco_session.id, course: c.attributes
     end
     assert_response :redirect
   end
 
   test "web team should get new" do
     sign_in @web_team
-    get :new, cuco_session_id: @session.id
+    get :new, cuco_session_id: @cuco_session.id
     assert_response :success
   end
 
@@ -97,7 +97,7 @@ class CoursesControllerTest < ActionController::TestCase
     c = @course.dup
     c.name = "NEW NAME"
     assert_difference('Course.count', 1) do
-      post :create, cuco_session_id: @session.id, course: c.attributes
+      post :create, cuco_session_id: @cuco_session.id, course: c.attributes
     end
     assert_response :redirect
   end
@@ -107,48 +107,48 @@ class CoursesControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get edit" do
-    get :edit, cuco_session_id: @session.id, id: @course.id
+    get :edit, cuco_session_id: @cuco_session.id, id: @course.id
     assert_redirected_to root_url
   end
 
   test "anonymous should not get update" do
-    patch :update, cuco_session_id: @session.id, id: @course.id, course: @course
+    patch :update, cuco_session_id: @cuco_session.id, id: @course.id, course: @course
     assert_redirected_to root_url
   end
 
   test "user should not get edit" do
     sign_in @user
-    get :edit, cuco_session_id: @session.id, id: @course.id
+    get :edit, cuco_session_id: @cuco_session.id, id: @course.id
     assert_redirected_to root_url
   end
 
   test "user should not get update" do
     sign_in @user
-    patch :update, cuco_session_id: @session.id, id: @course.id, course: @course
+    patch :update, cuco_session_id: @cuco_session.id, id: @course.id, course: @course
     assert_redirected_to root_url
   end
 
   test "member should get edit" do
     sign_in @member
-    get :edit, cuco_session_id: @session.id, id: @course.id
+    get :edit, cuco_session_id: @cuco_session.id, id: @course.id
     assert_response :success
   end
 
   test "member should get update" do
     sign_in @member
-    patch :update, cuco_session_id: @session.id, id: @course.id, course: @course.attributes
+    patch :update, cuco_session_id: @cuco_session.id, id: @course.id, course: @course.attributes
     assert_response :redirect
   end
 
   test "web team should get edit" do
     sign_in @web_team
-    get :edit, cuco_session_id: @session.id, id: @course.id
+    get :edit, cuco_session_id: @cuco_session.id, id: @course.id
     assert_response :success
   end
 
   test "web team should get update" do
     sign_in @web_team
-    patch :update, cuco_session_id: @session.id, id: @course.id, course: @course.attributes
+    patch :update, cuco_session_id: @cuco_session.id, id: @course.id, course: @course.attributes
     assert_response :redirect
   end
 
@@ -157,30 +157,30 @@ class CoursesControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get destroy" do
-    delete :destroy, cuco_session_id: @session.id, id: @course.id
+    delete :destroy, cuco_session_id: @cuco_session.id, id: @course.id
     assert_redirected_to root_url
   end
 
   test "user should not get destroy" do
     sign_in @user
-    delete :destroy, cuco_session_id: @session.id, id: @course.id
+    delete :destroy, cuco_session_id: @cuco_session.id, id: @course.id
     assert_redirected_to root_url
   end
 
   test "member should get destroy" do
     sign_in @member
     assert_difference 'Course.count', -1 do
-      delete :destroy, cuco_session_id: @session.id, id: @course.id
+      delete :destroy, cuco_session_id: @cuco_session.id, id: @course.id
     end
-    assert_redirected_to cuco_session_courses_url(@session.id)
+    assert_redirected_to cuco_session_courses_url(@cuco_session.id)
   end
 
   test "web team should get destroy" do
     sign_in @web_team
     assert_difference 'Course.count', -1 do
-      delete :destroy, cuco_session_id: @session.id, id: @course.id
+      delete :destroy, cuco_session_id: @cuco_session.id, id: @course.id
     end
-    assert_redirected_to cuco_session_courses_url(@session.id)
+    assert_redirected_to cuco_session_courses_url(@cuco_session.id)
   end
 
 end

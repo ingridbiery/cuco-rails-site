@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020210810) do
+ActiveRecord::Schema.define(version: 20161102020332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20161020210810) do
     t.string   "ec_phone"
     t.boolean  "ec_text"
     t.string   "ec_relationship"
+    t.string   "phone"
   end
 
   add_index "families", ["primary_adult_id"], name: "index_families_on_primary_adult_id", using: :btree

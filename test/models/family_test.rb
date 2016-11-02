@@ -121,6 +121,28 @@ class FamilyTest < ActiveSupport::TestCase
   end
 
   #############################################################################
+  # phone
+  #############################################################################
+
+  test "phone should be present" do
+    @family.phone = nil
+    assert_not @family.valid?
+  end
+
+  test "phone should be a valid phone number" do
+    @family.phone = "(614)555-1212"
+    assert @family.valid?
+    @family.phone = "6145551212"
+    assert @family.valid?
+  end
+
+  test "phone should not be letters" do
+    @family.phone = "(614)555-slkj"
+    assert_not @family.valid?
+  end
+
+
+  #############################################################################
   # emergency contact first name
   #############################################################################
 

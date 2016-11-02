@@ -17,9 +17,10 @@
             responsible for this family's children at CUCO on a regular basis.
 
 <p>
-  <h3>Address</h3>
+  <h3>Address and Phone</h3>
   <%= @family.street_address %><br/>
   <%= @family.city %>, <%= @family.state %> <%= @family.zip %><br/>
+  <%= number_to_phone(@family.phone, area_code: true) %>
 </p>
 
 <p>

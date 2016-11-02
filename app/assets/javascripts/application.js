@@ -17,4 +17,6 @@
 //= jquery.maskedinput
 
 jQuery(function($){
-   $("#family_ec_phone").mask("(999) 999-9999")});
+   $("#family_ec_phone").mask("(999) 999-9999")
+   $("#family_phone").mask("(999) 999-9999")
+  });

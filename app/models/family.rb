@@ -45,7 +45,7 @@ class Family < ActiveRecord::Base
 
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations
   VALID_PHONE_FORMAT = /\A(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?\z/
-  validates :ec_phone, format: { with: VALID_PHONE_FORMAT },
+  validates :ec_phone, :phone, format: { with: VALID_PHONE_FORMAT },
                        presence: true
 
   after_validation :clean_phone_number

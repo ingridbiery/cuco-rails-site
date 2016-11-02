@@ -37,7 +37,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "anonymous should not get show" do
     get :show, id: @user.id
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "user should get show for self" do
@@ -50,5 +50,13 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
     get :show, id: @web_team.id
     assert_redirected_to root_path
+  end
+  
+  #############################################################################
+  # 
+  #############################################################################
+
+  test "missing" do
+    print "UsersController should test new/create/edit/update/destroy"
   end
 end

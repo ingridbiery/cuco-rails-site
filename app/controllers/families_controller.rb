@@ -1,6 +1,6 @@
 class FamiliesController < ApplicationController
   let :web_team, :all
-  let :web_team, :manage_all
+  let :web_team, [:manage_all, :edit_primary]
   let :member, :index
   let :user, [:show, :new, :create, :edit, :update]
   before_action :set_family, except: [:new, :create, :index]

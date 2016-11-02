@@ -6,6 +6,7 @@ smith:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  phone: "6144544544"
   ec_first_name: "Todd"
   ec_last_name: "Smith"
   ec_phone: "6147897894"
@@ -18,6 +19,7 @@ johnson:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  phone: "6148459458"
   ec_first_name: "Jane"
   ec_last_name: "Johnson"
   ec_phone: "6145559874"
@@ -31,6 +33,7 @@ williams:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  phone: "5106474555"
   ec_first_name: "Salik"
   ec_last_name: "Somer"
   ec_phone: "6144574455"
@@ -43,6 +46,7 @@ membership1_family:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  phone: "5432334322"
   ec_first_name: "X"
   ec_last_name: "X"
   ec_phone: "6145551212"
@@ -55,6 +59,7 @@ membership2_family:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  phone: "6148487788"
   ec_first_name: "X"
   ec_last_name: "X"
   ec_phone: "6145551212"
@@ -67,6 +72,7 @@ membership3_family:
   city: "Columbus"
   state: "OH"
   zip: 43224
+  phone: "7149584877"
   ec_first_name: "X"
   ec_last_name: "X"
   ec_phone: "6145551212"

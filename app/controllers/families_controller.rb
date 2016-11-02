@@ -22,9 +22,6 @@ class FamiliesController < ApplicationController
   end
 
   def edit
-    if current_user.person != nil then
-      family_id = current_user.person.family_id
-    end
   end
 
   def create

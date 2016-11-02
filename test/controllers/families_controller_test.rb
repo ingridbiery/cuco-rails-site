@@ -4,7 +4,7 @@ class FamiliesControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   def setup
-    @session = cuco_sessions(:winter)
+    @cuco_session = cuco_sessions(:winter)
     @family = families(:johnson)
     @user = users(:js)
     @user.roles << roles(:user)
@@ -16,7 +16,7 @@ class FamiliesControllerTest < ActionController::TestCase
     @member = users(:membership1)
     @fall = cuco_sessions(:fall)
     @fall.families << @member.person.family
-    travel_to @session.start_date + 1.day
+    travel_to @cuco_session.start_date + 1.day
   end
 
   #############################################################################
@@ -98,9 +98,10 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "user with family should get edit for own family" do
+  test "user with family should get edit for own family but not primary" do
     sign_in @user
     get :edit, id: @user.person.family.id
+    assert_select "select[id=family_primary_adult_id]", 0
     assert_response :success
   end
 
@@ -135,6 +136,26 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to families_url
   end
 
+  test "web team should get edit for any family with primary adult" do
+    sign_in @web_team
+    family = @user.person.family
+    family.primary_adult_id = @user.person.id
+    family.save
+    get :edit, id: family.id
+    assert_select "select[id=family_primary_adult_id]", 1
+    assert_response :success
+  end
+
+  test "web team should get edit for any family without primary adult" do
+    sign_in @web_team
+    family = @user.person.family
+    family.primary_adult_id = nil
+    family.save
+    get :edit, id: family.id
+    assert_select "select[id=family_primary_adult_id]", 1
+    assert_response :success
+  end
+
   #############################################################################
   # destroy
   #############################################################################
@@ -146,12 +167,8 @@ class FamiliesControllerTest < ActionController::TestCase
 
   test "user with family should get destroy for own family" do
     sign_in @user
-    # create a new family to destroy so we know it has no users referencing it
-    f = @family.dup
-    f.name = "NEW NAME"
-    f.save
     assert_difference 'Family.count', 0 do
-      delete :destroy, :id => f.id
+      delete :destroy, :id => @user.person.family.id
     end
     assert_redirected_to root_url
   end

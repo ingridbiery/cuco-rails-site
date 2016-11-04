@@ -105,10 +105,10 @@ she = Pronoun.create!(preferred_pronouns: 'She/Her/Hers')
 they = Pronoun.create!(preferred_pronouns: 'They/Them/Their')
 
 print "Families"
-smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145555555", ec_first_name: "Thomas", ec_last_name: "Smith", ec_phone: "6146464644", ec_text: false, ec_relationship: "Father")
-johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145555551", ec_first_name: "Terri", ec_last_name: "Johnson", ec_phone: "6142325554", ec_text: true, ec_relationship: "Older Sister")
-williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145555552", ec_first_name: "Tara", ec_last_name: "Williams", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
-member_family = Family.create!(name: "Member", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145555553", ec_first_name: "Contact", ec_last_name: "Member", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
+smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551212", ec_first_name: "Thomas", ec_last_name: "Smith", ec_phone: "6146464644", ec_text: false, ec_relationship: "Father")
+johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551212", ec_first_name: "Terri", ec_last_name: "Johnson", ec_phone: "6142325554", ec_text: true, ec_relationship: "Older Sister")
+williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551212", ec_first_name: "Tara", ec_last_name: "Williams", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
+member_family = Family.create!(name: "Member", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551212", ec_first_name: "Contact", ec_last_name: "Member", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
 print("\n")
 
 print "People"

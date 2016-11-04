@@ -29,8 +29,11 @@ class CourseSignupsControllerTest < ActionController::TestCase
     @user = users(:js)
     @user.roles << roles(:user)
     @fall_member = users(:membership1)
+    @fall_member.roles << roles(:user)
     @spring_member = users(:membership2)
+    @spring_member.roles << roles(:user)
     @winter_member = users(:membership3)
+    @winter_member.roles << roles(:user)
     @fall.families << @fall_member.person.family
     @spring.families << @spring_member.person.family
     @winter.families << @winter_member.person.family
@@ -69,48 +72,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get new for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     new_test @user, :student
     assert_redirected_to root_url
   end
 
   test "user should not get create for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     create_fail @user, :student
     assert_redirected_to root_url
   end
 
   test "member should not get new for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     new_test @spring_member, :student
     assert_redirected_to root_url
   end
 
   test "member should not get create for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     create_fail @spring_member, :student
     assert_redirected_to root_url
   end
 
   test "former member should not get new for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     new_test @winter_member, :student
     assert_redirected_to root_url
   end
 
   test "former member should not get create for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     create_fail @winter_member, :student
     assert_redirected_to root_url
   end
 
   test "web team should get new for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     new_test @web_team, :student
     assert_response :success
   end
 
   test "web team should get create for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     create_success @web_team, :student
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -135,48 +146,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get new for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     new_test @user, :teacher
     assert_redirected_to root_url
   end
 
   test "user should not get create for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     create_fail @user, :teacher
     assert_redirected_to root_url
   end
 
   test "member should get new for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     new_test @spring_member, :teacher
     assert_response :success
   end
 
   test "member should get create for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     create_success @spring_member, :teacher
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
   test "former member should get new for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     new_test @winter_member, :teacher
     assert_response :success
   end
 
   test "former member should get create for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     create_success @winter_member, :teacher
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
   test "web team should get new for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     new_test @web_team, :teacher
     assert_response :success
   end
 
   test "web team should get create for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     create_success @web_team, :teacher
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -201,48 +220,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get new for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     new_test @user, :student
     assert_redirected_to root_url
   end
 
   test "user should not get create for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     create_fail @user, :student
     assert_redirected_to root_url
   end
 
   test "member should not get new for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     new_test @spring_member, :student
     assert_redirected_to root_url
   end
 
   test "member should not get create for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     create_fail @spring_member, :student
     assert_redirected_to root_url
   end
 
   test "former member should not get new for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     new_test @winter_member, :student
     assert_redirected_to root_url
   end
 
   test "former member should not get create for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     create_fail @winter_member, :student
     assert_redirected_to root_url
   end
 
   test "web team should get new for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     new_test @web_team, :student
     assert_response :success
   end
 
   test "web team should get create for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     create_success @web_team, :student
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -267,48 +294,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get new for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     new_test @user, :teacher
     assert_redirected_to root_url
   end
 
   test "user should not get create for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     create_fail @user, :teacher
     assert_redirected_to root_url
   end
 
   test "member should not get new for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     new_test @spring_member, :teacher
     assert_redirected_to root_url
   end
 
   test "member should not get create for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     create_fail @spring_member, :teacher
     assert_redirected_to root_url
   end
 
   test "former member should not get new for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     new_test @winter_member, :teacher
     assert_redirected_to root_url
   end
 
   test "former member should not get create for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     create_fail @winter_member, :teacher
     assert_redirected_to root_url
   end
 
   test "web team should get new for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     new_test @web_team, :teacher
     assert_response :success
   end
 
   test "web team should get create for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     create_success @web_team, :teacher
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -333,48 +368,70 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get new for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     new_test @user, :student
     assert_redirected_to root_url
   end
 
   test "user should not get create for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     create_fail @user, :student
     assert_redirected_to root_url
   end
 
-  test "member should get new for student during registration" do
+  test "member should not get new for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    new_test @spring_member, :student
+    assert_redirected_to root_url
+  end
+
+  test "member should not get create for student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    create_fail @spring_member, :student
+    assert_redirected_to root_url
+  end
+
+  test "paid should get new for student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
     new_test @fall_member, :student
     assert_response :success
   end
 
-  test "member should get create for student during registration" do
+  test "paid should get create for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
     create_success @fall_member, :student
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
   test "former member should not get new for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     new_test @winter_member, :student
     assert_redirected_to root_url
   end
 
   test "former member should not get create for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     create_fail @winter_member, :student
     assert_redirected_to root_url
   end
 
   test "web team should get new for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     new_test @web_team, :student
     assert_response :success
   end
 
   test "web team should get create for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     create_success @web_team, :student
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -399,48 +456,70 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get new for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     new_test @user, :teacher
     assert_redirected_to root_url
   end
 
   test "user should not get create for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     create_fail @user, :teacher
     assert_redirected_to root_url
   end
 
-  test "member should get new for teacher during registration" do
+  test "member should not get new for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    new_test @spring_member, :teacher
+    assert_redirected_to root_url
+  end
+
+  test "member should not get create for teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    create_fail @spring_member, :teacher
+    assert_redirected_to root_url
+  end
+
+  test "paid should get new for teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
     new_test @fall_member, :teacher
     assert_response :success
   end
 
-  test "member should get create for teacher during registration" do
+  test "paid should get create for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
     create_success @fall_member, :teacher
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
   test "former member should not get new for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     new_test @winter_member, :teacher
     assert_redirected_to root_url
   end
 
   test "former member should not get create for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     create_fail @winter_member, :teacher
     assert_redirected_to root_url
   end
 
   test "web team should get new for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     new_test @web_team, :teacher
     assert_response :success
   end
 
   test "web team should get create for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     create_success @web_team, :teacher
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -469,48 +548,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get edit for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     edit_test @user, :student, @user.person
     assert_redirected_to root_url
   end
 
   test "user should not get update for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     update_test @user, :student, @user.person
     assert_redirected_to root_url
   end
 
   test "member should not get edit for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     edit_test @spring_member, :student, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "member should not get update for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     update_test @spring_member, :student, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get edit for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     edit_test @winter_member, :student, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get update for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     update_test @winter_member, :student, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "web team should get edit for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     edit_test @web_team, :student, @web_team.person
     assert_response :success
   end
 
   test "web team should get update for student during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     update_test @web_team, :student, @web_team.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -535,48 +622,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get edit for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     edit_test @user, :teacher, @user.person
     assert_redirected_to root_url
   end
 
   test "user should not get update for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     update_test @user, :teacher, @user.person
     assert_redirected_to root_url
   end
 
   test "member should not get edit for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     edit_test @spring_member, :teacher, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "member should not get update for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     update_test @spring_member, :teacher, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get edit for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     edit_test @winter_member, :teacher, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get update for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     update_test @winter_member, :teacher, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "web team should get edit for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     edit_test @web_team, :teacher, @web_team.person
     assert_response :success
   end
 
   test "web team should get update for teacher during course offering" do
     travel_to @fall_course_offering.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     update_test @web_team, :teacher, @web_team.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -601,48 +696,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get edit for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     edit_test @user, :student, @user.person
     assert_redirected_to root_url
   end
 
   test "user should not get update for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     update_test @user, :student, @user.person
     assert_redirected_to root_url
   end
 
   test "member should not get edit for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     edit_test @spring_member, :student, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "member should not get update for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     update_test @spring_member, :student, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get edit for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     edit_test @winter_member, :student, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get update for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     update_test @winter_member, :student, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "web team should get edit for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     edit_test @web_team, :student, @web_team.person
     assert_response :success
   end
 
   test "web team should get update for student between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     update_test @web_team, :student, @web_team.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -667,48 +770,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get edit for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     edit_test @user, :teacher, @user.person
     assert_redirected_to root_url
   end
 
   test "user should not get update for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     update_test @user, :teacher, @user.person
     assert_redirected_to root_url
   end
 
   test "member should not get edit for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     edit_test @spring_member, :teacher, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "member should not get update for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
     update_test @spring_member, :teacher, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get edit for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     edit_test @winter_member, :teacher, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get update for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_equal ["user", "former"], @winter_member.clearance_levels
     update_test @winter_member, :teacher, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "web team should get edit for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     edit_test @web_team, :teacher, @web_team.person
     assert_response :success
   end
 
   test "web team should get update for teacher between offering and registration" do
     travel_to @fall_course_offering.end_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     update_test @web_team, :teacher, @web_team.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -733,60 +844,98 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get edit for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     edit_test @user, :student, @user.person
     assert_redirected_to root_url
   end
 
   test "user should not get update for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     update_test @user, :student, @user.person
     assert_redirected_to root_url
   end
 
-  test "member should get edit for student in own family during registration" do
+  test "member should not get edit for student in own family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    edit_test @fall_member, :student, @fall_member.person
-    assert_response :success
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    edit_test @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
   end
 
-  test "member should get update for student in own family during registration" do
+  test "member should not get update for student in own family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    update_test @fall_member, :student, @fall_member.person
-    assert_redirected_to cuco_session_course_path(@fall, @course)
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    update_test @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
   end
 
   test "member should not get edit for student in other family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    edit_test @spring_member, :student, @fall_member.person
+    assert_redirected_to root_url
+  end
+
+  test "member should not get update for student in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    update_test @spring_member, :student, @fall_member.person
+    assert_redirected_to root_url
+  end
+
+  test "paid should get edit for student in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    edit_test @fall_member, :student, @fall_member.person
+    assert_response :success
+  end
+
+  test "paid should get update for student in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    update_test @fall_member, :student, @fall_member.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "paid should not get edit for student in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
     edit_test @fall_member, :student, @spring_member.person
     assert_redirected_to root_url
   end
 
-  test "member should get not update for student in other family during registration" do
+  test "paid should not get update for student in other family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
     update_test @fall_member, :student, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get edit for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    edit_test @spring_member, :student, @spring_member.person
+    assert_equal ["user", "former"], @winter_member.clearance_levels
+    edit_test @winter_member, :student, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get update for student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    update_test @spring_member, :student, @spring_member.person
+    assert_equal ["user", "former"], @winter_member.clearance_levels
+    update_test @winter_member, :student, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "web team should get edit for student in other family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     edit_test @web_team, :student, @spring_member.person
     assert_response :success
   end
 
   test "web team should get update for student in other family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     update_test @web_team, :student, @spring_member.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -811,96 +960,154 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "user should not get edit for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     edit_test @user, :teacher, @user.person
     assert_redirected_to root_url
   end
 
   test "user should not get update for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "new"], @user.clearance_levels
     update_test @user, :teacher, @user.person
     assert_redirected_to root_url
   end
 
-  test "member should get edit for empty teacher during registration" do
+  test "member should not get edit for empty teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    edit_test @fall_member, :teacher, nil
-    assert_response :success
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    edit_test @spring_member, :teacher, nil
+    assert_redirected_to root_url
   end
 
-  test "member should get update for empty teacher during registration" do
+  test "member should not get update for empty teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    update_test @fall_member, :teacher, nil
-    assert_redirected_to cuco_session_course_path(@fall, @course)
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    update_test @spring_member, :teacher, nil
+    assert_redirected_to root_url
   end
 
-  test "member should get edit for teacher in own family during registration" do
+  test "member should not get edit for teacher in own family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    edit_test @fall_member, :teacher, @fall_member.person
-    assert_response :success
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    edit_test @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
   end
 
-  test "member should get update for teacher in own family during registration" do
+  test "member should not get update for teacher in own family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    update_test @fall_member, :teacher, @fall_member.person
-    assert_redirected_to cuco_session_course_path(@fall, @course)
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    update_test @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
   end
 
   test "member should not get edit for teacher in other family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    edit_test @fall_member, :teacher, @spring_member.person
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    edit_test @spring_member, :teacher, @fall_member.person
     assert_redirected_to root_url
   end
 
   test "member should not get update for teacher in other family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    update_test @spring_member, :teacher, @fall_member.person
+    assert_redirected_to root_url
+  end
+
+  test "paid should get edit for empty teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    edit_test @fall_member, :teacher, nil
+    assert_response :success
+  end
+
+  test "paid should get update for empty teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    update_test @fall_member, :teacher, nil
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "paid should get edit for teacher in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    edit_test @fall_member, :teacher, @fall_member.person
+    assert_response :success
+  end
+
+  test "paid should get update for teacher in own family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    update_test @fall_member, :teacher, @fall_member.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "paid should not get edit for teacher in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    edit_test @fall_member, :teacher, @winter_member.person
+    assert_redirected_to root_url
+  end
+
+  test "paid should not get update for teacher in other family during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
     update_test @fall_member, :teacher, @spring_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get edit for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    edit_test @spring_member, :teacher, @spring_member.person
+    assert_equal ["user", "former"], @winter_member.clearance_levels
+    edit_test @winter_member, :teacher, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "former member should not get update for teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    update_test @spring_member, :teacher, @spring_member.person
+    assert_equal ["user", "former"], @winter_member.clearance_levels
+    update_test @winter_member, :teacher, @winter_member.person
     assert_redirected_to root_url
   end
 
   test "web team should get edit for empty teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     edit_test @web_team, :teacher, nil
     assert_response :success
   end
 
   test "web team should get update for empty teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     update_test @web_team, :teacher, nil
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
   test "web team should get edit for teacher in own family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     edit_test @web_team, :teacher, @web_team.person
     assert_response :success
   end
 
   test "web team should get update for teacher in own family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     update_test @web_team, :teacher, @web_team.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
   test "web team should get edit for teacher in other family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     edit_test @web_team, :teacher, @spring_member.person
     assert_response :success
   end
 
   test "web team should get update for teacher in other family during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
+    assert_includes @web_team.clearance_levels, "web_team"
     update_test @web_team, :teacher, @spring_member.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
@@ -910,36 +1117,40 @@ class CourseSignupsControllerTest < ActionController::TestCase
   #############################################################################
 
   #############################################################################
-  # outside of registration time (generally not allowed)
+  # before registration time (generally not allowed)
   #############################################################################
 
-  test "anonymous should not get destroy outside of registration" do
+  test "anonymous should not get destroy before registration" do
     travel_to @fall_member_reg.start_dt - 1.day
-    destroy_test nil, :student, @person
+    destroy_fail nil, :student, @person
     assert_redirected_to root_url
   end
 
-  test "user should not get destroy outside of registration" do
+  test "user should not get destroy before registration" do
     travel_to @fall_member_reg.start_dt - 1.day
-    destroy_test @user, :student, @user.person
+    assert_equal ["user", "new"], @user.clearance_levels
+    destroy_fail @user, :student, @user.person
     assert_redirected_to root_url
   end
 
-  test "former member should not get destroy outside of registration" do
+  test "former member should not get destroy before registration" do
     travel_to @fall_member_reg.start_dt - 1.day
-    destroy_test @winter_member, :student, @winter_member.person
+    assert_equal ["user", "former"], @winter_member.clearance_levels
+    destroy_fail @winter_member, :student, @winter_member.person
     assert_redirected_to root_url
   end
 
-  test "member should not get destroy outside of registration" do
+  test "member should not get destroy before registration" do
     travel_to @fall_member_reg.start_dt - 1.day
-    destroy_test @fall_member, :student, @fall_member.person
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    destroy_fail @spring_member, :student, @spring_member.person
     assert_redirected_to root_url
   end
 
-  test "web team should get destroy outside of registration" do
+  test "web team should get destroy before registration" do
     travel_to @fall_member_reg.start_dt - 1.day
-    destroy_test @web_team, :student, @web_team.person
+    assert_includes @web_team.clearance_levels, "web_team"
+    destroy_success @web_team, :student, @web_team.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
   
@@ -949,37 +1160,56 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   test "anonymous should not get destroy during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    destroy_test nil, :student, @person
+    destroy_fail nil, :student, @person
     assert_redirected_to root_url
   end
 
   test "user should not get destroy during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    destroy_test @user, :student, @user.person
+    assert_equal ["user", "new"], @user.clearance_levels
+    destroy_fail @user, :student, @user.person
     assert_redirected_to root_url
   end
 
   test "former member should not get destroy during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    destroy_test @winter_member, :student, @winter_member.person
+    assert_equal ["user", "former"], @winter_member.clearance_levels
+    destroy_fail @winter_member, :student, @winter_member.person
     assert_redirected_to root_url
   end
 
-  test "member should get destroy for own family student during registration" do
+  test "member should not get destroy for own family student during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    destroy_test @fall_member, :student, @fall_member.person
-    assert_redirected_to cuco_session_course_path(@fall, @course)
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    destroy_fail @spring_member, :student, @spring_member.person
+    assert_redirected_to root_url
   end
 
   test "member should not get destroy for own family teacher during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    destroy_test @fall_member, :teacher, @fall_member.person
+    assert_equal ["user", "member"], @spring_member.clearance_levels
+    destroy_fail @spring_member, :teacher, @spring_member.person
+    assert_redirected_to root_url
+  end
+
+  test "paid should get destroy for own family student during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    destroy_success @fall_member, :student, @fall_member.person
+    assert_redirected_to cuco_session_course_path(@fall, @course)
+  end
+
+  test "paid should not get destroy for own family teacher during registration" do
+    travel_to @fall_member_reg.start_dt + 1.day
+    assert_equal ["user", "paid"], @fall_member.clearance_levels
+    destroy_fail @fall_member, :teacher, @fall_member.person
     assert_redirected_to root_url
   end
 
   test "web team should get destroy during registration" do
     travel_to @fall_member_reg.start_dt + 1.day
-    destroy_test @web_team, :student, @web_team.person
+    assert_includes @web_team.clearance_levels, "web_team"
+    destroy_success @web_team, :student, @web_team.person
     assert_redirected_to cuco_session_course_path(@fall, @course)
   end
 
@@ -1026,12 +1256,22 @@ class CourseSignupsControllerTest < ActionController::TestCase
     patch :update, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id, course_signup: @course_signup.attributes
   end
 
-  def destroy_test user, type, person
+  def destroy_success user, type, person
+    destroy_test user, type, person, -1
+  end
+  
+  def destroy_fail user, type, person
+    destroy_test user, type, person, 0
+  end
+
+  def destroy_test user, type, person, diff
     sign_in user unless !user
     @course_signup.person = person
     @course_signup.course_role_id = get_role_id(type)
     @course_signup.save
-    delete :destroy, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id
+    assert_difference('CourseSignup.count', diff) do
+      delete :destroy, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id
+    end
   end
 
   def get_role_id type

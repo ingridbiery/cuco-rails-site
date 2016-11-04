@@ -18,36 +18,23 @@ class CucoSession < ActiveRecord::Base
   MAX_KIDS = 100
   
   # get the current session, if there is one (the session where today is between
-  # the start date of registration (:member_reg) and end date of the rec center)
+  # the start and end dates of the session)
   def self.current
     cuco_sessions = CucoSession.where('start_date <= ?', Time.now).where('? <= end_date', Time.now)
-    if !cuco_sessions.empty?
-      return cuco_sessions.first
-    else # no active session, check if we're past the start of registration of next session
-      next_session = CucoSession.next
-      if next_session
-        next_member_reg = next_session&.dates&.events&.find_by(event_type: EventType.find_by_name(:member_reg))
-        if next_member_reg and next_member_reg.start_dt <= Time.now and Time.now <= next_session.end_date 
-          return next_session
-        end
-      end
-    end
-    # there is no active session, and we're not past registration for next
-    nil
+    return cuco_sessions.first.presence
   end
 
-  # get the next session, if there is one (the first session whose start date is
+  # get the upcoming session, if there is one (the first session whose start date is
   # after today)
-  def self.next
+  def self.upcoming
     cuco_sessions = CucoSession.where('start_date >= ?', Time.now).order(start_date: :asc)
     cuco_sessions.first.presence
   end
   
   # get the last session (may be the same as current, but if there is no current
   # session, this will get the last one that happened)
-  # this is used to determine who is a member vs. a former member. Anyone who
-  # is a member of this 'last' session will be classified as a :member, members
-  # of older sessions will be classified as :former
+  # this is used to determine who is a member vs. a former member. See the user
+  # model for details of that determination.
   def self.last
     cuco_sessions = CucoSession.where('start_date < ?', Time.now).order(start_date: :desc)
     cuco_sessions.first.presence
@@ -66,16 +53,19 @@ class CucoSession < ActiveRecord::Base
     dates&.membership_signups_open?(user)
   end
 
-  # are course signups currently open. We currently allow course signups during
-  # the same times as membership signups, and the user has to have joined the
-  # current session
-  def course_signups_open?(user)
-    dates&.membership_signups_open?(user) and families.include? user&.person&.family
+  # are course signups currently open
+  def course_signups_open?
+    dates&.course_signups_open?
   end
   
   # are course offerings currently open.
   def course_offerings_open?
     dates&.course_offerings_open?
+  end
+
+  # is it currently before signups have started for anyone
+  def is_before_signups?
+    dates&.is_before_signups?
   end
 
   private

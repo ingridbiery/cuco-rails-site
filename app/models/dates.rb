@@ -44,6 +44,13 @@ class Dates < ActiveRecord::Base
     event
   end
   
+  # is it before signups for anyone?
+  def is_before_signups?
+    return (is_before_event?(get_event(:member_reg)) and
+            is_before_event?(get_event(:former_reg)) and
+            is_before_event?(get_event(:new_reg)))
+  end
+  
   # figure out if membership signups are currently open for the given user type
   def membership_signups_open?(user)
     return false unless user
@@ -55,21 +62,19 @@ class Dates < ActiveRecord::Base
     else
       e = get_event(:new_reg)
     end
-    if (e.start_dt <= Time.now and Time.now <= e.end_dt)
-      return true
-    else
-      return false
-    end
+    return is_during_event?(e)
+  end
+
+  # figure out if course signups are currently open
+  def course_signups_open?
+    return (is_during_event?(get_event(:member_reg)) or
+            is_during_event?(get_event(:former_reg)) or
+            is_during_event?(get_event(:new_reg)))
   end
 
   # figure out if course offerings are currently open
   def course_offerings_open?
-    e = get_event(:course_offering)
-    if (e.start_dt <= Time.now and Time.now <= e.end_dt)
-      return true
-    else
-      return false
-    end
+    is_during_event?(get_event(:course_offering))
   end
 
   def has_required_events?
@@ -98,6 +103,21 @@ class Dates < ActiveRecord::Base
   end
 
   private
+    # has this event started?
+    def is_before_event?(e)
+      return Time.now < e.start_dt
+    end
+  
+    # is this event over?
+    def is_after_event?(e)
+      return Time.now > e.end_dt
+    end
+
+    # is it during this event
+    def is_during_event?(e)
+      return (!is_before_event?(e) and !is_after_event?(e))
+    end
+
     # find an event in the events list given the event type
     def get_event(type_name)
       events.find_by(event_type: EventType.find_by_name(type_name))

@@ -59,15 +59,15 @@ class CucoSessionTest < ActiveSupport::TestCase
     assert_nil current
   end
 
-  test "next should return next session when there is one" do
+  test "upcoming should return upcoming session when there is one" do
     travel_to @fall.start_date.to_date - 1
-    assert_equal @fall, CucoSession.next
+    assert_equal @fall, CucoSession.upcoming
   end
 
-  test "next should return nil when there isn't one" do
+  test "upcoming should return nil when there isn't one" do
     travel_to @fall.start_date.to_date + 1
-    next_session = CucoSession.next
-    assert_nil next_session
+    upcoming_session = CucoSession.upcoming
+    assert_nil upcoming_session
   end
 
   test "last should return last session when there is one" do

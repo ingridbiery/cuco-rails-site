@@ -6,11 +6,11 @@ class CourseSignupsController < ApplicationController
   # during course offering
   let [:web_team, :member, :former], :offer_courses
   # this is a label indicating who can create signups during registration
-  let [:web_team, :member], :register
+  let [:web_team, :paid], :register
   # who is allowed to sign up ever (former members can create teaching jobs for classes
-  # they offer, but will need to become members to edit/update)
-  let [:web_team, :member, :former], [:new, :create]
-  let [:web_team, :member], [:edit, :update, :destroy]
+  # they offer, but will need to pay to edit/update)
+  let [:web_team, :member, :former, :paid], [:new, :create]
+  let [:web_team, :paid], [:edit, :update, :destroy]
 
   before_action :set_show_role
   before_action :set_cuco_session
@@ -83,7 +83,7 @@ class CourseSignupsController < ApplicationController
           else # current user can't offer courses
             not_authorized! path: root_url, message: "You are not authorized to create signups during course offering!"
           end
-        elsif @cuco_session.membership_signups_open?(current_user)
+        elsif @cuco_session.course_signups_open?
           if !current_user&.can? :register, :course_signups
             not_authorized! path: root_url, message: "You are not authorized to create signups during member signups!"
           end
@@ -98,7 +98,7 @@ class CourseSignupsController < ApplicationController
     # always, those who can :manage_all can edit/update anything
     def edit_update_authorized
       if !current_user&.can? :manage_all, :course_signups
-        if @cuco_session.membership_signups_open?(current_user)
+        if @cuco_session.course_signups_open?
           if current_user&.can? :register, :course_signups
             if @course_signup.person and !@people.include? @course_signup.person
               not_authorized! path: root_url, message: "You are not authorized to edit that person's registration!"
@@ -118,7 +118,7 @@ class CourseSignupsController < ApplicationController
     # always, those who can :manage_all can edit/update anything
     def destroy_authorized
       if !current_user&.can? :manage_all, :course_signups
-        if @cuco_session.membership_signups_open?(current_user)
+        if @cuco_session.course_signups_open?
           if current_user&.can? :register, :course_signups
             if !is_student?
               not_authorized! path: root_url, message: "You are not authorized to destroy teacher signups!"

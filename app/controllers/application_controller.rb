@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   # set the text to display for the next session in @next_session_info
   # if signups are open, we will also set @membership_signup_info, and @next_cuco_session
   def get_next_session_info
-    cuco_session = CucoSession.next
+    cuco_session = CucoSession.upcoming
     if !cuco_session.nil? then
       @next_session_info = "Next Session: #{cuco_session.name}."
       if !cuco_session.dates.nil? then

@@ -69,7 +69,7 @@ class FamiliesControllerTest < ActionController::TestCase
     p = @kimberly.dup
     p.first_name = "NEW NAME"
     family_attributes[:person] = p.attributes
-    assert_difference('Family.count', 1) do
+    assert_difference 'Family.count', 1 do
       post :create, family: family_attributes
     end
   end
@@ -109,7 +109,7 @@ class FamiliesControllerTest < ActionController::TestCase
     sign_in @user
     family = @user.person.family
     patch :update, id: family.id, family: family.attributes
-    assert_response :redirect
+    assert_redirected_to family_path(assigns(:family))
   end
 
   test "user with family should not get edit for someone else's family" do
@@ -165,11 +165,9 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "user with family should get destroy for own family" do
+  test "user with family should not get destroy for own family" do
     sign_in @user
-    assert_difference 'Family.count', 0 do
-      delete :destroy, :id => @user.person.family.id
-    end
+    delete :destroy, :id => @user.person.family.id
     assert_redirected_to root_url
   end
 
@@ -184,4 +182,13 @@ class FamiliesControllerTest < ActionController::TestCase
     delete :destroy, :id => @family.id
     assert_redirected_to root_url
   end
+
+  test "web team should get destroy" do
+    sign_in @web_team
+    assert_difference 'Family.count', -1 do
+      delete :destroy, :id => @user.person.family.id
+    end
+    assert_redirected_to families_url
+  end
+
 end

@@ -3,6 +3,7 @@ class FamiliesController < ApplicationController
   let :web_team, [:manage_all, :edit_primary]
   let :member, :index
   let :user, [:show, :new, :create, :edit, :update]
+  
   before_action :set_family, except: [:new, :create, :index]
   before_action :must_have_no_family, only: [:new, :create]
   before_action :must_be_my_family, only: [:show, :edit, :update, :destroy]
@@ -54,23 +55,22 @@ class FamiliesController < ApplicationController
     redirect_to families_url, notice: "#{@family.name} was successfully destroyed."
   end
 
-  # throw an error if this is not the current user's family
-  # unless this user is exempt
-  def must_be_my_family
-    unless (current_user&.person&.family == @family or
-            current_user&.can? :manage_all, :families)
-      not_authorized! path: families_path, message: "That's not your family!"
-    end
-  end
-
-  # throw an error if the current user already has a family
-  def must_have_no_family
-    unless current_user&.person&.family.nil?
-      not_authorized! path: families_path, message: "You already have a family!"
-    end
-  end
-
   private
+    # throw an error if this is not the current user's family
+    # unless this user is exempt
+    def must_be_my_family
+      unless (current_user&.person&.family == @family or
+              current_user&.can? :manage_all, :families)
+        not_authorized! path: families_path, message: "That's not your family!"
+      end
+    end
+  
+    # throw an error if the current user already has a family
+    def must_have_no_family
+      unless current_user&.person&.family.nil?
+        not_authorized! path: families_path, message: "You already have a family!"
+      end
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_family

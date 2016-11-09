@@ -10,7 +10,7 @@
     <% if person %>
       : <%= person&.name %>
     <% end %>
-    <% if @course.cuco_session.course_signups_open?(current_user) %>
+    <% if @course.cuco_session.course_signups_open? %>
       <% if !person or @people.include? person %>
         <%= link_to image_tag('wrench.png'), edit_cuco_session_course_course_signup_path(@cuco_session, @course, course_signup, type: :teacher) %>
       <% end %>

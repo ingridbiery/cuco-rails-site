@@ -1,7 +1,7 @@
 <h3>Students (<%= @course.student_signups.count %><% if @course.full %>
     FULL)
     <% else %>)
-      <% if @course.cuco_session.course_signups_open?(current_user) %>
+      <% if @course.cuco_session.course_signups_open? %>
         <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course, type: :student), title: "Add Person to Course" %>
       <% end %>
     <% end %></h3>
@@ -12,7 +12,7 @@
     <% if person.age.nil? %> (adult)
     <% else %> (age <%= person.age %>)
     <% end %>
-    <% if @course.cuco_session.course_signups_open?(current_user) and
+    <% if @course.cuco_session.course_signups_open? and
           @people.include? person %>
       <%= link_to image_tag('delete.png'), cuco_session_course_course_signup_path(@cuco_session, @course, course_signup), method: :delete,
             data: { confirm: 'Are you sure?' }, title: "Delete #{person.name}" %>

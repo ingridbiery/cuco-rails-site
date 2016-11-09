@@ -2,6 +2,8 @@ class Course < ActiveRecord::Base
   belongs_to :cuco_session
   belongs_to :room
   belongs_to :period
+  belongs_to :created_by, class_name: "User"
+  
   has_many :course_signups, dependent: :destroy
   has_many :people, through: :course_signups
   has_many :student_signups, -> { CourseSignup.student }, class_name: 'CourseSignup', foreign_key: :course_id
@@ -20,6 +22,7 @@ class Course < ActiveRecord::Base
   validates :min_students, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   validates :max_students, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   validates :fee, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 999 }
+  validates :created_by_id, presence: true
 
   validate :age_ranges
   validate :student_ranges

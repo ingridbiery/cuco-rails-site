@@ -2,9 +2,6 @@ class CourseSignupsController < ApplicationController
   # this is a label indicating who is allowed
   # to manage signups for everyone (instead of just their family) and at any time
   let :web_team, :manage_all
-  # this is a label indicating who can create volunteer signups
-  # during course offering
-  let [:web_team, :member, :former], :offer_courses
   # this is a label indicating who can create signups during registration
   let [:web_team, :paid], :register
   # who is allowed to sign up ever (former members can create teaching jobs for classes
@@ -76,7 +73,8 @@ class CourseSignupsController < ApplicationController
     def new_create_authorized
       if !current_user&.can? :manage_all, :course_signups
         if @cuco_session.course_offerings_open?
-          if current_user&.can? :offer_courses, :course_signups
+          # people who can create new courses can also create volunteer jobs for those courses
+          if current_user&.can? :new, :courses
             if is_student?
               not_authorized! path: root_url, message: "It is not time for student course offering!"
             end
@@ -115,7 +113,7 @@ class CourseSignupsController < ApplicationController
     # make sure destroy is authorized
     # during registration, those who can :register can destroy their own student signups
     # but not their own teacher signups
-    # always, those who can :manage_all can edit/update anything
+    # always, those who can :manage_all can destroy anything
     def destroy_authorized
       if !current_user&.can? :manage_all, :course_signups
         if @cuco_session.course_signups_open?

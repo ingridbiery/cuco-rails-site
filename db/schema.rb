@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102020332) do
+ActiveRecord::Schema.define(version: 20161109034458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,10 @@ ActiveRecord::Schema.define(version: 20161102020332) do
     t.datetime "updated_at",      null: false
     t.integer  "room_id"
     t.integer  "fee"
+    t.integer  "created_by_id"
   end
 
+  add_index "courses", ["created_by_id"], name: "index_courses_on_created_by_id", using: :btree
   add_index "courses", ["cuco_session_id"], name: "index_courses_on_cuco_session_id", using: :btree
   add_index "courses", ["period_id"], name: "index_courses_on_period_id", using: :btree
   add_index "courses", ["room_id"], name: "index_courses_on_room_id", using: :btree
@@ -211,6 +213,7 @@ ActiveRecord::Schema.define(version: 20161102020332) do
   add_foreign_key "courses", "cuco_sessions"
   add_foreign_key "courses", "periods"
   add_foreign_key "courses", "rooms"
+  add_foreign_key "courses", "users", column: "created_by_id"
   add_foreign_key "dates", "cuco_sessions"
   add_foreign_key "events", "dates"
   add_foreign_key "events", "event_types"

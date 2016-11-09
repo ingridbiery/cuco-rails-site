@@ -17,7 +17,8 @@ one:
   additional_info: MyText
   room: gym
   period: first
-  cuco_session: winter
+  cuco_session: fall
+  created_by: membership1
 
 two:
   name: MyString
@@ -36,4 +37,5 @@ two:
   additional_info: MyText
   room: auditorium
   period: second
-  cuco_session: spring
+  cuco_session: fall
+  created_by: membership2

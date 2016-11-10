@@ -4,6 +4,8 @@ class Family < ActiveRecord::Base
   has_many :cuco_sessions, through: :memberships
   has_many :kids, -> { Person.kid }, class_name: 'Person', foreign_key: :family_id
   has_many :adults, -> { Person.adult }, class_name: 'Person', foreign_key: :family_id
+  belongs_to :primary_adult, class_name: "Person"
+
   default_scope -> { order(name: :asc) }
   accepts_nested_attributes_for :people
   before_create :upcase_names

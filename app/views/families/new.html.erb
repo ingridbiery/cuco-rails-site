@@ -25,10 +25,17 @@
     </div>
   <% end %>
 
+  <h2>Family Info</h2>
   <%= render 'family_form', f: f %>
   <hr />
+  <h2>Your Info</h2>
+  <p><em>This will add you to the system as a person in your family. To edit
+         your information in the future, click edit next to your name in your
+         family list.</em></p>
   <%= render 'person_form', f: f %>
   <hr />
+  <h2>Emergency Contact Info</h2>
+  <p><em>This should be someone who is not regularly attending CUCO.</em></p>
   <%= render 'emergency_form', f: f %>
 
   <div class="actions">

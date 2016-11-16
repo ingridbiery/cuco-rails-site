@@ -24,9 +24,9 @@ class ApplicationController < ActionController::Base
       if !cuco_session.dates.nil? then
         next_event = cuco_session.dates.next_event(current_user)
         if next_event.nil? then
-          @current_session_info += "No upcoming events"
+          @current_session_info += " No upcoming events"
         else
-          @current_session_info += next_event.status_text
+          @current_session_info += " #{next_event.status_text}"
         end
       end
     end
@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
       if !cuco_session.dates.nil? then
         next_event = cuco_session.dates.next_event(current_user)
         if !next_event.nil? then
-          @next_session_info += next_event.status_text
+          @next_session_info += " #{next_event.status_text}"
           if cuco_session.membership_signups_open?(current_user) then
             @next_cuco_session = cuco_session
             if cuco_session.full?
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
           end
         end
       else
-        @next_session_info += "Dates not set yet. Please check back soon."
+        @next_session_info += " Dates not set yet. Please check back soon."
       end
     end
   end

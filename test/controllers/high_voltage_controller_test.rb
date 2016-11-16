@@ -28,4 +28,29 @@ class HighVoltageControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get terms and conditions" do
+    get page_path("terms-and-conditions")
+    assert_response :success
+  end
+
+  test "should get waiver" do
+    get page_path("waiver")
+    assert_response :success
+  end
+
+  test "should get privacy" do
+    get page_path("privacy")
+    assert_response :success
+  end
+  
+  test "should get refund" do
+    get page_path("refund")
+    assert_response :success
+  end
+
+  test "should get concern process" do
+    get page_path("concern-process")
+    assert_response :success
+  end
+
 end

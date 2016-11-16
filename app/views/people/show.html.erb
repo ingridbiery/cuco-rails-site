@@ -2,8 +2,11 @@
 <br /><div style="font-size: 2em;"><%= @family.name %> Family</div><br />
 
 <p>
-  <strong>Birthday</strong>
-  <%= @person.dob %>
+  <% if @person.dob.present? %>
+    <strong>Birthday:</strong>
+    <%= @person.dob.strftime("%B %Y") %><br />
+    <em><%= @person.age %> years old</em>
+  <% end %>
 </p>
 
 <p>

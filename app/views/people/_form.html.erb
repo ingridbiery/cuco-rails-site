@@ -30,7 +30,7 @@
 
   <label for="is_adult">This person is an adult.</label>
 
-  <div id="dob_field" <% unless @person.dob %>class: 'hidden'<% end %> >
+  <div id="dob_field">
     <em>Only add a birthday if this person is a <strong>child</strong>.</em><br />
     <%= f.label "Birthday" %><br>
     <%= f.date_select :dob, :include_blank => true, 

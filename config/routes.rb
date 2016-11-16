@@ -28,7 +28,8 @@ Rails.application.routes.draw do
     resources :courses do
       resources :course_signups, except: [:index, :show]
     end
-    resources :dates, :only => [:show, :edit, :update]
+    resources :dates, only: [:show, :edit, :update]
+    resources :memberships, only: [:new, :create, :show]
   end
 
   resources :course_roles

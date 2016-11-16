@@ -17,9 +17,13 @@ class MembershipsController < ApplicationController
   end
   
   def create
-    @membership = Membership.create(cuco_session: CucoSession.find(params[:cuco_session_id]),
-                                    family: current_user.person.family)
-    redirect_to @membership.paypal_url(user_path(current_user))
+    @membership = Membership.new(cuco_session: CucoSession.find(params[:cuco_session_id]),
+                                 family: current_user.person.family)
+    if (@membership.save)
+      redirect_to @membership.paypal_url(cuco_session_membership_path(@cuco_session, @membership))
+    else
+      render :new
+    end
   end
   
   def show

@@ -27,7 +27,8 @@
     <%= f.label "Birthday" %><br>
     <%= f.date_select :dob, :include_blank => true, 
                             start_year: Date.today.year,
-                            end_year: Date.today.year-100 %>
+                            end_year: Date.today.year-100,
+                            :discard_day => true %>
   </div><br />
 
   <div class="field">

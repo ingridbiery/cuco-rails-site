@@ -5,7 +5,7 @@
   font-weight: bold;
 }
 
-/* Toggled State for birthday field (CSS class: dob_field) in person edit form */
-input[type=checkbox]:checked ~ .dob_field {
+/* If the checkbox is checked, the dob_field section will be visible */
+input[type=checkbox]:checked#is_adult ~ .dob_field {
    display: none;
 }

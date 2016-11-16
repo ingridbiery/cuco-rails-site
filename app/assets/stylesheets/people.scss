@@ -6,6 +6,10 @@
 }
 
 /* If the checkbox is checked, the dob_field section will be visible */
-input[type=checkbox]:checked#is_adult ~ .dob_field {
-   display: none;
+input[type=checkbox]:checked#is_adult ~ #dob_field {
+  display: none;
+}
+
+#dob_field {
+  margin-top: 10px;
 }

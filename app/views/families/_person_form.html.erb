@@ -12,4 +12,8 @@
     <%= ff.collection_select :pronoun_id, Pronoun.all, :id, :preferred_pronouns,
         include_blank: true %>
   </div>
+  <div>
+    <%= hidden_field(:dob, "") %>
+  </div>
+
 <% end %>

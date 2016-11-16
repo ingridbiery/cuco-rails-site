@@ -4,3 +4,8 @@
 .primary_adult {
   font-weight: bold;
 }
+
+/* Toggled State for birthday field (CSS class: dob_field) in person edit form */
+input[type=checkbox]:checked ~ .dob_field {
+   display: none;
+}

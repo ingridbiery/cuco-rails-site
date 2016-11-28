@@ -27,10 +27,11 @@ Rails.application.routes.draw do
     end
     resources :dates, only: [:show, :edit, :update]
     resources :memberships, only: [:new, :create, :show]
-    post "/hook" => "memberships#hook"
     # make sure post works for membership show (since this is where we return from paypal)
     post "/memberships/:id" => "memberships#show"
+    # a path for paypal to confirm that the payment has been processed
   end
+  post "/paypal_hook" => "memberships#paypal_hook", as: :paypal_hook
 
   resources :course_roles
 

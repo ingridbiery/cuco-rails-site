@@ -13,6 +13,13 @@
     </div>
   <% end %>
 
+  Join for:
+  <table>
+    <tr><td>Membership:</td><td></td><td><%= '$%.2f' % @membership.membership_fee %></td></tr>
+    <tr><td>Electronic Payment Fee:</td><td>+</td><td><%= '$%.2f' % @membership.electronic_payment_fee %></td></tr>
+    <tr><td>Total:</td><td>=</td><td><%= '$%.2f' % (@membership.membership_fee + @membership.electronic_payment_fee) %></td></tr>
+  </table>
+
   <div class="actions">
     <%= f.submit %>
   </div>

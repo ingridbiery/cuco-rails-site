@@ -2,7 +2,7 @@ class Membership < ActiveRecord::Base
   belongs_to :family
   belongs_to :cuco_session
   validates :family_id, :uniqueness => {:scope=>:cuco_session_id,
-                                        :message => "family already signed up for session"}
+                                        :message => "already signed up for session"}
   scope :paid, -> { where(status: "Completed") }
 
   MEMBERSHIP_FEE = 23.85

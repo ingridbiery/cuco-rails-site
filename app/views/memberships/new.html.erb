@@ -21,7 +21,11 @@
   </table>
 
   <div class="actions">
-    <%= f.submit %>
+    Clicking this button will redirect you to PayPal. If you do not want to use PayPal, please contact our <%= mail_to "fees@columbusunschoolers.com", "treasurer" %>.
+    In order to send payments you must have a PayPal Account, unless you're using a PayPal Guest Account.
+    Payments will be sent from your PayPal Account to CUCO's PayPal Account.
+    Powered by PayPal.<br/>
+    <%= f.submit "Buy Membership" %>
   </div>
 <% end %>
 

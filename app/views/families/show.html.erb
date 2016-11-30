@@ -48,8 +48,11 @@
   <h3>Membership</h3>
   You have been a member in the following sessions:
   <ul>
-  <% @family.cuco_sessions.each do |cuco_session| %>
-    <li><%= link_to cuco_session.name, @cuco_session %></li>
+  <% @family.memberships.each do |membership| %>
+    <li><%= link_to membership.cuco_session.name, membership.cuco_session %> (status: <%= membership.status %>)
+    <% if current_user&.can? :show, :membership %>
+      [<%= link_to "details", [membership.cuco_session, membership] %>]
+    <% end %></li>
   <% end %>
   </ul>
 <% end %>

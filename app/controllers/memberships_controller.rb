@@ -1,4 +1,6 @@
 class MembershipsController < ApplicationController
+  let :user, [:new, :create]
+  let :web_team, :all
   before_action :set_cuco_session, except: :paypal_hook
   before_action :set_membership, only: :show
 

@@ -1,9 +1,10 @@
 class Membership < ActiveRecord::Base
   belongs_to :family
   belongs_to :cuco_session
-  validates :family_id, :uniqueness => {:scope=>:cuco_session_id,
-                                        :message => "already signed up for session"}
   scope :paid, -> { where(status: "Completed") }
+
+  # make sure the same family can't sign up for one session multiple times
+  validate :no_duplicates
 
   MEMBERSHIP_FEE = 23.85
 
@@ -33,4 +34,20 @@ class Membership < ActiveRecord::Base
   def electronic_payment_fee
     membership_fee*0.035 + 0.32
   end
+  
+  private
+    def no_duplicates
+      duplicates = Membership.where(cuco_session: cuco_session).where(family: family)
+      if duplicates
+        # if we're trying to create a new membership when we already have a completed one,
+        # mark that as an error
+        if duplicates.where(status: "Completed").count > 0
+          errors.add("Family", "already signed up for session")
+        else
+          # all duplicates are incomplete, so just destroy them (not sure if this is
+          # technically the best thing to do, but it seems to work)
+          duplicates.destroy_all
+        end
+      end
+    end
 end

@@ -94,11 +94,9 @@
         <% end %>
         to be sure you're on our notification list for reminders about future sessions.
       <% else # !@next_cuco_session.full? %>
-        <% if !user_signed_in? %>
-          <%= link_to 'Log in', new_user_session_path %> to be able to sign up
-        <% elsif current_user.person.nil? %>
+        <% if !current_user&.person %>
           Enter or finish entering your <%= link_to 'family information', user_path(current_user) %> to be able to sign up
-        <% elsif current_user.person.family.cuco_sessions.include? @next_cuco_session %>
+        <% elsif current_user&.person&.family&.cuco_sessions.include? @next_cuco_session %>
           You are already a member of this session
         <% else %>
           <%= link_to "Sign up for membership", new_cuco_session_membership_path(@next_cuco_session) %>

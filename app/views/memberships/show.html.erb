@@ -1,0 +1,27 @@
+<h1>Membership</h1>
+
+<p>
+  <strong>Session</strong>
+  <%= link_to @cuco_session.name, @cuco_session %>
+</p>
+
+<p>
+  <strong>Family</strong>
+  <%= link_to @membership.family.name, @membership.family %>
+</p>
+
+<p>
+  <strong>Status</strong>
+  <%= @membership.status %>
+</p>
+
+<p>
+  <strong>Transaction ID</strong>
+  <%= @membership.transaction_id %>
+</p>
+
+<p>
+  <strong>Purchased At</strong>
+  <%= @membership.purchased_at %>
+</p>
+

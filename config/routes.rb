@@ -6,9 +6,6 @@ Rails.application.routes.draw do
              :controllers => { :omniauth_callbacks => "omniauth_callbacks",
                                registrations: 'registrations' }
 
-  # You can have the root of your site routed with "root"
-  #root 'application#home'
-
   # others are handled by devise
   resources :users, :only => [:index, :show, :destroy]
 
@@ -28,10 +25,16 @@ Rails.application.routes.draw do
     resources :courses do
       resources :course_signups, except: [:index, :show]
     end
-    resources :dates, :only => [:show, :edit, :update]
+    resources :dates, only: [:show, :edit, :update]
+    resources :memberships, only: [:new, :create, :show]
+    # make sure post works for membership show (since this is where we return from paypal)
+    post "/memberships/:id" => "memberships#show"
+    # a path for paypal to confirm that the payment has been processed
   end
+  post "/paypal_hook" => "memberships#paypal_hook", as: :paypal_hook
 
   resources :course_roles
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

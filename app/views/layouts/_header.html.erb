@@ -78,14 +78,14 @@
     <% end %></span>
   </div>
   
-  <% if !@current_session_info.nil? %>
+  <% if @current_session_info %>
     <div id="notice"><%= @current_session_info %></div>
   <% end %>
-  <% if !@next_session_info.nil? %>
+  <% if @next_session_info %>
     <div id="notice"><%= @next_session_info %></div>
-    <% if !@membership_signup_info.nil? %>
+    <% if @membership_signup_info %>
       <div id="notice"><%= @membership_signup_info %>
-      <% if @next_cuco_session.full? %>
+      <% if @next_cuco_session.full? # this information was already included in the next session info %>
         <% if !user_signed_in? %>
           <%= link_to "Sign up", new_user_registration_path %> or
           <%= link_to "log in", new_user_session_path %> and edit your user info
@@ -94,17 +94,15 @@
         <% end %>
         to be sure you're on our notification list for reminders about future sessions.
       <% else # !@next_cuco_session.full? %>
-        <% if !user_signed_in? %>
-          <%= link_to 'Log in', new_user_session_path %> to be able to sign up
-        <% elsif current_user.person.nil? %>
+        <% if !current_user&.person %>
           Enter or finish entering your <%= link_to 'family information', user_path(current_user) %> to be able to sign up
-        <% elsif current_user.person.family.cuco_sessions.include? @next_cuco_session %>
+        <% elsif current_user&.person&.family&.cuco_sessions.include? @next_cuco_session %>
           You are already a member of this session
         <% else %>
-          SIGN UP NOW (this is not a link yet)
+          <%= link_to "Sign up for membership", new_cuco_session_membership_path(@next_cuco_session) %>
         <% end %>
       <% end # @next_cuco_session.full? %>
       </div>
-    <% end # !@membership_signup_info.nil? %>
+    <% end # @membership_signup_info %>
   <% end # next_session_info.nil? %>
 </header>

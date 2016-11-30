@@ -1942,7 +1942,7 @@ c13519 = s12856.courses.create!(name: 'Ceramics P4', short_name: 'Ceramics', des
 print("\n")
 
 print "Memberships"
-s12091.families << member_family
+Membership.create!(cuco_session: s12091, family: member_family, status: 'Completed')
 print("\n")
 
 print "Student Signups"

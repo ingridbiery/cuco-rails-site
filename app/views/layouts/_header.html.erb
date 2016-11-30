@@ -3,10 +3,10 @@
     <%= link_to "CUCO", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-      	<li><%= link_to 'Home', root_path %></li>
-      	<% if user_signed_in? %>
-        	<li><%= link_to 'My Info', user_path(current_user) %></li>
+      	<% unless user_signed_in? %>
+          <li><%= link_to 'Sign up', new_user_registration_path %></li>
         <% end %>
+      	<li><%= link_to 'Home', root_path %></li>
 	      <li><%= link_to 'Calendar', calendar_path %></li>
 	      <li><%= link_to 'FAQ', page_path("faq") %></li>
 	      <li><%= link_to 'Expectations', page_path("expectations") %></li>
@@ -14,10 +14,14 @@
 
 
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
-	      <% if user_signed_in? and current_user.can? :index, :families %>
+	      <% if user_signed_in? %>
           <li class="nav-item nav-item-dropdown">
-            <a class="dropdown-trigger" href="#">Admin</a>
+            <a class="dropdown-trigger" href="#">Member Menu</a>
             <ul class="dropdown-menu">
+
+            <li class="dropdown-menu-item"><%= link_to 'My Info', user_path(current_user) %></li>
+
+            <% if current_user.can? :index, :families %>
 
               <li class="dropdown-menu-item">
                 <%= link_to 'Families', families_path %>
@@ -62,8 +66,18 @@
                   <%= link_to 'New Session', new_cuco_session_path %>
                 </li>
               <% end %>
+
+            <% end %>
+
+            <li class="dropdown-menu-item logout-background"><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+
             </ul>
           </li>
+
+        <% else %>
+
+          <li><%= link_to 'Log in', new_user_session_path %></li>
+
         <% end %>
         
       </ul>
@@ -71,10 +85,6 @@
 
     <span id="welcome"><% if user_signed_in? %>
       Welcome <br /> <%= current_user.name %>
-      <br /><%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to 'Log in', new_user_session_path %>
-      <br /><%= link_to 'Sign up', new_user_registration_path %>
     <% end %></span>
   </div>
   

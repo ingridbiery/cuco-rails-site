@@ -33,16 +33,6 @@
   <% end %>
 </p>
 
-<% if @family.cuco_sessions != nil %>
-  <h3>Membership</h3>
-  You have been a member in the following sessions:
-  <ul>
-  <% @family.cuco_sessions.each do |cuco_session| %>
-    <li><%= link_to cuco_session.name, @cuco_session %></li>
-  <% end %>
-  </ul>
-<% end %>
-
 <h3>People in Family (<%= @family.people.count %>)
 <%= link_to image_tag('add.png'), new_family_person_path(@family), title: "Add New Person to Family" %></h3>
 <% if @family.people.present? %>
@@ -53,6 +43,17 @@
     </tbody>
   </table>
 <% end %>
+
+<% if @family.cuco_sessions != nil %>
+  <h3>Membership</h3>
+  You have been a member in the following sessions:
+  <ul>
+  <% @family.cuco_sessions.each do |cuco_session| %>
+    <li><%= link_to cuco_session.name, @cuco_session %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 <br/>
 
 <%= link_to 'Edit', edit_family_path(@family) %>

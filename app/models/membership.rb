@@ -38,15 +38,11 @@ class Membership < ActiveRecord::Base
   private
     def no_duplicates
       duplicates = Membership.where(cuco_session: cuco_session).where(family: family)
-      if duplicates
+      unless duplicates.empty?
         # if we're trying to create a new membership when we already have a completed one,
         # mark that as an error
         if duplicates.where(status: "Completed").count > 0
           errors.add("Family", "already signed up for session")
-        else
-          # all duplicates are incomplete, so just destroy them (not sure if this is
-          # technically the best thing to do, but it seems to work)
-          duplicates.destroy_all
         end
       end
     end

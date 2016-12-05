@@ -98,6 +98,10 @@
           Enter or finish entering your <%= link_to 'family information', user_path(current_user) %> to be able to sign up
         <% elsif current_user&.person&.family&.cuco_sessions.include? @next_cuco_session %>
           You are already a member of this session
+        <% # check for a membership for this family in this session that is incomplete
+           # a complete membership would have caught the previous elsif %>
+        <% elsif @next_cuco_session.memberships.where(family: current_user&.person&.family) %>
+          <%= link_to "Restart signup", new_cuco_session_membership_path(@next_cuco_session) %> or wait for your membership to be processed
         <% else %>
           <%= link_to "Sign up for membership", new_cuco_session_membership_path(@next_cuco_session) %>
         <% end %>

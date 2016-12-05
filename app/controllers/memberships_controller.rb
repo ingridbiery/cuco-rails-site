@@ -21,7 +21,8 @@ class MembershipsController < ApplicationController
   
   def create
     @membership = Membership.find_or_initialize_by(cuco_session: @cuco_session,
-                                 family: current_user.person.family)
+                                                   family: current_user.person.family)
+    @membership.status = "Started"
     if @membership.save
       redirect_to @membership.paypal_url(cuco_session_membership_path(@cuco_session, @membership),
                                          paypal_hook_path)

@@ -50,6 +50,20 @@
     <% end %>
     </ul>
   <% end %>
+  
+  <% if current_user&.can? :show, :membership then %>
+    <h3>Members</h3>
+    <ol>
+      <% memberships = @cuco_session.memberships.sort { |a,b| a.family.name <=> b.family.name } %>
+      <% memberships.each do |membership| %>
+      <li>
+        <%= link_to membership.family.name, membership.family %> (status: <%= membership.status %>, <%= link_to "details", [membership.cuco_session, membership] %>)
+      </li>
+    <% end %>
+    </ol>
+  <% end %>
+
+
 
 <% if user_signed_in? and current_user.can? :edit, CucoSessionsController %>
   <%= link_to 'Edit', edit_cuco_session_path(@cuco_session) %> |

@@ -2,12 +2,15 @@ class CoursesController < ApplicationController
   # :manage_all is not a method, just a label to indicate who is allowed
   # to manage all courses (instead of just their family or only during allowed times)
   let :web_team, :manage_all
+
   # :show_students is not a method, just a label to indicate who is allowed to see
   # the list of students in a course
   let [:web_team, :member], :show_students
+
   # who can create/edit/etc. courses; for other than web_team, people will only be
   # allowed to manage the courses they create
   let [:web_team, :member, :former], [:new, :create, :edit, :update, :destroy]
+
   # anyone, including anonymous users, can view courses
   let :all, [:index, :show]
   
@@ -17,6 +20,7 @@ class CoursesController < ApplicationController
 
   # make sure the timing is right for new/create
   before_action :new_create_authorized, only: [:new, :create]
+
   # make sure the timing and user is right for edit/update/destroy
   before_action :edit_update_destroy_authorized, only: [:edit, :update, :destroy]
 

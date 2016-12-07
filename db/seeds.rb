@@ -14,6 +14,9 @@ role_w = Role.create!(name: 'web_team')
 role_h = Role.create!(name: 'help_email')
 role_nm = Role.create!(name: 'new_member_coordinator')
 role_t = Role.create!(name: 'treasurer')
+# 'new', 'former', 'member', and 'paid' are intentionally not roles. These are now
+# calculated based on the current date and the family's actual membership in current
+# and previous sessions. See user.rb membership method for details
 
 print "Event Types\n"
 Event.destroy_all

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  let :web_team, :index
+  let :web_team, [:index, :manage_all]
   let :all, [:show, :edit, :destroy] # we will restrict in show to only show own user
   before_action :set_user, only: [:show, :destroy]
   before_action :must_be_me, only: [:show, :destroy]
@@ -24,7 +24,8 @@ class UsersController < ApplicationController
     # call not_authorized with a message if the user tries to access someone
     # else's user information
     def must_be_me
-      unless @user == current_user
+      unless (current_user == @user or
+              current_user&.can? :manage_all, :users)
         not_authorized! path: root_path, message: "That's not you!"
       end
     end

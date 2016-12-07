@@ -1,3 +1,5 @@
+<%= content_for :page_title, "Editing #{@course.name} from #{@cuco_session.name}" %>
+
 <h1>Editing <%= @course.name %> from <%= @cuco_session.name %></h1>
 
 <%= render 'form' %>

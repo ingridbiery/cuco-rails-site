@@ -1,6 +1,6 @@
 class CucoSessionsController < ApplicationController
   let :web_team, :all
-  let :member, [:index, :show]
+  let :all, [:index, :show]
   before_action :set_cuco_session, only: [:show, :edit, :update, :destroy]
 
   def index

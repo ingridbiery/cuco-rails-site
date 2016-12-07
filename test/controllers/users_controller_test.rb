@@ -16,6 +16,7 @@ class UsersControllerTest < ActionController::TestCase
     @spring = cuco_sessions(:spring)
     d = Dates.create(cuco_session: @spring)
     d.calculate_dates
+    @spring_signups = d.events.find_by(event_type: EventType.find_by_name("member_reg"))
     @winter = cuco_sessions(:winter)
     d = Dates.create(cuco_session: @winter)
     d.calculate_dates
@@ -96,9 +97,25 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal :new, @fall_member.membership
   end
 
-  test "during session member of that session is :member" do
+  test "during session A with no next session, member of A is :member" do
     travel_to @fall.start_date + 1.day
     assert_equal :member, @fall_member.membership
+  end
+
+  test "during session A with next session B before B signups, member of A is :member" do
+    travel_to @spring.start_date + 1.day
+    assert_equal :member, @spring_member.membership
+  end
+
+  test "during session A with next session B during B signups, member of A but not B is :member" do
+    travel_to @spring_signups.start_dt + 1.day
+    assert_equal :member, @winter_member.membership
+  end
+
+  test "during session A with next session B during B signups, member of A and B is :paid" do
+    travel_to @spring_signups.start_dt + 1.day
+    @spring.families << @winter_member.person.family
+    assert_equal :paid, @winter_member.membership
   end
 
   test "during session member of any previous session is :former" do

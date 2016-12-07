@@ -55,33 +55,34 @@ class User < ActiveRecord::Base
   #            have been paid
   # This comment is long already, but the logic has tripped me up a couple of times
   # so I want to document it thoroughly. Imagine the following time periods
-  # A: during Session 1
-  # B: after Session 1 and before signups for Session 2
-  # C: during signups for Session 2
-  # D: after signups for Session 2 but before Session 2 starts
-  # E: during Session 2
+  # A: during Session 1 and before signups for Session 2
+  # B: during Session 1 and during signups for Session 2
+  # C: during Session 1 and after signups for Session 2 but before Session 2 starts
+  # D: after Session 1 and before signups for Session 2
+  # E: after Session 1 and during signups for Session 2
+  # F: after Session 1 and after signups for Session 2 but before Session 2 starts
+  # during Session 2 is logically equivalent to during Session 1
   def membership
     if !person then :new # never a member, time A-E irrelevant
     else
       cuco_sessions = person.family.cuco_sessions
       current_session = CucoSession.current
       upcoming_session = CucoSession.upcoming
-      last_session = CucoSession.last
+      latest_session = CucoSession.latest
 
-      if cuco_sessions.empty? then :new # never been a member, time A-E irrelevant
-      elsif (current_session) then # time A or E
-        if cuco_sessions.include? current_session then :member
+      if cuco_sessions.empty? then :new # never been a member, time A-F irrelevant
+      elsif current_session then # A, B, or C
+        if upcoming_session and cuco_sessions.include? upcoming_session then :paid
+        elsif cuco_sessions.include? current_session then :member 
         else :former
         end
-      elsif (!upcoming_session or
-             upcoming_session.is_before_signups?) then # time B
-        if cuco_sessions.include? last_session then :member
+      elsif !upcoming_session or upcoming_session.is_before_signups? then # time D
+        if cuco_sessions.include? latest_session then :member
         else :former
         end
-      elsif (!current_session and
-             upcoming_session and !upcoming_session.is_before_signups?) then # time C or D
+      else # time E or F
         if (cuco_sessions.include? upcoming_session) then :paid
-        elsif (cuco_sessions.include? last_session) then :member
+        elsif (cuco_sessions.include? latest_session) then :member
         else :former
         end
       end

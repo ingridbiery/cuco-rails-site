@@ -13,5 +13,5 @@ spring:
 fall:
   name: "2016 Fall"
   start_date: 2016-09-01
-  end_date: 2016-11-01
+  end_date: 2016-12-15
 

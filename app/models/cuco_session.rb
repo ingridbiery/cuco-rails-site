@@ -32,11 +32,11 @@ class CucoSession < ActiveRecord::Base
     cuco_sessions.first.presence
   end
   
-  # get the last session (may be the same as current, but if there is no current
+  # get the latest session (may be the same as current, but if there is no current
   # session, this will get the last one that happened)
   # this is used to determine who is a member vs. a former member. See the user
   # model for details of that determination.
-  def self.last
+  def self.latest
     cuco_sessions = CucoSession.where('start_date < ?', Time.now).order(start_date: :desc)
     cuco_sessions.first.presence
   end

@@ -1,9 +1,4 @@
-<%= content_for :page_title, "Log in / Sign Up" %>
-
-<table>
-<tr>
-
-<td width="50%"><h2>Log in</h2>
+<h2>Log in</h2>
  
  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
    <div class="field">
@@ -27,41 +22,4 @@
      <%= f.submit "Log in" %>
 	
    </div>
- <% end %></td>
- 
-
-<td><h2>If you don't have an account, please sign up here:</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :notification_list %>
-    <%= f.check_box :notification_list %><br />
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %></td>
-
-</tr>
-</table>
+ <% end %>

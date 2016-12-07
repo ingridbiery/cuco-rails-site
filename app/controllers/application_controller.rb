@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
   
   # find information about current session and upcoming events to display in header
   before_filter :get_session_info
+
+  # set the site name
+  before_filter :set_site_name
+  
   def get_session_info
     get_current_session_info
     get_next_session_info
@@ -57,6 +61,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_site_name
+    if Rails.env.production?
+      if request.host == "cuco-beta.herokuapp.com"
+        @site_name = "CUCO BETA"
+      else
+        @site_name = "CUCO"
+      end
+    else
+      @site_name = "CUCO DEV"
+    end
+  end
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -81,7 +97,7 @@ class ApplicationController < ActionController::Base
   protected
     def authenticate
       # if this is our beta testing site, require a username/password
-      if Rails.env.production? and request.host == "cuco-dev.herokuapp.com"
+      if Rails.env.production? and request.host == "cuco-beta.herokuapp.com"
         authenticate_or_request_with_http_basic do |username, password|
           username == "cucoDev" && password == "9cAN67Gw"
         end

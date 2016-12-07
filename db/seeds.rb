@@ -14,7 +14,6 @@ role_w = Role.create!(name: 'web_team')
 role_h = Role.create!(name: 'help_email')
 role_nm = Role.create!(name: 'new_member_coordinator')
 role_t = Role.create!(name: 'treasurer')
-role_m = Role.create!(name: 'member')
 
 print "Event Types\n"
 Event.destroy_all
@@ -141,7 +140,6 @@ web_team = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'webteam@examp
 web_team.roles << role_w
 user = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'user@example.com', notification_list: false)
 member = User.create!(password: ENV['DEFAULT_PASSWORD'], email: 'member@example.com', notification_list: false)
-member.roles << role_m
 mp.user = member
 print("\n")
 
@@ -1944,7 +1942,7 @@ c13519 = s12856.courses.create!(name: 'Ceramics P4', short_name: 'Ceramics', des
 print("\n")
 
 print "Memberships"
-Membership.create!(cuco_session: s12091, family: member_family, status: 'Completed')
+Membership.create!(cuco_session: s12856, family: member_family, status: 'Completed')
 print("\n")
 
 print "Student Signups"

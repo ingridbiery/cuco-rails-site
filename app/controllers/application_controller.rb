@@ -80,7 +80,8 @@ class ApplicationController < ActionController::Base
   
   protected
     def authenticate
-      if Rails.env.production?
+      # if this is our beta testing site, require a username/password
+      if Rails.env.production? and request.host == "cuco-dev.herokuapp.com"
         authenticate_or_request_with_http_basic do |username, password|
           username == "cucoDev" && password == "9cAN67Gw"
         end

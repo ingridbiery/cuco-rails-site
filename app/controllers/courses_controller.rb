@@ -7,10 +7,8 @@ class CoursesController < ApplicationController
   let [:web_team, :member], :show_students
   # who can create/edit/etc. courses; for other than web_team, people will only be
   # allowed to manage the courses they create
-  let [:web_team, :member, :former], [:new, :create, :edit, :update, :destroy]
-  # anyone, including anonymous users, can view courses
-  let :all, [:index, :show]
-  
+  let [:web_team, :member, :former], [:new, :create, :edit, :update, :destroy, :index, :show]
+
   before_action :set_cuco_session
   before_action :set_course, except: [:new, :create, :index]
   before_action :set_people, only: [:show]

@@ -1,0 +1,33 @@
+<% if current_user&.can? :index, :users %>
+  <%= render 'layouts/basic_info' %>
+<% end %>
+
+<% if current_user.can? :index, UsersController %>
+  <li class="dropdown-menu-item">
+    <%= link_to 'Users', users_path %>
+  </li>
+<% end %>
+
+<% if current_user.can? :edit, PeriodsController %>
+  <li class="dropdown-menu-item">
+    <%= link_to 'Periods', periods_path %>
+  </li>
+<% end %>
+
+<% if current_user.can? :edit, RoomsController %>
+  <li class="dropdown-menu-item">
+    <%= link_to 'Rooms', rooms_path %>
+  </li>
+<% end %>
+
+<% if current_user.can? :index, EventTypesController %>
+  <li class="dropdown-menu-item">
+    <%= link_to 'Event Types', event_types_path %>
+  </li>
+<% end %>
+
+<% if current_user.can? :new, CucoSessionsController %>
+  <li class="dropdown-menu-item">
+    <%= link_to 'New Session', new_cuco_session_path %>
+  </li>
+<% end %>

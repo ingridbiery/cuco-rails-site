@@ -104,14 +104,15 @@ footer a {
   }
 }
 
-.logout-background {
-  background-color: #ff9999;
-
-  &:hover {
-    background-color: #ff9999;
-  }
-}
-
 .highlight {
   background-color: yellow;
+}
+
+#dropdown-area {
+  background-color: red;
+  color: white;
+
+  &:hover {
+    color: pink;
+  }
 }

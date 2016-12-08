@@ -13,77 +13,36 @@
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
 	      <% if user_signed_in? %>
           <li class="nav-item nav-item-dropdown">
-            <a class="dropdown-trigger" href="#">Member Menu</a>
+            <a class="dropdown-trigger" href="#" id="dropdown-area">Member Menu<span class='caret'></span></a>
             <ul class="dropdown-menu">
 
-            <li class="dropdown-menu-item"><%= link_to 'My Info', user_path(current_user) %></li>
-
-            <% if current_user.person %>
-              <li class="dropdown-menu-item">
-                <%= link_to 'My Family', family_path(current_user.person.family) %>
-              </li>
-            <% end %>
-
-            <% if current_user.can? :index, :families %>
-
-              <li class="dropdown-menu-item">
-                <%= link_to 'Families', families_path %>
-              </li>
-
-              <% if current_user.can? :index, UsersController %>
-                <li class="dropdown-menu-item">
-                  <%= link_to 'Users', users_path %>
-                </li>
-              <% end %>
-
-              <li class="dropdown-menu-item">
-                <%= link_to 'Pronouns', pronouns_path %>
-              </li>
-
-              <% if current_user.can? :edit, PeriodsController %>
-                <li class="dropdown-menu-item">
-                  <%= link_to 'Periods', periods_path %>
-                </li>
-              <% end %>
-
-              <% if current_user.can? :edit, RoomsController %>
-                <li class="dropdown-menu-item">
-                  <%= link_to 'Rooms', rooms_path %>
-                </li>
-              <% end %>
-
-              <% if current_user.can? :index, EventTypesController %>
-                <li class="dropdown-menu-item">
-                  <%= link_to 'Event Types', event_types_path %>
-                </li>
-              <% end %>
-              
-    	        <% if current_user.can? :index, CucoSessionsController %>
-                <li class="dropdown-menu-item">
-                  <%= link_to 'Sessions', cuco_sessions_path %>
-                </li>
-              <% end %>
-              
-    	        <% if current_user.can? :new, CucoSessionsController %>
-                <li class="dropdown-menu-item">
-                  <%= link_to 'New Session', new_cuco_session_path %>
-                </li>
-              <% end %>
-
-            <% end %>
-
-            <li class="dropdown-menu-item logout-background"><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+              <%= render 'layouts/member_menu' %>
 
             </ul>
           </li>
 
+          <% if current_user&.can? :index, :users %>
+
+            <li class="nav-item nav-item-dropdown">
+              <a class="dropdown-trigger" href="#" id="dropdown-area">Admin Menu<span class='caret'></span></a>
+              <ul class="dropdown-menu">
+
+                <%= render 'layouts/admin_menu' %>
+
+              </ul>
+            </li>
+
+          <% end %>
+
+          <li class="nav-item"><%= link_to 'Log out', destroy_user_session_path, method: :delete, id: "dropdown-area" %></li>
+
         <% else %>
 
-          <li><%= link_to 'Log in', new_user_session_path %></li>
-          
           <% unless user_signed_in? %>
-            <li><%= link_to 'Sign up', new_user_registration_path %></li>
+            <li><%= link_to 'Sign up', new_user_registration_path, id: "dropdown-area" %></li>
           <% end %>
+
+          <li><%= link_to 'Log in', new_user_session_path, id: "dropdown-area" %></li>
 
         <% end %>
         

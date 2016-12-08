@@ -18,6 +18,12 @@
 
             <li class="dropdown-menu-item"><%= link_to 'My Info', user_path(current_user) %></li>
 
+            <% if current_user.person %>
+              <li class="dropdown-menu-item">
+                <%= link_to 'My Family', family_path(current_user.person.family) %>
+              </li>
+            <% end %>
+
             <% if current_user.can? :index, :families %>
 
               <li class="dropdown-menu-item">

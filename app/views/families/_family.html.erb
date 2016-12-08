@@ -1,12 +1,16 @@
 <tr>
-  <td><%= link_to family.name, family %></td>
+  <% if current_user.can? :index, UsersController %>
+    <td><%= link_to family.name, family %></td>
+  <% else %>
+    <td><%= family.name %></td>
+  <% end %>
   <td><%= family.street_address %></td>
   <td><%= family.city %></td>
   <td><%= family.state %></td>
   <td><%= family.zip %></td>
   <td><%= family.created_at %></td>
-  <td><%= link_to 'Show', family %></td>
   <% if current_user.can? :index, UsersController %>
+    <td><%= link_to 'Show', family %></td>
     <td><%= link_to 'Edit', edit_family_path(family) %></td>
   <% end %>
 </tr>

@@ -28,4 +28,6 @@
 
 <br>
 
-<%= link_to 'New Family', new_family_path %>
+<% if current_user.can? :index, UsersController %>
+  <%= link_to 'New Family', new_family_path %>
+<% end %>

@@ -1,5 +1,5 @@
 <tr>
-  <% if current_user.can? :index, UsersController %>
+  <% if current_user&.can? :manage_all, :family %>
     <td><%= link_to family.name, family %></td>
   <% else %>
     <td><%= family.name %></td>
@@ -9,7 +9,7 @@
   <td><%= family.state %></td>
   <td><%= family.zip %></td>
   <td><%= family.created_at %></td>
-  <% if current_user.can? :index, UsersController %>
+  <% if current_user&.can? :manage_all, :family %>
     <td><%= link_to 'Show', family %></td>
     <td><%= link_to 'Edit', edit_family_path(family) %></td>
   <% end %>

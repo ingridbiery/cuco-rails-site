@@ -10,9 +10,6 @@
   <td><%= family.zip %></td>
   <td><%= number_to_phone(family.phone, area_code: true) %></td>
   <td><%= family.text %></td>
-  <td><%= link_to 'Show', family %></td>
-  <td><%= link_to 'Edit', edit_family_path(family) %></td>
-  <td><%= family.created_at %></td>
   <% if current_user&.can? :manage_all, :family %>
     <td><%= link_to 'Show', family %></td>
     <td><%= link_to 'Edit', edit_family_path(family) %></td>

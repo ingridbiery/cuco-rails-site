@@ -1,7 +1,3 @@
-<head>
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-</head>
-
 <header class="navbar navbar-default.navbar-static-top navbar-inverse">
   <div class="container">
     <%= link_to @site_name, root_path, id: "logo" %>
@@ -17,7 +13,7 @@
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
 	      <% if user_signed_in? %>
           <li class="nav-item nav-item-dropdown">
-            <a class="dropdown-trigger" href="#" id="dropdown-area">Member Menu<span class='caret'></span></a>
+            <a class="dropdown-trigger" href="#">Member Menu<span class='caret'></span></a>
             <ul class="dropdown-menu">
 
               <%= render 'layouts/member_menu' %>
@@ -28,7 +24,7 @@
           <% if current_user&.can? :index, :users %>
 
             <li class="nav-item nav-item-dropdown">
-              <a class="dropdown-trigger" href="#" id="dropdown-area">Admin Menu<span class='caret'></span></a>
+              <a class="dropdown-trigger" href="#">Admin Menu<span class='caret'></span></a>
               <ul class="dropdown-menu">
 
                 <%= render 'layouts/admin_menu' %>
@@ -38,7 +34,7 @@
 
           <% end %>
 
-          <li class="nav-item"><%= link_to 'Log out', destroy_user_session_path, method: :delete, id: "dropdown-area" %></li>
+          <li class="nav-item"><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
 
         <% else %>
 

@@ -1,6 +1,6 @@
-<% if current_user&.can? :manage_all, :families %>
+<% if current_user&.can? :index, :users %>
   <li class="dropdown-menu-item">
-    <%= link_to 'Pronouns', pronouns_path %>
+    <%= link_to 'Users', users_path %>
   </li>
 <% end %>
 
@@ -10,32 +10,26 @@
   </li>
 <% end %>
 
-<% if current_user.can? :index, :users %>
+<% if current_user&.can? :index, :pronouns %>
   <li class="dropdown-menu-item">
-    <%= link_to 'Users', users_path %>
+    <%= link_to 'Pronouns', pronouns_path %>
   </li>
 <% end %>
 
-<% if current_user.can? :edit, :periods %>
+<% if current_user&.can? :index, :periods %>
   <li class="dropdown-menu-item">
     <%= link_to 'Periods', periods_path %>
   </li>
 <% end %>
 
-<% if current_user.can? :edit, :rooms %>
+<% if current_user&.can? :index, :rooms %>
   <li class="dropdown-menu-item">
     <%= link_to 'Rooms', rooms_path %>
   </li>
 <% end %>
 
-<% if current_user.can? :index, :event_types %>
+<% if current_user&.can? :index, :event_types %>
   <li class="dropdown-menu-item">
     <%= link_to 'Event Types', event_types_path %>
-  </li>
-<% end %>
-
-<% if current_user.can? :new, :cuco_session %>
-  <li class="dropdown-menu-item">
-    <%= link_to 'New Session', new_cuco_session_path %>
   </li>
 <% end %>

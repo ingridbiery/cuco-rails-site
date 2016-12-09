@@ -4,5 +4,8 @@
 
 <% if current_user&.person&.family %>
   <li class="dropdown-menu-item"><%= link_to 'My Family', family_path(current_user.person.family) %></li>
-  <li class="dropdown-menu-item">My Schedules</li>
 <% end %>
+
+<% # currently show this always, but when we actually implement it, it will before_action
+   # restricted to when it makes sense %>
+  <li class="dropdown-menu-item">My Schedules (coming soon)</li>

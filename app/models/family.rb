@@ -50,6 +50,9 @@ class Family < ActiveRecord::Base
   VALID_PHONE_FORMAT = /\A(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?\z/
   validates :ec_phone, :phone, format: { with: VALID_PHONE_FORMAT },
                        presence: true
+  # note that presence: true doesn't work with booleans (because false is
+  # not present)
+  validates :text, :ec_text, inclusion: [true, false]
 
   after_validation :clean_phone_number
 

@@ -43,6 +43,9 @@
 
   <div class="field">
     <%= f.label "Pronouns" %><br>
+    <% if current_user&.can? :new, :pronouns %>
+      <p><em>If your preferred pronouns are not already listed, please <%= link_to "enter them", new_pronoun_path %></em></p>
+    <% end %>
     <%= f.collection_select :pronoun_id, Pronoun.all, :id, :preferred_pronouns,
         include_blank: true %>
   </div>

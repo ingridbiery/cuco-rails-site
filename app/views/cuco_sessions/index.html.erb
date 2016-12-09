@@ -3,7 +3,7 @@
 <h1>
   Listing Sessions 
 
-  <% if user_signed_in? and current_user.can? :new, :cuco_session %>
+  <% if current_user&.can? :new, :cuco_session %>
     <%= link_to image_tag('add.png'), new_cuco_session_path, title: "Add New Session" %>
   <% end %>
 </h1>

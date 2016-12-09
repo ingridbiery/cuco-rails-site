@@ -12,9 +12,16 @@
   <% end %>
 
   <div class="field">
+    <p><em>Please enter your preferred pronouns.
+    All existing choices are listed below.
+    Please confirm that we don't already have your choice, and follow the format of the others.</em></p>
     <%= f.text_field :preferred_pronouns %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+  
 <% end %>
+
+<h2>Existing Pronouns</h2>
+<%= render 'table', pronouns: Pronoun.all %>

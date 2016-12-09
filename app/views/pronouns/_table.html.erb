@@ -1,0 +1,13 @@
+<table>
+  <% pronouns.each do |pronoun| %>
+    <tr>
+      <td><%= pronoun.preferred_pronouns %></td>
+      <% if current_user&.can? :edit, :pronouns %>
+        <td><%= link_to image_tag('wrench.png'), edit_pronoun_path(pronoun),
+                title: "Edit #{pronoun.preferred_pronouns}" %></td>
+        <td><%= link_to image_tag('delete.png'), pronoun, method: :delete,
+                data: { confirm: 'Are you sure?' }, title: "Delete #{pronoun.preferred_pronouns}" %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

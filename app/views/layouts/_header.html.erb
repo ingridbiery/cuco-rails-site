@@ -1,3 +1,7 @@
+<head>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+</head>
+
 <header class="navbar navbar-default.navbar-static-top navbar-inverse">
   <div class="container">
     <%= link_to @site_name, root_path, id: "logo" %>
@@ -73,11 +77,11 @@
 
         <% else %>
 
-          <li><%= link_to 'Log in', new_user_session_path %></li>
-          
           <% unless user_signed_in? %>
             <li><%= link_to 'Sign up', new_user_registration_path %></li>
           <% end %>
+
+          <li><%= link_to 'Log in', new_user_session_path %></li>
 
         <% end %>
         

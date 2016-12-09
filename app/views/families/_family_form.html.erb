@@ -22,3 +22,10 @@
   <%= f.label :phone %><br>
   <%= f.text_field :phone %>
 </div>
+<div class="field">
+  <%= f.label "Is it ok to send text messages?" %><br />
+  <%= f.radio_button :text, 'true', selected: @family.text %>
+  <%= f.label :text_true, "Yes" %>
+  <%= f.radio_button :text, 'false', selected: @family.text %>
+  <%= f.label :text_false, "No" %>
+</div>

@@ -1,7 +1,6 @@
 class FamiliesController < ApplicationController
   let :web_team, :all
   let :web_team, [:manage_all, :edit_primary]
-  let :member, :index
   let :user, [:show, :new, :create, :edit, :update]
   
   before_action :set_family, except: [:new, :create, :index]
@@ -80,9 +79,9 @@ class FamiliesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def family_params
       params.require(:family).permit(:name, :street_address, :city, :state,
-                                     :zip, :phone, :primary_adult_id, :ec_first_name,
-                                     :ec_last_name, :ec_phone, :ec_text,
-                                     :ec_relationship)
+                                     :zip, :phone, :text, :primary_adult_id,
+                                     :ec_first_name, :ec_last_name, :ec_phone,
+                                     :ec_text, :ec_relationship)
     end
 
     def person_params

@@ -4,7 +4,8 @@
   <td><%= family.city %></td>
   <td><%= family.state %></td>
   <td><%= family.zip %></td>
-  <td><%= family.created_at %></td>
+  <td><%= number_to_phone(family.phone, area_code: true) %></td>
+  <td><%= family.text %></td>
   <td><%= link_to 'Show', family %></td>
   <td><%= link_to 'Edit', edit_family_path(family) %></td>
 </tr>

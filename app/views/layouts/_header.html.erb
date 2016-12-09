@@ -9,29 +9,35 @@
 	      <li><%= link_to 'Expectations', page_path("expectations") %></li>
 	      <li><%= link_to 'A Day at CUCO', page_path("dayatcuco") %></li>
 
-
         <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
+        <li class="nav-item nav-item-dropdown">
+          <a class="dropdown-trigger" href="#">Co-op Info<span class='caret'></span></a>
+          <ul class="dropdown-menu">
+
+            <%= render 'layouts/coop_info' %>
+
+          </ul>
+        </li>
+
 	      <% if user_signed_in? %>
           <li class="nav-item nav-item-dropdown">
-            <a class="dropdown-trigger" href="#">Member Menu<span class='caret'></span></a>
+            <a class="dropdown-trigger" href="#">My Info<span class='caret'></span></a>
             <ul class="dropdown-menu">
 
-              <%= render 'layouts/member_menu' %>
+              <%= render 'layouts/my_info' %>
 
             </ul>
           </li>
 
-          <% if current_user&.can? :index, :users %>
-
+          <% if current_user&.can? :manage, :families %>
             <li class="nav-item nav-item-dropdown">
               <a class="dropdown-trigger" href="#">Admin Menu<span class='caret'></span></a>
               <ul class="dropdown-menu">
-
+  
                 <%= render 'layouts/admin_menu' %>
-
+  
               </ul>
             </li>
-
           <% end %>
 
           <li class="nav-item"><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
@@ -40,7 +46,6 @@
 
           <% unless user_signed_in? %>
             <li><%= link_to 'Sign up', new_user_registration_path %></li>
-
             <li><%= link_to 'Log in', new_user_session_path %></li>
           <% end %>
 

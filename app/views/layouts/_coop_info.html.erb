@@ -1,0 +1,9 @@
+<li class="dropdown-menu-item"><%= link_to 'Sessions', cuco_sessions_path %></li>
+
+<li class="dropdown-menu-item">Demographics</li>
+
+<% if user_signed_in? and current_user&.person&.family %>
+  <li class="dropdown-menu-item"><%= link_to 'Concern Process', page_path("concern-process") %></li>
+  <li class="dropdown-menu-item">Directory</li>
+<% end %>
+

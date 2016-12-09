@@ -1,0 +1,8 @@
+<li class="dropdown-menu-item">
+  <%= link_to 'My Info', user_path(current_user) %>
+</li>
+
+<% if current_user&.person&.family %>
+  <li class="dropdown-menu-item"><%= link_to 'My Family', family_path(current_user.person.family) %></li>
+  <li class="dropdown-menu-item">My Schedules</li>
+<% end %>

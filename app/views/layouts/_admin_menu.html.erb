@@ -1,32 +1,40 @@
-<% if current_user&.can? :index, :users %>
-  <%= render 'layouts/basic_info' %>
+<% if current_user&.can? :manage_all, :families %>
+  <li class="dropdown-menu-item">
+    <%= link_to 'Pronouns', pronouns_path %>
+  </li>
 <% end %>
 
-<% if current_user.can? :index, UsersController %>
+<% if current_user&.can? :index, :families %>
+  <li class="dropdown-menu-item">
+    <%= link_to 'Families', families_path %>
+  </li>
+<% end %>
+
+<% if current_user.can? :index, :users %>
   <li class="dropdown-menu-item">
     <%= link_to 'Users', users_path %>
   </li>
 <% end %>
 
-<% if current_user.can? :edit, PeriodsController %>
+<% if current_user.can? :edit, :periods %>
   <li class="dropdown-menu-item">
     <%= link_to 'Periods', periods_path %>
   </li>
 <% end %>
 
-<% if current_user.can? :edit, RoomsController %>
+<% if current_user.can? :edit, :rooms %>
   <li class="dropdown-menu-item">
     <%= link_to 'Rooms', rooms_path %>
   </li>
 <% end %>
 
-<% if current_user.can? :index, EventTypesController %>
+<% if current_user.can? :index, :event_types %>
   <li class="dropdown-menu-item">
     <%= link_to 'Event Types', event_types_path %>
   </li>
 <% end %>
 
-<% if current_user.can? :new, CucoSessionsController %>
+<% if current_user.can? :new, :cuco_session %>
   <li class="dropdown-menu-item">
     <%= link_to 'New Session', new_cuco_session_path %>
   </li>

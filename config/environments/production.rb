@@ -78,5 +78,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   
   # Mail setup
-  config.action_mailer.default_url_options = { :host => 'cuco-dev.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => ENV["APP_HOST"] }
 end

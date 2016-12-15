@@ -26,9 +26,3 @@
  </table>
 
 <%= will_paginate %>
-
-<br>
-
-<% if current_user&.can? :manage_all, :families %>
-  <%= link_to 'New Family', new_family_path %>
-<% end %>

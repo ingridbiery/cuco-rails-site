@@ -1,11 +1,17 @@
 <tr>
-  <td><%= link_to family.name, family %></td>
+  <% if current_user&.can? :manage_all, :family %>
+    <td><%= link_to family.name, family %></td>
+  <% else %>
+    <td><%= family.name %></td>
+  <% end %>
   <td><%= family.street_address %></td>
   <td><%= family.city %></td>
   <td><%= family.state %></td>
   <td><%= family.zip %></td>
   <td><%= number_to_phone(family.phone, area_code: true) %></td>
   <td><%= family.text %></td>
-  <td><%= link_to 'Show', family %></td>
-  <td><%= link_to 'Edit', edit_family_path(family) %></td>
+  <% if current_user&.can? :manage_all, :family %>
+    <td><%= link_to 'Show', family %></td>
+    <td><%= link_to 'Edit', edit_family_path(family) %></td>
+  <% end %>
 </tr>

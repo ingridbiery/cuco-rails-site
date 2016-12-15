@@ -1,6 +1,12 @@
 <%= content_for :page_title, "Sessions" %>
 
-<h1>Listing Sessions</h1>
+<h1>
+  Listing Sessions 
+
+  <% if current_user&.can? :new, :cuco_session %>
+    <%= link_to image_tag('add.png'), new_cuco_session_path, title: "Add New Session" %>
+  <% end %>
+</h1>
 
 <ul>
   <% @cuco_sessions.each do |session| %>

@@ -40,10 +40,8 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = Course.new(course_params)
-    # I didn't think this was necessary, but it appears to be
-    @course.cuco_session = @cuco_session
-    
+    @course = @cuco_session.courses.build(course_params)
+
     if @course.save
       redirect_to [@cuco_session, @course], notice: "#{@course.name} was successfully created."
     else

@@ -105,16 +105,19 @@ class Dates < ActiveRecord::Base
   private
     # has this event started?
     def is_before_event?(e)
+      return false unless e
       return Time.now < e.start_dt
     end
   
     # is this event over?
     def is_after_event?(e)
+      return false unless e
       return Time.now > e.end_dt
     end
 
     # is it during this event
     def is_during_event?(e)
+      return false unless e
       return (!is_before_event?(e) and !is_after_event?(e))
     end
 

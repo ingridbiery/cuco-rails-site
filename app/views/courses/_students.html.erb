@@ -1,7 +1,8 @@
 <h3>Students (<%= @course.student_signups.count %><% if @course.full %>
     FULL)
     <% else %>)
-      <% if @course.cuco_session.course_signups_open? %>
+      <% if @course.cuco_session.course_signups_open? or
+            current_user&.can? :manage_all, :course_signups %>
         <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course, type: :student), title: "Add Person to Course" %>
       <% end %>
     <% end %></h3>
@@ -9,11 +10,12 @@
 <ul><% @course.student_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
   <% person = course_signup.person %>
   <li><%= person.name %>
-    <% if person.age.nil? %> (adult)
+    <% if Person.adult.include? person %> (adult)
     <% else %> (age <%= person.age %>)
     <% end %>
-    <% if @course.cuco_session.course_signups_open? and
-          @people.include? person %>
+    <% if (@course.cuco_session.course_signups_open? and
+          @people.include? person) or
+          current_user&.can? :manage_all, :course_signups %>
       <%= link_to image_tag('delete.png'), cuco_session_course_course_signup_path(@cuco_session, @course, course_signup), method: :delete,
             data: { confirm: 'Are you sure?' }, title: "Delete #{person.name}" %>
     <% end %>

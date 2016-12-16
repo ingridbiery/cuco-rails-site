@@ -1,5 +1,8 @@
 class MembershipsController < ApplicationController
   let :user, [:new, :create]
+  TODO: still need to make sure you can only view your own schedule unless web_team
+  see families_controller for ideas
+  let [:member, :paid], :show_schedule
   let :web_team, :all
   let :all, :paypal_hook
 
@@ -36,6 +39,11 @@ class MembershipsController < ApplicationController
   end
   
   def show
+  end
+  
+  def show_schedule
+    @membership = Membership.find(params[:membership_id])
+    TODO: Have something actually link to this!
   end
   
   private

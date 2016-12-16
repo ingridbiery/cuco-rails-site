@@ -26,7 +26,9 @@ Rails.application.routes.draw do
       resources :course_signups, except: [:index, :show]
     end
     resources :dates, only: [:show, :edit, :update]
-    resources :memberships, only: [:new, :create, :show]
+    resources :memberships, only: [:new, :create, :show] do
+      get :show_schedule
+    end
     # make sure post works for membership show (since this is where we return from paypal)
     post "/memberships/:id" => "memberships#show"
     # a path for paypal to confirm that the payment has been processed

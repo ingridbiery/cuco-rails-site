@@ -31,11 +31,11 @@
           <% @rooms.each do |room| %>
             <td>
               <% courses = @cuco_session.courses.where(room: room).where(period: period) %>
-              <% if !courses.empty? %>
-                <% if courses.first.short_name.length == 0 %>
-                  <%= link_to courses.first.name, [@cuco_session, courses.first] %>
+              <% courses.each do |course| %>
+                <% if course.short_name.length == 0 %>
+                  <%= link_to course.name, [@cuco_session, course] %><br />
                 <% else %>
-                  <%= link_to courses.first.short_name, [@cuco_session, courses.first] %>
+                  <%= link_to course.short_name, [@cuco_session, course] %><br />
                 <% end %>
               <% end %>
             </td>

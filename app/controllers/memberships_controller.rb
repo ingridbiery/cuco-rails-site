@@ -1,10 +1,12 @@
 class MembershipsController < ApplicationController
   let :user, [:new, :create]
+  let :user, :show_schedule # we'll restrict it below to only seeing own schedule
   let :web_team, :all
   let :all, :paypal_hook
 
   before_action :set_cuco_session, except: :paypal_hook
   before_action :set_membership, only: :show
+  before_action :must_be_own_schedule, only: :show_schedule
   
   # the paypal hook gets called with no user and needs access that we wouldn't normally grant
   skip_before_action :authenticate, only: :paypal_hook
@@ -38,7 +40,21 @@ class MembershipsController < ApplicationController
   def show
   end
   
+  def show_schedule
+    @membership = Membership.find(params[:membership_id])
+  end
+  
   private
+
+    # only let the user see their own schedule
+    def must_be_own_schedule
+      @membership = Membership.find(params[:membership_id])
+      unless current_user&.person&.family == @membership.family or
+             current_user&.can? :manage_all, :memberships
+        not_authorized! message: "That's not your schedule."
+      end
+      
+    end
 
     # get the cuco_session from params before doing anything else
     def set_cuco_session

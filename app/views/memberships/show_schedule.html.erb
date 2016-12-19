@@ -1,0 +1,22 @@
+<%= content_for :page_title, "#{@cuco_session.name} Schedule for the 
+    #{@membership.family.name} Family" %>
+
+<h2>
+  <strong><%= @cuco_session.name %></strong> Schedule for the 
+  <strong><%= @membership.family.name %></strong> Family
+</h2>
+
+<% Period.find_each do |period| %>
+  <div class="period"><%= period.name %></div>
+  <p>(<%= period.duration_text %>)</p>
+
+  <% @membership.family.people.each do |person| %>
+    <% @cuco_session.course_signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
+      <span class="person"><%= person.name %></span><br />
+      <span class="course"><%= signup.course.name %></span><br />
+      <span class="role"><%= signup.course_role.name %></span><br /><br />
+    <% end %>
+
+  <% end %>
+
+<% end %>

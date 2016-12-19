@@ -57,7 +57,8 @@
   <ul>
   <% @family.memberships.each do |membership| %>
     <li><%= link_to membership.cuco_session.name, membership.cuco_session %> 
-    (status: <%= membership.status %><% if current_user&.can? :show, :membership %>, <%= link_to "details", [membership.cuco_session, membership] %><% end %>)
+    (<%= link_to 'Schedule', cuco_session_membership_show_schedule_path(membership.cuco_session, membership) %>)
+    (membership status: <%= membership.status %><% if current_user&.can? :show, :membership %> | <%= link_to "details", [membership.cuco_session, membership] %><% end %>)
     </li>
   <% end %>
   </ul>

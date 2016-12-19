@@ -1,3 +1,26 @@
-<h1>Schedule for <%= @membership.family.name %> in <%= @membership.cuco_session.name %></h1>
+<%= content_for :page_title, "#{@cuco_session.name} Schedule for the 
+    #{@membership.family.name} Family" %>
 
-TODO: Actually show the schedule
+<h2>
+  <strong><%= @cuco_session.name %></strong> Schedule for the 
+  <strong><%= @membership.family.name %></strong> Family
+</h2>
+
+<% @periods.each do |period| %>
+  <div style="font-size: 2em; padding-top: 20px;"><%= period.name %></div>
+  <p>(<%= period.duration_text %>)</p>
+
+  <% @people.each do |person| %>
+    <% courses = @cuco_session.courses.where(cuco_session_id: @membership.cuco_session.id).where(period: period)%>
+    <% courses.each do |course| %>
+      <% @signups.where(course_id: course.id).where(person_id: person.id).each do |signup| %>
+        <span style ="font-size: 1.2em; font-weight: bold; padding-left: 20px"><%= person.name %></span><br />
+        <span style ="padding-left: 40px;"><%= course.name %></span><br />
+        <span style ="padding-left: 40px; font-style: italic;"><%= @roles.where(id: signup.course_role_id)[0].name %></span><br /><br />
+      <% end %>
+
+    <% end %>
+
+  <% end %>
+
+<% end %>

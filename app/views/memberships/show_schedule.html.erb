@@ -7,14 +7,14 @@
 </h2>
 
 <% Period.find_each do |period| %>
-  <div style="font-size: 2em; padding-top: 20px;"><%= period.name %></div>
+  <div class="period"><%= period.name %></div>
   <p>(<%= period.duration_text %>)</p>
 
   <% @membership.family.people.each do |person| %>
     <% @cuco_session.course_signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
-      <span style ="font-size: 1.2em; font-weight: bold; padding-left: 20px"><%= person.name %></span><br />
-      <span style ="padding-left: 40px;"><%= signup.course.name %></span><br />
-      <span style ="padding-left: 40px; font-style: italic;"><%= signup.course_role.name %></span><br /><br />
+      <span class="person"><%= person.name %></span><br />
+      <span class="course"><%= signup.course.name %></span><br />
+      <span class="role"><%= signup.course_role.name %></span><br /><br />
     <% end %>
 
   <% end %>

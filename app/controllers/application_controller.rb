@@ -39,20 +39,20 @@ class ApplicationController < ActionController::Base
   # set the text to display for the next session in @next_session_info
   # if signups are open, we will also set @membership_signup_info, and @next_cuco_session
   def get_next_session_info
-    cuco_session = CucoSession.upcoming
-    if !cuco_session.nil? then
-      @next_session_info = "Next Session: #{cuco_session.name}."
-      if !cuco_session.dates.nil? then
-        next_event = cuco_session.dates.next_event(current_user)
-        if !next_event.nil? then
+    @next_cuco_session = CucoSession.upcoming
+    if @next_cuco_session then
+      @next_session_info = "Next Session: #{@next_cuco_session.name}."
+      if @next_cuco_session.dates then
+        next_event = @next_cuco_session.dates.next_event(current_user)
+        if next_event then
           @next_session_info += " #{next_event.status_text}"
-          if cuco_session.membership_signups_open?(current_user) then
-            @next_cuco_session = cuco_session
-            if cuco_session.full?
-              @membership_signup_info = "This session is full with #{cuco_session.kids.count} out of #{CucoSession::MAX_KIDS} kids enrolled"
+          if @next_cuco_session.membership_signups_open? then
+            if @next_cuco_session.full?
+              @membership_signup_info = "This session is full with"
             else
-              @membership_signup_info = "Membership signups are open with #{cuco_session.kids.count} out of #{CucoSession::MAX_KIDS} kids currently enrolled."
+              @membership_signup_info = "Membership signups are open with"
             end
+            @membership_signup_info += " #{@next_cuco_session.kids.count} out of #{CucoSession::MAX_KIDS} kids enrolled."
           end
         end
       else

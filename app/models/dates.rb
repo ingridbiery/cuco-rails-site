@@ -56,13 +56,18 @@ class Dates < ActiveRecord::Base
     return false unless user
     case user.membership
     when :member
-      e = get_event(:member_reg)
+      is_during_event?(get_event(:member_reg))
     when :former
-      e = get_event(:former_reg)
+      is_during_event?(get_event(:former_reg))
     else
-      e = get_event(:new_reg)
+      is_during_event?(get_event(:new_reg))
     end
-    return is_during_event?(e)
+  end
+
+  # figure out if membership signups are currently open for anyone
+  # (happens to be the same as when course_signups are open for now)
+  def membership_signups_open?
+    course_signups_open?
   end
 
   # figure out if course signups are currently open

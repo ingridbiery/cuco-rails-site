@@ -7,6 +7,7 @@ smith:
   state: "OH"
   zip: 43224
   phone: "6144544544"
+  text: true
   ec_first_name: "Todd"
   ec_last_name: "Smith"
   ec_phone: "6147897894"
@@ -20,6 +21,7 @@ johnson:
   state: "OH"
   zip: 43224
   phone: "6148459458"
+  text: true
   ec_first_name: "Jane"
   ec_last_name: "Johnson"
   ec_phone: "6145559874"
@@ -34,6 +36,7 @@ williams:
   state: "OH"
   zip: 43224
   phone: "5106474555"
+  text: true
   ec_first_name: "Salik"
   ec_last_name: "Somer"
   ec_phone: "6144574455"
@@ -47,6 +50,7 @@ membership1_family:
   state: "OH"
   zip: 43224
   phone: "5432334322"
+  text: true
   ec_first_name: "X"
   ec_last_name: "X"
   ec_phone: "6145551212"
@@ -60,6 +64,7 @@ membership2_family:
   state: "OH"
   zip: 43224
   phone: "6148487788"
+  text: true
   ec_first_name: "X"
   ec_last_name: "X"
   ec_phone: "6145551212"
@@ -73,6 +78,7 @@ membership3_family:
   state: "OH"
   zip: 43224
   phone: "7149584877"
+  text: true
   ec_first_name: "X"
   ec_last_name: "X"
   ec_phone: "6145551212"

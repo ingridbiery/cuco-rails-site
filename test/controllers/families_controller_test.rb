@@ -36,10 +36,10 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
-  test "member should get index" do
+  test "web_team should get index" do
     travel_to @fall.start_date + 1.day
-    sign_in @member
-    assert_equal ["user", "member"], @member.clearance_levels
+    sign_in @web_team
+    assert_includes @web_team.clearance_levels, "web_team"
     get :index
     assert_response :success
   end

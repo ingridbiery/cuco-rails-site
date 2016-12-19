@@ -70,19 +70,19 @@ class CucoSessionTest < ActiveSupport::TestCase
     assert_nil upcoming_session
   end
 
-  test "last should return last session when there is one" do
+  test "latest should return last session when there is one" do
     travel_to @fall.start_date.to_date - 1
-    assert_equal @spring, CucoSession.last
+    assert_equal @spring, CucoSession.latest
   end
 
-  test "last should return current session when there is one" do
+  test "latest should return current session when there is one" do
     travel_to @fall.start_date.to_date + 1
-    assert_equal @fall, CucoSession.last
+    assert_equal @fall, CucoSession.latest
   end
 
-  test "last should return nil when there isn't one" do
+  test "latest should return nil when there isn't one" do
     travel_to @winter.start_date.to_date - 1
-    last = CucoSession.last
-    assert_nil last
+    latest = CucoSession.latest
+    assert_nil latest
   end
 end

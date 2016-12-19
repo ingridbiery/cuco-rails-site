@@ -4,10 +4,10 @@
 
 <h2>Session <%= @cuco_session.name %></h2>
 
-<% if user_signed_in? and current_user.can? :show, DatesController %>
+<% if current_user&.can? :show, :dates %>
   <h3>Dates</h3>
   <% if @cuco_session.dates == nil %>
-    <% if user_signed_in? and current_user.can? :edit, DatesController %>
+    <% if current_user&.can? :edit, :dates %>
       Edit this session to have dates automatically calculated
     <% end %>
   <% else %>
@@ -16,7 +16,11 @@
 <% end %>
 
 <h3>Courses (<%= @cuco_session.courses.count %>)
-  <%= link_to image_tag('add.png'), new_cuco_session_course_path(@cuco_session), title: "Add New Class to Session" %></h3>
+  <% if current_user&.can? :new, :course %>
+    <%= link_to image_tag('add.png'), new_cuco_session_course_path(@cuco_session), title: "Add New Class to Session" %>
+  <% end %>
+</h3>
+
   <% if @cuco_session.courses.any? %>
     <table>
       <tr>
@@ -31,11 +35,11 @@
           <% @rooms.each do |room| %>
             <td>
               <% courses = @cuco_session.courses.where(room: room).where(period: period) %>
-              <% if !courses.empty? %>
-                <% if courses.first.short_name.length == 0 %>
-                  <%= link_to courses.first.name, [@cuco_session, courses.first] %>
+              <% courses.each do |course| %>
+                <% if course.short_name.length == 0 %>
+                  <%= link_to course.name, [@cuco_session, course] %><br />
                 <% else %>
-                  <%= link_to courses.first.short_name, [@cuco_session, courses.first] %>
+                  <%= link_to course.short_name, [@cuco_session, course] %><br />
                 <% end %>
               <% end %>
             </td>
@@ -65,10 +69,10 @@
 
 
 
-<% if user_signed_in? and current_user.can? :edit, CucoSessionsController %>
+<% if current_user&.can? :edit, :cuco_sessions %>
   <%= link_to 'Edit', edit_cuco_session_path(@cuco_session) %> |
 <% end %>
-<% if user_signed_in? and current_user.can? :destroy, CucoSessionsController %>
+<% if current_user&.can? :destroy, :cuco_sessions %>
   <%= link_to 'Destroy', @cuco_session, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <% end %>
 <%= link_to "Back to Sessions", cuco_sessions_path %>

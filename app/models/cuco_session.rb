@@ -57,9 +57,9 @@ class CucoSession < ActiveRecord::Base
   end
 
   # figure out if membership signups are currently open for anyone
-  def membership_signups_open?
+  def membership_signups_open_for_anyone?
     # returns nil if dates nil, dates.membership_signups_open? otherwise
-    dates&.membership_signups_open?
+    dates&.membership_signups_open_for_anyone?
   end
 
   # are course signups currently open

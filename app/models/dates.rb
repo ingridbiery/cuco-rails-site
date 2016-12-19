@@ -66,7 +66,7 @@ class Dates < ActiveRecord::Base
 
   # figure out if membership signups are currently open for anyone
   # (happens to be the same as when course_signups are open for now)
-  def membership_signups_open?
+  def membership_signups_open_for_anyone?
     course_signups_open?
   end
 

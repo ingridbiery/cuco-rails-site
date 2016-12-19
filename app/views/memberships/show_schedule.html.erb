@@ -6,19 +6,15 @@
   <strong><%= @membership.family.name %></strong> Family
 </h2>
 
-<% @periods.each do |period| %>
+<% Period.find_each do |period| %>
   <div style="font-size: 2em; padding-top: 20px;"><%= period.name %></div>
   <p>(<%= period.duration_text %>)</p>
 
-  <% @people.each do |person| %>
-    <% courses = @cuco_session.courses.where(cuco_session_id: @membership.cuco_session.id).where(period: period)%>
-    <% courses.each do |course| %>
-      <% @signups.where(course_id: course.id).where(person_id: person.id).each do |signup| %>
-        <span style ="font-size: 1.2em; font-weight: bold; padding-left: 20px"><%= person.name %></span><br />
-        <span style ="padding-left: 40px;"><%= course.name %></span><br />
-        <span style ="padding-left: 40px; font-style: italic;"><%= @roles.where(id: signup.course_role_id)[0].name %></span><br /><br />
-      <% end %>
-
+  <% @membership.family.people.each do |person| %>
+    <% @cuco_session.course_signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
+      <span style ="font-size: 1.2em; font-weight: bold; padding-left: 20px"><%= person.name %></span><br />
+      <span style ="padding-left: 40px;"><%= signup.course.name %></span><br />
+      <span style ="padding-left: 40px; font-style: italic;"><%= signup.course_role.name %></span><br /><br />
     <% end %>
 
   <% end %>

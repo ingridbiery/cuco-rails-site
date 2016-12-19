@@ -1,12 +1,12 @@
 class MembershipsController < ApplicationController
   let :user, [:new, :create]
-  let [:user, :member, :paid], :show_schedule
+  let :user, :show_schedule # we'll restrict it below to only seeing own schedule
   let :web_team, :all
   let :all, :paypal_hook
 
   before_action :set_cuco_session, except: :paypal_hook
   before_action :set_membership, only: :show
-  before_action :user_must_be_in_session, only: :show_schedule
+  before_action :must_be_own_schedule, only: :show_schedule
   
   # the paypal hook gets called with no user and needs access that we wouldn't normally grant
   skip_before_action :authenticate, only: :paypal_hook
@@ -42,28 +42,16 @@ class MembershipsController < ApplicationController
   
   def show_schedule
     @membership = Membership.find(params[:membership_id])
-    @periods = Period.all
-    @people = Person.where(family_id: @membership.family_id)
-    @signups = CourseSignup.all
-    @roles = CourseRole.all
   end
   
   private
 
-    # throw an error if current user's family is not in session
-    # unless this user is exempt
-    def user_must_be_in_session
-
-      user_in_session = false
-      session_membership = Membership.find(params[:membership_id])
-      people_in_session =  Person.where(family_id: session_membership.family_id)
-
-      if people_in_session.include? current_user&.person
-        user_in_session = true
-      end
-
-      unless user_in_session == true or  current_user&.can? :manage_all, :families
-        not_authorized! message: "Your family is not in #{@cuco_session.name}."
+    # only let the user see their own schedule
+    def must_be_own_schedule
+      @membership = Membership.find(params[:membership_id])
+      unless current_user&.person&.family == @membership.family or
+             current_user&.can? :manage_all, :memberships
+        not_authorized! message: "That's not your schedule."
       end
       
     end

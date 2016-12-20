@@ -1,6 +1,7 @@
 class CucoSessionsController < ApplicationController
   let :web_team, :all
   let :all, [:index, :show]
+  let :paid, :show_open_jobs
   before_action :set_cuco_session, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -54,6 +55,10 @@ class CucoSessionsController < ApplicationController
   def destroy
     @cuco_session.destroy
     redirect_to cuco_sessions_path, notice: "#{@cuco_session.name} was successfully destroyed."
+  end
+  
+  def show_open_jobs
+    @cuco_session = CucoSession.find(params[:cuco_session_id])
   end
   
   private

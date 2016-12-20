@@ -1,0 +1,14 @@
+<%= content_for :page_title, "Open Jobs for #{@cuco_session.name}" %>
+
+<h1>Open Jobs for <%= @cuco_session.name %></h1>
+
+<ul>
+<% @cuco_session.course_signups.each do |signup| %>
+  <% if signup.is_volunteer_job? and !signup.person %>
+    <li><%= link_to "#{signup.course.name} - #{signup.course_role.name}",
+            edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></li>
+  <% end %>
+<% end %>
+</ul>
+
+<%= link_to 'Back to Session', @cuco_session %>

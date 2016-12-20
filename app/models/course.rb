@@ -12,6 +12,8 @@ class Course < ActiveRecord::Base
   has_many :non_student_non_worker_signups, -> { CourseSignup.non_student_non_worker }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :volunteer_signups, -> { CourseSignup.volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
 
+  scope :assigned, -> { where.not(period_id: nil).where.not(room_id: nil) }
+
   validates :name, presence: true,
                    length: { minimum: 3, maximum: 100 }
   validates :short_name, presence: true,

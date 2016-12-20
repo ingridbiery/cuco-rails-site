@@ -7,7 +7,8 @@ class CucoSession < ActiveRecord::Base
   has_many :kids, through: :families
   has_many :adults, through: :families
   has_many :people, through: :families
-  has_many :course_signups, through: :courses
+  has_many :assigned_courses, -> { Course.assigned }, class_name: 'Course', foreign_key: :cuco_session_id
+  has_many :course_signups, through: :assigned_courses # filters out signups for courses that are not happening
   
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },

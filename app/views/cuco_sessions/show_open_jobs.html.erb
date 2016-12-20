@@ -3,9 +3,9 @@
 <h1>Open Jobs for <%= @cuco_session.name %></h1>
 
 <ul>
-<% @cuco_session.course_signups.each do |signup| %>
+<% @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}.each do |signup| %>
   <% if signup.is_volunteer_job? and !signup.person %>
-    <li><%= link_to "#{signup.course.name} - #{signup.course_role.name}",
+    <li><%= signup.course.period.name %>: <%= link_to "#{signup.course.name} - #{signup.course_role.name}",
             edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></li>
   <% end %>
 <% end %>

@@ -13,7 +13,7 @@
   <% @membership.family.people.each do |person| %>
     <% @cuco_session.course_signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
       <span class="person"><%= person.name %></span><br />
-      <span class="course"><%= signup.course.name %></span><br />
+      <span class="course"><%= signup.course.name %></span> ($<%=signup.course.fee %>)<br />
       <span class="role"><%= signup.course_role.name %></span><br /><br />
     <% end %>
 

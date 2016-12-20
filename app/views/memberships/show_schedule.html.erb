@@ -5,10 +5,14 @@
   <strong><%= @cuco_session.name %></strong> Schedule for the 
   <strong><%= @membership.family.name %></strong> Family
 </h2>
-<p>fees: <%= "$%.2f" % @fees.round(2) %>
-electronic payment fee: <%= "$%.2f" % Membership.electronic_payment_fee(@fees).round(2) %>
-total: <%= "$%.2f" % (@fees.round(2) + Membership.electronic_payment_fee(@fees).round(2)) %>
-PayPal to fees@columbusunschoolers.com</p>
+
+<p>Fees: <%= "$%.2f" % @fees.round(2) %>
+<% if @fees != 0 %>
+  Electronic Payment Fee: <%= "$%.2f" % Membership.electronic_payment_fee(@fees).round(2) %>
+  Total: <%= "$%.2f" % (@fees.round(2) + Membership.electronic_payment_fee(@fees).round(2)) %>
+  PayPal to fees@columbusunschoolers.com
+<% end %>
+</p>
 
 <% if @jobs = 2 %>
   <% if @unassigned < 1 %>

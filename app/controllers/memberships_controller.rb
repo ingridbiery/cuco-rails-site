@@ -42,6 +42,22 @@ class MembershipsController < ApplicationController
   
   def show_schedule
     @membership = Membership.find(params[:membership_id])
+    
+    student = CourseRole.find_by(name: :student)
+
+    @fees = 0    
+    @schedule = {}
+    Period.find_each do |period|
+      @schedule[period] = {}
+      @membership.family.people.each do |person|
+        @schedule[period][person.name] = @cuco_session.course_signups.where(person: person).joins(:course).where(courses: { period_id: period.id })
+        @schedule[period][person.name].each do |signup|
+          if signup.course_role == student then
+            @fees += signup.course.fee
+          end
+        end
+      end
+    end
   end
   
   private

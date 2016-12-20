@@ -16,7 +16,7 @@ class Membership < ActiveRecord::Base
       return: "#{ENV['APP_HOST']}#{return_path}",
       invoice: id,
       amount: membership_fee.round(2),
-      handling: electronic_payment_fee.round(2),
+      handling: electronic_payment_fee(membership_fee).round(2),
       item_name: "#{cuco_session.name} Membership",
       item_number: 1,
       quantity: '1',
@@ -30,7 +30,7 @@ class Membership < ActiveRecord::Base
   end
   
   # fee is 3.5% plus 32 cents
-  def electronic_payment_fee
-    membership_fee*0.035 + 0.32
+  def self.electronic_payment_fee(base_fee)
+    base_fee*0.035 + 0.32
   end
 end

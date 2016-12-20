@@ -17,6 +17,21 @@ class CourseSignup < ActiveRecord::Base
   # it's always illegal to have multiple signups per class, but a warning to have multiple signups per period
   validate :one_signup_per_class
 
+  # is this a volunteer job?
+  def is_volunteer_job?
+    course_role.is_worker?
+  end
+  
+  # is this an unassigned volunteer?
+  def is_unassigned?
+    course_role.name.to_sym == :unassigned_volunteer
+  end
+
+  # is this a student
+  def is_student?
+    course_role.name.to_sym == :student
+  end    
+
   # get a name to display notices
   def name
     result = course_role.name

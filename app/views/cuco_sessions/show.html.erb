@@ -31,54 +31,53 @@
   <% end %>
 </h3>
 
-  <% if @cuco_session.courses.any? %>
-    <table>
+<% if @cuco_session.courses.any? %>
+  <table>
+    <tr>
+      <th></th>
+      <% @rooms.each do |room| %>
+        <th><%= room.name %></th>
+      <% end %>
+    </tr>
+    <% @periods.each do |period| %>
       <tr>
-        <th></th>
+        <td><%= period.name %><br/>(<%= period.duration_text %>)</td>
         <% @rooms.each do |room| %>
-          <th><%= room.name %></th>
+          <td>
+            <% courses = @cuco_session.courses.where(room: room).where(period: period) %>
+            <% courses.each do |course| %>
+              <% if course.short_name.length == 0 %>
+                <%= link_to course.name, [@cuco_session, course] %><br />
+              <% else %>
+                <%= link_to course.short_name, [@cuco_session, course] %><br />
+              <% end %>
+            <% end %>
+          </td>
         <% end %>
       </tr>
-      <% @periods.each do |period| %>
-        <tr>
-          <td><%= period.name %><br/>(<%= period.duration_text %>)</td>
-          <% @rooms.each do |room| %>
-            <td>
-              <% courses = @cuco_session.courses.where(room: room).where(period: period) %>
-              <% courses.each do |course| %>
-                <% if course.short_name.length == 0 %>
-                  <%= link_to course.name, [@cuco_session, course] %><br />
-                <% else %>
-                  <%= link_to course.short_name, [@cuco_session, course] %><br />
-                <% end %>
-              <% end %>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>
-    </table>
-    <ul>
-    <h4>Unassigned</h4>
-    <% @cuco_session.courses.where(room: nil).where(period: nil).each do |course| %>
-      <li><%= link_to course.name, [@cuco_session, course] %></li>
     <% end %>
-    </ul>
+  </table>
+  <ul>
+  <h4>Unassigned</h4>
+  <% @cuco_session.courses.where(room: nil).where(period: nil).each do |course| %>
+    <li><%= link_to course.name, [@cuco_session, course] %></li>
   <% end %>
+  </ul>
+<% end %>
   
-  <% if current_user&.can? :show, :membership then %>
-    <h3>Members</h3>
-    <ol>
-      <% memberships = @cuco_session.memberships.sort { |a,b| a.family.name <=> b.family.name } %>
-      <% memberships.each do |membership| %>
-      <li>
-        <%= link_to membership.family.name, membership.family %> 
-        (<%= link_to 'Schedule', cuco_session_membership_show_schedule_path(membership.cuco_session, membership) %>) 
-        (membership status: <%= membership.status %><% if current_user&.can? :show, :membership %> | <%= link_to "details", [membership.cuco_session, membership] %><% end %>)
-      </li>
-    <% end %>
-    </ol>
+<% if current_user&.can? :show, :membership then %>
+  <h3>Members</h3>
+  <ol>
+    <% memberships = @cuco_session.memberships.sort_by { |membership| membership.family.name } %>
+    <% memberships.each do |membership| %>
+    <li>
+      <%= link_to membership.family.name, membership.family %> 
+      (<%= link_to 'Schedule', cuco_session_membership_show_schedule_path(membership.cuco_session, membership) %>) 
+      (membership status: <%= membership.status %> | <%= link_to "details", [membership.cuco_session, membership] %>)
+    </li>
   <% end %>
-
+  </ol>
+<% end %>
 
 
 <% if current_user&.can? :edit, :cuco_sessions %>

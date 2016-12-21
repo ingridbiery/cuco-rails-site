@@ -92,7 +92,7 @@ class MembershipsController < ApplicationController
     def pronoun_preference_must_be_updated
       current_user&.person&.family&.people.each do |person|
         unless person.pronoun_id?
-          redirect_to family_path(current_user&.person&.family.id),
+          redirect_to family_path(current_user.person.family),
                       notice: "Please update your family's pronoun preferences before continuing."
           return
         end

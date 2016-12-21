@@ -1,0 +1,24 @@
+<%= content_for :page_title, "Nametag Info for #{@cuco_session.name}" %>
+
+<h1>Nametag Info for <strong><%= @cuco_session.name %></strong></h1>
+
+<% @cuco_session.memberships.sort_by { |membership| membership.family.name }.each do |membership| %>
+  <% family = membership.family %>
+  <div class="nametag-title"><%= link_to "#{family.name}", family_path(family) %></div>
+
+  <% family&.people.each do |person| %>
+    <% if person.adult? %>
+      <%= person.first_name %> <%= person.last_name %> - 
+    <% else %>
+      <%= person.first_name %> - 
+    <% end %>
+    
+    <% if person.pronoun %>
+      <%= person.pronoun.preferred_pronouns %><br />
+    <% else %>
+      No Preference<br />
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Back to Session', @cuco_session %>

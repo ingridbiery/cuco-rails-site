@@ -5,7 +5,13 @@
 <h2>Session <%= @cuco_session.name %></h2>
 
 <% if current_user&.can? :show_open_jobs, :cuco_session %>
-  See <%= link_to "open jobs", cuco_session_show_open_jobs_path(@cuco_session) %>
+  <p>See <%= link_to "open jobs", cuco_session_show_open_jobs_path(@cuco_session) %>.</p>
+<% end %>
+<% if current_user&.can? :show_volunteer_list, :cuco_session %>
+  <p>See <%= link_to "volunteer list", cuco_session_show_volunteers_path(@cuco_session) %>.</p>
+<% end %>
+<% if current_user&.can? :show_nametags, :cuco_session %>
+  <p>See <%= link_to "nametag info", cuco_session_nametags_path(@cuco_session) %>.</p>
 <% end %>
 
 <% if current_user&.can? :show, :dates %>

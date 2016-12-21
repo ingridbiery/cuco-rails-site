@@ -1,0 +1,18 @@
+<%= content_for :page_title, "Volunteers for #{@cuco_session.name}" %>
+
+<h1>Volunteer List for <strong><%= @cuco_session.name %></strong></h1>
+
+<% @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}.each do |signup| %>
+  <% if signup.is_volunteer_job? %>
+    <%= signup.course.period.name %>: <%= signup.name %><br />
+  <% end %>
+<% end %>
+
+<h1>Unassigned List for <strong><%= @cuco_session.name %></strong></h1>
+<% @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}.each do |signup| %>
+  <% if signup.is_unassigned? %>
+    <%= signup.course.period.name %>: <%= signup.person.name %><br />
+  <% end %>
+<% end %>
+
+<%= link_to 'Back to Session', @cuco_session %>

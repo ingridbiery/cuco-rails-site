@@ -2,22 +2,21 @@
 
 <h1>Nametag Info for <strong><%= @cuco_session.name %></strong></h1>
 
-<% @cuco_session.memberships.each do |membership| %>
-  <% Family.where(id: membership.family_id).each do |family| %>
-    <div class="nametag-title"><%= link_to "#{family.name}", family_path(family.id) %></div>
+<% @cuco_session.memberships.sort_by { |membership| membership.family.name }.each do |membership| %>
+  <% family = membership.family %>
+  <div class="nametag-title"><%= link_to "#{family.name}", family_path(family) %></div>
 
-    <% family&.people.each do |person| %>
-      <% if person.adult? %>
-        <%= person.first_name %> <%= person.last_name %> - 
-      <% else %>
-        <%= person.first_name %> - 
-      <% end %>
+  <% family&.people.each do |person| %>
+    <% if person.adult? %>
+      <%= person.first_name %> <%= person.last_name %> - 
+    <% else %>
+      <%= person.first_name %> - 
+    <% end %>
     
-      <% unless !person.pronoun_id %>
-        <%= Pronoun.find_by(id: person.pronoun_id).preferred_pronouns %><br />
-      <% else %>
-        No Preference<br />
-      <% end %>
+    <% if person.pronoun %>
+      <%= person.pronoun.preferred_pronouns %><br />
+    <% else %>
+      No Preference<br />
     <% end %>
   <% end %>
 <% end %>

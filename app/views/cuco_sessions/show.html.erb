@@ -6,7 +6,8 @@
 
 <% if current_user&.can? :show_open_jobs, :cuco_session %>
   See <%= link_to "open jobs", cuco_session_show_open_jobs_path(@cuco_session) %>, 
-  <%= link_to "volunteer list", cuco_session_show_volunteers_path(@cuco_session) %>
+  <%= link_to "volunteer list", cuco_session_show_volunteers_path(@cuco_session) %>, and
+  <%= link_to "nametag info", cuco_session_nametags_path(@cuco_session) %>.
 <% end %>
 
 <% if current_user&.can? :show, :dates %>

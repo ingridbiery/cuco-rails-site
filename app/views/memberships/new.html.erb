@@ -15,9 +15,9 @@
 
   Join for:
   <table>
-    <tr><td>Membership:</td><td></td><td><%= '$%.2f' % @membership.membership_fee %></td></tr>
-    <tr><td>Electronic Payment Fee:</td><td>+</td><td><%= '$%.2f' % @membership.electronic_payment_fee %></td></tr>
-    <tr><td>Total:</td><td>=</td><td><%= '$%.2f' % (@membership.membership_fee + @membership.electronic_payment_fee) %></td></tr>
+    <tr><td>Membership:</td><td></td><td><%= '$%.2f' % Membership.membership_fee %></td></tr>
+    <tr><td>Electronic Payment Fee:</td><td>+</td><td><%= '$%.2f' % Membership.electronic_payment_fee(Membership.membership_fee) %></td></tr>
+    <tr><td>Total:</td><td>=</td><td><%= '$%.2f' % (Membership.membership_fee + Membership.electronic_payment_fee(Membership.membership_fee)) %></td></tr>
   </table>
 
   <div class="actions">

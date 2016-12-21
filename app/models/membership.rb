@@ -15,8 +15,8 @@ class Membership < ActiveRecord::Base
       upload: 1,
       return: "#{ENV['APP_HOST']}#{return_path}",
       invoice: id,
-      amount: membership_fee.round(2),
-      handling: electronic_payment_fee(membership_fee).round(2),
+      amount: Membership.membership_fee.round(2),
+      handling: Membership.electronic_payment_fee(Membership.membership_fee).round(2),
       item_name: "#{cuco_session.name} Membership",
       item_number: 1,
       quantity: '1',
@@ -25,7 +25,7 @@ class Membership < ActiveRecord::Base
     "#{ENV['PAYPAL_HOST']}/cgi-bin/webscr?" + values.to_query
   end
 
-  def membership_fee
+  def self.membership_fee
     MEMBERSHIP_FEE
   end
   

@@ -7,6 +7,7 @@ class MembershipsController < ApplicationController
   before_action :set_cuco_session, except: :paypal_hook
   before_action :set_membership, only: :show
   before_action :must_be_own_schedule, only: :show_schedule
+  before_action :pronoun_preference_must_be_updated, only: [:new, :create]
   before_action :family_info_must_be_updated, only: [:new, :create]
   
   # the paypal hook gets called with no user and needs access that we wouldn't normally grant
@@ -93,6 +94,16 @@ class MembershipsController < ApplicationController
       end
      end
 
+    def pronoun_preference_must_be_updated
+      current_user&.person&.family&.people.each do |person|
+        unless person.pronoun_id?
+          redirect_to family_path(current_user&.person&.family.id),
+                      notice: "Please update your family's pronoun preferences before continuing."
+          return
+        end
+      end
+    end
+          
     # get the cuco_session from params before doing anything else
     def set_cuco_session
       @cuco_session = CucoSession.find(params[:cuco_session_id])

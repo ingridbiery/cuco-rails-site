@@ -79,7 +79,7 @@
           <%= link_to "Sign up", new_user_registration_path %> or
           <%= link_to "log in", new_user_session_path %> and edit your user info to be able to sign up
         <% elsif !current_user.person %>
-          Enter or finish entering your <%= link_to 'family information', user_path(current_user) %> to be able to sign up
+          Enter or finish entering your <%= link_to 'family information', new_family_path %> to be able to sign up
         <% elsif current_user.person.family.cuco_sessions.include? @next_cuco_session %>
           Your family is already a member of this session.
         <% # check for a membership for this family in this session that is incomplete

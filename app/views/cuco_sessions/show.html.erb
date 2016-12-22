@@ -13,6 +13,9 @@
 <% if current_user&.can? :show_nametags, :cuco_session %>
   <p>See <%= link_to "nametag info", cuco_session_nametags_path(@cuco_session) %>.</p>
 <% end %>
+<% if current_user&.can? :show_all_signups, :cuco_session %>
+  See <%= link_to "all signups", cuco_session_show_all_signups_path(@cuco_session) %>
+<% end %>
 
 <% if current_user&.can? :show, :dates %>
   <h3>Dates</h3>

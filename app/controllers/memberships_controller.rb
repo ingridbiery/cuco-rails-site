@@ -43,22 +43,6 @@ class MembershipsController < ApplicationController
   
   def show_schedule
     @membership = Membership.find(params[:membership_id])
-    
-    @jobs = 0
-    @unassigned = 0
-    @fees = 0    
-    @schedule = {}
-    Period.find_each do |period|
-      @schedule[period] = {}
-      @membership.family.people.each do |person|
-        @schedule[period][person.name] = @cuco_session.course_signups.where(person: person).joins(:course).where(courses: { period_id: period.id })
-        @schedule[period][person.name].each do |signup|
-          if signup.is_student? then @fees += signup.course.fee end
-          if signup.is_volunteer_job? then @jobs = @jobs + 1 end
-          if signup.is_unassigned? then @unassigned = @unassigned + 1 end
-        end
-      end
-    end
   end
   
   private

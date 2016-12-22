@@ -1,0 +1,46 @@
+<h2>
+  <strong><%= @cuco_session.name %></strong> Schedule for the 
+  <strong><%= @membership.family.name %></strong> Family
+</h2>
+
+<% fees = @membership.family_fees %>
+<p>Fees: <%= "$%.2f" % fees.round(2) %>
+<% if fees != 0 %>
+  Electronic Payment Fee: <%= "$%.2f" % Membership.electronic_payment_fee(fees).round(2) %>
+  Total: <%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %>
+  PayPal to fees@columbusunschoolers.com
+<% end %>
+</p>
+
+<% jobs = @membership.family_jobs %>
+<% unassigned = @membership.family_unassigned %>
+<% if jobs == 2 %>
+  <% if unassigned < 1 %>
+    Please sign up as unassigned at least one period.
+  <% end %>
+<% elsif jobs < 2 %>
+  Please sign up for at least two jobs and one unassigned.
+<% end %>
+Volunteering: <%= jobs %>
+Unassigned: <%= unassigned %>
+
+<table>
+  <tr>
+    <th></th>
+    <% Period.find_each do |period| %>
+      <th><%= period.name %></th>
+    <% end %>
+  </tr>
+  <% @membership.family.people.each do |person| %>
+  <tr>
+    <td><%= person.name %></td>
+    <% Period.find_each do |period| %>
+      <td>
+        <% signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
+          <%= signup.course.short_name %><% if !signup.is_student? %><br /><em><%= signup.course_role.name %></em><% end %>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>

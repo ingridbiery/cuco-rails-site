@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get :show_schedule
     end
     get :show_open_jobs
+    get :show_all_signups
     get :show_volunteers
     get :nametags
     # make sure post works for membership show (since this is where we return from paypal)

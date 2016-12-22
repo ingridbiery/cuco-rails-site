@@ -57,9 +57,15 @@ class CucoSessionsController < ApplicationController
     redirect_to cuco_sessions_path, notice: "#{@cuco_session.name} was successfully destroyed."
   end
   
+  # show a list of jobs that haven't been taken yet
   def show_open_jobs
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end
+  
+  # show all class and volunteer signups for this session
+  def show_all_signups
+    @cuco_session = CucoSession.find(params[:cuco_session_id])
+  end    
   
   private
     # Use callbacks to share common setup or constraints between actions.

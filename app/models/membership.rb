@@ -33,4 +33,32 @@ class Membership < ActiveRecord::Base
   def self.electronic_payment_fee(base_fee)
     base_fee*0.035 + 0.32
   end
+  
+  def family_signups
+    @family_signups || @family_signups = cuco_session.course_signups.where(person: family.people)
+  end
+  
+  def family_fees
+    fees = 0    
+    @family_signups.each do |signup|
+      if signup.is_student? then fees += signup.course.fee end
+    end
+    fees
+  end
+  
+  def family_jobs
+    jobs = 0
+    @family_signups.each do |signup|
+      if signup.is_volunteer_job? then jobs = jobs + 1 end
+    end
+    jobs
+  end
+
+  def family_unassigned
+    unassigned = 0
+    @family_signups.each do |signup|
+      if signup.is_unassigned? then unassigned = unassigned + 1 end
+    end
+    unassigned
+  end
 end

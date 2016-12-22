@@ -3,27 +3,30 @@
   <strong><%= @membership.family.name %></strong> Family
 </h2>
 
-<p>Fees: <%= "$%.2f" % @fees.round(2) %>
-<% if @fees != 0 %>
-  Electronic Payment Fee: <%= "$%.2f" % Membership.electronic_payment_fee(@fees).round(2) %>
-  Total: <%= "$%.2f" % (@fees.round(2) + Membership.electronic_payment_fee(@fees).round(2)) %>
+<% fees = @membership.family_fees %>
+<p>Fees: <%= "$%.2f" % fees.round(2) %>
+<% if fees != 0 %>
+  Electronic Payment Fee: <%= "$%.2f" % Membership.electronic_payment_fee(fees).round(2) %>
+  Total: <%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %>
   PayPal to fees@columbusunschoolers.com
 <% end %>
 </p>
 
-<% if @jobs == 2 %>
-  <% if @unassigned < 1 %>
+<% jobs = @membership.family_jobs %>
+<% unassigned = @membership.family_unassigned %>
+<% if jobs == 2 %>
+  <% if unassigned < 1 %>
     Please sign up as unassigned at least one period.
   <% end %>
-<% elsif @jobs < 2 %>
+<% elsif jobs < 2 %>
   Please sign up for at least two jobs and one unassigned.
 <% end %>
-Volunteering: <%= @jobs %>
-Unassigned: <%= @unassigned %>
+Volunteering: <%= jobs %>
+Unassigned: <%= unassigned %>
 
 <% last_period_id = -1 %>
-<% @family_signups.sort_by {|signup| [signup.course.period.start_time,
-                                      signup.person.name]}.each do |signup| %>
+<% signups.sort_by {|signup| [signup.course.period.start_time,
+                              signup.person.name]}.each do |signup| %>
   <% if signup.course.period.id != last_period_id %>
     <div class="period"><%= signup.course.period.name %></div>
     <% last_period_id = signup.course.period.id %>

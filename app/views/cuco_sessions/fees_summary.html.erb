@@ -2,6 +2,8 @@
 
 <h1>Fees Summary for <strong><%= @cuco_session.name %></strong></h1>
 
+<h3>Fees to Collect</h3>
+
 <table>
   <tr>
     <th>Name</th>
@@ -32,5 +34,29 @@
     </tr>
   <% end %>
 </table><br />
+
+<h3>Fees to Pay</h3>
+
+<!-- Get Classes with fees greater than or equal to 1 -->
+<% fee_courses = Hash.new(0) %>
+<% @cuco_session.courses.where(fee: 1..Float::INFINITY).each do |course| %>
+  <% course_teachers = Hash.new([]) %>
+
+  <%= link_to course.name, cuco_session_course_path(@cuco_session.id, course.id) %>
+
+  <% @cuco_session.course_signups.where(course_id: course.id).each do |signup| %>
+    <% if signup.is_student? %>
+      <% fee_courses[course.name] += course.fee %>
+    <% elsif signup.course_role.name == "teacher" %>
+      <% course_teachers[course.name] << signup.person.name %>
+    <% end %>
+  <% end %>
+
+  <% unless course_teachers[course.name] == [] %>
+    [<%= course_teachers[course.name].join(", ") %>]
+  <% end %>
+  (<%= fee_courses[course.name] %>)<br />
+
+<% end %><br />
 
 <%= link_to 'Back to Session', @cuco_session %>

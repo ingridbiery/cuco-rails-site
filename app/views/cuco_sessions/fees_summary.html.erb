@@ -1,0 +1,36 @@
+<%= content_for :page_title, "Fees Summary for #{@cuco_session.name}" %>
+
+<h1>Fees Summary for <strong><%= @cuco_session.name %></strong></h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Fees</th>
+    <th>PayPal</th>
+  </tr>
+
+  
+  <% @cuco_session.memberships.sort_by { |membership| membership.family.name }.each do |membership| %>
+    <tr>
+      <% family = membership.family %>
+    
+      <% total_fees = 0 %>
+    
+      <% @cuco_session.course_signups.where(person_id: family.people).each do |signup| %>
+        <% fee = signup.course.fee %>
+        <% if fee > 0 %>
+          <% total_fees += signup.course.fee %>
+        <% end %>
+      <% end %>
+      
+      <td style="width: 30%;"><%= link_to "#{family.name}", family_path(family) %>
+      <td style="width: 30%;">$<%= total_fees %></td>
+      <% if total_fees != 0 %>
+        <td style="width: 30%;"><%= "$%.2f" % (total_fees.round(2) + Membership.electronic_payment_fee(total_fees).round(2)) %></td>
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table><br />
+
+<%= link_to 'Back to Session', @cuco_session %>

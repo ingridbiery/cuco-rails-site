@@ -75,7 +75,7 @@ class CucoSessionsController < ApplicationController
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end    
   
-  def fees_summary
+  def show_fees_summary
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end
 

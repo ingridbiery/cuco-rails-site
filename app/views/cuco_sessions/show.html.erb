@@ -17,7 +17,7 @@
   <p>See <%= link_to "all signups", cuco_session_show_all_signups_path(@cuco_session) %>.</p>
 <% end %>
 <% if current_user&.can? :show_fees_summary, :cuco_session %>
-  <p>See <%= link_to "fees summary", cuco_session_fees_summary_path(@cuco_session) %>.</p>
+  <p>See <%= link_to "fees summary", cuco_session_show_fees_summary_path(@cuco_session) %>.</p>
 <% end %>
 
 <% if current_user&.can? :show, :dates %>

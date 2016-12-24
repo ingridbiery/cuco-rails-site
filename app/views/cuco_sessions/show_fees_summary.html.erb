@@ -1,0 +1,20 @@
+<%= content_for :page_title, "Fees Summary for #{@cuco_session.name}" %>
+
+<h1>Fees Summary for <strong><%= @cuco_session.name %></strong></h1>
+
+<h3>Fees to Collect</h3>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Fees</th>
+    <th>PayPal</th>
+    <th>PayPal Total</th>
+  </tr>
+  <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
+    <% @membership = membership %>
+    <%= render 'memberships/fees_summary', signups: membership.family_signups %>
+  <% end %>
+</table><br />
+
+<%= link_to 'Back to Session', @cuco_session %>

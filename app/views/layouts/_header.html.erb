@@ -81,7 +81,7 @@
         <% elsif !current_user.person %>
           Enter or finish entering your <%= link_to 'family information', new_family_path %> to be able to sign up
         <% elsif current_user.person.family.cuco_sessions.include? @next_cuco_session %>
-          Your family is already a member of this session.
+          Your family is a member of the <%= link_to "#{@next_cuco_session.name} session", @next_cuco_session %>.
         <% # check for a membership for this family in this session that is incomplete
            # a complete membership would have caught the previous elsif %>
         <% elsif !@next_cuco_session.memberships.where(family: current_user&.person&.family).empty? %>

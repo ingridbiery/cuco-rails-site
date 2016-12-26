@@ -38,7 +38,7 @@ class CourseSignupsController < ApplicationController
     if @course_signup.save
       # and now, we check if there are any warnings
       if @course_signup.safe?
-        notice += "#{@course_signup.name} added to #{@course.name}"
+        notice = "#{@course_signup.name} added to #{@course.name}"
       else
         notice = "#{@course_signup.name} added to #{@course.name} with warnings."
         @course_signup.warnings.full_messages.each do |message|

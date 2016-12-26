@@ -13,8 +13,29 @@
   </tr>
   <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
     <% @membership = membership %>
-    <%= render 'memberships/fees_summary', signups: membership.family_signups %>
+    <%= render 'memberships/fees_to_collect', signups: membership.family_signups %>
   <% end %>
 </table><br />
+
+<h3>Fees to Pay</h3>
+
+<% total_fees = 0 %>
+
+<table>
+  <tr>
+    <th>Class</th>
+    <th>Teachers</th>
+    <th>Total</th>
+  </tr>
+
+  <% @cuco_session.courses.where(fee: 1..Float::INFINITY).each do |course| %>
+    <% @course = course %>
+    <% total_fees += course.fees_collected %>
+    <%= render 'fees_to_pay' %>
+  <% end %>
+
+</table><br />
+
+<h3><strong>Total Fees:</strong> $<%= total_fees %></h3>
 
 <%= link_to 'Back to Session', @cuco_session %>

@@ -1,0 +1,7 @@
+<% fees = @course.fees_collected %>
+
+<tr>
+  <td style="width: 22%;"><%= link_to @course.name, [@cuco_session, @course] %></td>
+  <td style="width: 39%;"><%= @course.teachers.join(", ") %></td>
+  <td style="width: 39%;"><%= "$%.2f" % fees.round(2) %></td>
+</tr>

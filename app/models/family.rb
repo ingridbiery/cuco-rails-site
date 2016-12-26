@@ -49,14 +49,10 @@ class Family < ActiveRecord::Base
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations
   VALID_PHONE_FORMAT = /\A(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?\z/
   validates :ec_phone, :phone, format: { with: VALID_PHONE_FORMAT },
-                               presence: true,
-                               exclusion: { in: ["6145551212"],
-                                            message: "%{value} is not a valid phone number."}
+                       presence: true
   # note that presence: true doesn't work with booleans (because false is
   # not present)
   validates :text, :ec_text, inclusion: [true, false]
-  
-  validate :people_correct
 
   after_validation :clean_phone_number
 
@@ -105,16 +101,5 @@ class Family < ActiveRecord::Base
     # upcase the first letter of the given name      
     def upcase name
       name[0].upcase + name[1,name.length]
-    end
-    
-    # make sure all people in this family are validated when saving
-    def people_correct
-      people.each do |person|
-        if !person.valid?
-          person.errors.each do |error, message|
-            errors.add(error, "#{message} for #{person.name}")
-          end
-        end
-      end
     end
 end

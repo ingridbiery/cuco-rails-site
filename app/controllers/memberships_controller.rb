@@ -7,7 +7,7 @@ class MembershipsController < ApplicationController
   before_action :set_cuco_session, except: :paypal_hook
   before_action :set_membership, only: :show
   before_action :must_be_own_schedule, only: :show_schedule
-  before_action :family_info_must_be_correct, only: [:new, :create]
+  before_action :family_info_must_be_updated, only: [:new, :create]
   
   # the paypal hook gets called with no user and needs access that we wouldn't normally grant
   skip_before_action :authenticate, only: :paypal_hook
@@ -57,6 +57,21 @@ class MembershipsController < ApplicationController
       
     end
 
+    def family_info_must_be_updated
+      current_user&.person&.family&.people.each do |person|
+        if !person.pronoun_id?
+          redirect_to family_path(current_user.person.family),
+                      notice: "Please update your family's pronoun preferences before continuing."
+          return
+        end
+        if person.family.phone == "6145551212"
+          redirect_to family_path(current_user.person.family),
+                      notice: "Please update your family's phone number before continuing."
+          return
+        end
+      end
+    end
+
     # get the cuco_session from params before doing anything else
     def set_cuco_session
       @cuco_session = CucoSession.find(params[:cuco_session_id])
@@ -65,14 +80,5 @@ class MembershipsController < ApplicationController
     # get the membership from params before doing anything else
     def set_membership
       @membership = Membership.find(params[:id])
-    end
-    
-    # if the current user's family information is not valid,
-    # force them to edit before continuing
-    def family_info_must_be_correct
-      unless current_user.person.family.valid?
-        redirect_to family_path(current_user.person.family),
-                    notice: "Please update your family information before trying to sign up for membership"
-      end
     end
 end

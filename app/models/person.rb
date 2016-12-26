@@ -20,8 +20,7 @@ class Person < ActiveRecord::Base
   # we would like to require it for kids and skip it for adults, but that is not
   # high priority, so we're allowing it to be skipped for now.
   
-  validates :pronoun_id, presence: true,
-                         numericality: true
+  validates :pronoun_id, presence: true
 
   # don't validate for family id since it shouldn't be possible for the user to get
   # into that situation, but programmatically there is a moment when the first user

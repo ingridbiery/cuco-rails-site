@@ -4,6 +4,7 @@
 
 <h3>Fees to Collect</h3>
 
+<% total_to_collect = 0 %>
 <table class="table table-striped">
   <tr>
     <th>Family Name</th>
@@ -13,6 +14,7 @@
   </tr>
   <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
     <% if membership.family_fees != 0 %>
+      <% total_to_collect += membership.family_fees %>
       <%= render 'fees_to_collect', membership: membership %>
     <% end %>
   <% end %>
@@ -20,23 +22,30 @@
 
 <h3>Fees to Pay</h3>
 
-<% total_fees = 0 %>
+<% total_to_pay = 0 %>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Class</th>
     <th>Teachers</th>
     <th>Total</th>
   </tr>
 
-  <% @cuco_session.courses.where(fee: 1..Float::INFINITY).each do |course| %>
-    <% @course = course %>
-    <% total_fees += course.fees_collected %>
-    <%= render 'fees_to_pay' %>
+  <% @cuco_session.assigned_courses.where.not(fee: 0).each do |course| %>
+    <% total_to_pay += course.total_fees %>
+    <%= render 'fees_to_pay', course: course %>
   <% end %>
 
-</table><br />
+</table>
 
-<h3><strong>Total Fees:</strong> $<%= total_fees %></h3>
+<% if total_to_collect != total_to_pay %>
+  <span class="alert"><h3>ERROR</h3>
+  <strong>Total to Collect</strong> is <%= total_to_collect %>.
+  <strong>Total to Pay</strong> is <%= total_to_pay %>.
+  They should be the same.</span>
+<% else %>
+  <strong>Total Fees:</strong> $<%= total_to_collect %>
+<% end %>
+<br/><br/>
 
 <%= link_to 'Back to Session', @cuco_session %>

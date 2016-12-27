@@ -33,7 +33,7 @@ class Course < ActiveRecord::Base
     student_signups.count >= max_students
   end
 
-  def fees_collected
+  def total_fees
     fee * student_signups.count
   end
 

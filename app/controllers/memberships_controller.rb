@@ -81,4 +81,13 @@ class MembershipsController < ApplicationController
     def set_membership
       @membership = Membership.find(params[:id])
     end
+    
+    # if the current user's family information is not valid,
+    # force them to edit before continuing
+    def family_info_must_be_correct
+      family = current_user.person.family
+      unless family.valid? and family.safe?
+        redirect_to edit_family_path(current_user.person.family)
+      end
+    end
 end

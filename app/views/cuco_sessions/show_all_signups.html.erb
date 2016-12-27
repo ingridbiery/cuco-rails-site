@@ -1,9 +1,11 @@
 <%= content_for :page_title, "All Signups for #{@cuco_session.name}" %>
 
-<h1>All Signups for <%= @cuco_session.name %></h1>
+<h1>All Signups for <strong><%= @cuco_session.name %></strong></h1>
 
 <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
   <% @membership = membership %>
+  <h2>Schedule for the <strong><%= @membership.family.name %></strong> Family</h2>
+
   <%= render 'memberships/schedule_table', signups: membership.family_signups %>
   <hr>
 <% end %>

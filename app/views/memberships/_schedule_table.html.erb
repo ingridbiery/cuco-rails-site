@@ -1,8 +1,3 @@
-<h2>
-  <strong><%= @cuco_session.name %></strong> Schedule for the 
-  <strong><%= @membership.family.name %></strong> Family
-</h2>
-
 <% fees = @membership.family_fees %>
 <p>Fees: <%= "$%.2f" % fees.round(2) %>
 <% if fees != 0 %>
@@ -22,7 +17,7 @@
   Please sign up for at least two jobs and one unassigned.
 <% end %>
 Volunteering: <%= jobs %>
-Unassigned: <%= unassigned %>
+Unassigned: <%= unassigned %><br />
 
 <table class="table table-striped">
   <tr>

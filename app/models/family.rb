@@ -50,7 +50,7 @@ class Family < ActiveRecord::Base
                                         message: LEGAL_CHARS_MSG + LONG_LEGAL_CHARS_LIST }
 
   # Based on https://codereview.stackexchange.com/questions/60171/refactoring-complex-phone-validations
-  VALID_PHONE_FORMAT = /\A(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?\z/
+  VALID_PHONE_FORMAT = /\A(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})\z/
   validates :ec_phone, :phone, format: { with: VALID_PHONE_FORMAT },
                                presence: true,
                                exclusion: { in: ["6145551212", "(614) 555-1212"],
@@ -84,6 +84,7 @@ class Family < ActiveRecord::Base
     def clean_phone_number
       unless self.errors.any?
         self[:ec_phone] = strip_bad_characters(:ec_phone)
+        self[:phone] = strip_bad_characters(:phone)
       end
     end
   

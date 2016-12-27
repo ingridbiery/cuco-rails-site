@@ -1,0 +1,8 @@
+<% fees = membership.family_fees %>
+
+<tr>
+  <td><%= link_to membership.family.name, family_path(membership.family) %></td>
+  <td><%= "$%.2f" % fees.round(2) %></td>
+  <td><%= "$%.2f" % Membership.electronic_payment_fee(fees).round(2) %></td>
+  <td><%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %></td>
+</tr>

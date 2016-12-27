@@ -72,8 +72,7 @@ class MembershipsController < ApplicationController
     def family_info_must_be_correct
       family = current_user.person.family
       unless family.valid? and family.safe?
-        redirect_to edit_family_path(current_user.person.family),
-                    notice: "Please update your family information before trying to sign up for membership"
+        redirect_to edit_family_path(current_user.person.family)
       end
     end
 end

@@ -22,6 +22,7 @@ gem 'action_access'
 gem 'pg'
 gem 'active_warnings'
 gem 'simple_calendar'
+gem 'rails_real_favicon'
 
 group :development, :test do
   gem 'byebug'

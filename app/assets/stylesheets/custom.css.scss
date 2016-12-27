@@ -107,3 +107,13 @@ footer a {
 .highlight {
   background-color: yellow;
 }
+
+.notice, .alert {
+  display: inline-block;
+  max-width: 100%;
+  border: 2px solid black;
+  padding: 7px;
+  margin: 20px;
+  background-color: #f0f0f0;
+  font-weight: bold;
+}

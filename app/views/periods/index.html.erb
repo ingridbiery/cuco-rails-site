@@ -3,7 +3,7 @@
 <h1>Available Periods</h1>
 (Click to edit)
 
-<table>
+<table style="table table-striped">
   <% @periods.each do |period| %>
     <tr>
       <td><%= link_to period.name, edit_period_path(period) %></td>

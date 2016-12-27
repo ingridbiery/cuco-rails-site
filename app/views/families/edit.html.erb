@@ -1,12 +1,23 @@
 <h1>Editing <strong><%= @family.name %></strong> Family</h1>
 
 <%= form_for(@family) do |f| %>
-  <% if @family.errors.any? %>
+  <% unless @family.valid? %>
     <div id="error_explanation">
       <h2><%= pluralize(@family.errors.count, "error") %> prohibited this family from being saved:</h2>
 
       <ul>
       <% @family.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% unless @family.safe? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@family.warnings.count, "warning") %> exist in this family:</h2>
+      <em>to fix errors with people, click 'update family', then edit the people individually from the show family page.</em>
+      <ul>
+      <% @family.warnings.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

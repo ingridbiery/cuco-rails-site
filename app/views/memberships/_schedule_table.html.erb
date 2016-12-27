@@ -24,7 +24,7 @@
 Volunteering: <%= jobs %>
 Unassigned: <%= unassigned %>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th></th>
     <% Period.find_each do |period| %>
@@ -37,7 +37,7 @@ Unassigned: <%= unassigned %>
     <% Period.find_each do |period| %>
       <td>
         <% signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
-          <%= signup.course.short_name %><% if !signup.is_student? %><br /><em><%= signup.course_role.name %></em><% end %>
+          <%= signup.course.short_name %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
         <% end %>
       </td>
     <% end %>

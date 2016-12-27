@@ -10,7 +10,7 @@
     <% if person.adult? %>
       <%= person.first_name %> <%= person.last_name %> - 
     <% else %>
-      <%= person.first_name %> - 
+      <%= person.first_name %> <%= person.last_name.first %> - 
     <% end %>
     
     <% if person.pronoun %>

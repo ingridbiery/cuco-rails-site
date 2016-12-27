@@ -6,12 +6,13 @@
 
 <%= will_paginate %>
 
-<table>
-  <%= render "user_header" %>
-
-  <tbody>
-    <%= render @users %>
-  </tbody>
-</table>
-
+<div class="table-responsive">
+  <table class="table table-striped table-condensed">
+    <%= render "user_header" %>
+  
+    <tbody>
+      <%= render @users %>
+    </tbody>
+  </table>
+</div>
 <%= will_paginate %>

@@ -43,12 +43,14 @@
 <h3>People in Family (<%= @family.people.count %>)
 <%= link_to image_tag('add.png'), new_family_person_path(@family), title: "Add New Person to Family" %></h3>
 <% if @family.people.present? %>
-  <table>
-    <%= render "people/person_header" %>
-    <tbody>
-      <%= render @family.people %>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <%= render "people/person_header" %>
+      <tbody>
+        <%= render @family.people %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
 
 <% if @family.cuco_sessions != nil %>

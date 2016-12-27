@@ -69,12 +69,16 @@ class CucoSessionsController < ApplicationController
   def nametags
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end
-  
+
   # show all class and volunteer signups for this session
   def show_all_signups
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end    
   
+  def show_fees_summary
+    @cuco_session = CucoSession.find(params[:cuco_session_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cuco_session

@@ -33,6 +33,20 @@ class Course < ActiveRecord::Base
     student_signups.count >= max_students
   end
 
+  def total_fees
+    fee * student_signups.count
+  end
+
+  def teachers
+    teacher_list = []
+    volunteer_signups.each do |signup|
+      if signup.course_role.name == "teacher"
+        teacher_list << signup.person.name
+      end
+    end
+    teacher_list
+  end
+
   private
     # Check to see if min_age is less than max_age
     def age_ranges

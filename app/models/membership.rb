@@ -35,12 +35,12 @@ class Membership < ActiveRecord::Base
   end
   
   def family_signups
-    @family_signups || @family_signups = cuco_session.course_signups.where(person: family.people)
+    @family_signups = cuco_session.course_signups.where(person: family.people)
   end
   
   def family_fees
     fees = 0    
-    @family_signups.each do |signup|
+    family_signups.each do |signup|
       if signup.is_student? then fees += signup.course.fee end
     end
     fees
@@ -48,7 +48,7 @@ class Membership < ActiveRecord::Base
   
   def family_jobs
     jobs = 0
-    @family_signups.each do |signup|
+    family_signups.each do |signup|
       if signup.is_volunteer_job? then jobs = jobs + 1 end
     end
     jobs
@@ -56,7 +56,7 @@ class Membership < ActiveRecord::Base
 
   def family_unassigned
     unassigned = 0
-    @family_signups.each do |signup|
+    family_signups.each do |signup|
       if signup.is_unassigned? then unassigned = unassigned + 1 end
     end
     unassigned

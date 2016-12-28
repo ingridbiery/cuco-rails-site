@@ -14,6 +14,10 @@
   background-color: #ccc;
 }
 
+#bootstrap-override .simple-calendar td.today {
+  background-color: lightyellow;
+}
+
 .simple-calendar-event {
   font-size: x-small;
 }

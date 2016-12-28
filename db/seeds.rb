@@ -555,13 +555,13 @@ classroom = Room.create!(name: "Classroom")
 
 print "Periods\n"
 Period.destroy_all
-p0 = Period.create!(name: "Before", start_time: Time.parse("9:30"), end_time: Time.parse("9:55"))
-p1 = Period.create!(name: "First", start_time: Time.parse("10:00"), end_time: Time.parse("10:55"))
-p2 = Period.create!(name: "Second", start_time: Time.parse("11:00"), end_time: Time.parse("11:55"))
-p25 = Period.create!(name: "Lunch", start_time: Time.parse("12:00"), end_time: Time.parse("12:55"))
-p3 = Period.create!(name: "Third", start_time: Time.parse("13:00"), end_time: Time.parse("13:55"))
-p4 = Period.create!(name: "Fourth", start_time: Time.parse("14:00"), end_time: Time.parse("14:55"))
-p5 = Period.create!(name: "After", start_time: Time.parse("15:00"), end_time: Time.parse("15:30"))
+p0 = Period.create!(name: "Before", start_time: Time.parse("9:30"), end_time: Time.parse("9:55"), required_signup: false)
+p1 = Period.create!(name: "First", start_time: Time.parse("10:00"), end_time: Time.parse("10:55"), required_signup: true)
+p2 = Period.create!(name: "Second", start_time: Time.parse("11:00"), end_time: Time.parse("11:55"), required_signup: true)
+p25 = Period.create!(name: "Lunch", start_time: Time.parse("12:00"), end_time: Time.parse("12:55"), required_signup: false)
+p3 = Period.create!(name: "Third", start_time: Time.parse("13:00"), end_time: Time.parse("13:55"), required_signup: true)
+p4 = Period.create!(name: "Fourth", start_time: Time.parse("14:00"), end_time: Time.parse("14:55"), required_signup: true)
+p5 = Period.create!(name: "After", start_time: Time.parse("15:00"), end_time: Time.parse("15:30"), required_signup: false)
 
 print "Courses"
 Course.destroy_all

@@ -6,6 +6,10 @@ class Membership < ActiveRecord::Base
   validates_uniqueness_of :family_id, :scope => [:cuco_session_id]
 
   MEMBERSHIP_FEE = 23.85
+  # how many jobs is each family responsible for
+  MIN_JOB_REQUIREMENT = 2
+  # how many unassigned volunteer slots is each family responsible for
+  MIN_UNASSIGNED_REQUIREMENT = 1
 
   serialize :notification_params, Hash
   def paypal_url(return_path, paypal_hook_path)
@@ -34,13 +38,17 @@ class Membership < ActiveRecord::Base
     base_fee*0.035 + 0.32
   end
   
-  def family_signups
+  def set_family_signups
     @family_signups = cuco_session.course_signups.where(person: family.people)
+  end
+  
+  def family_signups
+    @family_signups
   end
   
   def family_fees
     fees = 0    
-    family_signups.each do |signup|
+    @family_signups.each do |signup|
       if signup.is_student? then fees += signup.course.fee end
     end
     fees
@@ -48,7 +56,7 @@ class Membership < ActiveRecord::Base
   
   def family_jobs
     jobs = 0
-    family_signups.each do |signup|
+    @family_signups.each do |signup|
       if signup.is_volunteer_job? then jobs = jobs + 1 end
     end
     jobs
@@ -56,9 +64,30 @@ class Membership < ActiveRecord::Base
 
   def family_unassigned
     unassigned = 0
-    family_signups.each do |signup|
+    @family_signups.each do |signup|
       if signup.is_unassigned? then unassigned = unassigned + 1 end
     end
     unassigned
+  end
+  
+  def reload_and_check_family_schedule
+    set_family_signups
+    if family_jobs < MIN_JOB_REQUIREMENT
+      errors.add("Family Schedule", "Family needs at least #{MIN_JOB_REQUIREMENT} job(s)")
+    end
+    if family_unassigned < MIN_UNASSIGNED_REQUIREMENT and
+       family_jobs < MIN_JOB_REQUIREMENT + MIN_UNASSIGNED_REQUIREMENT then
+      errors.add("Family Schedule", "Family needs at least #{MIN_UNASSIGNED_REQUIREMENT} unassigned volunteering assignment(s)")
+    end
+    family.people.each do |person|
+      Period.find_each do |period|
+        count = @family_signups.where(person_id: person.id).joins(:course).where(courses: { period_id: period.id }).count
+        if count == 0 and period.required_signup then
+          errors.add("Family Schedule", "#{person.name} has no assignment for #{period.name}")
+        elsif count > 1 then
+          errors.add("Family Schedule", "WARNING: #{person.name} has multiple assignments for #{period.name}")
+        end
+      end
+    end
   end
 end

@@ -5,6 +5,7 @@
   <strong><%= @cuco_session.name %></strong> Schedule for the 
   <strong><%= @membership.family.name %></strong> Family
 </h2>
+<%= render 'schedule_errors' %>
 <%= render 'schedule', signups: @membership.family_signups %>
 
 <%= link_to 'Back to session', @cuco_session %> | <%= link_to 'Back to family', @membership.family %>

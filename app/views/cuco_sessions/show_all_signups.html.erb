@@ -6,6 +6,7 @@
   <% @membership = membership %>
   <h2>Schedule for the <strong><%= @membership.family.name %></strong> Family</h2>
 
+  <%= render 'memberships/schedule_errors' %>
   <%= render 'memberships/schedule_table', signups: membership.family_signups %>
   <hr>
 <% end %>

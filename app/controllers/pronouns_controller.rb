@@ -2,7 +2,6 @@ class PronounsController < ApplicationController
   let :user, [:new, :create, :show, :index]
   let :web_team, :all
   before_action :set_pronoun, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   def index
     @pronouns = Pronoun.all

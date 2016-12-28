@@ -1,7 +1,6 @@
 class EventTypesController < ApplicationController
   let :web_team, :all
   before_action :set_event_type, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   def index
     @event_types = EventType.all

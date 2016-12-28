@@ -8,6 +8,7 @@
     <tr>
       <td><%= link_to period.name, edit_period_path(period) %></td>
       <td>(<%= period.duration_text %>)</td>
+      <td>Signup <% if !period.required_signup %>not<% end %> required</td>
     </tr>
   <% end %>
 </table>

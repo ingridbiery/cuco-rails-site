@@ -1,7 +1,6 @@
 class RoomsController < ApplicationController
   let :web_team, [:index, :edit, :update]
   before_action :set_room, only: [:edit, :update]
-  before_action :authenticate_user!
 
   def index
     @rooms = Room.all

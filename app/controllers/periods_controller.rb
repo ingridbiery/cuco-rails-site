@@ -1,7 +1,6 @@
 class PeriodsController < ApplicationController
   let :web_team, [:index, :edit, :update]
   before_action :set_period, only: [:edit, :update]
-  before_action :authenticate_user!
 
   def index
     @periods = Period.all
@@ -26,6 +25,6 @@ class PeriodsController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def period_params
-      params.require(:period).permit(:name, :start_time, :end_time)
+      params.require(:period).permit(:name, :start_time, :end_time, :required_signup)
     end
 end

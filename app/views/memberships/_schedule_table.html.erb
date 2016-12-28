@@ -7,17 +7,8 @@
 <% end %>
 </p>
 
-<% jobs = @membership.family_jobs %>
-<% unassigned = @membership.family_unassigned %>
-<% if jobs == 2 %>
-  <% if unassigned < 1 %>
-    Please sign up as unassigned at least one period.
-  <% end %>
-<% elsif jobs < 2 %>
-  Please sign up for at least two jobs and one unassigned.
-<% end %>
-Volunteering: <%= jobs %>
-Unassigned: <%= unassigned %><br />
+Volunteering: <%= @membership.family_jobs %>
+Unassigned: <%= @membership.family_unassigned %><br /><br />
 
 <table class="table table-striped">
   <tr>

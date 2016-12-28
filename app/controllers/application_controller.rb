@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
     # the session is destroyed on log out, we need to use request.referrer
     # root_path is there as a backup
     def after_sign_out_path_for(resource)
-      request.referrer || root_path
+      new_user_session_path
     end
   
   protected

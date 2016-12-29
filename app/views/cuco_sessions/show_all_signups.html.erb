@@ -4,7 +4,7 @@
 
 <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
   <% @membership = membership %>
-  <h2><strong><%= @membership.family.name %></strong></h2>
+  <h2><strong><%= link_to @membership.family.name, family_path(@membership.family.id) %></strong></h2>
 
   <%= render 'memberships/schedule_errors' %>
   <%= render 'memberships/schedule_table', signups: membership.family_signups %>

@@ -1,0 +1,29 @@
+<tr>
+  <% if current_user&.can? :manage, :families %>
+    <td><%= link_to @membership.family.name, family_path(@membership.family.id) %></td>
+  <% else %>
+    <td><%= @membership.family.name %></td>
+  <% end %>
+
+  <td>
+    <%= @membership.family.street_address %>, 
+    <%= @membership.family.city %>, 
+    <%= @membership.family.state %>
+    <%= @membership.family.zip %>
+  </td>
+
+  <td><%= number_to_phone(@membership.family.phone, area_code: true) %></td>
+  
+  <td>
+    <% @membership.family.adults.each do |adult| %>
+      <%= adult.name %><br />
+    <% end %>
+    <%= @membership.family.user.email %>
+  </td>
+  
+  <td>
+      <% @membership.family.kids.each do |kid| %>
+        <%= kid.name %> (<%= kid.age %>)<br />
+      <% end %>
+  </td>
+</tr>

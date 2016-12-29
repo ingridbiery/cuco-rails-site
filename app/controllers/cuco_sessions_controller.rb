@@ -79,6 +79,10 @@ class CucoSessionsController < ApplicationController
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end
 
+  def show_member_directory
+    @cuco_session = CucoSession.find(params[:cuco_session_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cuco_session

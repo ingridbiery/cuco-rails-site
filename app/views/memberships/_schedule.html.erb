@@ -15,7 +15,7 @@ Unassigned: <%= @membership.family_unassigned %><br /><br />
                               signup.person.name]}.each do |signup| %>
   <% if signup.course.period.id != last_period_id %>
     <div class="period"><%= signup.course.period.name %> (<%= signup.course.period.duration_text %>)</div>
-    <% last_period_id = signup.course.period.id %>
+    <% last_period_id = signup.course.period.id %><br />
   <% end %>
   <span class="person"><%= signup.person.name %></span><br />
   <span class="course"><%= signup.course.name %></span><br />

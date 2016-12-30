@@ -7,6 +7,6 @@
 <% end %>
 
 <% if current_user&.can? :show_directory, :families %>
-  <li class="dropdown-menu-item"><%= link_to 'Member Directory', cuco_session_show_member_directory_path(CucoSession.latest) %></li>
+  <li class="dropdown-menu-item"><%= link_to 'Directory', cuco_session_show_member_directory_path(CucoSession.latest) %></li>
 <% end %>
 

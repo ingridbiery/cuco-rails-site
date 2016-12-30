@@ -1,0 +1,9 @@
+<%= content_for :page_title, "Family Directory for #{@cuco_session.name}" %>
+
+<h1>Family Directory for <strong><%= @cuco_session.name %></strong></h1>
+
+<% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
+  <%= render 'single_family_for_directory', membership: membership %>
+<% end %>
+
+<%= link_to 'Back to Session', @cuco_session %>

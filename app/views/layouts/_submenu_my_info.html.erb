@@ -1,0 +1,20 @@
+<li class="dropdown-menu-item">
+  <%= link_to 'My Info', user_path(current_user) %>
+</li>
+
+<% if current_user&.person&.family %>
+  <li class="dropdown-menu-item"><%= link_to 'My Family', family_path(current_user.person.family) %></li>
+<% end %>
+
+<% if current_user&.person&.family %>
+  <% cuco_session = CucoSession.upcoming %>
+  <% membership = cuco_session&.paid_memberships&.where(family: current_user.person.family)&.first %>
+  <% if membership %>
+    <li class="dropdown-menu-item"><%= link_to 'My Next Schedule', cuco_session_membership_show_schedule_path(membership.cuco_session, membership) %></li>
+  <% end %>
+  <% cuco_session = CucoSession.current %>
+  <% membership = cuco_session&.paid_memberships&.where(family: current_user.person.family)&.first %>
+  <% if membership %>
+    <li class="dropdown-menu-item"><%= link_to 'My Current Schedule', cuco_session_membership_show_schedule_path(membership.cuco_session, membership) %></li>
+  <% end %>
+<% end %>

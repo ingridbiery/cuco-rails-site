@@ -2,23 +2,8 @@
 
 <h1>Family Directory for <strong><%= @cuco_session.name %></strong></h1>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-  
-    <tr>
-      <th>Family Name</th>
-      <th>Address</th>
-      <th>Phone</th>
-      <th>Adults</th>
-      <th>Child(ren)</th>
-    </tr>
-  
-    <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
-      <% @membership = membership %>
-      <%= render 'member_directory', membership: membership %>
-    <% end %>
-  
-  </table><br />
-</div>
+<% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
+  <%= render 'single_family_for_directory', membership: membership %>
+<% end %>
 
 <%= link_to 'Back to Session', @cuco_session %>

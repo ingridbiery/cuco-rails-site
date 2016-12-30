@@ -1,7 +1,8 @@
 class CucoSessionsController < ApplicationController
   let :web_team, :all
   let :all, [:index, :show]
-  let :paid, [:show_open_jobs, :show_member_directory]
+  let :paid, :show_open_jobs
+  let [:paid, :member], :show_member_directory
   before_action :set_cuco_session, only: [:show, :edit, :update, :destroy]
 
   def index

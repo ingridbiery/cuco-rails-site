@@ -1,32 +1,31 @@
 <% fees = @membership.family_fees %>
-<p>Fees: <%= "$%.2f" % fees.round(2) %>
-<% if fees != 0 %>
-  Electronic Payment Fee: <%= "$%.2f" % Membership.electronic_payment_fee(fees).round(2) %>
-  Total: <%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %>
-  PayPal to fees@columbusunschoolers.com
-<% end %>
-</p>
-
-Volunteering: <%= @membership.family_jobs %>
-Unassigned: <%= @membership.family_unassigned %><br /><br />
-
-<table class="table table-striped">
-  <tr>
-    <th></th>
-    <% Period.find_each do |period| %>
-      <th><%= period.name %></th>
+<p><strong>Fees:</strong> <%= "$%.2f" % fees.round(2) %> 
+    <% if fees != 0 %>
+      | <strong>Electronic Payment Total</strong>: <%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %>
     <% end %>
-  </tr>
-  <% @membership.family.people.each do |person| %>
-  <tr>
-    <td><%= person.name %></td>
-    <% Period.find_each do |period| %>
-      <td>
-        <% signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
-          <%= signup.course.short_name %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
-        <% end %>
-      </td>
+
+| <strong>Volunteering</strong>: <%= @membership.family_jobs %>
+| <strong>Unassigned</strong>: <%= @membership.family_unassigned %></p>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <tr>
+      <th></th>
+      <% Period.find_each do |period| %>
+        <th><%= period.name %></th>
+      <% end %>
+    </tr>
+    <% @membership.family.people.each do |person| %>
+    <tr>
+      <td><%= person.name %></td>
+      <% Period.find_each do |period| %>
+        <td>
+          <% signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
+            <%= signup.course.short_name %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
     <% end %>
-  </tr>
-  <% end %>
-</table>
+  </table>
+</div>

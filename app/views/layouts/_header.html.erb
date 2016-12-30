@@ -1,58 +1,8 @@
 <header class="navbar navbar-default.navbar-static-top navbar-inverse">
   <div class="container">
     <%= link_to @site_name, root_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-      	<li><%= link_to 'Home', root_path %></li>
-	      <li><%= link_to 'Calendar', calendar_path %></li>
-	      <li><%= link_to 'FAQ', page_path("faq") %></li>
-	      <li><%= link_to 'Expectations', page_path("expectations") %></li>
-	      <li><%= link_to 'A Day at CUCO', page_path("dayatcuco") %></li>
-
-        <!-- Borrowed from https://codepen.io/cristina-silva/pen/NNOodj/ -->
-        <li class="nav-item nav-item-dropdown">
-          <a class="dropdown-trigger" href="#">Co-op Info<span class='caret'></span></a>
-          <ul class="dropdown-menu">
-
-            <%= render 'layouts/coop_info' %>
-
-          </ul>
-        </li>
-
-	      <% if user_signed_in? %>
-          <li class="nav-item nav-item-dropdown">
-            <a class="dropdown-trigger" href="#">My Info<span class='caret'></span></a>
-            <ul class="dropdown-menu">
-
-              <%= render 'layouts/my_info' %>
-
-            </ul>
-          </li>
-
-          <% if current_user&.can? :manage, :families %>
-            <li class="nav-item nav-item-dropdown">
-              <a class="dropdown-trigger" href="#">Admin Menu<span class='caret'></span></a>
-              <ul class="dropdown-menu">
   
-                <%= render 'layouts/admin_menu' %>
-  
-              </ul>
-            </li>
-          <% end %>
-
-          <li class="nav-item"><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
-
-        <% else %>
-
-          <% unless user_signed_in? %>
-            <li><%= link_to 'Sign up', new_user_registration_path %></li>
-            <li><%= link_to 'Log in', new_user_session_path %></li>
-          <% end %>
-
-        <% end %>
-        
-      </ul>
-    </nav>
+    <%= render "layouts/menu" %>
 
     <span id="welcome"><% if user_signed_in? %>
       Welcome <br /> <%= current_user.name %>

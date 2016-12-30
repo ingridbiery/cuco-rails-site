@@ -10,9 +10,9 @@
 <%= membership.family.city %>, <%= membership.family.state %> <%= membership.family.zip %><br />
 <%= number_to_phone(membership.family.phone, area_code: true) %>
 <% if membership.family.text %>
-  <span style="color: green"><strong>OK</strong> to text</span><br />
+  <span style="ok-text"><strong>OK</strong> to text</span><br />
 <% else %>
-  <span style="color: red"><strong>NOT OK</strong> to text</span><br />
+  <span style="no-text"><strong>NOT OK</strong> to text</span><br />
 <% end %>
 <%= membership.family.user.email %><br />
 

@@ -23,9 +23,9 @@
   <%= @family.city %>, <%= @family.state %> <%= @family.zip %><br/>
   <%= number_to_phone(@family.phone, area_code: true) %><br />
   <% if @family.text? %>
-    <span style="color: green"><strong>OK</strong> to text.</span>
+    <span style="ok-text"><strong>OK</strong> to text.</span>
   <% else %>
-    <span style="color: red"><strong>NOT OK</strong> to text.</span>
+    <span style="no-text"><strong>NOT OK</strong> to text.</span>
   <% end %>
 </p>
 
@@ -34,9 +34,9 @@
   <%= @family.ec_first_name %> <%= @family.ec_last_name %> (<%= @family.ec_relationship %>)<br />
   <%= number_to_phone(@family.ec_phone, area_code: true) %><br />
   <% if @family.ec_text? %>
-    <span style="color: green"><strong>OK</strong> to text.</span>
+    <span style="ok-text"><strong>OK</strong> to text.</span>
   <% else %>
-    <span style="color: red"><strong>NOT OK</strong> to text.</span>
+    <span style="no-text"><strong>NOT OK</strong> to text.</span>
   <% end %>
 </p>
 

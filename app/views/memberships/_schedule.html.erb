@@ -1,14 +1,14 @@
 <% fees = @membership.family_fees %>
-<p>Fees: <%= "$%.2f" % fees.round(2) %>
+<p><strong>Fees:</strong> <%= "$%.2f" % fees.round(2) %>
 <% if fees != 0 %>
-  Electronic Payment Fee: <%= "$%.2f" % Membership.electronic_payment_fee(fees).round(2) %>
-  Total: <%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %>
-  PayPal to fees@columbusunschoolers.com
+  | <strong>Electronic Payment Fee:</strong> <%= "$%.2f" % Membership.electronic_payment_fee(fees).round(2) %>
+  | <strong>Total:</strong> <%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %>
+  <em>(PayPal to fees@columbusunschoolers.com)</em>
 <% end %>
 </p>
 
-Volunteering: <%= @membership.family_jobs %>
-Unassigned: <%= @membership.family_unassigned %><br /><br />
+<strong>Volunteering:</strong> <%= @membership.family_jobs %>
+| <strong>Unassigned:</strong> <%= @membership.family_unassigned %>
 
 <% last_period_id = -1 %>
 <% signups.sort_by {|signup| [signup.course.period.start_time,

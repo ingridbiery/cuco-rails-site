@@ -1,3 +1,5 @@
+<%= content_for :page_title, "#{@course.name} (#{@course.period.name}) - New Signup" %>
+
 <h1>Sign up for <%= @course.name %></h1>
 
 <%= render 'form' %>

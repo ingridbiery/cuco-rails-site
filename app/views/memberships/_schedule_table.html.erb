@@ -15,15 +15,25 @@
         <th><%= period.name %></th>
       <% end %>
     </tr>
+
     <% @membership.family.people.each do |person| %>
+
     <tr>
-      <td><%= person.name %></td>
+      <td>
+        <%= person.name %>
+        <% unless person.adult? %>
+          (<%= person.age %>)
+        <% end %>
+      </td>
+
       <% Period.find_each do |period| %>
+
         <td>
           <% signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
-            <%= signup.course.short_name %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
+            <%= link_to signup.course.short_name, [@cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
           <% end %>
         </td>
+
       <% end %>
     </tr>
     <% end %>

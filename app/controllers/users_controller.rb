@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  let :web_team, [:index, :manage_all]
+  let :web_team, [:index, :manage_all, :show_notification_list]
   let :all, [:show, :edit, :destroy] # we will restrict in show to only show own user
   
   # this is probably not the best place for this, but we don't have access to the
@@ -23,6 +23,11 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     redirect_to users_url, notice: 'User was successfully destroyed.'
+  end
+
+  # GET /users/notification_list
+  def show_notification_list
+    @users = User.order('email').where(notification_list: true).paginate(page: params[:page])
   end
 
   private

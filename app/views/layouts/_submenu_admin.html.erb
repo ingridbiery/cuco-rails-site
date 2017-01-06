@@ -33,3 +33,9 @@
     <%= link_to 'Event Types', event_types_path %>
   </li>
 <% end %>
+
+<% if current_user&.can? :show_notification_list, :users %>
+  <li class="dropdown-menu-item">
+    <%= link_to 'Notification List', users_notification_list_path %>
+  </li>
+<% end %>

@@ -2,6 +2,11 @@ Rails.application.routes.draw do
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+
+  # Notification list is at /users/notification_list in the users controller
+  # as show_notification_list
+  get 'users/notification_list' => 'users#show_notification_list'
+
   devise_for :users, :path_names => { :sign_up => "register" },
              :controllers => { :omniauth_callbacks => "omniauth_callbacks",
                                registrations: 'registrations' }

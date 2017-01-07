@@ -1,0 +1,15 @@
+<%= content_for :page_title, "Notification List" %>
+
+<p id="notice"><%= notice %></p>
+
+<h1>Notification List</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped table-condensed">
+    <%= render "user_header" %>
+  
+    <tbody>
+      <%= render @users %>
+    </tbody>
+  </table>
+</div>

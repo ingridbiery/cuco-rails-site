@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   # GET /users/notification_list
   def show_notification_list
-    @users = User.order('email').where(notification_list: true).paginate(page: params[:page])
+    @users = User.order('email').where(notification_list: true)
   end
 
   private

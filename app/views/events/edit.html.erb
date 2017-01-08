@@ -1,0 +1,8 @@
+<%= content_for :page_title, "Editing #{@event.name}" %>
+
+<h1>Editing <%= @event.name  %></h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', event_path %> |
+<%= link_to 'Back', :back %>

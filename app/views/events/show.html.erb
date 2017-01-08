@@ -1,0 +1,23 @@
+<% event = @event %>
+
+<%= content_for :page_title, event.name %>
+
+<strong><%= event.name %></strong>:
+<ul>
+  <li>Type: <%= event.event_type.display_name %></li>
+  <li>Start: <%= event.start_dt.strftime("%-m/%-d/%Y at %l:%M%P") %></li>
+  <li>End: <%= event.end_dt.strftime("%-m/%-d/%Y at %l:%M%P") %></li>
+</ul>
+
+<% if current_user&.can? :edit, :event %>
+  <%= link_to 'Edit', edit_event_path, title: "Edit #{event.name}" %> |
+<% end %>
+
+<% if current_user&.can? :destroy, :event %>
+  <%= link_to 'Delete', event_path, 
+              method: :delete, data: { 
+              confirm: "You are deleting the #{event.name.upcase} event.\n" +
+              "Are you sure you want to do this?" } %> |
+<% end %>
+
+<%= link_to 'Back', :back %>

@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     get :nametags
     get :show_fees_summary
     get :show_member_directory
+    get :show_emergency_contacts
+    
     # make sure post works for membership show (since this is where we return from paypal)
     post "/memberships/:id" => "memberships#show"
     # a path for paypal to confirm that the payment has been processed

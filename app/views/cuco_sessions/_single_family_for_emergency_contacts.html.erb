@@ -1,0 +1,13 @@
+<tr>
+  <td><%= link_to membership.family.name, family_path(membership.family.id) %></td>
+  
+  <td><%= membership.family.ec_name %></td>
+  <td><%= number_to_phone(membership.family.ec_phone, area_code: true) %></td>
+  <td>
+    <% if membership.family.ec_text %>
+      <span style="ok-text"><strong>OK</strong> to text</span><br />
+    <% else %>
+      <span style="no-text"><strong>NOT OK</strong> to text</span><br />
+    <% end %>
+  </td>
+</tr>

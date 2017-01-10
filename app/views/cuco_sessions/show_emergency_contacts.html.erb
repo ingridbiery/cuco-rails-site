@@ -1,0 +1,13 @@
+<%= content_for :page_title, "Emergency Contacts for #{@cuco_session.name}" %>
+
+<h1>Emergency Contacts for <strong><%= @cuco_session.name %></strong></h1>
+
+<div class="table-responsive">
+  <table class="table table-condensed table-striped">
+    <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
+      <%= render 'single_family_for_emergency_contacts', membership: membership %>
+    <% end %>
+  </table>
+</div>
+
+<%= link_to 'Back to Session', @cuco_session, class: "no-print" %>

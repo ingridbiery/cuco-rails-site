@@ -2,10 +2,12 @@ class FamiliesController < ApplicationController
   let :web_team, :all
   let :web_team, [:manage_all, :edit_primary]
   let :user, [:show, :new, :create, :edit, :update]
+  let [:member, :paid], :show_member_directory
   
-  before_action :set_family, except: [:new, :create, :index]
+  before_action :set_family, except: [:new, :create, :index, :show_emergency_contacts, :show_member_directory]
   before_action :must_have_no_family, only: [:new, :create]
   before_action :must_be_my_family, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_families, only: [:show_emergency_contacts, :show_member_directory]
 
   def index
     @families = Family.paginate(page: params[:page])
@@ -54,6 +56,12 @@ class FamiliesController < ApplicationController
     redirect_to families_url, notice: "#{@family.name} was successfully destroyed."
   end
 
+  def show_member_directory
+  end
+
+  def show_emergency_contacts
+  end
+
   private
     # throw an error if this is not the current user's family
     # unless this user is exempt
@@ -69,6 +77,11 @@ class FamiliesController < ApplicationController
       unless current_user&.person&.family.nil?
         not_authorized! path: families_path, message: "You already have a family!"
       end
+    end
+
+    # Get list of families for the current session
+    def set_current_families
+      @families = CucoSession.current.families
     end
 
     # Use callbacks to share common setup or constraints between actions.

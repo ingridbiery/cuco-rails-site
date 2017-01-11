@@ -19,9 +19,6 @@
 <% if current_user&.can? :show_fees_summary, :cuco_session %>
   <p>See <%= link_to "fees summary", cuco_session_show_fees_summary_path(@cuco_session) %>.</p>
 <% end %>
-<% if current_user&.can? :show_emergency_contact_list, :cuco_session %>
-  <p>See <%= link_to "emergency contact list", cuco_session_show_emergency_contacts_path(@cuco_session) %>.</p>
-<% end %>
 
 <% if current_user&.can? :show, :dates %>
   <h3>Dates</h3>

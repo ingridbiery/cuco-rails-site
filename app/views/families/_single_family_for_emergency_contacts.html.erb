@@ -1,0 +1,21 @@
+<tr>
+  <td><%= family.name %></td>
+  <td><%= family.primary_adult.name %></td>
+  <td><%= number_to_phone(family.phone, area_code: true) %></td>
+  <td><% if family.text %>
+      <span style="ok-text">YES</span>
+    <% else %>
+      <span style="no-text">NO</span>
+    <% end %>
+  </td>
+  <td><%= family.ec_name %></td>
+  <td><%= family.ec_relationship %></td>
+  <td><%= number_to_phone(family.ec_phone, area_code: true) %></td>
+  <td>
+    <% if family.ec_text %>
+      <span style="ok-text">YES</span>
+    <% else %>
+      <span style="no-text">NO</span>
+    <% end %>
+  </td>
+</tr>

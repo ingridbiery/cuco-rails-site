@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # calendar controller, show method
   get 'calendar' => 'calendars#show'
 
+  get 'families/show_emergency_contacts' => 'families#show_emergency_contacts'
+  get 'families/show_member_directory' => 'families#show_member_directory'
+
   # RESTful resources for family and people models, i.e. /people/new, /families/edit, etc...
   resources :families do
     resources :people
@@ -39,9 +42,7 @@ Rails.application.routes.draw do
     get :show_volunteers
     get :nametags
     get :show_fees_summary
-    get :show_member_directory
-    get :show_emergency_contacts
-    
+
     # make sure post works for membership show (since this is where we return from paypal)
     post "/memberships/:id" => "memberships#show"
     # a path for paypal to confirm that the payment has been processed

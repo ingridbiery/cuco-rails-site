@@ -1,6 +1,6 @@
-<%= content_for :page_title, "Emergency Contacts for #{@cuco_session.name}" %>
+<%= content_for :page_title, "Emergency Contacts" %>
 
-<h1>Emergency Contacts for <strong><%= @cuco_session.name %></strong></h1>
+<h1>Emergency Contacts</h1>
 
 <div class="table-responsive">
   <table class="table table-condensed table-striped">
@@ -15,8 +15,8 @@
       <th>Text?</th>
     </tr>
 
-    <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
-      <%= render 'single_family_for_emergency_contacts', membership: membership %>
+    <% @families.each do |family| %>
+      <%= render 'single_family_for_emergency_contacts', family: family %>
     <% end %>
 
   </table>

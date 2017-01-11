@@ -1,0 +1,27 @@
+<%# use :manage_all here instead of just :show because we can only show
+  # our own family %>
+<h2><% if current_user&.can? :manage_all, :families %>
+  <td><%= link_to family.name, family_path(family.id) %></td>
+<% else %>
+  <td><%= family.name %></td>
+<% end %></h2>
+
+<%= family.street_address %><br />
+<%= family.city %>, <%= family.state %> <%= family.zip %><br />
+<%= number_to_phone(family.phone, area_code: true) %>
+<% if family.text %>
+  <span style="ok-text"><strong>OK</strong> to text</span><br />
+<% else %>
+  <span style="no-text"><strong>NOT OK</strong> to text</span><br />
+<% end %>
+<%= family.user.email %><br />
+
+<ul>
+  <% family.adults.each do |adult| %>
+    <li><%= adult.name %></li>
+  <% end %>
+
+  <% family.kids.each do |kid| %>
+    <li><%= kid.name %> (<%= kid.age %>)</li>
+  <% end %>
+</ul>

@@ -1,6 +1,10 @@
 The Columbus Unschoolers' Co-op website developed in Ruby on Rails.
 
-## Heroku Site
+## Heroku Production Site
+
+<https://columbusunschoolers.herokuapp.com/>  
+
+## Heroku Beta Testing Site
 
 <https://cuco-dev.herokuapp.com/>  
 Username: cucoDev  

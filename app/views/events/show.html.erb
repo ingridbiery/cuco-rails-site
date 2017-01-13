@@ -9,11 +9,11 @@
   <li>End: <%= event.end_dt.strftime("%-m/%-d/%Y at %l:%M%P") %></li>
 </ul>
 
-<% if current_user&.can? :edit, :event %>
+<% if current_user&.can? :edit, :event and event.event_type.display_name == "Other" %>
   <%= link_to 'Edit', edit_event_path, title: "Edit #{event.name}" %> |
 <% end %>
 
-<% if current_user&.can? :destroy, :event %>
+<% if current_user&.can? :destroy, :event and event.event_type.display_name == "Other" %>
   <%= link_to 'Delete', event_path, 
               method: :delete, data: { 
               confirm: "You are deleting the #{event.name.upcase} event.\n" +

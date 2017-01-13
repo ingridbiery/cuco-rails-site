@@ -22,11 +22,11 @@
         <% if user_signed_in? %>
           <%= link_to event.name, event_path(event.id) %>
 
-          <% if current_user&.can? :edit, :event %>
+          <% if current_user&.can? :edit, :event  and event.event_type.display_name == "Other" %>
             <%= link_to image_tag('wrench.png'), edit_event_path(event.id), title: "Edit #{event.name}" %>
           <% end %>
           
-          <% if current_user&.can? :destroy, :event %>
+          <% if current_user&.can? :destroy, :event  and event.event_type.display_name == "Other" %>
             <%= link_to image_tag('delete.png'), event_path(event.id), 
                         method: :delete, data: { 
                         confirm: "You are deleting the #{event.name.upcase} event.\n" +

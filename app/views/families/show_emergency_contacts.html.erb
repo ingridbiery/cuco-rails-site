@@ -4,7 +4,7 @@
 
 <div class="table-responsive">
   <table class="table table-condensed table-striped">
-    <tr>
+    <thead>
       <th>Family</th>
       <th>Primary Contact</th>
       <th>Phone</th>
@@ -13,7 +13,7 @@
       <th>Relationship to Child(ren)</th>
       <th>Emergency Contact Phone</th>
       <th>Text?</th>
-    </tr>
+    </thead>
 
     <% @families.each do |family| %>
       <%= render 'single_family_for_emergency_contacts', family: family %>

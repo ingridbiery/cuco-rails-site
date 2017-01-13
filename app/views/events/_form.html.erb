@@ -19,11 +19,6 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :event_type %>
-    <%= f.collection_select(:event_type_id, EventType.all, :id, :name) %>
-  </div>
-
-  <div class="form-group">
     <%= f.label "Start" %>
     <%= f.datetime_local_field :start_dt %>
   </div>
@@ -31,6 +26,10 @@
   <div class="form-group">
     <%= f.label "End" %>
     <%= f.datetime_local_field :end_dt %>
+  </div>
+
+  <div>
+    <%= f.hidden_field :event_type_id, :value => EventType.find_by(name: "other").id %>
   </div>
 
   <div class="">

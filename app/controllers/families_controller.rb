@@ -79,9 +79,23 @@ class FamiliesController < ApplicationController
       end
     end
 
-    # Get list of families for the current session
+    # Get list of families for the directory
+    # if there is a current session, families in it will be included
+    # if there is an upcoming session, families in it will be included
+    # if there is no current or upcoming, families in the latest session
+    #   will be included
     def set_current_families
-      @families = CucoSession.current.families
+      if !CucoSession.current and !CucoSession.upcoming then
+        @families = CucoSession.latest.families
+      elsif CucoSession.current and CucoSession.upcoming then
+        @families = CucoSession.current.families +
+                    CucoSession.upcoming.families
+      elsif CucoSession.upcoming then
+        @families = CucoSession.upcoming.families
+      else
+        @families = CucoSession.current.families
+      end
+      @families = @families.uniq
     end
 
     # Use callbacks to share common setup or constraints between actions.

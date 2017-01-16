@@ -1,12 +1,15 @@
 <li class="dropdown-menu-item"><%= link_to 'Sessions', cuco_sessions_path %></li>
 
-<li class="dropdown-menu-item">Demographics (coming soon)</li>
-
 <% if current_user&.can? :show_concern_process, :users %>
   <li class="dropdown-menu-item"><%= link_to 'Concern Process', page_path("concern-process") %></li>
 <% end %>
 
-<% if current_user&.can? :show_directory, :families %>
-  <li class="dropdown-menu-item"><%= link_to 'Directory', cuco_session_show_member_directory_path(CucoSession.latest) %></li>
+<% if current_user&.can? :show_member_directory, :families %>
+  <li class="dropdown-menu-item"><%= link_to 'Directory', families_show_member_directory_path %></li>
 <% end %>
 
+<% if current_user&.can? :show_emergency_contacts, :families %>
+  <li class="dropdown-menu-item"><%= link_to 'Emergency Contacts', families_show_emergency_contacts_path %></li>
+<% end %>
+
+<li class="dropdown-menu-item">Demographics (coming soon)</li>

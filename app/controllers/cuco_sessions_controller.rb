@@ -2,7 +2,6 @@ class CucoSessionsController < ApplicationController
   let :web_team, :all
   let :all, [:index, :show]
   let :paid, :show_open_jobs
-  let [:paid, :member], :show_member_directory
   before_action :set_cuco_session, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -77,10 +76,6 @@ class CucoSessionsController < ApplicationController
   end    
   
   def show_fees_summary
-    @cuco_session = CucoSession.find(params[:cuco_session_id])
-  end
-
-  def show_member_directory
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end
 

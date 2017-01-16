@@ -75,7 +75,12 @@ class Family < ActiveRecord::Base
     end
     return nil
   end
-  
+
+  # get the full name for emergency contact
+  def ec_name
+    "#{ec_first_name} #{ec_last_name}"
+  end
+
   protected
   
     # As long as there is a valid phone number in the field, the following

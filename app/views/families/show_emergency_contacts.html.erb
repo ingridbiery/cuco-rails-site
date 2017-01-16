@@ -1,0 +1,25 @@
+<%= content_for :page_title, "Emergency Contacts" %>
+
+<h1>Emergency Contacts</h1>
+
+<div class="table-responsive">
+  <table class="table table-condensed table-striped">
+    <thead>
+      <th>Family</th>
+      <th>Primary Contact</th>
+      <th>Phone</th>
+      <th>Text?</th>
+      <th>Emergency Contact</th>
+      <th>Relationship to Child(ren)</th>
+      <th>Emergency Contact Phone</th>
+      <th>Text?</th>
+    </thead>
+
+    <% @families.each do |family| %>
+      <%= render 'single_family_for_emergency_contacts', family: family %>
+    <% end %>
+
+  </table>
+</div>
+
+<%= link_to 'Back to Session', @cuco_session, class: "no-print" %>

@@ -1,0 +1,28 @@
+<%= form_for [@cuco_session, @membership] do |f| %>
+  <% if @membership.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
+
+      <ul>
+      <% @membership.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  Join for:
+  <table>
+    <tr><td>Membership:</td><td></td><td><%= '$%.2f' % Membership.membership_fee %></td></tr>
+    <tr><td>Electronic Payment Fee:</td><td>+</td><td><%= '$%.2f' % Membership.electronic_payment_fee(Membership.membership_fee) %></td></tr>
+    <tr><td>Total:</td><td>=</td><td><%= '$%.2f' % (Membership.membership_fee + Membership.electronic_payment_fee(Membership.membership_fee)) %></td></tr>
+  </table>
+
+  <div class="actions">
+    Clicking this button will redirect you to PayPal. If you do not want to use PayPal, please contact our <%= mail_to "fees@columbusunschoolers.com", "treasurer" %>.
+    In order to send payments you must have a PayPal Account, unless you're using a PayPal Guest Account.
+    Payments will be sent from your PayPal Account to CUCO's PayPal Account.
+    Powered by PayPal.<br/>
+    <%= f.submit "Buy Membership" %>
+  </div>
+<% end %>

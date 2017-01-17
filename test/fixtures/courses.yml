@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  short_name: MyString
+  name: one
+  short_name: one
   description: MyText
   min_age: 1
   max_age: 11
@@ -21,8 +21,8 @@ one:
   created_by: membership1
 
 two:
-  name: MyString
-  short_name: MyString
+  name: two
+  short_name: two
   description: MyText
   min_age: 1
   max_age: 11

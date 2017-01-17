@@ -130,9 +130,9 @@ class FamilyTest < ActiveSupport::TestCase
   end
 
   test "phone should be a valid phone number" do
-    @family.phone = "(614)555-1212"
+    @family.phone = "(614)555-1213"
     assert @family.valid?
-    @family.phone = "6145551212"
+    @family.phone = "6145551213"
     assert @family.valid?
   end
 
@@ -212,9 +212,9 @@ class FamilyTest < ActiveSupport::TestCase
   end
 
   test "ec_phone should be a valid phone number" do
-    @family.ec_phone = "(614)555-1212"
+    @family.ec_phone = "(614)555-1213"
     assert @family.valid?
-    @family.ec_phone = "6145551212"
+    @family.ec_phone = "6145551213"
     assert @family.valid?
   end
 

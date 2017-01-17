@@ -29,7 +29,7 @@ class HighVoltageControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get terms and conditions" do
-    get page_path("terms-and-conditions")
+    get page_path("terms_and_conditions")
     assert_response :success
   end
 

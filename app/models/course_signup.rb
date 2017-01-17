@@ -98,7 +98,9 @@ class CourseSignup < ActiveRecord::Base
       csid = course.cuco_session.id
       signups = CourseSignup.where(person: person).joins(:course).where(courses: {cuco_session_id: csid,
                                                                                   period_id: pid})
-      if signups.count != 1
+      # if this signup is already there, make sure it's the only one, otherwise make
+      # sure there are none.
+      if signups.count != signups.where(id: id).count
         errors.add("Person", "already has another class this period")
       end
     end

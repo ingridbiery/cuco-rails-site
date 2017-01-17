@@ -27,10 +27,8 @@ class CourseSignupTest < ActiveSupport::TestCase
   test "warn when person signed up for another course in same period" do
     @course1.period = @period1
     @course1.save
-    @course_signup.course = @course1
-    @course_signup.save
     @course2.period = @period1
-    @course2.cuco_session_id = @course1.cuco_session_id
+    @course2.cuco_session_id = @course_signup.course.cuco_session_id
     @course2.save
     new_signup = @course_signup.dup
     new_signup.course = @course2
@@ -89,7 +87,7 @@ class CourseSignupTest < ActiveSupport::TestCase
     course = @course_signup.course
     @course_signup.person = people(:emma)
     course.age_firm = true
-    course.max_age = @course_signup.person.age - 1
+    course.max_age = @course_signup.person.age - 2
     course.save
     assert_not @course_signup.valid?
   end
@@ -106,7 +104,7 @@ class CourseSignupTest < ActiveSupport::TestCase
     course = @course_signup.course
     @course_signup.person = people(:emma)
     course.age_firm = false
-    course.max_age = @course_signup.person.age - 1
+    course.max_age = @course_signup.person.age - 2
     course.save
     assert @course_signup.valid?
     assert_not @course_signup.safe?

@@ -13,11 +13,13 @@
         include_blank: true %>
   </div>
 
-  <% if current_user&.can? :add, :families %>
+  <% if current_user&.can? :manage_all, :families %>
     <div>
       <%= ff.label "User" %><br>
-      <%= ff.collection_select :user, User.all.order(:email), :email, :email %>
+      <%= ff.collection_select :user, @users, :id, :email %>
     </div>
+  <% else %>
+    <%= hidden_field(:user, current_user.id) %>
   <% end %>
   
   <div>

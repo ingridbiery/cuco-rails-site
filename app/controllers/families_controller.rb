@@ -32,7 +32,15 @@ class FamiliesController < ApplicationController
     if @family.valid? and @person.valid?
       @family.save
       @person.family_id = @family.id
-      @person.user = current_user
+
+      # Check to see if the user is able to add new families. If they are, assume
+      # the user already has a family and is adding the new family for someone else.
+      if current_user&.can? :new, :families
+        @person.user = User.find_by(email: params["family"]["person"]["user"])
+      else
+        @person.user = current_user
+      end
+
       @person.save
       @family.primary_adult_id = @person.id
       @family.save

@@ -34,13 +34,7 @@ class FamiliesController < ApplicationController
       @family.save
       @person.family_id = @family.id
 
-      # Check to see if the user is able to manage families. If they are, assume
-      # the user already has a family and is adding the new family for someone else.
-      if current_user&.can? :manage_all, :families
-        @person.user = User.find(params["family"]["person"]["user"])
-      else
-        @person.user = current_user
-      end
+      @person.user = User.find(params["family"]["person"]["user"])
 
       @person.save
       @family.primary_adult_id = @person.id

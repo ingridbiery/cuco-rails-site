@@ -19,7 +19,7 @@
       <%= ff.collection_select :user, @users, :id, :email %>
     </div>
   <% else %>
-    <%= hidden_field(:user, current_user.id) %>
+    <%= ff.hidden_field :user, value: current_user.id %>
   <% end %>
   
   <div>

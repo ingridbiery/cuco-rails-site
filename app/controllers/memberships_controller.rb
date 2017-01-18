@@ -8,6 +8,7 @@ class MembershipsController < ApplicationController
   before_action :set_membership, only: :show
   before_action :must_be_own_schedule, only: :show_schedule
   before_action :family_info_must_be_correct, only: [:new, :create]
+  before_action :confirm_signups_open, only: [:new, :create]
   
   # the paypal hook gets called with no user and needs access that we wouldn't normally grant
   skip_before_action :authenticate, only: :paypal_hook
@@ -54,7 +55,16 @@ class MembershipsController < ApplicationController
              current_user&.can? :manage_all, :memberships
         not_authorized! message: "That's not your schedule."
       end
-      
+    end
+    
+    # only let new memberships be created when signups are open
+    def confirm_signups_open
+      if !@cuco_session.membership_signups_open?(current_user) then
+        not_authorized! message: "Membership signups are not currently open."
+      end
+      if current_user.membership == :paid then
+        not_authorized! message: "You have already paid."
+      end
     end
 
     # get the cuco_session from params before doing anything else

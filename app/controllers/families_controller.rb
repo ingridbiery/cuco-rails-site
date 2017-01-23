@@ -21,6 +21,7 @@ class FamiliesController < ApplicationController
     @family = Family.new
     @family.state = "OH"
     @person = Person.new
+    @users = User.where(person_id: nil).order(:email)
   end
 
   def edit
@@ -32,7 +33,9 @@ class FamiliesController < ApplicationController
     if @family.valid? and @person.valid?
       @family.save
       @person.family_id = @family.id
-      @person.user = current_user
+
+      @person.user = User.find(params["family"]["person"]["user"])
+
       @person.save
       @family.primary_adult_id = @person.id
       @family.save
@@ -74,7 +77,8 @@ class FamiliesController < ApplicationController
   
     # throw an error if the current user already has a family
     def must_have_no_family
-      unless current_user&.person&.family.nil?
+      unless (current_user&.person&.family.nil? or
+              current_user&.can? :manage_all, :families)
         not_authorized! path: families_path, message: "You already have a family!"
       end
     end

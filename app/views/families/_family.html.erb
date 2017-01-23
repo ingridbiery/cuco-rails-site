@@ -11,7 +11,8 @@
   <td><%= number_to_phone(family.phone, area_code: true) %></td>
   <td><%= family.text %></td>
   <% if current_user&.can? :manage_all, :family %>
-    <td><%= link_to 'Show', family %></td>
-    <td><%= link_to 'Edit', edit_family_path(family) %></td>
+    <td><%= link_to image_tag('wrench.png'), edit_family_path(family), title: "Edit #{family.name}" %></td>
+    <td><%= link_to image_tag('delete.png'), family, method: :delete, data: { confirm: "Are you sure? (#{family.name})" },
+        title: "Delete #{family.name}" %></td>
   <% end %>
 </tr>

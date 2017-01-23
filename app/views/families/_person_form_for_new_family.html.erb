@@ -12,6 +12,16 @@
     <%= ff.collection_select :pronoun_id, Pronoun.all, :id, :preferred_pronouns,
         include_blank: true %>
   </div>
+
+  <% if current_user&.can? :manage_all, :families %>
+    <div>
+      <%= ff.label "User" %><br>
+      <%= ff.collection_select :user, @users, :id, :email %>
+    </div>
+  <% else %>
+    <%= ff.hidden_field :user, value: current_user.id %>
+  <% end %>
+  
   <div>
     <%= hidden_field(:dob, "") %>
   </div>

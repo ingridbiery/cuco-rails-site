@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def get_current_session_info
     cuco_session = CucoSession.current
     if !cuco_session.nil? then
-      @current_session_info = "Current Session: #{cuco_session.name}."
+      @current_session_info = "Current Session: <a href='#{url_for(cuco_session)}'>#{cuco_session.name}</a>.".html_safe
       if !cuco_session.dates.nil? then
         next_event = cuco_session.dates.next_event(current_user)
         if next_event.nil? then
@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   def get_next_session_info
     @next_cuco_session = CucoSession.upcoming
     if @next_cuco_session then
-      @next_session_info = "Next Session: #{@next_cuco_session.name}."
+      @next_session_info = "Next Session: <a href='#{url_for(@next_cuco_session)}'>#{@next_cuco_session.name}</a>.".html_safe
       if @next_cuco_session.dates then
         next_event = @next_cuco_session.dates.next_event(current_user)
         if next_event then

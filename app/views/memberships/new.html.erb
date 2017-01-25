@@ -1,3 +1,5 @@
+<%= content_for :page_title, "Sign Up For #{@cuco_session.name}" %>
+
 <h1>Sign Up For <%= @cuco_session.name %></h1>
 
 <% if @membership.errors.any? %>
@@ -12,10 +14,6 @@
   </div>
 <% end %>
 
-<% unless current_user&.can? :all, :memberships %>
-  <%= render 'paypal' %>
-<% end %>
-
-
+<%= render 'paypal' %>
 
 <%= link_to 'Back', :back %>

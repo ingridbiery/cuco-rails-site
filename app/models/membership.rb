@@ -4,6 +4,7 @@ class Membership < ActiveRecord::Base
   scope :paid, -> { where(status: "Completed") }
 
   validates_uniqueness_of :family_id, :scope => [:cuco_session_id]
+  validates_presence_of :status, :scope => [:cuco_session_id]
 
   MEMBERSHIP_FEE = 23.85
   # how many jobs is each family responsible for

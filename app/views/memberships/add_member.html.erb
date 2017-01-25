@@ -1,0 +1,32 @@
+<%= content_for :page_title, "Add Member to #{@cuco_session.name}" %>
+
+<h1>Add Member to <%= @cuco_session.name %></h1>
+
+<% if @membership.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
+
+    <ul>
+    <% @membership.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for [@cuco_session, @membership] do |f| %>
+
+  <%= f.hidden_field :cuco_session_id, value: @cuco_session.id %>
+
+  <p><div>
+    <%= f.label "Family" %><br>
+    <%= f.collection_select :family_id, @families, :id, :name %>
+  </div></p>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+<%= link_to 'Back to Session', cuco_session_path(@cuco_session) %>

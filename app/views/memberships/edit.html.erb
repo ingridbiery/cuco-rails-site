@@ -1,0 +1,7 @@
+<h1><%= @membership.cuco_session.name %>  Membership</h1>
+<br /><div style="font-size: 2em;">Editing <%= @membership.family.name %> Family</div><br />
+
+<%= render 'form' %>
+
+<%= link_to 'Show', [@membership.cuco_session, @membership] %> |
+<%= link_to 'Back', :back %>

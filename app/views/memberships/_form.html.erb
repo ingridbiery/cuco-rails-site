@@ -1,0 +1,29 @@
+<%= form_for [@cuco_session, @membership] do |f| %>
+
+  <% if @membership.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
+
+      <ul>
+      <% @membership.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= radio_button_tag(:status, "Started", @membership.status == "Started") %>
+    <%= label_tag(:membership_status, "Started") %>
+    <%= radio_button_tag(:status, "Completed", @membership.status == "Completed") %>
+    <%= label_tag(:membership_status, "Completed") %>
+  </div> 
+
+  <%= f.hidden_field :family_id, value: @membership.family_id %>
+  <%= f.hidden_field :cuco_session_id, value: @membership.cuco_session_id %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

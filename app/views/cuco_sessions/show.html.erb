@@ -32,7 +32,9 @@
 <% end %>
 
 <h3>Courses (<%= @cuco_session.courses.count %>)
-  <% if current_user&.can? :new, :course %>
+  <% if ((current_user&.can? :new, :course and @cuco_session.course_offerings_open?) or
+         (current_user&.can? :manage_all, :courses and 
+          (@cuco_session == CucoSession.current or @cuco_session == CucoSession.upcoming))) %>
     <%= link_to image_tag('add.png'), new_cuco_session_course_path(@cuco_session), title: "Add New Class to Session" %>
   <% end %>
 </h3>
@@ -74,14 +76,23 @@
 <% end %>
   
 <% if current_user&.can? :show, :membership then %>
-  <h3>Members</h3>
+  <h3>Members 
+    <% if current_user&.can? :add_member, :membership and 
+       (@cuco_session == CucoSession.current or @cuco_session == CucoSession.upcoming) %>
+      <%= link_to image_tag('add.png'), cuco_session_memberships_add_member_path(@cuco_session), title: "Add Member to Session" %>
+    <% end %>
+  </h3>
   <ol>
     <% memberships = @cuco_session.memberships.sort_by { |membership| membership.family.name } %>
     <% memberships.each do |membership| %>
     <li>
       <%= link_to membership.family.name, membership.family %> 
       (<%= link_to 'Schedule', cuco_session_membership_show_schedule_path(membership.cuco_session, membership) %>) 
-      (membership status: <%= membership.status %> | <%= link_to "details", [membership.cuco_session, membership] %>)
+      ( membership status: <%= membership.status %> | 
+      <%= link_to "Details", [membership.cuco_session, membership] %>
+      <% if @cuco_session == CucoSession.current or @cuco_session == CucoSession.upcoming %>
+        | <%= link_to "Edit", edit_cuco_session_membership_path(membership.cuco_session, membership) %>
+      <% end %>)
     </li>
   <% end %>
   </ol>

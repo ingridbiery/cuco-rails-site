@@ -16,4 +16,8 @@
     font-size: 1.5em;
   }
 
+  a:link:after, a:visited:after {
+      content: "";
+  }
+
 }

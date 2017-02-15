@@ -79,8 +79,8 @@
     <% memberships = @cuco_session.memberships.sort_by { |membership| membership.family.name } %>
     <% memberships.each do |membership| %>
     <li>
-      <%= link_to membership.family.name, membership.family %> 
-      (<%= link_to 'Schedule', cuco_session_membership_show_schedule_path(membership.cuco_session, membership) %>) 
+      <%= link_to membership.family.name, membership.family %>
+      (<%= link_to 'Schedule', cuco_session_family_schedule_path(@cuco_session, membership.family) %>) 
       (membership status: <%= membership.status %> | <%= link_to "details", [membership.cuco_session, membership] %>)
     </li>
   <% end %>

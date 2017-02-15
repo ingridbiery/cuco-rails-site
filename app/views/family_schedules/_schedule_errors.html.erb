@@ -1,14 +1,14 @@
-<% @membership.reload_and_check_family_schedule %>
-<% if @membership.errors.any? %>
+<% @family_schedule.reload_and_check_schedule %>
+<% if @family_schedule.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@membership.errors.count, "error") %> and/or 
-    <% if @membership.errors.count > 1 %>
+    <h2><%= pluralize(@family_schedule.errors.count, "error") %> and/or 
+    <% if @family_schedule.errors.count > 1 %>
       <%= pluralize("", "warning") %> exist
     <% else %>
       warning exists
     <% end %> in this schedule:</h2>
     <ul>
-    <% @membership.errors.messages.values.each do |message_list| %>
+    <% @family_schedule.errors.messages.values.each do |message_list| %>
       <% message_list.each do |message| %>
         <li><%= message %></li>
       <% end %>

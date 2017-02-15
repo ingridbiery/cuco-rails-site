@@ -34,9 +34,8 @@ Rails.application.routes.draw do
       resources :course_signups, except: [:index, :show]
     end
     resources :dates, only: [:show, :edit, :update]
-    resources :memberships, only: [:new, :create, :show] do
-      get :show_schedule
-    end
+    resources :memberships, only: [:new, :create, :show]
+    resources :family_schedules, only: [:show]
     get :show_open_jobs
     get :show_all_signups
     get :show_volunteers

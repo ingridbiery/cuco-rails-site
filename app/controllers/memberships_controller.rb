@@ -19,6 +19,7 @@ class MembershipsController < ApplicationController
     if status == "Completed"
       @membership = Membership.find params[:invoice]
       @membership.update_attributes! notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
+      FamilySchedule.create(@membership.attributes)
     end
     render nothing: true
   end

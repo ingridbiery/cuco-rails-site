@@ -96,7 +96,7 @@ lunch_timer = CourseRole.create!(name: :lunch_time_keeper, is_worker: true, disp
 extra_helper = CourseRole.create!(name: :extra_helper, is_worker: true, display_weight: 5, description: "Perform a job away from co-op.")
 unassigned = CourseRole.create!(name: :unassigned_volunteer, is_worker: false, display_weight: 14, description: "Adult available to help in a given period.")
 student = CourseRole.create!(name: :student, is_worker: false, display_weight: 15, description: "A student in the class.")
-non_student = CourseRole.create!(name: :non_student_non_worker, is_worker: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
+person_in_room = CourseRole.create!(name: :person_in_room, is_worker: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
 waiting_list = CourseRole.create!(name: :waiting_list, is_worker: false, display_weight: 17, description: "Someone who wants to be a student in a full class. If a spot opens up, the first person on the waiting list will automatically be signed up. If this class is taught in a future session, students on previous waiting lists will have priority signing up.")
 
 print "Pronouns\n"

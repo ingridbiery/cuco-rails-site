@@ -6,7 +6,7 @@ The Columbus Unschoolers' Co-op website developed in Ruby on Rails.
 
 ## Heroku Beta Testing Site
 
-<https://cuco-dev.herokuapp.com/>  
+<https://cuco-beta.herokuapp.com/>  
 Username: cucoDev  
 Password: 9cAN67Gw
 

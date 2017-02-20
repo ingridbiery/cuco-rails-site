@@ -1,6 +1,6 @@
 <h3>Volunteers
   <% if current_user&.can? :manage_all, :course_signups %>
-    <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course, type: :teacher), title: "Add Person to Course" %>
+    <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course, role_name: :teacher), title: "Add Person to Course" %>
   <% end %>
 </h3>
 
@@ -14,10 +14,9 @@
           current_user&.can? :manage_all, :course_signups %>
       <% if !person or @people.include? person or
             current_user&.can? :manage_all, :course_signups %>
-        <%= link_to image_tag('wrench.png'), edit_cuco_session_course_course_signup_path(@cuco_session, @course, course_signup, type: :teacher) %>
+        <%= link_to image_tag('wrench.png'), edit_cuco_session_course_course_signup_path(@cuco_session, @course, course_signup, role_name: :teacher) %>
       <% end %>
-      <% if @people.include? person or 
-            current_user&.can? :manage_all, :course_signups %>
+      <% if current_user&.can? :manage_all, :course_signups %>
         <%= link_to image_tag('delete.png'), cuco_session_course_course_signup_path(@cuco_session, @course, course_signup), method: :delete,
               data: { confirm: 'Are you sure?' }, title: "Delete #{course_signup.name}" %>
       <% end %>

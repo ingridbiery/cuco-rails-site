@@ -120,7 +120,7 @@ class CoursesController < ApplicationController
     # should we show unassigned volunteering?
     def set_show_unassigned
       @show_unassigned = false
-      if @course.name.include? "Free Play"
+      if @course&.name&.include? "Free Play"
         @show_unassigned = true
       end
     end

@@ -9,7 +9,7 @@ class CourseSignupsController < ApplicationController
   let [:web_team, :member, :former, :paid], [:new, :create]
   let [:web_team, :paid], [:edit, :update, :destroy]
 
-  before_action :set_show_role
+  before_action :set_show_role # is the user allowed to change the course role?
   before_action :set_cuco_session
   before_action :set_course, except: [:destroy]
   before_action :set_course_signup, except: [:new, :create]
@@ -67,7 +67,6 @@ class CourseSignupsController < ApplicationController
   private
   
     # make sure new and create are authorized
-    # during course_offering, those who can :offer_courses can new/create teachers
     # during registration, those who can :register can new/create anything
     # always, those who can :manage_all can new/create anything
     def new_create_authorized
@@ -158,9 +157,8 @@ class CourseSignupsController < ApplicationController
   
     # determine if we want to show the role in the form
     def set_show_role
-      if params[:type] == "student"
-        @show_role = false
-      else
+      @show_role = false
+      if current_user&.can? :manage_all, :course_signup
         @show_role = true
       end
     end

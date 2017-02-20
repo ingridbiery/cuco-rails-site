@@ -17,6 +17,7 @@ class CoursesController < ApplicationController
   before_action :set_cuco_session
   before_action :set_course, except: [:new, :create, :index]
   before_action :set_people, only: [:show]
+  before_action :set_show_unassigned # should we show unassigned volunteering?
 
   # make sure the timing is right for new/create
   before_action :new_create_authorized, only: [:new, :create]
@@ -116,4 +117,12 @@ class CoursesController < ApplicationController
                                      :period_id, :created_by_id)
     end
 
+    # should we show unassigned volunteering?
+    def set_show_unassigned
+      @show_unassigned = false
+      if @course.name.include? "Free Play"
+        @show_unassigned = true
+      end
+    end
+  
 end

@@ -1,7 +1,5 @@
 <h3>Volunteers
-  <% if @course.cuco_session.course_offerings_open? or
-        @course.cuco_session.course_signups_open? or
-        current_user&.can? :manage_all, :course_signups %>
+  <% if current_user&.can? :manage_all, :course_signups %>
     <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course, type: :teacher), title: "Add Person to Course" %>
   <% end %>
 </h3>

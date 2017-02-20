@@ -2,6 +2,7 @@ class Membership < ActiveRecord::Base
   belongs_to :family
   belongs_to :cuco_session
   scope :paid, -> { where(status: "Completed") }
+  scope :not_paid, -> { where.not(status: "Completed") }
 
   validates_uniqueness_of :family_id, :scope => [:cuco_session_id]
 

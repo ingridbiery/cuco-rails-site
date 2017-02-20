@@ -74,17 +74,10 @@
 <% end %>
   
 <% if current_user&.can? :show, :membership then %>
-  <h3>Members</h3>
-  <ol>
-    <% memberships = @cuco_session.memberships.sort_by { |membership| membership.family.name } %>
-    <% memberships.each do |membership| %>
-    <li>
-      <%= link_to membership.family.name, membership.family %>
-      (<%= link_to 'Schedule', cuco_session_family_schedule_path(@cuco_session, membership.family) %>) 
-      (membership status: <%= membership.status %> | <%= link_to "details", [membership.cuco_session, membership] %>)
-    </li>
-  <% end %>
-  </ol>
+  <h3>Paid Members</h3>
+    <%= render 'memberships', memberships: @cuco_session.paid_memberships.sort_by { |membership| membership.family.name } %>
+  <h3>Pending/Canceled Members</h3>
+    <%= render 'memberships', memberships: @cuco_session.not_paid_memberships.sort_by { |membership| membership.family.name } %>
 <% end %>
 
 

@@ -43,6 +43,13 @@ class CoursesController < ApplicationController
     @course = @cuco_session.courses.build(course_params)
 
     if @course.save
+      # create new volunteer jobs for this course
+      CourseSignup.create(course: @course,
+                          person: current_user&.person,
+                          course_role: CourseRole.find_by(name: :teacher))
+      CourseSignup.create(course: @course,
+                          person: nil,
+                          course_role: CourseRole.find_by(name: :teaching_assistant))
       redirect_to [@cuco_session, @course], notice: "#{@course.name} was successfully created."
     else
       render :new

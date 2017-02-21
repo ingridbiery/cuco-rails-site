@@ -1,7 +1,7 @@
 class CourseSignupsController < ApplicationController
   # this is a label indicating who is allowed
   # to manage signups for everyone (instead of just their family) and at any time
-  let :web_team, :manage_all
+  let [:web_team, :volunteer_coordinator], :manage_all
   # this is a label indicating who can create signups during registration
   let [:web_team, :paid], :register
   # who is allowed to sign up ever (former members can create teaching jobs for classes

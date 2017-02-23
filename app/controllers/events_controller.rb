@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
-
   let :web_team, :all
   let :user, :show
+
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   
   def show
@@ -40,7 +40,7 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:id, :name, :start_dt, :end_dt, :event_type_id)
+      params.require(:event).permit(:name, :start_dt, :end_dt, :event_type_id, :dates_id)
     end
 
 end

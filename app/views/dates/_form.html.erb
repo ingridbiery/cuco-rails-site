@@ -11,7 +11,7 @@
   <% end %>
   <ul>
     <%= f.fields_for :events do |event_fields| %>
-      <%= render 'event_fields', f: event_fields %>
+      <li><%= render 'events/form', f: event_fields, single_event: false %></li>
     <% end %>
   </ul>
   <%= f.submit "Update dates" %>

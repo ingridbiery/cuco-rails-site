@@ -4,6 +4,9 @@ class Event < ActiveRecord::Base
   validates :name, presence: true
   validates :start_dt, presence: true
   validates :end_dt, presence: true
+  validates :event_type_id, presence: true
+  validates :dates_id, presence: true
+  
   validate :start_not_after_end
 
   # get a text description of this event

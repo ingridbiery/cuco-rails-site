@@ -2,12 +2,7 @@
 
 <%= content_for :page_title, event.name %>
 
-<strong><%= event.name %></strong>:
-<ul>
-  <li>Type: <%= event.event_type.display_name %></li>
-  <li>Start: <%= event.start_dt.strftime("%-m/%-d/%Y at %l:%M%P") %></li>
-  <li>End: <%= event.end_dt.strftime("%-m/%-d/%Y at %l:%M%P") %></li>
-</ul>
+<%= render 'event', event: @event %>
 
 <% if current_user&.can? :edit, :event and event.event_type.display_name == "Other" %>
   <%= link_to 'Edit', edit_event_path, title: "Edit #{event.name}" %> |

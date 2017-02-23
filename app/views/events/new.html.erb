@@ -2,7 +2,7 @@
 
 <h1>Create New Event</h1>
 
-<%= form_for [@event] do |f| %>
+<%= form_for @event do |f| %>
   <%= render 'form', f: f, single_event: true %>
   <div class="">
     <%= f.submit %>

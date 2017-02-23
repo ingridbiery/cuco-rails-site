@@ -1,18 +1,33 @@
 <%= content_for :page_title, "Volunteers for #{@cuco_session.name}" %>
 
-<h1>Volunteer List for <strong><%= @cuco_session.name %></strong></h1>
+<h2><strong><%= @cuco_session.name %></strong> Volunteers</h2>
+This page lists all people of any age signed up for a job, and all adults signed
+up as students (for emergency backups, and information about the number of adults
+in the room).
 
-<% @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}.each do |signup| %>
-  <% if signup.is_volunteer_job? %>
-    <%= signup.course.period.name %>: <%= signup.name %><br />
-  <% end %>
-<% end %>
+<div id="two-column">
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped">
+      <thead>
+        <th>Period</th>
+        <th>Class Name</th>
+        <th>Volunteer Job</th>
+        <th>Volunteer</th>
+      </thead>
+      <tbody>
+        <% @signups.each do |signup| %>
+          <% if (signup.is_volunteer_job? or signup.person.adult?) and not signup.course.name.downcase.include? "not at co" %>
+            <tr>
+              <td><%= signup.course.period.name %></td>
+              <td><%= link_to signup.course.name, cuco_session_course_path(@cuco_session, signup.course) %></td>
+              <td><%= link_to signup.course_role.name.titleize, edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></td>
+              <td><%= link_to signup&.person&.name || "", edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<h1>Unassigned List for <strong><%= @cuco_session.name %></strong></h1>
-<% @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}.each do |signup| %>
-  <% if signup.is_unassigned? %>
-    <%= signup.course.period.name %>: <%= signup.person.name %><br />
-  <% end %>
-<% end %>
-
-<%= link_to 'Back to Session', @cuco_session %>
+<%= link_to 'Back to Session', @cuco_session, class: "hidden-print" %>

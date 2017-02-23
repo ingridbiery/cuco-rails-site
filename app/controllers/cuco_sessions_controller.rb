@@ -64,6 +64,10 @@ class CucoSessionsController < ApplicationController
 
   def show_volunteers
     @cuco_session = CucoSession.find(params[:cuco_session_id])
+    @signups = @cuco_session.course_signups.sort_by {|signup| [signup.course.period.start_time,
+                                                               signup.course.name,
+                                                               signup.course_role.name,
+                                                               signup&.person&.last_name]}
   end
 
   def nametags

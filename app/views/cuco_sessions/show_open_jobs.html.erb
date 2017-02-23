@@ -2,13 +2,23 @@
 
 <h1>Open Jobs for <%= @cuco_session.name %></h1>
 
-<ul>
-<% @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}.each do |signup| %>
-  <% if signup.is_volunteer_job? and !signup.person %>
-    <li><%= signup.course.period.name %>: <%= link_to "#{signup.course.name} - #{signup.course_role.name}",
-            edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></li>
-  <% end %>
-<% end %>
-</ul>
+<div class="table-responsive">
+  <table class="table table-condensed table-striped">
+    <tr>
+      <th>Period</th>
+      <th>Volunteer Job</th>
+    </tr>
+
+    <% @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}.each do |signup| %>
+      <% if signup.is_volunteer_job? and !signup.person %>
+        <tr>
+          <td><%= signup.course.period.name %></td>
+          <td><%= link_to "#{signup.course.name} #{signup.course_role.name}",
+                edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
 
 <%= link_to 'Back to Session', @cuco_session %>

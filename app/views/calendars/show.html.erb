@@ -1,5 +1,11 @@
 <%= content_for :page_title, "Calendar" %>
 
+<% if current_user&.can? :new, :event %>
+  <h3>
+    <%= link_to image_tag('add.png') + " New Event", new_event_path, title: "Create New Event" %>
+  </h3>
+<% end %>
+
 <div id="bootstrap-override">
   <%= month_calendar do |date| %>
     <%= date.day %>
@@ -12,7 +18,26 @@
         <% if event.start_dt.to_date == date or event.end_dt.to_date == date %>
           <%= event.start_dt.strftime("%l:%M%P") %>
         <% end %>
-        <%= event.name %>
+
+        <% if user_signed_in? %>
+          <%= link_to event.name, event_path(event.id) %>
+
+          <% if current_user&.can? :edit, :event and event.event_type == EventType.find_by(name: :other) %>
+            <%= link_to image_tag('wrench.png'), edit_event_path(event.id), title: "Edit #{event.name}" %>
+          <% end %>
+          
+          <% if current_user&.can? :destroy, :event and event.event_type == EventType.find_by(name: :other) %>
+            <%= link_to image_tag('delete.png'), event_path(event.id), 
+                        method: :delete, data: { 
+                        confirm: "You are deleting the #{event.name.upcase} event.\n" +
+                        "Are you sure you want to do this?" },
+                        title: "Delete #{event.name}"%>
+          <% end %>
+
+        <% else %>
+          <%= event.name %>
+        <% end %>
+
         <% if event.end_dt.to_date != date %>
           -
         <% end %>

@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     resources :people
   end
 
+  resources :events, :except => :index
+
   resources :pronouns, :event_types
   resources :rooms, :periods, :only => [:index, :edit, :update]
   

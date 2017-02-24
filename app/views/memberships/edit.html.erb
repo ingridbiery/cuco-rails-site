@@ -1,0 +1,27 @@
+<h1>Editing Membership</h1>
+<h3><%= @membership.family.name %> Family in <%= @membership.cuco_session.name %></h3>
+
+<%= form_for [@cuco_session, @membership] do |f| %>
+
+  <%= render 'errors' %>
+
+  <div class="field">
+    <%= f.radio_button(:status, "Started", checked: @membership.status == "Started") %>
+    <%= f.label(:status_started, "Started") %>
+    <%= f.radio_button(:status, "Completed", checked: @membership.status == "Completed") %>
+    <%= f.label(:status_completed, "Completed") %>
+    <%= f.radio_button(:status, "Canceled", checked: @membership.status == "Canceled") %>
+    <%= f.label(:status_canceled, "Canceled") %>
+  </div> 
+
+  <%= f.hidden_field :family_id, value: @membership.family_id %>
+  <%= f.hidden_field :cuco_session_id, value: @membership.cuco_session_id %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+<%= link_to 'Show', [@membership.cuco_session, @membership] %> |
+<%= link_to 'Back', :back %>

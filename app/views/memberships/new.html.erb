@@ -1,17 +1,9 @@
+<%= content_for :page_title, "Sign Up For #{@cuco_session.name}" %>
+
 <h1>Sign Up For <%= @cuco_session.name %></h1>
 
 <%= form_for [@cuco_session, @membership] do |f| %>
-  <% if @membership.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
-
-      <ul>
-      <% @membership.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'errors' %>
 
   Join for:
   <table>

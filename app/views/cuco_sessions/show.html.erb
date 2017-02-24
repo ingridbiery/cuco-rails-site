@@ -32,7 +32,8 @@
 <% end %>
 
 <h3>Courses (<%= @cuco_session.courses.count %>)
-  <% if current_user&.can? :new, :course %>
+  <% if ((current_user&.can? :new, :course and @cuco_session.course_offerings_open?) or
+         current_user&.can? :manage_all, :courses) %>
     <%= link_to image_tag('add.png'), new_cuco_session_course_path(@cuco_session), title: "Add New Class to Session" %>
   <% end %>
 </h3>
@@ -74,7 +75,11 @@
 <% end %>
   
 <% if current_user&.can? :show, :membership then %>
-  <h3>Paid Members</h3>
+  <h3>Paid Members 
+    <% if current_user&.can? :add, :membership %>
+      <%= link_to image_tag('add.png'), cuco_session_memberships_add_path(@cuco_session), title: "Add Member to Session" %>
+    <% end %>
+  </h3>
     <%= render 'memberships', memberships: @cuco_session.paid_memberships.sort_by { |membership| membership.family.name } %>
   <h3>Pending/Canceled Members</h3>
     <%= render 'memberships', memberships: @cuco_session.not_paid_memberships.sort_by { |membership| membership.family.name } %>

@@ -1,10 +1,11 @@
 class MembershipsController < ApplicationController
   let :user, [:new, :create]
+  let :treasurer, [:add, :complete_add, :edit, :update, :show]
   let :web_team, :all
   let :all, :paypal_hook
 
   before_action :set_cuco_session, except: :paypal_hook
-  before_action :set_membership, only: :show
+  before_action :set_membership, only: [:show, :edit, :update]
   before_action :family_info_must_be_correct, only: [:new, :create]
   before_action :confirm_signups_open, only: [:new, :create]
   
@@ -25,6 +26,17 @@ class MembershipsController < ApplicationController
   def new
     @membership = Membership.new
   end
+
+  # add is like new, but for an admin to add a membership for someone else
+  def add
+    @membership = Membership.new
+    
+    # Show families not already in the session.
+    @families = Family.select{|family| !@cuco_session.families.include? family}
+  end
+
+  def edit
+  end
   
   def create
     @membership = Membership.find_or_initialize_by(cuco_session: @cuco_session,
@@ -37,10 +49,33 @@ class MembershipsController < ApplicationController
       render :new
     end
   end
-  
+
+  # this is like create for add. That is, it is what is called when the submit button is pressed
+  def complete_add
+    @membership = Membership.new(membership_params)
+
+    if @membership.save
+      redirect_to cuco_session_path(@cuco_session),
+                  notice: "#{@membership.family.name} was successfully added to #{@cuco_session.name}."
+    else
+      # Show families not already in the session.
+      @families = Family.select{|family| !@cuco_session.families.include? family}
+      render :add
+    end
+  end
+
+  def update
+    if @membership.update(membership_params)
+      redirect_to cuco_session_path(@cuco_session),
+                  notice: "#{@membership.family.name} was successfully updated."
+    else
+      render :edit
+    end
+  end
+
   def show
   end
-  
+
   def show_schedule
     @membership = Membership.find(params[:membership_id])
   end
@@ -49,11 +84,13 @@ class MembershipsController < ApplicationController
 
     # only let new memberships be created when signups are open
     def confirm_signups_open
-      if !@cuco_session.membership_signups_open?(current_user) then
-        not_authorized! message: "Membership signups are not currently open."
-      end
-      if current_user.membership == :paid then
-        not_authorized! message: "You have already paid."
+      unless current_user&.can? :manage_all, :families 
+        if !@cuco_session.membership_signups_open?(current_user) then
+          not_authorized! message: "Membership signups are not currently open."
+        end
+        if current_user.membership == :paid then
+          not_authorized! message: "You have already paid."
+        end
       end
     end
 
@@ -74,5 +111,9 @@ class MembershipsController < ApplicationController
       unless family.valid? and family.safe?
         redirect_to edit_family_path(current_user.person.family)
       end
+    end
+    
+    def membership_params
+      params.require(:membership).permit(:cuco_session_id, :family_id, :status)
     end
 end

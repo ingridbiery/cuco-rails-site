@@ -1,0 +1,23 @@
+<%= content_for :page_title, "Add Member to #{@cuco_session.name}" %>
+
+<h1>Add Member to <%= @cuco_session.name %></h1>
+
+<%= form_for [@cuco_session, @membership], :url => cuco_session_memberships_add_path,
+                                           :method => :post do |f| %>
+  <%= render 'errors' %>
+
+  <%= f.hidden_field :cuco_session_id, value: @cuco_session.id %>
+  <%= f.hidden_field :status, value: @membership.status %>
+
+  <p><div>
+    <%= f.label "Family" %><br>
+    <%= f.collection_select :family_id, @families, :id, :name %>
+  </div></p>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+<%= link_to 'Back to Session', cuco_session_path(@cuco_session) %>

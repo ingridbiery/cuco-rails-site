@@ -5,6 +5,7 @@ class Membership < ActiveRecord::Base
   scope :not_paid, -> { where.not(status: "Completed") }
 
   validates_uniqueness_of :family_id, :scope => [:cuco_session_id]
+  validates :status, presence: true
 
   MEMBERSHIP_FEE = 23.85
 

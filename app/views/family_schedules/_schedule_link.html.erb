@@ -1,0 +1,5 @@
+(<%= link_to 'Schedule', cuco_session_family_schedule_path(membership.cuco_session, membership.family) %>) 
+(membership status: <%= membership.status %><% if current_user&.can? :show, :membership %>
+  | <%= link_to "Details", [membership.cuco_session, membership] %>
+<% end %><% if current_user&.can? :edit, :membership %>
+  | <%= link_to "Edit", edit_cuco_session_membership_path(membership.cuco_session, membership) %><% end %>)

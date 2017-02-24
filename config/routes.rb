@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
     resources :dates, only: [:show, :edit, :update]
     get 'memberships/add_member' => 'memberships#add_member'
+    post 'memberships/add_member' => 'memberships#add_member_complete'
     resources :memberships, only: [:new, :create, :show, :edit, :update] do
       get :show_schedule
     end

@@ -24,59 +24,44 @@ class MembershipsController < ApplicationController
   end
   
   def add_member
-    if @cuco_session == CucoSession.current or @cuco_session == CucoSession.upcoming
-      @membership = Membership.new
+    @membership = Membership.new
     
+    # Show families not already in the session.
+    @families = Family.select{|family| !@cuco_session.families.include? family}
+  end
+
+  def add_member_complete
+    @membership = Membership.new(membership_params)
+
+    if @membership.save
+      redirect_to cuco_session_path(@cuco_session),
+                  notice: "#{@membership.family.name} was successfully added to #{@cuco_session.name}."
+    else
       # Show families not already in the session.
       @families = Family.select{|family| !@cuco_session.families.include? family}
-    
-    else
-     not_authorized! path: cuco_sessions_path, message: "Can't add members to old sessions 
-                                                         (#{@cuco_session.name})."
-
+      render :add_member
     end
   end
-  
+
   def new
     @membership = Membership.new
   end
 
   def edit
-    unless @cuco_session == CucoSession.current or @cuco_session == CucoSession.upcoming
-      not_authorized! path: cuco_sessions_path, message: "Can't edit member details for old sessions 
-                                                         (#{@cuco_session.name})."
-    end
   end
   
   def show
   end
 
   def create
-    if current_user&.can? :add_member, :membership
-      @membership = Membership.new(membership_params)
-      @membership.status = "Completed"
-      @families = Family.select{|family| !@cuco_session.families.include? family}
-
-      if @membership.save
-        @family = Family.find_by(id: params["membership"]["family_id"])
-        redirect_to cuco_session_path(@cuco_session),
-          notice: "#{@family.name}
-                   was successfully added to #{@cuco_session.name}."
-      else
-        render :add_member
-      end
-
+    @membership = Membership.find_or_initialize_by(cuco_session: @cuco_session,
+                                                   family: current_user.person.family)
+    @membership.status = "Started"
+    if @membership.save
+      redirect_to @membership.paypal_url(cuco_session_membership_path(@cuco_session, @membership),
+                                         paypal_hook_path)
     else
-      @membership = Membership.find_or_initialize_by(cuco_session: @cuco_session,
-                                                     family: current_user.person.family)
-      @membership.status = "Started"
-      if @membership.save
-        redirect_to @membership.paypal_url(cuco_session_membership_path(@cuco_session, @membership),
-                                           paypal_hook_path)
-      else
-        render :new
-      end
-      
+      render :new
     end
   end
 
@@ -138,6 +123,6 @@ class MembershipsController < ApplicationController
     end
     
     def membership_params
-      params.require(:membership).permit(:cuco_session_id, :family_id)
+      params.require(:membership).permit(:cuco_session_id, :family_id, :status)
     end
 end

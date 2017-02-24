@@ -2,7 +2,10 @@
 
 <% provide(:title, @cuco_session.name) %>
 
-<h2>Session <%= @cuco_session.name %></h2>
+<h2>Session <%= @cuco_session.name %>
+<% if current_user&.can? :add_member, :memberships %>
+  <%= link_to image_tag('add.png'), cuco_session_memberships_add_member_path(@cuco_session) %>
+<% end %></h2>
 
 <% if current_user&.can? :show_open_jobs, :cuco_session %>
   <p>See <%= link_to "open jobs", cuco_session_show_open_jobs_path(@cuco_session) %>.</p>

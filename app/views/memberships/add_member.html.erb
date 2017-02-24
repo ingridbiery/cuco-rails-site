@@ -14,9 +14,11 @@
   </div>
 <% end %>
 
-<%= form_for [@cuco_session, @membership] do |f| %>
+<%= form_for [@cuco_session, @membership], :url => cuco_session_memberships_add_member_path,
+                                           :method => :post do |f| %>
 
   <%= f.hidden_field :cuco_session_id, value: @cuco_session.id %>
+  <%= f.hidden_field :status, value: "Completed" %>
 
   <p><div>
     <%= f.label "Family" %><br>

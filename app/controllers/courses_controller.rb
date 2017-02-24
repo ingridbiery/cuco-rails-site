@@ -32,13 +32,8 @@ class CoursesController < ApplicationController
   end
 
   def new
-    if @cuco_session == CucoSession.current or @cuco_session == CucoSession.upcoming
-      @course = Course.new
-      @course.created_by_id = current_user.id
-    else
-     not_authorized! path: cuco_sessions_path, message: "Can't add courses to old sessions 
-                                                         (#{@cuco_session.name})."
-    end
+    @course = Course.new
+    @course.created_by_id = current_user.id
   end
 
   def edit

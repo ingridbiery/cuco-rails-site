@@ -65,11 +65,9 @@ class MembershipsController < ApplicationController
   end
 
   def update
-    @membership.status = params["status"]
     if @membership.update(membership_params)
       redirect_to cuco_session_path(@cuco_session),
-        notice: "#{@membership.family.name}
-                 was successfully updated."
+                  notice: "#{@membership.family.name} was successfully updated."
     else
       render :edit
     end

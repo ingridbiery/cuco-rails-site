@@ -80,7 +80,6 @@
       <%= link_to image_tag('add.png'), cuco_session_memberships_add_path(@cuco_session), title: "Add Member to Session" %>
     <% end %>
   </h3>
-  <h3>Paid Members</h3>
     <%= render 'memberships', memberships: @cuco_session.paid_memberships.sort_by { |membership| membership.family.name } %>
   <h3>Pending/Canceled Members</h3>
     <%= render 'memberships', memberships: @cuco_session.not_paid_memberships.sort_by { |membership| membership.family.name } %>

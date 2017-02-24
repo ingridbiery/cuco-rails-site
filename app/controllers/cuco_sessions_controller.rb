@@ -67,7 +67,7 @@ class CucoSessionsController < ApplicationController
     @signups = @cuco_session.course_signups.sort_by {|signup| [signup.course.period.start_time,
                                                                signup.course.name,
                                                                signup.course_role.name,
-                                                               signup&.person&.last_name]}
+                                                               signup&.person&.last_name || ""]}
   end
 
   def nametags

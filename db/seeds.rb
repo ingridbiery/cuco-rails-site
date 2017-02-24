@@ -96,7 +96,7 @@ lunch_timer = CourseRole.create!(name: :lunch_time_keeper, is_worker: true, disp
 extra_helper = CourseRole.create!(name: :extra_helper, is_worker: true, display_weight: 5, description: "Perform a job away from co-op.")
 unassigned = CourseRole.create!(name: :unassigned_volunteer, is_worker: false, display_weight: 14, description: "Adult available to help in a given period.")
 student = CourseRole.create!(name: :student, is_worker: false, display_weight: 15, description: "A student in the class.")
-non_student = CourseRole.create!(name: :non_student_non_worker, is_worker: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
+person_in_room = CourseRole.create!(name: :person_in_room, is_worker: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
 waiting_list = CourseRole.create!(name: :waiting_list, is_worker: false, display_weight: 17, description: "Someone who wants to be a student in a full class. If a spot opens up, the first person on the waiting list will automatically be signed up. If this class is taught in a future session, students on previous waiting lists will have priority signing up.")
 
 print "Pronouns\n"
@@ -108,10 +108,10 @@ she = Pronoun.create!(preferred_pronouns: 'She/Her/Hers')
 they = Pronoun.create!(preferred_pronouns: 'They/Them/Their')
 
 print "Families"
-smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551212", text: true, ec_first_name: "Thomas", ec_last_name: "Smith", ec_phone: "6146464644", ec_text: false, ec_relationship: "Father")
-johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551212", text: false, ec_first_name: "Terri", ec_last_name: "Johnson", ec_phone: "6142325554", ec_text: true, ec_relationship: "Older Sister")
-williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551212", text: true, ec_first_name: "Tara", ec_last_name: "Williams", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
-member_family = Family.create!(name: "Member", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551212", text: true, ec_first_name: "Contact", ec_last_name: "Member", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
+smith = Family.create!(name: "Smith", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551213", text: true, ec_first_name: "Thomas", ec_last_name: "Smith", ec_phone: "6146464644", ec_text: false, ec_relationship: "Father")
+johnson = Family.create!(name: "Johnson", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551213", text: false, ec_first_name: "Terri", ec_last_name: "Johnson", ec_phone: "6142325554", ec_text: true, ec_relationship: "Older Sister")
+williams = Family.create!(name: "Williams", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551213", text: true, ec_first_name: "Tara", ec_last_name: "Williams", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
+member_family = Family.create!(name: "Member", street_address: "Street Addr", city: "Columbus", state: "OH", zip: 43224, phone: "6145551213", text: true, ec_first_name: "Contact", ec_last_name: "Member", ec_phone: "6145555555", ec_text: true, ec_relationship: "Mother")
 print("\n")
 
 print "People"

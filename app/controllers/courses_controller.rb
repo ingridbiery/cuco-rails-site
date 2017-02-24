@@ -17,6 +17,7 @@ class CoursesController < ApplicationController
   before_action :set_cuco_session
   before_action :set_course, except: [:new, :create, :index]
   before_action :set_people, only: [:show]
+  before_action :set_show_unassigned # should we show unassigned volunteering?
 
   # make sure the timing is right for new/create
   before_action :new_create_authorized, only: [:new, :create]
@@ -43,6 +44,13 @@ class CoursesController < ApplicationController
     @course = @cuco_session.courses.build(course_params)
 
     if @course.save
+      # create new volunteer jobs for this course
+      CourseSignup.create(course: @course,
+                          person: current_user&.person,
+                          course_role: CourseRole.find_by(name: :teacher))
+      CourseSignup.create(course: @course,
+                          person: nil,
+                          course_role: CourseRole.find_by(name: :teaching_assistant))
       redirect_to [@cuco_session, @course], notice: "#{@course.name} was successfully created."
     else
       render :new
@@ -116,4 +124,12 @@ class CoursesController < ApplicationController
                                      :period_id, :created_by_id)
     end
 
+    # should we show unassigned volunteering?
+    def set_show_unassigned
+      @show_unassigned = false
+      if @course&.name&.include? "Free Play"
+        @show_unassigned = true
+      end
+    end
+  
 end

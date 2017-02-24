@@ -3,11 +3,11 @@
 <h1>All Signups for <strong><%= @cuco_session.name %></strong></h1>
 
 <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
-  <% @membership = membership %>
-  <h2><strong><%= link_to @membership.family.name, family_path(@membership.family.id) %></strong></h2>
+  <% @family_schedule = membership.schedule %>
+  <h2><strong><%= link_to @family_schedule.family.name, family_path(@family_schedule.family.id) %></strong></h2>
 
-  <%= render 'memberships/schedule_errors' %>
-  <%= render 'memberships/schedule_table', signups: membership.family_signups %>
+  <%= render 'family_schedules/schedule_errors' %>
+  <%= render 'family_schedules/schedule_table', signups: @family_schedule.signups %>
   <hr>
 <% end %>
 

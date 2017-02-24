@@ -15,20 +15,21 @@
   
   <div class="field">
     <%= f.label "Person" %><br>
-    <% if @show_role %>
+    <% if @course_signup.course_role.is_worker %>
       <%= f.collection_select :person_id, @people, :id, :name, include_blank: true %>
     <% else %>
       <%= f.collection_select :person_id, @people, :id, :name %>
     <% end %>
   </div>
-  <% if @show_role %>
-    <div class="field">
+  <div class="field">
+    <% if @edit_role %>
       <%= f.label "Role in Class" %><br>
       <%= f.collection_select :course_role_id, CourseRole.all, :id, :name, selected: @course_signup.course_role_id %>
-    </div>
-  <% else %>
-    <%= f.hidden_field :course_role_id, value: @course_signup.course_role_id %>
-  <% end %>
+    <% else %>
+      <%= f.label "Role in Class: #{@course_signup.course_role.name.titleize}" %>
+      <%= f.hidden_field :course_role_id, value: @course_signup.course_role_id %>
+    <% end %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

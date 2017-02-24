@@ -1,11 +1,11 @@
-<% fees = @membership.family_fees %>
+<% fees = @family_schedule.fees %>
 <p><strong>Fees:</strong> <%= "$%.2f" % fees.round(2) %> 
     <% if fees != 0 %>
       | <strong>Electronic Payment Total</strong>: <%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %>
     <% end %>
 
-| <strong>Volunteering</strong>: <%= @membership.family_jobs %>
-| <strong>Unassigned</strong>: <%= @membership.family_unassigned %></p>
+| <strong>Volunteering</strong>: <%= @family_schedule.jobs %>
+| <strong>Unassigned</strong>: <%= @family_schedule.unassigned %></p>
 
 <div class="table-responsive">
   <table class="table table-striped">
@@ -16,13 +16,13 @@
       <% end %>
     </tr>
 
-    <% @membership.family.people.each do |person| %>
+    <% @family_schedule.family.people.each do |person| %>
 
     <tr>
       <td>
         <%= person.name %>
         <% unless person.adult? %>
-          (<%= person.age %>)
+          (<%= person.age_on @family_schedule.cuco_session.start_date %>)
         <% end %>
       </td>
 
@@ -30,7 +30,7 @@
 
         <td>
           <% signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
-            <%= link_to signup.course.short_name, [@cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
+            <%= link_to signup.course.short_name, [@family_schedule.cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
           <% end %>
         </td>
 

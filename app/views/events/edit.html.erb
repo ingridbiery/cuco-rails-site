@@ -1,0 +1,13 @@
+<%= content_for :page_title, "Editing #{@event.name}" %>
+
+<h1>Editing <%= @event.name  %></h1>
+
+<%= form_for @event do |f| %>
+  <%= render 'form', f: f, single_event: true %>
+  <div class="">
+    <%= f.submit %>
+  </div><br />
+<% end %>
+
+<%= link_to 'Show', event_path %> |
+<%= link_to 'Back', :back %>

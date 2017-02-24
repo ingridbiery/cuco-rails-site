@@ -75,25 +75,15 @@
 <% end %>
   
 <% if current_user&.can? :show, :membership then %>
-  <h3>Members 
+  <h3>Paid Members 
     <% if current_user&.can? :add, :membership %>
       <%= link_to image_tag('add.png'), cuco_session_memberships_add_path(@cuco_session), title: "Add Member to Session" %>
     <% end %>
   </h3>
-  <ol>
-    <% memberships = @cuco_session.memberships.sort_by { |membership| membership.family.name } %>
-    <% memberships.each do |membership| %>
-    <li>
-      <%= link_to membership.family.name, membership.family %> 
-      (<%= link_to 'Schedule', cuco_session_membership_show_schedule_path(membership.cuco_session, membership) %>) 
-      ( membership status: <%= membership.status %> | 
-      <%= link_to "Details", [membership.cuco_session, membership] %>
-      <% if current_user&.can? :edit, :membership %>
-        | <%= link_to "Edit", edit_cuco_session_membership_path(membership.cuco_session, membership) %>
-      <% end %>)
-    </li>
-  <% end %>
-  </ol>
+  <h3>Paid Members</h3>
+    <%= render 'memberships', memberships: @cuco_session.paid_memberships.sort_by { |membership| membership.family.name } %>
+  <h3>Pending/Canceled Members</h3>
+    <%= render 'memberships', memberships: @cuco_session.not_paid_memberships.sort_by { |membership| membership.family.name } %>
 <% end %>
 
 

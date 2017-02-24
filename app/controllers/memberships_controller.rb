@@ -1,13 +1,11 @@
 class MembershipsController < ApplicationController
   let :user, [:new, :create]
-  let :user, :show_schedule # we'll restrict it below to only seeing own schedule
   let :treasurer, [:add, :complete_add, :edit, :update, :show]
   let :web_team, :all
   let :all, :paypal_hook
 
   before_action :set_cuco_session, except: :paypal_hook
   before_action :set_membership, only: [:show, :edit, :update]
-  before_action :must_be_own_schedule, only: :show_schedule
   before_action :family_info_must_be_correct, only: [:new, :create]
   before_action :confirm_signups_open, only: [:new, :create]
   
@@ -20,6 +18,7 @@ class MembershipsController < ApplicationController
     if status == "Completed"
       @membership = Membership.find params[:invoice]
       @membership.update_attributes! notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
+      FamilySchedule.create(@membership.attributes)
     end
     render nothing: true
   end
@@ -83,15 +82,6 @@ class MembershipsController < ApplicationController
   
   private
 
-    # only let the user see their own schedule
-    def must_be_own_schedule
-      @membership = Membership.find(params[:membership_id])
-      unless current_user&.person&.family == @membership.family or
-             current_user&.can? :manage_all, :memberships
-        not_authorized! message: "That's not your schedule."
-      end
-    end
-    
     # only let new memberships be created when signups are open
     def confirm_signups_open
       unless current_user&.can? :manage_all, :families 

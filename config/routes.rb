@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     resources :people
   end
 
+  resources :events, :except => :index
+
   resources :pronouns, :event_types
   resources :rooms, :periods, :only => [:index, :edit, :update]
   
@@ -36,9 +38,8 @@ Rails.application.routes.draw do
     resources :dates, only: [:show, :edit, :update]
     get 'memberships/add' => 'memberships#add'
     post 'memberships/add' => 'memberships#complete_add'
-    resources :memberships, only: [:new, :create, :show, :edit, :update] do
-      get :show_schedule
-    end
+    resources :memberships, only: [:new, :create, :show, :edit, :update]
+    resources :family_schedules, only: [:show]
     get :show_open_jobs
     get :show_all_signups
     get :show_volunteers

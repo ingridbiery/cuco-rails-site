@@ -49,6 +49,6 @@ class CourseRolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_role_params
-      params.require(:course_role).require(:name, :is_worker, :display_weight, :description)
+      params.require(:course_role).permit(:name, :is_worker, :display_weight, :description)
     end
 end

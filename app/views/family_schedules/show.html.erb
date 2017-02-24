@@ -1,0 +1,11 @@
+<%= content_for :page_title, "#{@family_schedule.cuco_session.name} Schedule for the 
+    #{@family_schedule.family.name} Family" %>
+
+<h2>
+  <strong><%= @family_schedule.cuco_session.name %></strong> Schedule for the 
+  <strong><%= @family_schedule.family.name %></strong> Family
+</h2>
+<%= render 'schedule_errors' %>
+<%= render 'schedule', signups: @family_schedule.signups %>
+
+<%= link_to 'Back to session', @family_schedule.cuco_session %> | <%= link_to 'Back to family', @family_schedule.family %>

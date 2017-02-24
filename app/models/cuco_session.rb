@@ -3,6 +3,7 @@ class CucoSession < ActiveRecord::Base
   has_one :dates, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :paid_memberships, -> { Membership.paid }, class_name: 'Membership', foreign_key: :cuco_session_id
+  has_many :not_paid_memberships, -> { Membership.not_paid }, class_name: 'Membership', foreign_key: :cuco_session_id
   has_many :families, through: :paid_memberships
   has_many :kids, through: :families
   has_many :adults, through: :families

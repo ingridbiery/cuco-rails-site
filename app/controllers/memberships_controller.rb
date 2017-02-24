@@ -1,6 +1,7 @@
 class MembershipsController < ApplicationController
   let :user, [:new, :create]
   let :user, :show_schedule # we'll restrict it below to only seeing own schedule
+  let :treasurer, [:add, :complete_add, :edit, :update, :show]
   let :web_team, :all
   let :all, :paypal_hook
 

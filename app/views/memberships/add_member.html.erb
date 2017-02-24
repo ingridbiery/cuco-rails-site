@@ -2,20 +2,9 @@
 
 <h1>Add Member to <%= @cuco_session.name %></h1>
 
-<% if @membership.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
-
-    <ul>
-    <% @membership.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <%= form_for [@cuco_session, @membership], :url => cuco_session_memberships_add_member_path,
                                            :method => :post do |f| %>
+  <%= render 'errors' %>
 
   <%= f.hidden_field :cuco_session_id, value: @cuco_session.id %>
   <%= f.hidden_field :status, value: @membership.status %>

@@ -1,7 +1,25 @@
 <h1><%= @membership.cuco_session.name %>  Membership</h1>
 <br /><div style="font-size: 2em;">Editing <%= @membership.family.name %> Family</div><br />
 
-<%= render 'form' %>
+<%= form_for [@cuco_session, @membership] do |f| %>
+
+  <%= render 'errors' %>
+
+  <div class="field">
+    <%= radio_button_tag(:status, "Started", @membership.status == "Started") %>
+    <%= label_tag(:membership_status, "Started") %>
+    <%= radio_button_tag(:status, "Completed", @membership.status == "Completed") %>
+    <%= label_tag(:membership_status, "Completed") %>
+  </div> 
+
+  <%= f.hidden_field :family_id, value: @membership.family_id %>
+  <%= f.hidden_field :cuco_session_id, value: @membership.cuco_session_id %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
 
 <%= link_to 'Show', [@membership.cuco_session, @membership] %> |
 <%= link_to 'Back', :back %>

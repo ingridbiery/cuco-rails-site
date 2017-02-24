@@ -23,6 +23,11 @@ class MembershipsController < ApplicationController
     render nothing: true
   end
   
+  def new
+    @membership = Membership.new
+  end
+
+  # add is like new, but for an admin to add a membership for someone else
   def add
     @membership = Membership.new
     
@@ -30,6 +35,22 @@ class MembershipsController < ApplicationController
     @families = Family.select{|family| !@cuco_session.families.include? family}
   end
 
+  def edit
+  end
+  
+  def create
+    @membership = Membership.find_or_initialize_by(cuco_session: @cuco_session,
+                                                   family: current_user.person.family)
+    @membership.status = "Started"
+    if @membership.save
+      redirect_to @membership.paypal_url(cuco_session_membership_path(@cuco_session, @membership),
+                                         paypal_hook_path)
+    else
+      render :new
+    end
+  end
+
+  # this is like create for add. That is, it is what is called when the submit button is pressed
   def complete_add
     @membership = Membership.new(membership_params)
 
@@ -43,28 +64,6 @@ class MembershipsController < ApplicationController
     end
   end
 
-  def new
-    @membership = Membership.new
-  end
-
-  def edit
-  end
-  
-  def show
-  end
-
-  def create
-    @membership = Membership.find_or_initialize_by(cuco_session: @cuco_session,
-                                                   family: current_user.person.family)
-    @membership.status = "Started"
-    if @membership.save
-      redirect_to @membership.paypal_url(cuco_session_membership_path(@cuco_session, @membership),
-                                         paypal_hook_path)
-    else
-      render :new
-    end
-  end
-
   def update
     @membership.status = params["status"]
     if @membership.update(membership_params)
@@ -74,6 +73,9 @@ class MembershipsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def show
   end
 
   def show_schedule

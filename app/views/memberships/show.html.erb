@@ -26,8 +26,6 @@
 </p>
 
 <% if current_user&.can? :edit, :memberships %>
-  <% if @cuco_session == CucoSession.current or @cuco_session == CucoSession.upcoming %>
-    <%= link_to 'Edit', edit_cuco_session_membership_path(@cuco_session, @membership) %> |
-  <% end %>
+  <%= link_to 'Edit', edit_cuco_session_membership_path(@cuco_session, @membership) %> |
 <% end %>
 <%= link_to "Back to Session", cuco_session_path(@cuco_session) %>

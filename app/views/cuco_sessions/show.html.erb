@@ -76,8 +76,8 @@
   
 <% if current_user&.can? :show, :membership then %>
   <h3>Members 
-    <% if current_user&.can? :add_member, :membership %>
-      <%= link_to image_tag('add.png'), cuco_session_memberships_add_member_path(@cuco_session), title: "Add Member to Session" %>
+    <% if current_user&.can? :add, :membership %>
+      <%= link_to image_tag('add.png'), cuco_session_memberships_add_path(@cuco_session), title: "Add Member to Session" %>
     <% end %>
   </h3>
   <ol>

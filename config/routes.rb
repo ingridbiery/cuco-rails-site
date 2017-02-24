@@ -34,8 +34,8 @@ Rails.application.routes.draw do
       resources :course_signups, except: [:index, :show]
     end
     resources :dates, only: [:show, :edit, :update]
-    get 'memberships/add_member' => 'memberships#add_member'
-    post 'memberships/add_member' => 'memberships#add_member_complete'
+    get 'memberships/add' => 'memberships#add'
+    post 'memberships/add' => 'memberships#complete_add'
     resources :memberships, only: [:new, :create, :show, :edit, :update] do
       get :show_schedule
     end

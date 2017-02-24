@@ -2,7 +2,7 @@
 
 <h1>Add Member to <%= @cuco_session.name %></h1>
 
-<%= form_for [@cuco_session, @membership], :url => cuco_session_memberships_add_member_path,
+<%= form_for [@cuco_session, @membership], :url => cuco_session_memberships_add_path,
                                            :method => :post do |f| %>
   <%= render 'errors' %>
 

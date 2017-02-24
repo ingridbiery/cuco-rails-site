@@ -23,14 +23,14 @@ class MembershipsController < ApplicationController
     render nothing: true
   end
   
-  def add_member
+  def add
     @membership = Membership.new
     
     # Show families not already in the session.
     @families = Family.select{|family| !@cuco_session.families.include? family}
   end
 
-  def add_member_complete
+  def complete_add
     @membership = Membership.new(membership_params)
 
     if @membership.save
@@ -39,7 +39,7 @@ class MembershipsController < ApplicationController
     else
       # Show families not already in the session.
       @families = Family.select{|family| !@cuco_session.families.include? family}
-      render :add_member
+      render :add
     end
   end
 

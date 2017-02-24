@@ -16,6 +16,10 @@ class Person < ActiveRecord::Base
   validates :last_name, presence: true,
                         length: { maximum: 30 }
 
+  validates_uniqueness_of :first_name,
+                          scope: :last_name,
+                          message: "with same last name is already in our system. Please contact an administrator."
+
   # it would be nice to validate dob for datetime, but it is not simple so we'll skip it
   # we would like to require it for kids and skip it for adults, but that is not
   # high priority, so we're allowing it to be skipped for now.

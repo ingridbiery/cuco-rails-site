@@ -3,6 +3,7 @@ require 'test_helper'
 class PersonTest < ActiveSupport::TestCase
   def setup
     @person = people(:isabella)
+    @person2 = people(:emma)
   end
   
   test "should be valid" do
@@ -26,6 +27,12 @@ class PersonTest < ActiveSupport::TestCase
   test "first_name can not start with a capital letter" do
     @person.first_name = "aaaaaa"
     assert @person.valid?
+  end
+
+  test "name should not be the same as another name" do
+    @person.first_name = @person2.first_name
+    @person.last_name = @person2.last_name
+    assert_not @person.valid?
   end
 
   #############################################################################

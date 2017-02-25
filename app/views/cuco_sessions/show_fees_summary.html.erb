@@ -13,8 +13,8 @@
     <th>Total</th>
   </tr>
   <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
-    <% if membership.family_fees != 0 %>
-      <% total_to_collect += membership.family_fees %>
+    <% if membership.schedule.fees != 0 %>
+      <% total_to_collect += membership.schedule.fees %>
       <%= render 'fees_to_collect', membership: membership %>
     <% end %>
   <% end %>

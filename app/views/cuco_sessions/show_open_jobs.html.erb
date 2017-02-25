@@ -6,15 +6,17 @@
   <table class="table table-condensed table-striped">
     <tr>
       <th>Period</th>
+      <th>Class Name</th>
       <th>Volunteer Job</th>
     </tr>
 
-    <% @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}.each do |signup| %>
+    <% @signups.each do |signup| %>
       <% if signup.is_volunteer_job? and !signup.person %>
         <tr>
           <td><%= signup.course.period.name %></td>
-          <td><%= link_to "#{signup.course.name} #{signup.course_role.name}",
-                edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></td>
+          <td><%= link_to signup.course.name, cuco_session_course_path(@cuco_session, signup.course) %></td>
+          <td><%= link_to signup.course_role.name.titleize,
+                          edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></td>
         </tr>
       <% end %>
     <% end %>

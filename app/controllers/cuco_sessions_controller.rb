@@ -60,6 +60,7 @@ class CucoSessionsController < ApplicationController
   # show a list of jobs that haven't been taken yet
   def show_open_jobs
     @cuco_session = CucoSession.find(params[:cuco_session_id])
+    @signups = @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}
   end
 
   def show_volunteers

@@ -30,6 +30,7 @@ class MembershipsController < ApplicationController
   # add is like new, but for an admin to add a membership for someone else
   def add
     @membership = Membership.new
+    @membership.status = "Completed"
     
     # Show families not already in the session.
     @families = Family.select{|family| !@cuco_session.families.include? family}

@@ -24,17 +24,23 @@
     -moz-column-count: 2;
     -webkit-column-count: 2;
     column-count: 2;
+  }
+  
+  table {
     font-size: .8em;
   }
 
-  #two-column tr td {
+  tr td {
     font-size: 1em;
     border: none;
   }
 
-
-  #two-column thead tbody {
+  thead tbody {
     font-size: 1.5em;
+  }
+  
+  @page #landscape {
+    size: landscape
   }
 
   #two-column > div > table > tbody > tr.Before > td {

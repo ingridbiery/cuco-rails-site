@@ -160,7 +160,7 @@ class CourseSignupsController < ApplicationController
     # get the people that this user can add or remove from a course
     def set_people
       if current_user&.can? :manage_all, :course_signups
-        @people = @cuco_session.people
+        @people = Person.all
       else
         @people = current_user&.person&.family&.people
       end

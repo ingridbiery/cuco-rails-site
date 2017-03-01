@@ -17,7 +17,7 @@ in the room).
       <tbody>
         <% @signups.each do |signup| %>
           <% if (signup.is_volunteer_job? or signup.person.adult?) and not signup.course.name.downcase.include? "not at co" %>
-            <tr>
+            <tr class="<%= signup.course.period.name %>">
               <td><%= signup.course.period.name %></td>
               <td><%= link_to signup.course.name, cuco_session_course_path(@cuco_session, signup.course) %></td>
               <td><%= link_to signup.course_role.name.titleize, edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></td>

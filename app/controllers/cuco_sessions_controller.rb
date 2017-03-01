@@ -1,5 +1,9 @@
 class CucoSessionsController < ApplicationController
   let :web_team, :all
+  let :volunteer_coordinator, [:show_volunteers, :all_signups_first_name,
+                               :all_signups_last_name, :show_away,
+                               :show_all_signups]
+  let :treasurer, :show_fees_summary
   let :all, [:index, :show]
   let :paid, :show_open_jobs
   before_action :set_cuco_session, only: [:show, :edit, :update, :destroy]
@@ -65,7 +69,9 @@ class CucoSessionsController < ApplicationController
 
   def show_volunteers
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.sort_by {|signup| [signup.course.period.start_time,
+    @signups = @cuco_session.course_signups.select{|signup| (signup.is_volunteer_job? or signup.person.adult?) and
+                                                            not signup.course.name.downcase.include? "not at"}
+                                           .sort_by {|signup| [signup.course.period.start_time,
                                                                signup.course.name,
                                                                signup.course_role.name,
                                                                signup&.person&.last_name || ""]}
@@ -84,7 +90,6 @@ class CucoSessionsController < ApplicationController
                                                                signup&.person&.last_name || "",
                                                                signup&.person&.first_name || ""]}
   end
-
 
   def show_away
     @cuco_session = CucoSession.find(params[:cuco_session_id])

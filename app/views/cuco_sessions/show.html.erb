@@ -14,7 +14,7 @@
   <p>See <%= link_to "nametag info", cuco_session_nametags_path(@cuco_session) %>.</p>
 <% end %>
 <% if current_user&.can? :show_all_signups, :cuco_session %>
-  <p>See <%= link_to "all signups", cuco_session_show_all_signups_path(@cuco_session) %>.</p>
+  <p>See <%= link_to "all signups by family", cuco_session_show_all_signups_path(@cuco_session) %>, with errors and warnings (be patient, this page loads very slowly).</p>
 <% end %>
 <% if current_user&.can? :show_away, :cuco_session %>
   <p>See <%= link_to "away from co-op", cuco_session_show_away_path(@cuco_session) %>.</p>

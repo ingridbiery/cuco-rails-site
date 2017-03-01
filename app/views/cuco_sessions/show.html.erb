@@ -39,6 +39,7 @@
 </h3>
 
 <% if @cuco_session.courses.any? %>
+  <p><%= link_to "List of all classes with descriptions", cuco_session_courses_path(@cuco_session) %>.</p>
   <div class="table-responsive">
     <table class="table table-striped table-condensed">
       <tr>
@@ -67,11 +68,13 @@
     </table>
   </div>
   <ul>
-  <h4>Unassigned</h4>
-  <% @cuco_session.courses.where(room: nil).where(period: nil).each do |course| %>
-    <li><%= link_to course.name, [@cuco_session, course] %></li>
+  <% unassigned_courses = @cuco_session.courses.where(room: nil).where(period: nil) %>
+  <% if unassigned_courses.count > 0 %>
+    <h4>Unassigned</h4>
+    <ul><% unassigned_courses.each do |course| %>
+      <li><%= link_to course.name, [@cuco_session, course] %></li>
+    <% end %></ul>
   <% end %>
-  </ul>
 <% end %>
   
 <% if current_user&.can? :show, :membership then %>

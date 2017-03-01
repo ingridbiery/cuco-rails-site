@@ -72,7 +72,7 @@
   <%= @course.additional_info %>
 </p>
 
-<% if current_user&.can? :manage_all, :courses %>
+<% if current_user&.can? :show_students, :courses %>
   <p>
     <strong>Signups to Add:</strong>
     <%= @course.signups_to_add %>

@@ -17,11 +17,12 @@
             <td><%= link_to signup.course_role.name.titleize,
                             edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup),
                             Title: signup.course_role.description %></td>
-            <td><%= link_to signup&.person&.name, family_person_path(signup.person.family, signup.person) %>
+            <td><% if signup.person %>
+              <%= link_to signup&.person&.name, family_person_path(signup.person.family, signup.person) %>
               <% if signup.person.age %>
                 (<%= signup&.person&.age %>)
               <% end %>
-            </td>
+            <% end %></td>
           </tr>
         <% end %>
       </tbody>

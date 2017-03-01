@@ -79,6 +79,19 @@ class CucoSession < ActiveRecord::Base
     dates&.is_before_signups?
   end
 
+  # find all signups for people who are not members of this session
+  def non_member_signups
+    course_signups.select{|signup| signup.person and not people.include? signup.person}
+  end
+
+  # check if this session has an signup errors
+  def check_signups
+    # if there are any signups for people who are not members of the session
+    unless non_member_signups.count == 0
+      errors.add('Session', 'contains signups for people who are not members')
+    end
+  end
+
   private
     # make sure the dates work
     def valid_dates

@@ -16,6 +16,9 @@
 <% if current_user&.can? :show_all_signups, :cuco_session %>
   <p>See <%= link_to "all signups", cuco_session_show_all_signups_path(@cuco_session) %>.</p>
 <% end %>
+<% if current_user&.can? :show_away, :cuco_session %>
+  <p>See <%= link_to "away from co-op", cuco_session_show_away_path(@cuco_session) %>.</p>
+<% end %>
 <% if current_user&.can? :show_all_signups, :cuco_session %>
   <p>See <%= link_to "all signups by first name", cuco_session_all_signups_first_name_path(@cuco_session) %>.</p>
 <% end %>

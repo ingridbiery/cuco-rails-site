@@ -1,0 +1,24 @@
+<%= content_for :page_title, "Away from co-op for #{@cuco_session.name}" %>
+
+<h2>Away from co-op for <strong><%= @cuco_session.name %></strong></h2>
+
+<div id="two-column">
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped">
+      <thead class="hidden-print">
+        <th>Period</th>
+        <th>Person</th>
+      </thead>
+      <tbody>
+        <% @signups.each do |signup| %>
+          <tr class="<%= signup.course.period.name %>">
+            <td><%= signup.course.period.name %></td>
+            <td><%= link_to signup&.person&.name || "", edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= link_to 'Back to Session', @cuco_session, class: "hidden-print" %>

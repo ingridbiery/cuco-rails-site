@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     get :show_open_jobs
     get :show_all_signups
     get :show_volunteers
+    get :show_away
     get :nametags
     get :show_fees_summary
 

@@ -14,6 +14,7 @@ role_w = Role.create!(name: 'web_team')
 role_h = Role.create!(name: 'help_email')
 role_nm = Role.create!(name: 'new_member_coordinator')
 role_t = Role.create!(name: 'treasurer')
+role_vc = Role.create!(name: 'volunteer_coordinator')
 # 'new', 'former', 'member', and 'paid' are intentionally not roles. These are now
 # calculated based on the current date and the family's actual membership in current
 # and previous sessions. See user.rb membership method for details
@@ -93,7 +94,7 @@ lunch_clean = CourseRole.create!(name: :lunch_clean_up_manager, is_worker: true,
 One person responsible for sweeping the floor.
 These jobs may run past the end of lunch so should be taken by someone who is either free after lunch, or planning to be in the auditorium.")
 lunch_timer = CourseRole.create!(name: :lunch_time_keeper, is_worker: true, display_weight: 13, description: "Make an announcement about 10-15 minutes before the end of lunch to remind people to help wipe down tables and chairs and return them to their carts.")
-extra_helper = CourseRole.create!(name: :extra_helper, is_worker: true, display_weight: 5, description: "Perform a job away from co-op.")
+after_hours_volunteer = CourseRole.create!(name: :after_hours_volunteer, is_worker: true, display_weight: 5, description: "Perform a job away from co-op.")
 unassigned = CourseRole.create!(name: :unassigned_volunteer, is_worker: false, display_weight: 14, description: "Adult available to help in a given period.")
 student = CourseRole.create!(name: :student, is_worker: false, display_weight: 15, description: "A student in the class.")
 person_in_room = CourseRole.create!(name: :person_in_room, is_worker: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")

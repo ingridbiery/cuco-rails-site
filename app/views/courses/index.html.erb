@@ -2,22 +2,24 @@
 
 <h1>Listing Classes in <%= @cuco_session.name %></h1>
 
-<table style="table table-striped">
-  <thead>
-    <tr>
-      <th>Class Name</th>
-      <th>Class Description</th>
-      <th>Age Range</th>
-      <th>Fee</th>
-      <th>Drop-Ins</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%= render @courses %>
-  </tbody>
- </table>
+<div class="table-responsive">
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>Class Name</th>
+        <th>Class Description</th>
+        <th>Age Range</th>
+        <th>Fee</th>
+        <th>Drop-Ins</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <%= render @courses %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 

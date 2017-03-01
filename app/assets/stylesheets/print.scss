@@ -24,17 +24,54 @@
     -moz-column-count: 2;
     -webkit-column-count: 2;
     column-count: 2;
+  }
+  
+  table {
     font-size: .8em;
   }
 
-  #two-column tr td {
+  tr td {
     font-size: 1em;
+    border: none;
   }
 
-
-  #two-column thead tbody {
+  thead tbody {
     font-size: 1.5em;
+  }
+  
+  div > table > tbody > tr.Before > td {
+    background-color: white !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  div > table > tbody > tr.First > td {
+    background-color: #ffdddd !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  div > table > tbody > tr.Second > td {
+    background-color: #fbe5d6 !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  div > table > tbody > tr.Lunch > td {
+    background-color: #fff2cc !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  div > table > tbody > tr.Third > td {
+    background-color: #e2f0d9 !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  div > table > tbody > tr.Fourth > td {
+    background-color: #deebf7 !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  div > table > tbody > tr.After > td {
+    background-color: #dfc9ef !important;
+    -webkit-print-color-adjust: exact;
   }
 
 }
-

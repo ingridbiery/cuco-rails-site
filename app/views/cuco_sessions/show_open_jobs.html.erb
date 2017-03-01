@@ -14,10 +14,16 @@
       <% if signup.is_volunteer_job? and !signup.person %>
         <tr>
           <td><%= signup.course.period.name %></td>
-          <td><%= link_to signup.course.name, cuco_session_course_path(@cuco_session, signup.course) %></td>
-          <td><%= link_to signup.course_role.name.titleize,
-                          edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup),
-                          Title: signup.course_role.description %></td>
+          <td>
+            <%= link_to signup.course.name,
+                        cuco_session_course_path(@cuco_session, signup.course),
+                        Title: signup.course.description %>
+          </td>
+          <td>
+            <%= link_to signup.course_role.name.titleize,
+                        edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup),
+                        Title: signup.course_role.description %>
+          </td>
         </tr>
       <% end %>
     <% end %>

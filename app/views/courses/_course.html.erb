@@ -4,7 +4,14 @@
   <td><%= course.min_age %> - <%= course.max_age %></td>
   <td><%= course.fee %></td>
   <td><%= course.drop_ins %></td>
-  <td><%= link_to 'Show', [@cuco_session, course] %></td>
-  <td><%= link_to 'Edit', edit_cuco_session_course_path(@cuco_session, course) %></td>
-  <td><%= link_to 'Destroy', [@cuco_session, course], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td>
+    <%= link_to image_tag('wrench.png'),
+        edit_cuco_session_course_path(@cuco_session, course),
+        Title: "Edit #{course.name}" %>
+  </td>
+  <td>
+    <%= link_to image_tag('delete.png'),
+        [@cuco_session, course], method: :delete, data: { confirm: 'Are you sure?' },
+        Title: "Delete #{course.name}" %>
+  </td>
 </tr>

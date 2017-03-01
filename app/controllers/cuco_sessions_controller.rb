@@ -71,15 +71,6 @@ class CucoSessionsController < ApplicationController
                                                                signup&.person&.last_name || ""]}
   end
 
-<<<<<<< HEAD
-  def show_away
-    @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.select{|signup| signup.course.name.downcase.include? "not at"}
-                                           .sort_by {|signup| [signup.course.period.start_time,
-                                                               signup&.person&.last_name]}
-  end
-
-=======
   def all_signups_first_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
     @signups = @cuco_session.course_signups.sort_by {|signup| [signup.course.period.start_time,
@@ -95,7 +86,13 @@ class CucoSessionsController < ApplicationController
   end
 
 
->>>>>>> 7597f84fccadbe9178d2edab8a15564634e30141
+  def show_away
+    @cuco_session = CucoSession.find(params[:cuco_session_id])
+    @signups = @cuco_session.course_signups.select{|signup| signup.course.name.downcase.include? "not at"}
+                                           .sort_by {|signup| [signup.course.period.start_time,
+                                                               signup&.person&.last_name]}
+  end
+
   def nametags
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end

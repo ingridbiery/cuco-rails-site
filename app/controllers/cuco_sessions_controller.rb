@@ -1,7 +1,7 @@
 class CucoSessionsController < ApplicationController
   let :web_team, :all
-  let :volunteer_coordinator, [:show_volunteers, :all_signups_first_name,
-                               :all_signups_last_name, :show_away,
+  let :volunteer_coordinator, [:show_volunteers, :show_all_signups_first_name,
+                               :show_all_signups_last_name, :show_away,
                                :show_all_signups]
   let :treasurer, :show_fees_summary
   let :all, [:index, :show]
@@ -77,16 +77,18 @@ class CucoSessionsController < ApplicationController
                                                                signup&.person&.last_name || ""]}
   end
 
-  def all_signups_first_name
+  def show_all_signups_first_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.sort_by {|signup| [signup.course.period.start_time,
+    @signups = @cuco_session.course_signups.select{|signup| not signup.course.name.downcase.include? "not at"}
+                                           .sort_by {|signup| [signup.course.period.start_time,
                                                                signup&.person&.first_name || "",
                                                                signup&.person&.last_name || ""]}
   end
 
-  def all_signups_last_name
+  def show_all_signups_last_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.sort_by {|signup| [signup.course.period.start_time,
+    @signups = @cuco_session.course_signups.select{|signup| not signup.course.name.downcase.include? "not at"}
+                                           .sort_by {|signup| [signup.course.period.start_time,
                                                                signup&.person&.last_name || "",
                                                                signup&.person&.first_name || ""]}
   end
@@ -98,7 +100,7 @@ class CucoSessionsController < ApplicationController
                                                                signup&.person&.last_name]}
   end
 
-  def nametags
+  def show_nametags
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end
 

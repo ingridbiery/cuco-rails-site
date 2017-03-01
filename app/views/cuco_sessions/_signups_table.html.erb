@@ -1,0 +1,30 @@
+<div id="two-column">
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped">
+      <thead class="hidden-print">
+        <th>Period</th>
+        <th>Class Name</th>
+        <th>Volunteer Job</th>
+        <th>Volunteer</th>
+      </thead>
+      <tbody>
+        <% @signups.each do |signup| %>
+          <tr class="<%= signup.course.period.name %>">
+            <td><%= signup.course.period.name %></td>
+            <td><%= link_to signup.course.name,
+                            cuco_session_course_path(@cuco_session, signup.course),
+                            Title: signup.course.description %></td>
+            <td><%= link_to signup.course_role.name.titleize,
+                            edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup),
+                            Title: signup.course_role.description %></td>
+            <td><%= link_to signup&.person&.name, family_person_path(signup.person.family, signup.person) %>
+              <% if signup.person.age %>
+                (<%= signup&.person&.age %>)
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

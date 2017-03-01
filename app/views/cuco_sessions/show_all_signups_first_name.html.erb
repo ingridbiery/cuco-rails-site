@@ -1,0 +1,7 @@
+<%= content_for :page_title, "All Signups by First Name for #{@cuco_session.name}" %>
+
+<h2><strong><%= @cuco_session.name %></strong> All Signups by First Name</h2>
+
+<%= render 'signups_table' %>
+
+<%= link_to 'Back to Session', @cuco_session, class: "hidden-print" %>

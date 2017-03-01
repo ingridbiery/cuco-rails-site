@@ -2,6 +2,20 @@
 
 <h1>All Signups for <strong><%= @cuco_session.name %></strong></h1>
 
+<% @cuco_session.check_signups %>
+<% if @cuco_session.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@cuco_session.errors.count, "error") %> were found in this session's signups:</h2>
+
+    <ul>
+    <% @cuco_session.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h2>Member Family Signups</h2>
 <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
   <% @family_schedule = membership.schedule %>
   <h2><strong><%= link_to @family_schedule.family.name, family_path(@family_schedule.family.id) %></strong></h2>
@@ -10,5 +24,14 @@
   <%= render 'family_schedules/schedule_table', signups: @family_schedule.signups %>
   <hr>
 <% end %>
+
+<% non_member_signups = @cuco_session.non_member_signups %>
+<% if non_member_signups.count != 0 %>
+  <h2>Other Signups</h2>
+    <ul><% non_member_signups.each do |signup| %>
+      <li><%= link_to signup.course.name, [@cuco_session, signup.course] %>: <%= signup.person.name %></li>
+    <% end %></ul>
+<% end %>
+<br />
 
 <%= link_to 'Back to Session', @cuco_session %>

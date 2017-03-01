@@ -65,7 +65,9 @@ class CucoSessionsController < ApplicationController
 
   def show_volunteers
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.sort_by {|signup| [signup.course.period.start_time,
+    @signups = @cuco_session.course_signups.select{|signup| (signup.is_volunteer_job? or signup.person.adult?) and
+                                                            not signup.course.name.downcase.include? "not at"}
+                                           .sort_by {|signup| [signup.course.period.start_time,
                                                                signup.course.name,
                                                                signup.course_role.name,
                                                                signup&.person&.last_name || ""]}

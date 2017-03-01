@@ -135,6 +135,13 @@
   </div>
   
   <div class="field">
+    <%= f.label :signups_to_add %><br/>
+    <%= f.text_area :signups_to_add %><br/>
+    <em>Are there any students or teachers you want the web team to add to this
+    class before signups are open. This information will not be made public.</em>
+  </div>
+  
+  <div class="field">
     <%= f.hidden_field :created_by_id, value: @course.created_by_id %>
   </div>
 

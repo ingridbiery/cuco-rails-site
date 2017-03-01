@@ -1,0 +1,50 @@
+<%= content_for :page_title, "All Signups by First Name for #{@cuco_session.name}" %>
+
+<h2><strong><%= @cuco_session.name %></strong> All Signups by First Name</h2>
+This page lists all people of any age signed up for a job, and all adults signed
+up as students (for emergency backups, and information about the number of adults
+in the room).
+
+<div id="two-column">
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped">
+      <thead class="hidden-print">
+        <th>Period</th>
+        <th>Class Name</th>
+        <th>Volunteer Job</th>
+        <th>Volunteer</th>
+      </thead>
+      <tbody>
+        <% @signups.each do |signup| %>
+          <% if not signup.course.name.downcase.include? "not at co" and signup&.person&.name != nil %>
+            <tr class="<%= signup.course.period.name %>">
+              <td><%= signup.course.period.name %></td>
+
+              <td>
+                <%= link_to signup.course.name,
+                    cuco_session_course_path(@cuco_session, signup.course),
+                    Title: signup.course.description %>
+              </td>
+
+              <td>
+                <%= link_to signup.course_role.name.titleize,
+                    edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup),
+                    Title: signup.course_role.description %>
+              </td>
+
+              <td>
+                <%= link_to signup&.person&.first_name, family_person_path(signup.person.family, signup.person) %>
+                <%= link_to signup&.person&.last_name, family_path(signup.person.family) %>
+                <% if signup.person.age %>
+                  (<%= signup&.person&.age %>)
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= link_to 'Back to Session', @cuco_session, class: "hidden-print" %>

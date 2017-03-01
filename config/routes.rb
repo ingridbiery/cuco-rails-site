@@ -46,6 +46,8 @@ Rails.application.routes.draw do
     get :show_away
     get :nametags
     get :show_fees_summary
+    get :all_signups_first_name
+    get :all_signups_last_name
 
     # make sure post works for membership show (since this is where we return from paypal)
     post "/memberships/:id" => "memberships#show"

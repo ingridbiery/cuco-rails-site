@@ -40,7 +40,7 @@ class Course < ActiveRecord::Base
   def teachers
     teacher_list = []
     volunteer_signups.each do |signup|
-      if signup.course_role.name == "teacher"
+      if signup.course_role.name == "teacher" and signup.person
         teacher_list << signup.person.name
       end
     end

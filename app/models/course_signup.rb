@@ -42,7 +42,8 @@ class CourseSignup < ActiveRecord::Base
   end
 
   def course_capacity
-    if course.max_students == course.student_signups.count
+    if course.max_students == course.student_signups.count and
+       course_role.name == "student" then
       errors.add("Max students", "has been reached")
     end
   end

@@ -1,0 +1,14 @@
+<%= content_for :page_title, "Class Rosters for #{@cuco_session.name}" %>
+
+<h2><strong><%= @cuco_session.name %></strong> Class Rosters</h2>
+
+<% period = nil %>
+<% @cuco_session.courses.sort_by {|course| course.period.start_time}.each do |course| %>
+  <% if period != course.period %>
+    <h2><%= course.period.name.titleize %></h2>
+    <% period = course.period %>
+  <% end %>
+  <%= render 'courses/course_roster', course: course %>
+<% end %>
+
+<%= link_to 'Back to Session', @cuco_session, class: "hidden-print" %>

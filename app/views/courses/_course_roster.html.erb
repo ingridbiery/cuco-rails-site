@@ -1,0 +1,43 @@
+<h3><%= link_to course.name, [@cuco_session, course] %></h3>
+  Room: <em><%= course.room.name.titleize %></em>,
+  Ages: <em><%= course.min_age %> - <%= course.max_age %></em>,
+  Ages Firm? <em><%= course.age_firm %></em>,
+  Fee: <em><%= course.fee %></em>,
+  Drop In? <em><%= course.drop_ins %></em><br />
+  <% if current_user&.can? :show_students, :courses %>
+    <% if course.student_signups.count != 0 %>
+      Students:<ol>
+        <% course.student_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
+          <li><%= course_signup.person.name %></li>
+        <% end %>
+      </ol>
+    <% end %>
+    <% if course.waiting_list_signups.count != 0 %>
+      Waiting List:<ol>
+        <% course.waiting_list_signups.sort_by {|signup| signup.created_at}.each do |course_signup| %>
+          <li><%= course_signup.person.name %></li>
+        <% end %>
+      </ol>
+    <% end %>
+    <% if course.volunteer_signups.count != 0 %>
+      Volunteers:<ul>
+        <% course.volunteer_signups.sort_by {|signup| signup.course_role.display_weight}.each do |course_signup| %>
+          <li><%= course_signup.course_role.name.titleize %>: <%= course_signup.person.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if course.people_in_room_signups.count != 0 %>
+      People In Room:<ul>
+        <% course.people_in_room_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
+          <li><%= course_signup.person.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if course.unassigned_volunteer_signups.count != 0 %>
+      Unassigned Volunteers<ul>
+        <% course.unassigned_volunteer_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
+          <li><%= course_signup.person.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>

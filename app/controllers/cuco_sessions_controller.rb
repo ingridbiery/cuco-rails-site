@@ -6,6 +6,7 @@ class CucoSessionsController < ApplicationController
   let :treasurer, :show_fees_summary
   let :all, [:index, :show]
   let :paid, :show_open_jobs
+  let [:member, :paid], :show_rosters
   before_action :set_cuco_session, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -110,6 +111,10 @@ class CucoSessionsController < ApplicationController
   end    
   
   def show_fees_summary
+    @cuco_session = CucoSession.find(params[:cuco_session_id])
+  end
+
+  def show_rosters
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end
 

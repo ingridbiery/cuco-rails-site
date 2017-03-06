@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :memberships, only: [:new, :create, :show, :edit, :update]
     resources :family_schedules, only: [:show]
     get :show_open_jobs
+    get :show_rosters
     get :show_all_signups
     get :show_volunteers
     get :show_away

@@ -22,7 +22,7 @@
     <% if course.volunteer_signups.count != 0 %>
       Volunteers:<ul>
         <% course.volunteer_signups.sort_by {|signup| signup.course_role.display_weight}.each do |course_signup| %>
-          <li><%= course_signup.course_role.name.titleize %>: <%= course_signup.person.name %></li>
+          <li><%= course_signup.course_role.name.titleize %>: <%= course_signup&.person.&name %></li>
         <% end %>
       </ul>
     <% end %>

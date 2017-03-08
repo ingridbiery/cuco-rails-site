@@ -4,6 +4,10 @@
   <li class="dropdown-menu-item"><%= link_to 'Concern Process', page_path("concern-process") %></li>
 <% end %>
 
+<% if current_user&.can? :index, :course_roles %>
+  <li class="dropdown-menu-item"><%= link_to 'Volunteer Jobs', course_roles_path %></li>
+<% end %>
+
 <% if current_user&.can? :show_member_directory, :families %>
   <li class="dropdown-menu-item"><%= link_to 'Directory', families_show_member_directory_path %></li>
 <% end %>

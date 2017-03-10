@@ -1,6 +1,6 @@
 <% fees = @family_schedule.fees %>
 <% fees_due = fees.round(2) + Membership.electronic_payment_fee(fees).round(2) %>
-<% paypal_url = "https://paypal.me/cuco" + "/%.2f" % fees_due %>
+<% paypal_url = "https://www.paypal.me/columbusunschoolers" + "/%.2f" % fees_due %>
 
 <p><strong>Fees:</strong> <%= "$%.2f" % fees.round(2) %>
 <% if fees != 0 %>

@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
   belongs_to :cuco_session
-  belongs_to :room
+  has_and_belongs_to_many :rooms
   belongs_to :period
   belongs_to :created_by, class_name: "User"
   

@@ -120,7 +120,7 @@ class CoursesController < ApplicationController
                                      :max_age, :age_firm, :min_students,
                                      :max_students, :fee, :supplies,
                                      :room_reqs, :time_reqs,
-                                     :drop_ins, :additional_info, :room_id,
+                                     :drop_ins, :additional_info, {room_ids: []},
                                      :period_id, :created_by_id, :signups_to_add)
     end
 

@@ -7,14 +7,14 @@
 </p>
 
 <p>
-  <strong>Room:</strong>
-  <% if !@course.room.nil? %>
-    <%= @course.room.name %>
-  <% else %>
+  <strong>Room(s):</strong>
+  <% if @course.rooms.count == 0 %>
     not yet assigned
+  <% else %>
+    <%= @course.rooms.map{|room| room.name.titleize}.join(", ") %>
   <% end %>
   <strong>Period:</strong>
-  <% if !@course.period.nil? %>
+  <% if @course.period %>
     <%= @course.period.name %>
   <% else %>
     not yet assigned

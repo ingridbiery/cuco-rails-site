@@ -1,8 +1,8 @@
 <h3><%= link_to course.name, [@cuco_session, course] %></h3>
-  Room: <em><%= course.room.name.titleize %></em>,
-  Ages: <em><%= course.min_age %> - <%= course.max_age %></em>,
-  Ages Firm? <em><%= course.age_firm %></em>,
-  Fee: <em><%= course.fee %></em>,
+  Room: <em><%= course.rooms.map{|room| room.name.titleize}.join(", ") %></em>;
+  Ages: <em><%= course.min_age %> - <%= course.max_age %></em>;
+  Ages Firm? <em><%= course.age_firm %></em>;
+  Fee: <em><%= course.fee %></em>;
   Drop In? <em><%= course.drop_ins %></em><br />
   <% if current_user&.can? :show_students, :courses %>
     <% if course.student_signups.count != 0 %>

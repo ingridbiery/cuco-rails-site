@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301183029) do
+ActiveRecord::Schema.define(version: 20170308231044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20170301183029) do
     t.integer  "cuco_session_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "room_id"
     t.integer  "fee"
     t.integer  "created_by_id"
     t.text     "signups_to_add"
@@ -64,7 +63,14 @@ ActiveRecord::Schema.define(version: 20170301183029) do
   add_index "courses", ["created_by_id"], name: "index_courses_on_created_by_id", using: :btree
   add_index "courses", ["cuco_session_id"], name: "index_courses_on_cuco_session_id", using: :btree
   add_index "courses", ["period_id"], name: "index_courses_on_period_id", using: :btree
-  add_index "courses", ["room_id"], name: "index_courses_on_room_id", using: :btree
+
+  create_table "courses_rooms", id: false, force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "room_id",   null: false
+  end
+
+  add_index "courses_rooms", ["course_id", "room_id"], name: "index_courses_rooms_on_course_id_and_room_id", using: :btree
+  add_index "courses_rooms", ["room_id", "course_id"], name: "index_courses_rooms_on_room_id_and_course_id", using: :btree
 
   create_table "cuco_sessions", force: :cascade do |t|
     t.string   "name"
@@ -229,7 +235,6 @@ ActiveRecord::Schema.define(version: 20170301183029) do
   add_foreign_key "course_signups", "people"
   add_foreign_key "courses", "cuco_sessions"
   add_foreign_key "courses", "periods"
-  add_foreign_key "courses", "rooms"
   add_foreign_key "courses", "users", column: "created_by_id"
   add_foreign_key "dates", "cuco_sessions"
   add_foreign_key "events", "dates"

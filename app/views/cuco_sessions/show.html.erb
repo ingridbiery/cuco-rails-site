@@ -65,12 +65,14 @@
           <td><%= period.name %><br/>(<%= period.duration_text %>)</td>
           <% @rooms.each do |room| %>
             <td>
-              <% courses = @cuco_session.courses.where(room: room).where(period: period) %>
+              <% courses = @cuco_session.courses.where(period: period) %>
               <% courses.each do |course| %>
-                <% if course.short_name.length == 0 %>
-                  <%= link_to course.name, [@cuco_session, course] %><br />
-                <% else %>
-                  <%= link_to course.short_name, [@cuco_session, course] %><br />
+                <% if course.rooms.include? room %>
+                  <% if course.short_name.length == 0 %>
+                    <%= link_to course.name, [@cuco_session, course] %><br />
+                  <% else %>
+                    <%= link_to course.short_name, [@cuco_session, course] %><br />
+                  <% end %>
                 <% end %>
               <% end %>
             </td>
@@ -80,7 +82,7 @@
     </table>
   </div>
   <ul>
-  <% unassigned_courses = @cuco_session.courses.where(room: nil).where(period: nil) %>
+  <% unassigned_courses = @cuco_session.courses.where(period: nil) %>
   <% if unassigned_courses.count > 0 %>
     <h4>Unassigned</h4>
     <ul><% unassigned_courses.each do |course| %>

@@ -15,11 +15,11 @@
   <%# typically, we expect whoever can edit one can edit both, but since that's
       not how we actually set it up, we should allow editing of one but not the other %>
   <% if user_signed_in? and current_user.can? :edit, RoomsController then %>
-    <%=f.label :room %>
-    <%= f.collection_select(:room_id, Room.all, :id, :name, {include_blank: true}) %>
+    <%= f.label :rooms %>
+    <%= f.collection_select(:room_ids, Room.all, :id, :name, {include_blank: true}, {multiple: true}) %>
   <% end %>
   <% if user_signed_in? and current_user.can? :edit, PeriodsController then %>
-    <%=f.label :period %>
+    <%= f.label :period %>
     <%= f.collection_select(:period_id, Period.all, :id, :name, {include_blank: true}) %> <br/>
   <% end %>
 

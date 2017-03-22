@@ -84,11 +84,67 @@ class CucoSession < ActiveRecord::Base
     course_signups.select{|signup| signup.person and not people.include? signup.person}
   end
 
-  # check if this session has an signup errors
+  # check if this session has any signup errors
   def check_signups
     # if there are any signups for people who are not members of the session
     unless non_member_signups.count == 0
       errors.add('Session', 'contains signups for people who are not members')
+    end
+  end
+
+  # create the default courses for this session (expected to be called only once
+  # when the session is newly created). Use a random member of the webteam as the
+  # creator so regular members can't edit
+  def create_default_courses
+    creator = Role.find_by(name: :web_team).users.first
+    # a list of jobs that we need two of
+    main_jobs = [:auditorium_monitor, :game_room_monitor, :gym_monitor, :playground_monitor]
+    # double the existing list and add whatever else is needed
+    main_jobs += main_jobs + [:floater]
+
+    ["Before", "First", "Second", "Lunch", "Third", "Fourth", "After"].each_with_index do |period_name, index|
+      period = Period.find_by(name: period_name)
+
+      # set up job list for the given period
+      if index == 0 then # before co-op
+        jobs = [:auditorium_monitor, :set_up_manager, :volunteer_manager]
+        jobs += jobs + [:floater]
+      elsif index == 6 then # after co-op
+        jobs = [:auditorium_monitor, :clean_up_manager]
+        jobs += jobs + [:floater]
+        index -= 1
+      elsif index == 3 # lunch
+        jobs = [:gym_monitor, :playground_monitor]
+        jobs += jobs + [:lunch_clean_up_manager, :lunch_time_keeper]
+        index = 2.5
+      else # regular class periods
+        jobs = main_jobs
+        if index == 1 then # first period
+          jobs += [:volunteer_manager, :volunteer_manager]
+        end
+        if (index > 3) then index -= 1 end
+        c = courses.create!(name: "Not at Co-op (#{period_name})", short_name: "Away (#{index.to_s})", description: 'If you are not going to be at CUCO regularly this period please sign up as a student so we know not to look for you.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: '', time_reqs: '', drop_ins: true, additional_info: '', period_id: period.id, created_by_id: creator.id)
+        c.rooms << Room.find_by(name: "Outside")
+      end
+
+      c = courses.create!(name: "Volunteers & Free Play (#{period_name})", short_name: "Vols & Free (#{index.to_s})", description: 'If you do not want a class assignment this period (either as a student or a volunteer), sign up as a student of this class. You can move freely among any of the open free play areas (auditorium, computer lab, game room, gym, playground).Note that not each area is open each period.This is also a placeholder for certain volunteer jobs.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: '', time_reqs: '', drop_ins: true, additional_info: '', period_id: period.id, created_by_id: creator.id)
+      ["Outside", "Gym", "Auditorium", "Lobby", "Game"].each do |room_name|
+        c.rooms << Room.find_by(name: room_name)
+      end
+
+      jobs.each do |job|
+        role = CourseRole.find_by(name: job)
+        CourseSignup.create(course: c, person: nil, course_role: role)
+      end
+
+      # create after hours volunteer jobs for everyone on the board
+      if index == 5 then
+        after_hours = CourseRole.find_by(name: :after_hours_volunteer)
+        bod = Role.find_by(name: :board_of_directors)
+        bod.users.each do |user|
+          CourseSignup.create(course: c, person: user.person, course_role: after_hours)
+        end
+      end
     end
   end
 

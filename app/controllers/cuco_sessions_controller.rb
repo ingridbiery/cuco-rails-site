@@ -32,6 +32,7 @@ class CucoSessionsController < ApplicationController
     if @cuco_session.save
       d = Dates.create(cuco_session: @cuco_session)
       d.calculate_dates
+      @cuco_session.create_default_courses
       redirect_to @cuco_session, notice: "#{@cuco_session.name} was successfully created."
     else
       render :new

@@ -12,7 +12,7 @@ class Course < ActiveRecord::Base
   has_many :people_in_room_signups, -> { CourseSignup.people_in_room }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :volunteer_signups, -> { CourseSignup.volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
 
-  scope :assigned, -> { where.not(period_id: nil).where.not(room_id: nil) }
+  scope :assigned, -> { where.not(period_id: nil) }
 
   validates :name, presence: true,
                    length: { minimum: 3, maximum: 100 }

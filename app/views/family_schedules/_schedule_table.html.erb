@@ -1,12 +1,3 @@
-<% fees = @family_schedule.fees %>
-<p><strong>Fees:</strong> <%= "$%.2f" % fees.round(2) %> 
-    <% if fees != 0 %>
-      | <strong>Electronic Payment Total</strong>: <%= "$%.2f" % (fees.round(2) + Membership.electronic_payment_fee(fees).round(2)) %>
-    <% end %>
-
-| <strong>Volunteering</strong>: <%= @family_schedule.jobs %>
-| <strong>Unassigned</strong>: <%= @family_schedule.unassigned %></p>
-
 <div class="table-responsive">
   <table class="table table-striped">
     <tr>

@@ -1,0 +1,11 @@
+<% fees_due = @family_schedule.fees.round(2) + Membership.electronic_payment_fee(@family_schedule.fees).round(2) %>
+<% paypal_url = "https://www.paypal.me/columbusunschoolers" + "/%.2f" % fees_due %>
+
+
+<strong>Volunteering:</strong> <%= @family_schedule.jobs %>
+| <strong>Unassigned:</strong> <%= @family_schedule.unassigned %>
+| <strong>Fees:</strong> <%= "$%.2f" % @family_schedule.fees.round(2) %>
+<% if @family_schedule.fees != 0 %>
+  | <strong>Electronic Payment Total:</strong> <%= "$%.2f" % fees_due %>
+  <em>(<%= link_to "PayPal to fees@columbusunschoolers.com", paypal_url %>)</em>
+<% end %>

@@ -16,9 +16,8 @@
 <% end %>
 
 <h2>Member Family Signups</h2>
-<% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
-  <% @family_schedule = membership.schedule %>
-  <h2><strong><%= link_to @family_schedule.family.name, family_path(@family_schedule.family.id) %></strong></h2>
+<% @cuco_session.paid_memberships.includes(:family).order('families.name').each do |membership| %>
+  <h2><strong><%= link_to membership.schedule.family.name, family_path(membership.schedule.family.id) %></strong></h2>
 
   <%= render 'family_schedules/schedule_errors' %><br />
   <%= render 'family_schedules/schedule_header', signups: @family_schedule.signups %>

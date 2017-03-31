@@ -30,7 +30,7 @@
 <% if non_member_signups.count != 0 %>
   <h2>Other Signups</h2>
     <ul><% non_member_signups.each do |signup| %>
-      <li><%= link_to signup.course.name, [@cuco_session, signup.course] %>: <%= signup.person.name %></li>
+      <li><%= link_to signup.course.name, [@cuco_session, signup.course] %>: <%= signup&.person&.name %></li>
     <% end %></ul>
 <% end %>
 <br />

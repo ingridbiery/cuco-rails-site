@@ -7,7 +7,7 @@
       <% end %>
     <% end %></h3>
 
-<ul><% @course.student_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
+<ul><% @course.student_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
   <% person = course_signup.person %>
   <li><%= person.name %>
     <% if Person.adult.include? person %> (adult)

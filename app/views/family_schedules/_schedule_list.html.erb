@@ -1,6 +1,5 @@
 <% last_period_id = -1 %>
-<% signups.sort_by {|signup| [signup.course.period.start_time,
-                              signup.person.name]}.each do |signup| %>
+<% signups.includes(course: :period).includes(:person).order('periods.start_time', 'people.last_name', 'people.first_name').each do |signup| %>
   <% if signup.course.period.id != last_period_id %>
     <div class="period"><%= signup.course.period.name %> (<%= signup.course.period.duration_text %>)</div>
     <% last_period_id = signup.course.period.id %><br />

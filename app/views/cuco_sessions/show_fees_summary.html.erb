@@ -12,7 +12,7 @@
     <th>Electronic<br/>Payment<br/>Fee</th>
     <th>Total</th>
   </tr>
-  <% @cuco_session.paid_memberships.sort_by { |membership| membership.family.name}.each do |membership| %>
+  <% @cuco_session.paid_memberships.includes(:family).order('families.name').each do |membership| %>
     <% if membership.schedule.fees != 0 %>
       <% total_to_collect += membership.schedule.fees %>
       <%= render 'fees_to_collect', membership: membership %>

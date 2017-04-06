@@ -1,20 +1,15 @@
-class FamilySchedule < ActiveRecord::Base
-  belongs_to :family
-  belongs_to :cuco_session
+class FamilySchedule
+  include ActiveModel::Model
+
+  attr_accessor :family, :cuco_session
 
   # how many jobs is each family responsible for
   MIN_JOB_REQUIREMENT = 2
   # how many unassigned volunteer slots is each family responsible for
   MIN_UNASSIGNED_REQUIREMENT = 1
 
-  def set_signups
-    @family_signups = cuco_session.course_signups.where(person: family.people)
-  end
-  
-  # it would be nice to do some caching here, but let's just make sure it works first
   def signups
-    set_signups
-    @family_signups
+    @family_signups ||= cuco_session.course_signups.includes(:course_role, :course).where(person: family.people)
   end
   
   def fees
@@ -40,9 +35,8 @@ class FamilySchedule < ActiveRecord::Base
     end
     unassigned
   end
-  
+  # change this to some version of validate? Make sure it's working
   def reload_and_check_schedule
-    set_signups
     if jobs < MIN_JOB_REQUIREMENT
       errors.add("Family Schedule", "Family needs at least #{MIN_JOB_REQUIREMENT} job(s)")
     end

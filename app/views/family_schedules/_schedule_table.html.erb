@@ -7,20 +7,20 @@
       <% end %>
     </tr>
 
-    <% @family_schedule.family.people.each do |person| %>
+    <% @family_signups_by_person.each do |person_id, signups| %>
 
     <tr>
       <td>
-        <%= person.name %>
-        <% unless person.adult? %>
-          (<%= person.age_on @family_schedule.cuco_session.start_date %>)
+        <%= Person.find(person_id).name %>
+        <% unless Person.find(person_id).adult? %>
+          (<%= Person.find(person_id).age_on @family_schedule.cuco_session.start_date %>)
         <% end %>
       </td>
 
       <% Period.find_each do |period| %>
 
         <td>
-          <% signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
+          <% signups.select {|signup| signup.course.period_id == period.id}.each do |signup| %>
             <%= link_to signup.course.short_name, [@family_schedule.cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
           <% end %>
         </td>

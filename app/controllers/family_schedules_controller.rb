@@ -7,6 +7,8 @@ class FamilySchedulesController < ApplicationController
   before_action :must_be_own_schedule
 
   def show
+    @family_signups = @family_schedule.signups
+    @family_signups_by_person = @family_schedule.signups.group_by(&:person_id)
   end
 
   private

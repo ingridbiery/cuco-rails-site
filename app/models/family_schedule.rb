@@ -44,13 +44,16 @@ class FamilySchedule
        jobs < MIN_JOB_REQUIREMENT + MIN_UNASSIGNED_REQUIREMENT then
       errors.add("Family Schedule", "Family needs at least #{MIN_UNASSIGNED_REQUIREMENT} unassigned volunteering assignment(s)")
     end
-    family.people.each do |person|
+    grouped_by_person = signups.group_by(&:person_id)
+    grouped_by_person.each do |person_id, signups_for_person|
+      grouped_by_period = signups_for_person.group_by {|signup| signup.course.period_id}
       Period.find_each do |period|
-        count = @family_signups.where(person_id: person.id).joins(:course).where(courses: { period_id: period.id }).count
+        signups = grouped_by_period[period.id]
+        count = signups ? signups.count : 0
         if count == 0 and period.required_signup then
-          errors.add("Family Schedule", "#{person.name} has no assignment for #{period.name}")
+          errors.add("Family Schedule", "#{Person.find(person_id).name} has no assignment for #{period.name}")
         elsif count > 1 then
-          errors.add("Family Schedule", "WARNING: #{person.name} has multiple assignments for #{period.name}")
+          errors.add("Family Schedule", "WARNING: #{Person.find(person_id).name} has multiple assignments for #{period.name}")
         end
       end
     end

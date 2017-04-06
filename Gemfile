@@ -28,6 +28,8 @@ group :development, :test do
   gem 'byebug'
   gem 'spring'
   gem 'figaro'
+  gem 'newrelic_rpm'
+  gem 'bullet'
 end
 
 group :development do

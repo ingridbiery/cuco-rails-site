@@ -18,6 +18,7 @@ class CucoSessionsController < ApplicationController
     # the same order
     @rooms = Room.all
     @periods = Period.all
+    @courses_by_period = @cuco_session.courses.includes(:rooms).group_by(&:period_id)
   end
 
   def new

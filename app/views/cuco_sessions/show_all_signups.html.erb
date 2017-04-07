@@ -16,7 +16,7 @@
 <% end %>
 
 <h2>Member Family Signups</h2>
-<% @cuco_session.paid_memberships.includes(:family).order('families.name').each do |membership| %>
+<% @cuco_session.paid_memberships.includes(:cuco_session).includes(:family).order('families.name').each do |membership| %>
   <h2><strong><%= link_to membership.schedule.family.name, family_path(membership.schedule.family.id) %></strong></h2>
 
   <% @family_signups_by_person = membership.schedule.signups.group_by(&:person_id) %>

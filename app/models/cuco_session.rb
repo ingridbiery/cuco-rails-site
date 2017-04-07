@@ -90,7 +90,7 @@ class CucoSession < ActiveRecord::Base
   # find all signups for people who are not members of this session
   def non_member_signups
     ppl = people.to_a
-    course_signups.includes(:person).select do |signup|
+    course_signups.includes(:person).includes(:course).select do |signup|
       !ppl.include?(signup.person)
     end
   end

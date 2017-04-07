@@ -89,7 +89,7 @@ class MembershipsController < ApplicationController
         if !@cuco_session.membership_signups_open?(current_user) then
           not_authorized! message: "Membership signups are not currently open."
         end
-        if current_user.membership == :paid then
+        if current_user.membership_status == :paid then
           not_authorized! message: "You have already paid."
         end
       end

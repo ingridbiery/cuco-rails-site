@@ -2,7 +2,7 @@
   <td><%= link_to user.name, user %></td>
   <td><%= mail_to user.email %></td>
   <td><ul>
-    <li><%= user.membership %></li>
+    <li><%= user.membership_status %></li>
     <% user.roles.each do |role| %>
       <li><%= role.name %></li>
     <% end %>

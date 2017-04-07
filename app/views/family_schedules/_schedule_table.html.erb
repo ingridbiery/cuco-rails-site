@@ -11,9 +11,10 @@
 
     <tr>
       <td>
-        <%= Person.find(person_id).name %>
-        <% unless Person.find(person_id).adult? %>
-          (<%= Person.find(person_id).age_on family_schedule.cuco_session.start_date %>)
+        <% person = Person.find(person_id) %>
+        <%= person.name %>
+        <% unless person.adult? %>
+          (<%= person.age_on family_schedule.cuco_session.start_date %>)
         <% end %>
       </td>
 

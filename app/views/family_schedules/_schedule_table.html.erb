@@ -2,26 +2,27 @@
   <table class="table table-striped">
     <tr>
       <th></th>
-      <% Period.find_each do |period| %>
+      <% periods.each do |period| %>
         <th><%= period.name %></th>
       <% end %>
     </tr>
 
-    <% @family_schedule.family.people.each do |person| %>
+    <% family_signups_by_person.each do |person_id, signups| %>
 
     <tr>
       <td>
+        <% person = Person.find(person_id) %>
         <%= person.name %>
         <% unless person.adult? %>
-          (<%= person.age_on @family_schedule.cuco_session.start_date %>)
+          (<%= person.age_on family_schedule.cuco_session.start_date %>)
         <% end %>
       </td>
 
-      <% Period.find_each do |period| %>
+      <% periods.each do |period| %>
 
         <td>
-          <% signups.where(person: person).joins(:course).where(courses: { period_id: period.id }).each do |signup| %>
-            <%= link_to signup.course.short_name, [@family_schedule.cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
+          <% signups.select {|signup| signup.course.period_id == period.id}.each do |signup| %>
+            <%= link_to signup.course.short_name, [family_schedule.cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
           <% end %>
         </td>
 

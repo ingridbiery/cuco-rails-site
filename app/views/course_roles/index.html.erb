@@ -3,7 +3,7 @@
 <h1>Volunteer Jobs</h1>
 
 <ul>
-  <% @course_roles.sort_by {|role| role.display_weight}.each do |course_role| %>
+  <% @course_roles.order(:display_weight).each do |course_role| %>
     <li><% if current_user&.can? :show, :course_role %>
       <%= link_to course_role.name.titleize, course_role %>
     <% else %>

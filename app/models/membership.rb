@@ -39,7 +39,7 @@ class Membership < ActiveRecord::Base
   # get the FamilySchedule for this session/family combination
   # (it may or may not already exist)
   def schedule
-    FamilySchedule.find_or_initialize_by(family_id: family.id, cuco_session_id: cuco_session.id)
+    @schedule ||= FamilySchedule.new(family: family, cuco_session: cuco_session)
   end
   
 end

@@ -4,7 +4,7 @@
 <% end %></h3>
 <p><%= CourseRole.find_by(name: :person_in_room).description %></p>
 <% if @course.people_in_room_signups.count != 0 %>
-  <ul><% @course.people_in_room_signups.sort_by {|signup| [signup.person.last_name, signup.person.first_name]}.each do |course_signup| %>
+  <ul><% @course.people_in_room_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
     <% person = course_signup.person %>
     <li><%= person.name %>
       <% if (@course.cuco_session.course_signups_open? and

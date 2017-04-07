@@ -22,10 +22,10 @@ class User < ActiveRecord::Base
                     
   # needed for action_access to control access to specific parts of our site
   # based on user roles. Needs to get all the roles for this user
-  # membership is calculated rather than stored in the db, so include that too
-  # (it is one of :new, :former, or :member)
+  # membership_status is calculated rather than stored in the db, so include that too
+  # (it is one of :new, :former, :paid, or :member)
   def clearance_levels
-    roles.pluck(:name) << membership.to_s
+    @clearance_levels ||= roles.pluck(:name) << membership_status.to_s
   end
   
   # a new user has just been created
@@ -62,33 +62,36 @@ class User < ActiveRecord::Base
   # E: after Session 1 and during signups for Session 2
   # F: after Session 1 and after signups for Session 2 but before Session 2 starts
   # during Session 2 is logically equivalent to during Session 1
-  def membership
-    if !person then :new # never a member, time A-E irrelevant
-    else
-      cuco_sessions = person.family.cuco_sessions
-      current_session = CucoSession.current
-      upcoming_session = CucoSession.upcoming
-      latest_session = CucoSession.latest
+  def membership_status
+    if !@membership_status
+      if !person then @membership_status = :new # never a member, time A-E irrelevant
+      else
+        cuco_sessions = person.family.cuco_sessions
+        current_session = CucoSession.current
+        upcoming_session = CucoSession.upcoming
+        latest_session = CucoSession.latest
 
-      if cuco_sessions.empty? then :new # never been a member, time A-F irrelevant
-      elsif current_session then # A, B, or C
-        if upcoming_session and cuco_sessions.include? upcoming_session then :paid
-        elsif cuco_sessions.include? current_session then :member 
-        else :former
-        end
-      elsif !upcoming_session or upcoming_session.is_before_signups? then # time D
-        if cuco_sessions.include? latest_session then :member
-        else :former
-        end
-      else # time E or F
-        if (cuco_sessions.include? upcoming_session) then :paid
-        elsif (cuco_sessions.include? latest_session) then :member
-        else :former
+        if cuco_sessions.empty? then @membership_status = :new # never been a member, time A-F irrelevant
+        elsif current_session then # A, B, or C
+          if upcoming_session and cuco_sessions.include? upcoming_session then @membership_status = :paid
+          elsif cuco_sessions.include? current_session then @membership_status = :member 
+          else @membership_status = :former
+          end
+        elsif !upcoming_session or upcoming_session.is_before_signups? then # time D
+          if cuco_sessions.include? latest_session then @membership_status = :member
+          else @membership_status = :former
+          end
+        else # time E or F
+          if (cuco_sessions.include? upcoming_session) then @membership_status = :paid
+          elsif (cuco_sessions.include? latest_session) then @membership_status = :member
+          else @membership_status = :former
+          end
         end
       end
     end
+    @membership_status
   end
-
+  
   # needed for authorization of a google account (so we can update a google
   # calendar, for example)
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)

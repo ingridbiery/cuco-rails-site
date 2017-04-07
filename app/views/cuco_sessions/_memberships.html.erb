@@ -1,4 +1,4 @@
-<ol><% memberships.each do |membership| %>
+<ol><% memberships.includes(:cuco_session).each do |membership| %>
   <li>
     <%= link_to membership.family.name, membership.family %>
     <%= render 'family_schedules/schedule_link', membership: membership %>

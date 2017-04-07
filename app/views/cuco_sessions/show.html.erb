@@ -34,7 +34,7 @@
 
 <% if current_user&.can? :show, :dates %>
   <h3>Dates</h3>
-  <% if @cuco_session.dates == nil %>
+  <% if !@cuco_session.dates %>
     <% if current_user&.can? :edit, :dates %>
       Edit this session to have dates automatically calculated
     <% end %>
@@ -65,8 +65,7 @@
           <td><%= period.name %><br/>(<%= period.duration_text %>)</td>
           <% @rooms.each do |room| %>
             <td>
-              <% courses = @cuco_session.courses.where(period: period) %>
-              <% courses.each do |course| %>
+              <% @courses_by_period[period.id].each do |course| %>
                 <% if course.rooms.include? room %>
                   <% if course.short_name.length == 0 %>
                     <%= link_to course.name, [@cuco_session, course] %><br />
@@ -97,9 +96,9 @@
       <%= link_to image_tag('add.png'), cuco_session_memberships_add_path(@cuco_session), title: "Add Member to Session" %>
     <% end %>
   </h3>
-    <%= render 'memberships', memberships: @cuco_session.paid_memberships.sort_by { |membership| membership.family.name } %>
+    <%= render 'memberships', memberships: @cuco_session.paid_memberships.includes(:family).order('families.name') %>
   <h3>Pending/Canceled Members</h3>
-    <%= render 'memberships', memberships: @cuco_session.not_paid_memberships.sort_by { |membership| membership.family.name } %>
+    <%= render 'memberships', memberships: @cuco_session.not_paid_memberships.includes(:family).order('families.name') %>
 <% end %>
 
 

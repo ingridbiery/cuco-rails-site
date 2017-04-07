@@ -37,7 +37,7 @@ class Dates < ActiveRecord::Base
     event = upcoming_events.first
     # all registrations end on the same date, so pick the right one
     if (event.event_type.registration) then event = get_registration(user)
-    elsif (user.nil? or user.membership == :new and
+    elsif (user.nil? or user.membership_status == :new and
            event.event_type.name.to_sym == :course_offering) then
       event = events.find_by(event_type: EventType.find_by_name(:schedule_posted))
     end
@@ -54,7 +54,7 @@ class Dates < ActiveRecord::Base
   # figure out if membership signups are currently open for the given user type
   def membership_signups_open?(user)
     return false unless user
-    case user.membership
+    case user.membership_status
     when :member
       is_during_event?(get_event(:member_reg))
     when :former
@@ -154,9 +154,9 @@ class Dates < ActiveRecord::Base
 
     # get the right registration event for the given user type
     def get_registration(user)
-      if (user.nil? or user.membership == :new) then
+      if (user.nil? or user.membership_status == :new) then
         get_event(:new_reg)
-      elsif (user.membership == :former)
+      elsif (user.membership_status == :former)
         get_event(:former_reg)
       else
         get_event(:member_reg)

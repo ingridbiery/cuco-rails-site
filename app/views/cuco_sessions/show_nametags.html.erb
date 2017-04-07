@@ -2,7 +2,7 @@
 
 <h1>Nametag Info for <strong><%= @cuco_session.name %></strong></h1>
 
-<% @cuco_session.memberships.sort_by { |membership| membership.family.name }.each do |membership| %>
+<% @cuco_session.memberships.includes(:family).order('families.name').each do |membership| %>
   <% family = membership.family %>
   <div class="nametag-title"><%= link_to "#{family.name}", family_path(family) %></div>
 

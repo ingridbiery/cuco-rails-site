@@ -4,7 +4,7 @@
   <% end %>
 </h3>
 
-<ul><% @course.volunteer_signups.each do |course_signup| %>
+<ul><% @course.volunteer_signups.includes(:course_role).order('course_roles.display_weight').each do |course_signup| %>
   <% person = course_signup.person %>
   <li><%= course_signup.course_role.name.titleize %>
     <% if person %>

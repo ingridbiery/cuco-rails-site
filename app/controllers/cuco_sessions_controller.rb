@@ -18,6 +18,7 @@ class CucoSessionsController < ApplicationController
     # the same order
     @rooms = Room.all
     @periods = Period.all
+    @courses_by_period = @cuco_session.courses.includes(:rooms).group_by(&:period_id)
   end
 
   def new
@@ -66,40 +67,36 @@ class CucoSessionsController < ApplicationController
   # show a list of jobs that haven't been taken yet
   def show_open_jobs
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.sort_by {|signup| signup.course.period.start_time}
+    @signups = @cuco_session.course_signups.includes(course: :period).order('periods.start_time')
   end
 
   def show_volunteers
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.select{|signup| (signup.is_volunteer_job? or signup.person.adult?) and
+    @signups = @cuco_session.course_signups.includes(course: :period).includes(:course).includes(:course_role)
+                                           .order('periods.start_time', 'courses.name', 'course_roles.display_weight')
+                                           .select{|signup| (signup.is_volunteer_job? or signup.person.adult?) and
                                                             not signup.course.name.downcase.include? "not at"}
-                                           .sort_by {|signup| [signup.course.period.start_time,
-                                                               signup.course.name,
-                                                               signup.course_role.name,
-                                                               signup&.person&.last_name || ""]}
   end
 
   def show_all_signups_first_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.select{|signup| not signup.course.name.downcase.include? "not at"}
-                                           .sort_by {|signup| [signup.course.period.start_time,
-                                                               signup&.person&.first_name || "",
-                                                               signup&.person&.last_name || ""]}
+    @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
+                                           .order('periods.start_time', 'people.first_name', 'people.last_name')
+                                           .select{|signup| not signup.course.name.downcase.include? "not at"}
   end
 
   def show_all_signups_last_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.select{|signup| not signup.course.name.downcase.include? "not at"}
-                                           .sort_by {|signup| [signup.course.period.start_time,
-                                                               signup&.person&.last_name || "",
-                                                               signup&.person&.first_name || ""]}
+    @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
+                                           .order('periods.start_time', 'people.last_name', 'people.first_name')
+                                           .select{|signup| not signup.course.name.downcase.include? "not at"}
   end
 
   def show_away
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.select{|signup| signup.course.name.downcase.include? "not at"}
-                                           .sort_by {|signup| [signup.course.period.start_time,
-                                                               signup&.person&.last_name]}
+    @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
+                                           .order('periods.start_time', 'people.last_name', 'people.first_name')
+                                           .select{|signup| signup.course.name.downcase.include? "not at"}
   end
 
   def show_nametags

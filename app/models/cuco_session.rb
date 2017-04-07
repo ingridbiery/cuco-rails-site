@@ -25,15 +25,20 @@ class CucoSession < ActiveRecord::Base
   # get the current session, if there is one (the session where today is between
   # the start and end dates of the session)
   def self.current
-    cuco_sessions = CucoSession.where('start_date <= ?', Time.now).where('? <= end_date', Time.now)
-    return cuco_sessions.first.presence
+    if !@current then
+      cuco_sessions = CucoSession.where('start_date <= ?', Time.now).where('? <= end_date', Time.now)
+      @current = cuco_sessions.first.presence
+    end
+    @current
   end
 
   # get the upcoming session, if there is one (the first session whose start date is
   # after today)
   def self.upcoming
-    cuco_sessions = CucoSession.where('start_date >= ?', Time.now).order(start_date: :asc)
-    cuco_sessions.first.presence
+    if !@upcoming
+      cuco_sessions = CucoSession.where('start_date >= ?', Time.now).order(start_date: :asc)
+      @upcoming = cuco_sessions.first.presence
+    end
   end
   
   # get the latest session (may be the same as current, but if there is no current
@@ -41,8 +46,11 @@ class CucoSession < ActiveRecord::Base
   # this is used to determine who is a member vs. a former member. See the user
   # model for details of that determination.
   def self.latest
-    cuco_sessions = CucoSession.where('start_date < ?', Time.now).order(start_date: :desc)
-    cuco_sessions.first.presence
+    if !@latest then
+      cuco_sessions = CucoSession.where('start_date < ?', Time.now).order(start_date: :desc)
+      @latest = cuco_sessions.first.presence
+    end
+    @latest
   end
   
   # is this session currently full? That is, are there 100 or more kids signed up
@@ -81,7 +89,10 @@ class CucoSession < ActiveRecord::Base
 
   # find all signups for people who are not members of this session
   def non_member_signups
-    course_signups.select{|signup| signup.person and not people.include? signup.person}
+    ppl = people.to_a
+    course_signups.includes(:person).includes(:course).select do |signup|
+      !ppl.include?(signup.person)
+    end
   end
 
   # check if this session has any signup errors

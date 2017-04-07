@@ -1,11 +1,10 @@
-<% last_period_id = -1 %>
-<% signups.sort_by {|signup| [signup.course.period.start_time,
-                              signup.person.name]}.each do |signup| %>
-  <% if signup.course.period.id != last_period_id %>
-    <div class="period"><%= signup.course.period.name %> (<%= signup.course.period.duration_text %>)</div>
-    <% last_period_id = signup.course.period.id %><br />
+<% family_signups_by_period.each do |period_id, signups| %>
+  <div class="period"><%= Period.find(period_id).name %> (<%= Period.find(period_id).duration_text %>)</div><br />
+  <% signups.each do |signup| %>
+    <% if signup.course.period_id == period_id %>
+      <span class="person"><%= signup.person.name %></span><br />
+      <span class="course"><%= link_to signup.course.name, [family_schedule.cuco_session, signup.course] %></span><br />
+      <span class="role"><%= signup.course_role.name.titleize %></span><br /><br />
+    <% end %>
   <% end %>
-  <span class="person"><%= signup.person.name %></span><br />
-  <span class="course"><%= link_to signup.course.name, [@family_schedule.cuco_session, signup.course] %></span><br />
-  <span class="role"><%= signup.course_role.name.titleize %></span><br /><br />
 <% end %>

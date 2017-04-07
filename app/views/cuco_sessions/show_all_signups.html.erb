@@ -19,11 +19,10 @@
 <% @cuco_session.paid_memberships.includes(:family).order('families.name').each do |membership| %>
   <h2><strong><%= link_to membership.schedule.family.name, family_path(membership.schedule.family.id) %></strong></h2>
 
-  <% @family_schedule = membership.schedule %>
-  <% @family_signups_by_person = @family_schedule.signups.group_by(&:person_id) %>
-  <%= render 'family_schedules/schedule_errors' %><br />
-  <%= render 'family_schedules/schedule_header', signups: @family_schedule.signups %>
-  <%= render 'family_schedules/schedule_table', signups: @family_schedule.signups %>
+  <% @family_signups_by_person = membership.schedule.signups.group_by(&:person_id) %>
+  <%= render 'family_schedules/schedule_errors', family_schedule: membership.schedule %><br />
+  <%= render 'family_schedules/schedule_header', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person %>
+  <%= render 'family_schedules/schedule_table', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person %>
   <hr>
 <% end %>
 

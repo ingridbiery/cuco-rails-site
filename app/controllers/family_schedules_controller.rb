@@ -7,8 +7,8 @@ class FamilySchedulesController < ApplicationController
   before_action :must_be_own_schedule
 
   def show
-    @family_signups = @family_schedule.signups
     @family_signups_by_person = @family_schedule.signups.group_by(&:person_id)
+    @family_signups_by_period = @family_schedule.signups.includes(:course).includes(course: :period).includes(:person).order('periods.start_time', 'people.last_name', 'people.first_name').group_by {|signup| signup.course.period_id}
   end
 
   private

@@ -7,13 +7,13 @@
       <% end %>
     </tr>
 
-    <% @family_signups_by_person.each do |person_id, signups| %>
+    <% family_signups_by_person.each do |person_id, signups| %>
 
     <tr>
       <td>
         <%= Person.find(person_id).name %>
         <% unless Person.find(person_id).adult? %>
-          (<%= Person.find(person_id).age_on @family_schedule.cuco_session.start_date %>)
+          (<%= Person.find(person_id).age_on family_schedule.cuco_session.start_date %>)
         <% end %>
       </td>
 
@@ -21,7 +21,7 @@
 
         <td>
           <% signups.select {|signup| signup.course.period_id == period.id}.each do |signup| %>
-            <%= link_to signup.course.short_name, [@family_schedule.cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
+            <%= link_to signup.course.short_name, [family_schedule.cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
           <% end %>
         </td>
 

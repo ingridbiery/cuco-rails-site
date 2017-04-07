@@ -3,6 +3,8 @@ class FamilySchedule
 
   attr_accessor :family, :cuco_session
 
+  validate :check_missing_and_duplicates
+
   # how many jobs is each family responsible for
   MIN_JOB_REQUIREMENT = 2
   # how many unassigned volunteer slots is each family responsible for
@@ -35,8 +37,8 @@ class FamilySchedule
     end
     unassigned
   end
-  # change this to some version of validate? Make sure it's working
-  def reload_and_check_schedule
+  
+  def check_missing_and_duplicates
     if jobs < MIN_JOB_REQUIREMENT
       errors.add("Family Schedule", "Family needs at least #{MIN_JOB_REQUIREMENT} job(s)")
     end

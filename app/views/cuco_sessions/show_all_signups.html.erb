@@ -22,7 +22,7 @@
   <% @family_signups_by_person = membership.schedule.signups.group_by(&:person_id) %>
   <%= render 'family_schedules/schedule_errors', family_schedule: membership.schedule %><br />
   <%= render 'family_schedules/schedule_header', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person %>
-  <%= render 'family_schedules/schedule_table', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person %>
+  <%= render 'family_schedules/schedule_table', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person, periods: Period.all.order(:start_time) %>
   <hr>
 <% end %>
 

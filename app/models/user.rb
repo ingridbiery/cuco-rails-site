@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   # membership_status is calculated rather than stored in the db, so include that too
   # (it is one of :new, :former, :paid, or :member)
   def clearance_levels
-    roles.pluck(:name) << membership_status.to_s
+    @clearance_levels ||= roles.pluck(:name) << membership_status.to_s
   end
   
   # a new user has just been created

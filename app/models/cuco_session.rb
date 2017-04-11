@@ -53,6 +53,11 @@ class CucoSession < ActiveRecord::Base
     @latest
   end
   
+  # clear the session caches
+  def self.clear_caches
+    @latest = @current = @upcoming = nil
+  end
+  
   # is this session currently full? That is, are there 100 or more kids signed up
   # we might want to make this limit configurable in the future, but for now,
   # it's hardcoded

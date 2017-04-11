@@ -80,34 +80,35 @@ class UserTest < ActiveSupport::TestCase
 
   test "user with no person should be :new" do
     @user.person = nil
-    assert_equal :new, @user.membership
+    assert_equal :new, @user.membership_status
   end
 
   test "user with no membership should be :new" do
-    assert_equal :new, @user.membership
+    assert_equal :new, @user.membership_status
   end
 
   test "member of previous session should be :former after new session starts" do
     travel_to @fall.start_date.to_date + 1
     @user.person.family.cuco_sessions << @spring
-    assert_equal :former, @user.membership
+    assert_equal :former, @user.membership_status
   end
 
   test "member of previous session should be :member before new session registration starts" do
+    CucoSession.clear_caches
     travel_to @fall.dates.events.find_by(event_type: EventType.find_by_name(:member_reg)).start_dt - 1.day
     @user.person.family.cuco_sessions << @spring
-    assert_equal :member, @user.membership
+    assert_equal :member, @user.membership_status
   end
 
   test "not member of previous session should be :former before new session starts" do
     travel_to @fall.end_date.to_date + 1
     @user.person.family.cuco_sessions << @spring
-    assert_equal :former, @user.membership
+    assert_equal :former, @user.membership_status
   end
 
   test "member of current session should be :member" do
     travel_to @fall.start_date.to_date + 1
     @user.person.family.cuco_sessions << @fall
-    assert_equal :member, @user.membership
+    assert_equal :member, @user.membership_status
   end
 end

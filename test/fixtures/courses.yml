@@ -15,7 +15,7 @@ one:
   time_reqs: MyText
   drop_ins: false
   additional_info: MyText
-  room: gym
+  rooms: gym
   period: first
   cuco_session: fall
   created_by: membership1
@@ -35,7 +35,7 @@ two:
   time_reqs: MyText
   drop_ins: false
   additional_info: MyText
-  room: auditorium
+  rooms: auditorium
   period: second
   cuco_session: fall
   created_by: membership2

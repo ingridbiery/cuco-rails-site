@@ -76,6 +76,7 @@ class FamiliesControllerTest < ActionController::TestCase
     p = @kimberly.dup
     p.first_name = "NEW NAME"
     family_attributes[:person] = p.attributes
+    family_attributes[:person][:user] = @user_without_fam.id
     assert_difference 'Family.count', 1 do
       post :create, family: family_attributes
     end

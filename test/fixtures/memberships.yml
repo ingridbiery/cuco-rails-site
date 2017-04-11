@@ -3,7 +3,9 @@
 one:
   family: johnson
   cuco_session: winter
+  status: "Started"
 
 two:
   family: williams
   cuco_session: winter
+  status: "Completed"

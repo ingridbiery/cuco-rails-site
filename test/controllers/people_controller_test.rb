@@ -19,6 +19,8 @@ class PeopleControllerTest < ActionController::TestCase
     @fall = cuco_sessions(:fall)
     @fall.families << @member.person.family
     travel_to @fall.start_date + 1
+
+    CucoSession.clear_caches
   end
 
   #############################################################################

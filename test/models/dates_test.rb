@@ -2,6 +2,8 @@ require 'test_helper'
 
 class DatesTest < ActiveSupport::TestCase
   def setup
+    CucoSession.clear_caches
+
     @event = events(:week1)
 
     # complex event handling
@@ -12,16 +14,19 @@ class DatesTest < ActiveSupport::TestCase
     
     # member
     @member = users(:lj)
+    @member.roles << roles(:user)
     @member.person.family.cuco_sessions << @spring
     @member.person.family.cuco_sessions << @fall
 
     # former member
     @former = users(:js)
+    @former.roles << roles(:user)
     @former.person.family.cuco_sessions << @winter
     
     # new member
     @new = users(:new)
-    
+    @new.roles << roles(:user)
+
     # these sample events are all appropriate @fall for fall session
     @course_offering = events(:course_offering)
     @schedule_posted = events(:schedule_posted)
@@ -117,6 +122,9 @@ class DatesTest < ActiveSupport::TestCase
 
   test "next event for course offering" do
     travel_to @course_offering.end_dt - 1
+    assert_equal ["user", "member"], @member.clearance_levels
+    assert_equal ["user", "former"], @former.clearance_levels
+    assert_equal ["user", "new"], @new.clearance_levels
     assert_equal @fall.dates.next_event(@member), @course_offering
     assert_equal @fall.dates.next_event(@former), @course_offering
     assert_equal @fall.dates.next_event(@new), @schedule_posted
@@ -125,6 +133,9 @@ class DatesTest < ActiveSupport::TestCase
   
   test "next event for schedule posted" do
     travel_to @schedule_posted.end_dt - 1
+    assert_equal ["user", "member"], @member.clearance_levels
+    assert_equal ["user", "former"], @former.clearance_levels
+    assert_equal ["user", "new"], @new.clearance_levels
     assert_equal @fall.dates.next_event(@member), @schedule_posted
     assert_equal @fall.dates.next_event(@former), @schedule_posted
     assert_equal @fall.dates.next_event(@new), @schedule_posted
@@ -133,6 +144,9 @@ class DatesTest < ActiveSupport::TestCase
   
   test "next event for reg" do
     travel_to @member_reg.end_dt - 1
+    assert_equal ["user", "paid"], @member.clearance_levels
+    assert_equal ["user", "former"], @former.clearance_levels
+    assert_equal ["user", "new"], @new.clearance_levels
     assert_equal @fall.dates.next_event(@member), @member_reg
     assert_equal @fall.dates.next_event(@former), @former_reg
     assert_equal @fall.dates.next_event(@new), @new_reg
@@ -141,6 +155,9 @@ class DatesTest < ActiveSupport::TestCase
 
   test "next event for fees posted" do
     travel_to @fees_posted.end_dt - 1
+    assert_equal ["user", "paid"], @member.clearance_levels
+    assert_equal ["user", "former"], @former.clearance_levels
+    assert_equal ["user", "new"], @new.clearance_levels
     assert_equal @fall.dates.next_event(@member), @fees_posted
     assert_equal @fall.dates.next_event(@former), @fees_posted
     assert_equal @fall.dates.next_event(@new), @fees_posted
@@ -149,6 +166,9 @@ class DatesTest < ActiveSupport::TestCase
 
   test "next event for fees due" do
     travel_to @fees_due.end_dt - 1
+    assert_equal ["user", "paid"], @member.clearance_levels
+    assert_equal ["user", "former"], @former.clearance_levels
+    assert_equal ["user", "new"], @new.clearance_levels
     assert_equal @fall.dates.next_event(@member), @fees_due
     assert_equal @fall.dates.next_event(@former), @fees_due
     assert_equal @fall.dates.next_event(@new), @fees_due
@@ -157,6 +177,9 @@ class DatesTest < ActiveSupport::TestCase
 
   test "next event for week1" do
     travel_to @week1.end_dt - 1
+    assert_equal ["user", "member"], @member.clearance_levels
+    assert_equal ["user", "former"], @former.clearance_levels
+    assert_equal ["user", "new"], @new.clearance_levels
     assert_equal @fall.dates.next_event(@member), @week1
     assert_equal @fall.dates.next_event(@former), @week1
     assert_equal @fall.dates.next_event(@new), @week1
@@ -165,6 +188,9 @@ class DatesTest < ActiveSupport::TestCase
 
   test "next event for week2" do
     travel_to @week2.end_dt - 1
+    assert_equal ["user", "member"], @member.clearance_levels
+    assert_equal ["user", "former"], @former.clearance_levels
+    assert_equal ["user", "new"], @new.clearance_levels
     assert_equal @fall.dates.next_event(@member), @week2
     assert_equal @fall.dates.next_event(@former), @week2
     assert_equal @fall.dates.next_event(@new), @week2

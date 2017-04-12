@@ -432,7 +432,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
   test "volunteer coordinator should not get show fees summary" do
     travel_to @fall.start_date.to_date - 1
     sign_in @member
-    @member.roles << Role.find_by(name: "volunteer_coordinator")
+    @member.roles << roles(:volunteer_coordinator)
     assert_equal ["user", "volunteer_coordinator", "paid"], @member.clearance_levels
     get :show_fees_summary, cuco_session_id: @fall.id
     assert_redirected_to root_url
@@ -441,7 +441,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
   test "treasurer should not get show fees summary" do
     travel_to @fall.start_date.to_date - 1
     sign_in @member
-    @member.roles << Role.find_by(name: "treasurer")
+    @member.roles << roles(:treasurer)
     assert_equal ["user", "treasurer", "paid"], @member.clearance_levels
     get :show_fees_summary, cuco_session_id: @fall.id
     assert_response :success

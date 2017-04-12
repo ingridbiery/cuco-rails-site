@@ -2,7 +2,7 @@
 
 <h1>Family Directory</h1>
 
-<% @families.order(:name).each do |family| %>
+<% @families.each do |family| %>
   <%= render 'single_family_for_directory', family: family %>
 <% end %>
 

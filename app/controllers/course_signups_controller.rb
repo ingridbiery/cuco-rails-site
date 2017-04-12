@@ -3,7 +3,7 @@ class CourseSignupsController < ApplicationController
   # to manage signups for everyone (instead of just their family) and at any time
   let [:web_team, :volunteer_coordinator], :manage_all
   # this is a label indicating who can create signups during registration
-  let [:web_team, :paid], :register
+  let [:paid], :register
   # who is allowed to sign up ever (former members can create teaching jobs for classes
   # they offer, but will need to pay to edit/update)
   let [:web_team, :member, :former, :paid], [:new, :create]
@@ -71,7 +71,7 @@ class CourseSignupsController < ApplicationController
     # always, those who can :manage_all can new/create anything
     def new_create_authorized
       if !current_user&.can? :manage_all, :course_signups
-        if @cuco_session.course_offerings_open?
+        if @cuco_session.course_offerings_open? and !@cuco_session.course_signups_open?
           # people who can create new courses can also create volunteer jobs for those courses
           if current_user&.can? :new, :courses
             if is_student?

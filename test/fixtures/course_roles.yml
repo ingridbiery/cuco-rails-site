@@ -6,6 +6,12 @@ teacher:
   is_worker: true
   display_weight: 1
 
+teaching_assistant:
+  name: teaching_assistant
+  description: MyString
+  is_worker: true
+  display_weight: 1
+
 student:
   name: student
   description: MyString

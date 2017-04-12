@@ -39,6 +39,7 @@ class CucoSession < ActiveRecord::Base
       cuco_sessions = CucoSession.where('start_date >= ?', Time.now).order(start_date: :asc)
       @upcoming = cuco_sessions.first.presence
     end
+    @upcoming
   end
   
   # get the latest session (may be the same as current, but if there is no current

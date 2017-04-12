@@ -25,6 +25,8 @@ class CoursesControllerTest < ActionController::TestCase
     @former = users(:membership2)
     @former.roles << roles(:user)
     @winter.families << @former.person.family
+
+    CucoSession.clear_caches
   end
 
   #############################################################################

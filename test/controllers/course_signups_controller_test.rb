@@ -42,6 +42,8 @@ class CourseSignupsControllerTest < ActionController::TestCase
     
     # a person with no other signups
     @person = people(:emma)
+
+    CucoSession.clear_caches
   end
 
   #############################################################################
@@ -1217,65 +1219,65 @@ class CourseSignupsControllerTest < ActionController::TestCase
   # HELPERS
   #############################################################################
 
-  def new_test user, type
+  def new_test user, role_name
     sign_in user unless !user
-    get :new, cuco_session_id: @fall.id, course_id: @course.id, type: type
+    get :new, cuco_session_id: @fall.id, course_id: @course.id, role_name: role_name
   end
 
-  def create_success user, type
-    create_test user, type, 1
+  def create_success user, role_name
+    create_test user, role_name, 1
   end
   
-  def create_fail user, type
-    create_test user, type, 0
+  def create_fail user, role_name
+    create_test user, role_name, 0
   end
 
-  def create_test user, type, diff
+  def create_test user, role_name, diff
     sign_in user unless !user
     s = @course_signup.dup
     s.person = @person
-    s.course_role_id = get_role_id(type)
+    s.course_role_id = get_role_id(role_name)
     assert_difference('CourseSignup.count', diff) do
       post :create, cuco_session_id: @fall.id, course_id: @course.id, course_signup: s.attributes
     end
   end
   
-  def edit_test user, type, person
+  def edit_test user, role_name, person
     sign_in user unless !user
-    @course_signup.course_role_id = get_role_id(type)
+    @course_signup.course_role_id = get_role_id(role_name)
     @course_signup.person = person
     @course_signup.save
     get :edit, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id
   end
 
-  def update_test user, type, person
+  def update_test user, role_name, person
     sign_in user unless !user
     @course_signup.person = person
-    @course_signup.course_role_id = get_role_id(type)
+    @course_signup.course_role_id = get_role_id(role_name)
     @course_signup.save
     patch :update, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id, course_signup: @course_signup.attributes
   end
 
-  def destroy_success user, type, person
-    destroy_test user, type, person, -1
+  def destroy_success user, role_name, person
+    destroy_test user, role_name, person, -1
   end
   
-  def destroy_fail user, type, person
-    destroy_test user, type, person, 0
+  def destroy_fail user, role_name, person
+    destroy_test user, role_name, person, 0
   end
 
-  def destroy_test user, type, person, diff
+  def destroy_test user, role_name, person, diff
     sign_in user unless !user
     @course_signup.person = person
-    @course_signup.course_role_id = get_role_id(type)
+    @course_signup.course_role_id = get_role_id(role_name)
     @course_signup.save
     assert_difference('CourseSignup.count', diff) do
       delete :destroy, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id
     end
   end
 
-  def get_role_id type
-    if (type == :teacher)
+  def get_role_id role_name
+    if (role_name == :teacher)
       @teacher.id
     else
       @student.id

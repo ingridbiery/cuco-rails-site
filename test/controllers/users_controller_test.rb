@@ -27,6 +27,8 @@ class UsersControllerTest < ActionController::TestCase
     @fall.families << @fall_member.person.family
     @spring.families << @spring_member.person.family
     @winter.families << @winter_member.person.family
+
+    CucoSession.clear_caches
   end
 
   #############################################################################
@@ -86,7 +88,7 @@ class UsersControllerTest < ActionController::TestCase
   test "during session user with no person is :new" do
     travel_to @fall.start_date + 1.day
     @fall_member.person = nil
-    assert_equal :new, @fall_member.membership
+    assert_equal :new, @fall_member.membership_status
   end
 
   test "during session member of no sessions is :new" do
@@ -94,34 +96,34 @@ class UsersControllerTest < ActionController::TestCase
     @fall_member.person.family.memberships.each do |membership|
       membership.destroy
     end
-    assert_equal :new, @fall_member.membership
+    assert_equal :new, @fall_member.membership_status
   end
 
   test "during session A with no next session, member of A is :member" do
     travel_to @fall.start_date + 1.day
-    assert_equal :member, @fall_member.membership
+    assert_equal :member, @fall_member.membership_status
   end
 
   test "during session A with next session B before B signups, member of A is :member" do
     travel_to @spring.start_date + 1.day
-    assert_equal :member, @spring_member.membership
+    assert_equal :member, @spring_member.membership_status
   end
 
   test "during session A with next session B during B signups, member of A but not B is :member" do
     travel_to @spring_signups.start_dt + 1.day
-    assert_equal :member, @winter_member.membership
+    assert_equal :member, @winter_member.membership_status
   end
 
   test "during session A with next session B during B signups, member of A and B is :paid" do
     travel_to @spring_signups.start_dt + 1.day
     @spring.families << @winter_member.person.family
-    assert_equal :paid, @winter_member.membership
+    assert_equal :paid, @winter_member.membership_status
   end
 
   test "during session member of any previous session is :former" do
     travel_to @fall.start_date + 1.day
-    assert_equal :former, @spring_member.membership
-    assert_equal :former, @winter_member.membership
+    assert_equal :former, @spring_member.membership_status
+    assert_equal :former, @winter_member.membership_status
   end
 
   #############################################################################
@@ -131,7 +133,7 @@ class UsersControllerTest < ActionController::TestCase
   test "after session before signups user with no person is :new" do
     travel_to @spring.end_date + 1.day
     @spring_member.person = nil
-    assert_equal :new, @spring_member.membership
+    assert_equal :new, @spring_member.membership_status
   end
 
   test "after session before signups member of no sessions is :new" do
@@ -139,17 +141,17 @@ class UsersControllerTest < ActionController::TestCase
     @spring_member.person.family.memberships.each do |membership|
       membership.destroy
     end
-    assert_equal :new, @spring_member.membership
+    assert_equal :new, @spring_member.membership_status
   end
 
   test "after session before signups member of previous session is :member" do
     travel_to @spring.end_date + 1.day
-    assert_equal :member, @spring_member.membership
+    assert_equal :member, @spring_member.membership_status
   end
 
   test "after session before signups member of any earlier session is :former" do
     travel_to @spring.end_date + 1.day
-    assert_equal :former, @winter_member.membership
+    assert_equal :former, @winter_member.membership_status
   end
 
   #############################################################################
@@ -159,7 +161,7 @@ class UsersControllerTest < ActionController::TestCase
   test "after session during signups user with no person is :new" do
     travel_to @fall.dates.events.find_by(event_type_id: EventType.find_by(name: :new_reg)).start_dt + 1.day
     @spring_member.person = nil
-    assert_equal :new, @spring_member.membership
+    assert_equal :new, @spring_member.membership_status
   end
 
   test "after session during signups member of no sessions is :new" do
@@ -167,22 +169,22 @@ class UsersControllerTest < ActionController::TestCase
     @spring_member.person.family.memberships.each do |membership|
       membership.destroy
     end
-    assert_equal :new, @spring_member.membership
+    assert_equal :new, @spring_member.membership_status
   end
 
   test "after session during signups member of previous session is :member" do
     travel_to @fall.dates.events.find_by(event_type_id: EventType.find_by(name: :new_reg)).start_dt + 1.day
-    assert_equal :member, @spring_member.membership
+    assert_equal :member, @spring_member.membership_status
   end
 
   test "after session during signups member of any earlier session is :former" do
     travel_to @fall.dates.events.find_by(event_type_id: EventType.find_by(name: :new_reg)).start_dt + 1.day
-    assert_equal :former, @winter_member.membership
+    assert_equal :former, @winter_member.membership_status
   end
 
   test "after session during signups member of next session is :paid" do
     travel_to @fall.dates.events.find_by(event_type_id: EventType.find_by(name: :new_reg)).start_dt + 1.day
-    assert_equal :paid, @fall_member.membership
+    assert_equal :paid, @fall_member.membership_status
   end
 
   #############################################################################
@@ -192,7 +194,7 @@ class UsersControllerTest < ActionController::TestCase
   test "after signups before next session user with no person is :new" do
     travel_to @fall.dates.events.find_by(event_type_id: EventType.find_by(name: :new_reg)).end_dt + 1.day
     @spring_member.person = nil
-    assert_equal :new, @spring_member.membership
+    assert_equal :new, @spring_member.membership_status
   end
 
   test "after signups before next session member of no sessions is :new" do
@@ -200,22 +202,22 @@ class UsersControllerTest < ActionController::TestCase
     @spring_member.person.family.memberships.each do |membership|
       membership.destroy
     end
-    assert_equal :new, @spring_member.membership
+    assert_equal :new, @spring_member.membership_status
   end
 
   test "after signups before next session member of previous session is :member" do
     travel_to @fall.dates.events.find_by(event_type_id: EventType.find_by(name: :new_reg)).end_dt + 1.day
-    assert_equal :member, @spring_member.membership
+    assert_equal :member, @spring_member.membership_status
   end
 
   test "after signups before next session member of any earlier session is :former" do
     travel_to @fall.dates.events.find_by(event_type_id: EventType.find_by(name: :new_reg)).end_dt + 1.day
-    assert_equal :former, @winter_member.membership
+    assert_equal :former, @winter_member.membership_status
   end
 
   test "after signups before next session member of next session is :paid" do
     travel_to @fall.dates.events.find_by(event_type_id: EventType.find_by(name: :new_reg)).end_dt + 1.day
-    assert_equal :paid, @fall_member.membership
+    assert_equal :paid, @fall_member.membership_status
   end
 
 end

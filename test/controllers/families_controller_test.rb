@@ -15,9 +15,12 @@ class FamiliesControllerTest < ActionController::TestCase
     @web_team.roles << roles(:web_team)
     @member = users(:membership1)
     @member.roles << roles(:user)
+    @spring = cuco_sessions(:spring)
     @fall = cuco_sessions(:fall)
     @fall.families << @member.person.family
     travel_to @cuco_session.start_date + 1.day
+
+    CucoSession.clear_caches
   end
 
   #############################################################################
@@ -228,4 +231,70 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to families_url
   end
 
+  #############################################################################
+  # show emergency contacts
+  #############################################################################
+
+  test "anonymous should not get show emergency contacts" do
+    get :show_emergency_contacts
+    assert_redirected_to root_url
+  end
+
+  test "user should not get show emergency contacts" do
+    travel_to @fall.end_date.to_date + 1
+    sign_in @user
+    assert_equal ["user", "new"], @user.clearance_levels
+    get :show_emergency_contacts
+    assert_redirected_to root_url
+  end
+
+  test "web team should get show emergency contacts" do
+    travel_to @fall.end_date.to_date + 1
+    sign_in @web_team
+    assert_includes @web_team.clearance_levels, "web_team"
+    get :show_emergency_contacts
+    assert_response :success
+  end
+
+  #############################################################################
+  # show directory
+  #############################################################################
+
+  test "anonymous should not get show directory" do
+    get :show_member_directory
+    assert_redirected_to root_url
+  end
+
+  test "user should not get show directory" do
+    travel_to @fall.end_date.to_date + 1
+    sign_in @user
+    assert_equal ["user", "new"], @user.clearance_levels
+    get :show_member_directory
+    assert_redirected_to root_url
+  end
+
+  test "former should not get show directory" do
+    travel_to @fall.start_date.to_date + 1
+    sign_in @user
+    @user.person.family.cuco_sessions << @spring
+    assert_equal ["user", "former"], @user.clearance_levels
+    get :show_member_directory
+    assert_redirected_to root_url
+  end
+
+  test "member should get show directory" do
+    travel_to @fall.start_date.to_date + 1
+    sign_in @member
+    assert_equal ["user", "member"], @member.clearance_levels
+    get :show_member_directory
+    assert_response :success
+  end
+
+  test "web team should get show directory" do
+    travel_to @fall.end_date.to_date + 1
+    sign_in @web_team
+    assert_includes @web_team.clearance_levels, "web_team"
+    get :show_member_directory
+    assert_response :success
+  end
 end

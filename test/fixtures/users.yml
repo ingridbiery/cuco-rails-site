@@ -12,6 +12,12 @@ lj:
   notification_list: false
   person: lisa
 
+kw:
+  encrypted_password: "password"
+  email: "kw@example.com"
+  notification_list: false
+  person: kimberly
+
 new:
   encrypted_password: "password"
   email: "new@example.com"

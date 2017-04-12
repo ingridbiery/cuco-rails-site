@@ -13,6 +13,7 @@ smith:
   ec_phone: "6147897894"
   ec_text: true
   ec_relationship: "Father"
+  primary_adult: jennifer
 
 johnson:
   name: "Johnson"
@@ -27,7 +28,7 @@ johnson:
   ec_phone: "6145559874"
   ec_text: true
   ec_relationship: "Mother"
-
+  primary_adult: lisa
 
 williams:
   name: "Williams"
@@ -42,6 +43,7 @@ williams:
   ec_phone: "6144574455"
   ec_text: false
   ec_relationship: "Cousin"
+  primary_adult: kimberly
 
 membership1_family:
   name: "Membership1"
@@ -56,6 +58,7 @@ membership1_family:
   ec_phone: "6145551212"
   ec_text: false
   ec_relationship: "Cousin"
+  primary_adult: membership1_person
 
 membership2_family:
   name: "Membership2"
@@ -70,6 +73,7 @@ membership2_family:
   ec_phone: "6145551212"
   ec_text: false
   ec_relationship: "Cousin"
+  primary_adult: membership2_person
 
 membership3_family:
   name: "Membership3"
@@ -84,3 +88,5 @@ membership3_family:
   ec_phone: "6145551212"
   ec_text: false
   ec_relationship: "Cousin"
+  primary_adult: membership3_person
+

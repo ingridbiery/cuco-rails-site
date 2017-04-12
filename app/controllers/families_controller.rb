@@ -90,15 +90,15 @@ class FamiliesController < ApplicationController
     #   will be included
     def set_current_families
       if !CucoSession.current and !CucoSession.upcoming then
-        @families = CucoSession.latest.families.order(:name)
+        @families = CucoSession.latest.families
       elsif CucoSession.current and CucoSession.upcoming then
         @families = CucoSession.current.families +
                     CucoSession.upcoming.families
         @families.sort_by{|family| family.name}
       elsif CucoSession.upcoming then
-        @families = CucoSession.upcoming.families.order(:name)
+        @families = CucoSession.upcoming.families
       else
-        @families = CucoSession.current.families.order(:name)
+        @families = CucoSession.current.families
       end
       @families = @families.uniq
     end

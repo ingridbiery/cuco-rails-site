@@ -5,3 +5,9 @@ web_team:
 
 user:
   name: user
+
+volunteer_coordinator:
+  name: volunteer_coordinator
+
+treasurer:
+  name: treasurer

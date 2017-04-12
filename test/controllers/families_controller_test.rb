@@ -248,6 +248,23 @@ class FamiliesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
+  test "former should not get show emergency contacts" do
+    travel_to @fall.start_date.to_date + 1
+    sign_in @user
+    @user.person.family.cuco_sessions << @spring
+    assert_equal ["user", "former"], @user.clearance_levels
+    get :show_emergency_contacts
+    assert_redirected_to root_url
+  end
+
+  test "member should not get show emergency contacts" do
+    travel_to @fall.start_date.to_date + 1
+    sign_in @member
+    assert_equal ["user", "member"], @member.clearance_levels
+    get :show_emergency_contacts
+    assert_redirected_to root_url
+  end
+
   test "web team should get show emergency contacts" do
     travel_to @fall.end_date.to_date + 1
     sign_in @web_team

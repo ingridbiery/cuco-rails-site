@@ -4,10 +4,12 @@ class CalendarsControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   # numbers of events in yml file
-  PUBLIC_EVENTS = 15
-  ALL_EVENTS = 36
+  PUBLIC_EVENTS = 9
+  ALL_EVENTS = 30
 
   def setup
+    CucoSession.clear_caches
+
     @fall_member = users(:membership1)
     @fall_member.roles << roles(:user)
     @fall = cuco_sessions(:fall)
@@ -16,7 +18,7 @@ class CalendarsControllerTest < ActionController::TestCase
 
   test "anonymous should get public events" do
     get :show, start_date: "2016-08-01"
-    assert_select "div", class: "simple-calendar-event", count: PUBLIC_EVENTS
+    assert_select "div[class=?]", "simple-calendar-event", count: PUBLIC_EVENTS
   end
 
   test "member should get all events" do
@@ -24,6 +26,6 @@ class CalendarsControllerTest < ActionController::TestCase
     sign_in @fall_member
     assert_equal ["user", "member"], @fall_member.clearance_levels
     get :show, start_date: "2016-08-01"
-    assert_select "div", class: "simple-calendar-event", count: ALL_EVENTS
+    assert_select "div[class=?]", "simple-calendar-event", count: ALL_EVENTS
   end
 end

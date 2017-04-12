@@ -4,6 +4,8 @@ class FamiliesControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   def setup
+    CucoSession.clear_caches
+
     @cuco_session = cuco_sessions(:winter)
     @family = families(:johnson)
     @user = users(:js)
@@ -19,8 +21,6 @@ class FamiliesControllerTest < ActionController::TestCase
     @fall = cuco_sessions(:fall)
     @fall.families << @member.person.family
     travel_to @cuco_session.start_date + 1.day
-
-    CucoSession.clear_caches
   end
 
   #############################################################################

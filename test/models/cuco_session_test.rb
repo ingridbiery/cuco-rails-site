@@ -2,12 +2,14 @@ require 'test_helper'
 
 class CucoSessionTest < ActiveSupport::TestCase
   def setup
+    CucoSession.clear_caches
+
     @cuco_session = cuco_sessions(:fall)
     @winter = cuco_sessions(:winter)
     @spring = cuco_sessions(:spring)
     @fall = cuco_sessions(:fall)
   end
-  
+
   test "should be valid" do
     assert @cuco_session.valid?
   end
@@ -49,45 +51,38 @@ class CucoSessionTest < ActiveSupport::TestCase
   end
   
   test "current should return current session when there is one" do
-    CucoSession.clear_caches
     travel_to @fall.start_date.to_date + 1
     assert_equal @fall, CucoSession.current
   end
 
   test "current should return nil when there isn't one" do
-    CucoSession.clear_caches
     travel_to @fall.end_date.to_date + 1
     current = CucoSession.current
     assert_nil current
   end
 
   test "upcoming should return upcoming session when there is one" do
-    CucoSession.clear_caches
     travel_to @fall.start_date.to_date - 1
     assert_equal @fall, CucoSession.upcoming
   end
 
   test "upcoming should return nil when there isn't one" do
-    CucoSession.clear_caches
     travel_to @fall.start_date.to_date + 1
     upcoming_session = CucoSession.upcoming
     assert_nil upcoming_session
   end
 
   test "latest should return last session when there is one" do
-    CucoSession.clear_caches
     travel_to @fall.start_date.to_date - 1
     assert_equal @spring, CucoSession.latest
   end
 
   test "latest should return current session when there is one" do
-    CucoSession.clear_caches
     travel_to @fall.start_date.to_date + 1
     assert_equal @fall, CucoSession.latest
   end
 
   test "latest should return nil when there isn't one" do
-    CucoSession.clear_caches
     travel_to @winter.start_date.to_date - 1
     latest = CucoSession.latest
     assert_nil latest

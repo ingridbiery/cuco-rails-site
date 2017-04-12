@@ -4,6 +4,8 @@ class CoursesControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   def setup
+    CucoSession.clear_caches
+
     # set up a session so we can test permissions for different users at different points in the process
     @fall = cuco_sessions(:fall)
     @fall.dates.destroy
@@ -25,8 +27,6 @@ class CoursesControllerTest < ActionController::TestCase
     @former = users(:membership2)
     @former.roles << roles(:user)
     @winter.families << @former.person.family
-
-    CucoSession.clear_caches
   end
 
   #############################################################################

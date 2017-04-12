@@ -3,13 +3,13 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   def setup
+    CucoSession.clear_caches
+
     @user = users(:js)
     @person = people(:jennifer)
     @family = families(:smith)
     @fall = cuco_sessions(:fall)
     @spring = cuco_sessions(:spring)
-
-    CucoSession.clear_caches
   end
   
   test "should be valid" do

@@ -4,6 +4,8 @@ class CourseSignupsControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   def setup
+    CucoSession.clear_caches
+
     # set up three sessions so we can test permissions for current & former members at different points in the
     # signup process
     @fall = cuco_sessions(:fall)
@@ -42,8 +44,6 @@ class CourseSignupsControllerTest < ActionController::TestCase
     
     # a person with no other signups
     @person = people(:emma)
-
-    CucoSession.clear_caches
   end
 
   #############################################################################

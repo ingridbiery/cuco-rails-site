@@ -1,5 +1,5 @@
 class CalendarsController < ApplicationController
-  let [:web_team, :member], :members_only
+  let [:web_team, :member, :paid], :members_only
   let :all, :show
 
   def show

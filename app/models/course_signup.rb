@@ -95,7 +95,7 @@ class CourseSignup < ActiveRecord::Base
     end
     
     def one_signup_per_period
-      pid = course.period.id
+      pid = course.period&.id
       if pid
         csid = course.cuco_session.id
         signups = CourseSignup.where(person: person).joins(:course).where(courses: {cuco_session_id: csid,

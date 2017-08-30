@@ -1,6 +1,6 @@
 <% if @course.waiting_list_signups.count != 0 %>
   <h3>Waiting List</h3>
-  <ul><% @course.waiting_list_signups.order('created_at').each do |course_signup| %>
+  <ol><% @course.waiting_list_signups.order('created_at').each do |course_signup| %>
     <% person = course_signup.person %>
     <li><%= person.name %>
       <% if (@course.cuco_session.course_signups_open? and
@@ -10,5 +10,5 @@
               data: { confirm: 'Are you sure?' }, title: "Delete #{person.name}" %>
       <% end %>
     </li>
-  <% end %></ul>
+  <% end %></ol>
 <% end %>

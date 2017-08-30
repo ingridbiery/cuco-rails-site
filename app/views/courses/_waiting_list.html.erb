@@ -1,6 +1,6 @@
 <% if @course.waiting_list_signups.count != 0 %>
   <h3>Waiting List</h3>
-  <ul><% @course.waiting_list_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
+  <ul><% @course.waiting_list_signups.order('created_at').each do |course_signup| %>
     <% person = course_signup.person %>
     <li><%= person.name %>
       <% if (@course.cuco_session.course_signups_open? and

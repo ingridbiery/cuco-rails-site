@@ -3,6 +3,7 @@ class FamiliesController < ApplicationController
   let :web_team, [:manage_all, :edit_primary]
   let :user, [:show, :new, :create, :edit, :update]
   let [:member, :paid], :show_member_directory
+  let :printable_manager, :show_emergency_contacts
   
   before_action :set_family, except: [:new, :create, :index, :show_emergency_contacts, :show_member_directory]
   before_action :must_have_no_family, only: [:new, :create]

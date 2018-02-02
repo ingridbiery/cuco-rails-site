@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.order('email').paginate(page: params[:page])
+    @users = User.order('email')
   end
 
   # GET /users/1

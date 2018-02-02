@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  let :web_team, :new_member_coordinator [:index, :manage_all, :show_notification_list]
+  let [:web_team, :new_member_coordinator], [:index, :manage_all, :show_notification_list]
   let :all, [:show, :edit, :destroy] # we will restrict in show to only show own user
   
   # this is probably not the best place for this, but we don't have access to the

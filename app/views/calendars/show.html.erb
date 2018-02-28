@@ -15,8 +15,16 @@
         <% if event.start_dt.to_date != date %>
           -
         <% end %>
-        <% if event.start_dt.to_date == date or event.end_dt.to_date == date %>
+        <% if event.start_dt.to_date == date %>
           <%= event.start_dt.strftime("%l:%M%P") %>
+        <% end %>
+        <% if event.start_dt != event.end_dt %>
+          <% if event.start_dt.to_date == event.end_dt.to_date %>
+            -
+          <% end %>
+          <% if event.end_dt.to_date == date %>
+            <%= event.end_dt.strftime("%l:%M%P") %>
+          <% end %>
         <% end %>
 
         <% if user_signed_in? %>

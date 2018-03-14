@@ -31,9 +31,9 @@ class Membership < ActiveRecord::Base
     MEMBERSHIP_FEE
   end
   
-  # fee is 3.5% plus 32 cents
+  # fee is 2.9866% plus 30.896 cents
   def self.electronic_payment_fee(base_fee)
-    base_fee*0.035 + 0.32
+    base_fee*0.029866 + 0.30896
   end
   
   # get the FamilySchedule for this session/family combination

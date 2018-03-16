@@ -10,6 +10,8 @@ class CucoSession < ActiveRecord::Base
   has_many :people, through: :families
   has_many :assigned_courses, -> { Course.assigned }, class_name: 'Course', foreign_key: :cuco_session_id
   has_many :course_signups, through: :assigned_courses # filters out signups for courses that are not happening
+  has_many :real_courses, -> { Course.assigned and Course.not_away }, class_name: 'Course', foreign_key: :cuco_session_id
+  has_many :real_signups, through: :real_courses, :source => :course_signups # signups for courses that are happening and don't represent being away from co-op
   
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },
@@ -140,11 +142,11 @@ class CucoSession < ActiveRecord::Base
           jobs += [:volunteer_manager, :volunteer_manager]
         end
         if (index > 3) then index -= 1 end
-        c = courses.create!(name: "Not at Co-op (#{period_name})", short_name: "Away (#{index.to_s})", description: 'If you are not going to be at CUCO regularly this period please sign up as a student so we know not to look for you.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: '', time_reqs: '', drop_ins: true, additional_info: '', period_id: period.id, created_by_id: creator.id)
+        c = courses.create!(name: "Not at Co-op (#{period_name})", short_name: "Away (#{index.to_s})", description: 'If you are not going to be at CUCO regularly this period please sign up as a student so we know not to look for you.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: '', time_reqs: '', drop_ins: true, additional_info: '', period_id: period.id, created_by_id: creator.id, is_away: true)
         c.rooms << Room.find_by(name: "Outside")
       end
 
-      c = courses.create!(name: "Volunteers & Free Play (#{period_name})", short_name: "Vols & Free (#{index.to_s})", description: 'If you do not want a class assignment this period (either as a student or a volunteer), sign up as a student of this class. You can move freely among any of the open free play areas (auditorium, computer lab, game room, gym, playground).Note that not each area is open each period.This is also a placeholder for certain volunteer jobs.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: '', time_reqs: '', drop_ins: true, additional_info: '', period_id: period.id, created_by_id: creator.id)
+      c = courses.create!(name: "Volunteers & Free Play (#{period_name})", short_name: "Vols & Free (#{index.to_s})", description: 'If you do not want a class assignment this period (either as a student or a volunteer), sign up as a student of this class. You can move freely among any of the open free play areas (auditorium, computer lab, game room, gym, playground).Note that not each area is open each period.This is also a placeholder for certain volunteer jobs.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: '', time_reqs: '', drop_ins: true, additional_info: '', period_id: period.id, created_by_id: creator.id, is_away: false)
       ["Outside", "Gym", "Auditorium", "Lobby", "Game"].each do |room_name|
         c.rooms << Room.find_by(name: room_name)
       end

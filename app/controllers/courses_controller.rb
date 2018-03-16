@@ -121,7 +121,8 @@ class CoursesController < ApplicationController
                                      :max_students, :fee, :supplies,
                                      :room_reqs, :time_reqs,
                                      :drop_ins, :additional_info, {room_ids: []},
-                                     :period_id, :created_by_id, :signups_to_add)
+                                     :period_id, :created_by_id, :signups_to_add,
+                                     :is_away)
     end
 
     # should we show unassigned volunteering?

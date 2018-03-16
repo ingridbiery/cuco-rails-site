@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406145729) do
+ActiveRecord::Schema.define(version: 20180316031933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,11 +53,12 @@ ActiveRecord::Schema.define(version: 20170406145729) do
     t.text     "additional_info"
     t.integer  "period_id"
     t.integer  "cuco_session_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "fee"
     t.integer  "created_by_id"
     t.text     "signups_to_add"
+    t.boolean  "is_away",         default: false
   end
 
   add_index "courses", ["created_by_id"], name: "index_courses_on_created_by_id", using: :btree

@@ -144,6 +144,12 @@
   </div>
   
   <div class="field">
+    <%= f.label "Is Away?" %><br/>
+    <%= f.check_box :is_away %> No <br/>
+  <em>Is this a special class indicating someone is not at co-op?</em>
+  </div>
+
+  <div class="field">
     <%= f.hidden_field :created_by_id, value: @course.created_by_id %>
   </div>
 

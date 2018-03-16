@@ -13,6 +13,7 @@ class Course < ActiveRecord::Base
   has_many :volunteer_signups, -> { CourseSignup.volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
 
   scope :assigned, -> { where.not(period_id: nil) }
+  scope :not_away, -> { where(:is_away => false) } # courses that don't represent being away from co-op
 
   validates :name, presence: true,
                    length: { minimum: 3, maximum: 100 }

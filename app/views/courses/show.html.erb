@@ -72,6 +72,11 @@
   <%= @course.additional_info %>
 </p>
 
+<p>
+  <strong>Is Away:</strong>
+  <%= @course.is_away %>
+</p>
+
 <% if current_user&.can? :show_students, :courses %>
   <p>
     <strong>Signups to Add:</strong>

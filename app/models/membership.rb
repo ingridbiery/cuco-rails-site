@@ -7,7 +7,7 @@ class Membership < ActiveRecord::Base
   validates_uniqueness_of :family_id, :scope => [:cuco_session_id]
   validates :status, presence: true
 
-  MEMBERSHIP_FEE = 23.85
+  MEMBERSHIP_FEE = 23.975
 
   serialize :notification_params, Hash
   def paypal_url(return_path, paypal_hook_path)

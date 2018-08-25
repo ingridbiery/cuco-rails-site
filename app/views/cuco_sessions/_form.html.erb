@@ -16,6 +16,7 @@
     <%= f.text_field :name %>
   </div>
   <div>
+    Enter a date at or just before the first week of classes. If you set the date much earlier, it will confuse some calculations. Planning dates will be calculated before this date automatically when you click submit.</br>
     <%= f.label :start_date %>
     <%= f.date_field :start_date, value: @cuco_session.start_date %>
   </div>

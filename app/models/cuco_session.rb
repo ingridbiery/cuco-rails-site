@@ -22,7 +22,7 @@ class CucoSession < ActiveRecord::Base
   validate :valid_dates
   
   # maximum number of kids per sesson
-  MAX_KIDS = 115
+  MAX_KIDS = 110
   
   # get the current session, if there is one (the session where today is between
   # the start and end dates of the session)

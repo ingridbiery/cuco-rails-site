@@ -22,7 +22,7 @@
 
         <td>
           <% signups.select {|signup| signup.course.period_id == period.id}.each do |signup| %>
-            <%= link_to signup.course.short_name, [family_schedule.cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %>
+            <%= link_to signup.course.short_name, [family_schedule.cuco_session, signup.course] %><% if !signup.is_student? %><br /><em><%= signup.course_role.name.titleize %></em><% end %><br />
           <% end %>
         </td>
 

@@ -5,11 +5,11 @@ class CoursesController < ApplicationController
 
   # :show_students is not a method, just a label to indicate who is allowed to see
   # the list of students in a course
-  let [:web_team, :member, :paid], :show_students
+  let [:web_team, :volunteer_coordinator, :member, :paid], :show_students
 
   # who can create/edit/etc. courses; for other than web_team, people will only be
   # allowed to manage the courses they create
-  let [:web_team, :member, :former], [:new, :create, :edit, :update, :destroy]
+  let [:web_team, :volunteer_coordinator, :member, :former], [:new, :create, :edit, :update, :destroy]
 
   # anyone, including anonymous users, can view courses
   let :all, [:index, :show]

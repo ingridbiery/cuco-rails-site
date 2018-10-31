@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # this is probably not the best place for this, but we don't have access to the
   # high_voltage controller, and putting a let statement in the ApplicationController
   # doesn't work (creates a redirect loop)
-  let [:member, :paid, :former], [:show_concern_process, :show_all_faqs]
+  let [:member, :paid, :former], [:show_concern_process, :show_hardship_pass, :show_all_faqs]
   
   before_action :set_user, only: [:show, :destroy]
   before_action :must_be_me, only: [:show, :destroy]

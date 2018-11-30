@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Course Roles</h1>
+<h1>Course Roles and Volunteeer Jobs</h1>
 
 <p>
   <% if current_user&.can? :new, :course_role %>
@@ -10,7 +10,7 @@
 
 <hr>
 
-<h2>Other Roles</h2>
+<h2>Roles</h2>
 
 <%= render @course_roles.order(:display_weight).where('is_worker = ?', false) %>
 

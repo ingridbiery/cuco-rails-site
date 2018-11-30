@@ -1,7 +1,7 @@
 <%= content_for :page_title, "Courses from #{@cuco_session.name}" %>
 
 <h1>Listing Classes in <%= @cuco_session.name %></h1>
-<span><%= link_to 'Back to Session', @cuco_session %></span>
+<span class="no-print"><%= link_to 'Back to Session', @cuco_session %></span>
 <% if current_user&.can? :new, :course %>
   - <span class="no-print"><%= link_to 'New Course', new_cuco_session_course_path %></span>
 <% end %>

@@ -41,7 +41,9 @@
       <strong>Volunteers:</strong><br>
       <ul>
         <% course.volunteer_signups.includes(:course_role).order('course_roles.display_weight').each do |course_signup| %>
-          <li><%= course_signup.course_role.name.titleize %>: <%= course_signup.person.name %></li>
+          <% if course_signup.person.name %>
+            <li><%= course_signup.course_role.name.titleize %>: <%= course_signup.person.name %></li>
+          <% end %>
         <% end %>
       </ul>
     <% end %>

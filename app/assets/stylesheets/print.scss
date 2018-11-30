@@ -62,4 +62,34 @@
     -webkit-print-color-adjust: exact;
   }
 
+  /* Print styles for all courses report */
+  
+  .no-print {
+      display: none;
+  }
+
+  @page {
+      margin: 0;
+  }
+  
+  .listing-courses {
+      page-break-inside: avoid;
+      padding: 20px 20px 0 20px;
+      font-family: Verdana, serif;
+  }
+  
+  .listing-courses h2 {
+      font-size: 2rem;
+  }
+  
+  .course-print-style {
+      font-size: 10px;
+      line-height: 1.2;
+  }
+
+  .course-print-style ul {
+      font-size: 10px;
+      line-height: 1.2;
+  }
+
 }

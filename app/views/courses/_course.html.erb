@@ -1,17 +1,52 @@
-<tr>
-  <td><%= link_to course.name, [@cuco_session, course] %></td>
-  <td><%= course.description %></td>
-  <td><%= course.min_age %> - <%= course.max_age %></td>
-  <td><%= course.fee %></td>
-  <td><%= course.drop_ins %></td>
-  <td>
-    <%= link_to image_tag('wrench.png'),
-        edit_cuco_session_course_path(@cuco_session, course),
-        Title: "Edit #{course.name}" %>
-  </td>
-  <td>
-    <%= link_to image_tag('delete.png'),
-        [@cuco_session, course], method: :delete, data: { confirm: 'Are you sure?' },
-        Title: "Delete #{course.name}" %>
-  </td>
-</tr>
+<% if /^(?!.*Volunteers and Free Play|Not at Co-op).*$/ =~ course.name %>
+<div class="listing-courses">
+  <h2>
+    <%= link_to course.name, [@cuco_session, course] %>  (<%= link_to course.short_name, [@cuco_session, course] %>)
+    <% if current_user&.can? :edit, :course %>
+      <span class="no-print"><%= link_to image_tag('wrench.png'),
+          edit_cuco_session_course_path(@cuco_session, course),
+          Title: "Edit #{course.name}" %></span>
+      <span class="no-print"><%= link_to image_tag('delete.png'),
+          [@cuco_session, course], method: :delete, data: { confirm: 'Are you sure?' },
+          Title: "Delete #{course.name}" %></span>
+    <% end %>
+  </h2>
+  <div class="course-print-style">
+    <% if course.rooms.count != 0 %>
+      <span class="no-print">
+        <strong>Room(s):</strong>
+        <%= course.rooms.map{|room| room.name.titleize}.join(", ") %>
+      </span><br>
+    <% end %>
+    <% if course.period %>
+      <span class="no-print">
+        <strong>Period:</strong>
+        <%= course.period.name %>
+      </span><br>
+    <% end %>
+    <strong>Description:</strong> <%= course.description %><br>
+    <strong>Age Range:</strong> <%= course.min_age %> - <%= course.max_age %><br>
+    <strong>Number of Students:</strong><%= course.min_students %> - <%= course.max_students %><br>
+    <strong>Fee:</strong> $<%= course.fee %><br>
+    <strong>Supplies:</strong> <%= course.supplies %><br>
+    <strong>Room Requirements:</strong> <%= course.room_reqs %><br>
+    <strong>Time Requirements:</strong> <%= course.time_reqs %><br>
+    <strong>Drop-Ins:</strong> <%= course.drop_ins %><br>
+    <strong>Additional Information:</strong> <%= course.additional_info %><br>
+    <strong>Is Away:</strong> <%= course.is_away %><br>
+    <% if current_user&.can? :show_students, :courses %>
+      <strong>Signups to Add:</strong> <%= course.signups_to_add %><br>
+    <% end %>
+    <% if current_user&.can? :show_students, :courses %>
+      <strong>Volunteers:</strong><br>
+      <ul>
+        <% course.volunteer_signups.includes(:course_role).order('course_roles.display_weight').each do |course_signup| %>
+          <li><%= course_signup.course_role.name.titleize %>: <%= course_signup.person.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  
+  <hr>
+</div>
+<% end %>

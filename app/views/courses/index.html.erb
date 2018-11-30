@@ -1,26 +1,17 @@
 <%= content_for :page_title, "Courses from #{@cuco_session.name}" %>
 
 <h1>Listing Classes in <%= @cuco_session.name %></h1>
+<span><%= link_to 'Back to Session', @cuco_session %></span>
+<% if current_user&.can? :new, :course %>
+  - <span class="no-print"><%= link_to 'New Course', new_cuco_session_course_path %></span>
+<% end %>
 
-<div class="table-responsive">
-  <table class="table table-condensed table-striped">
-    <thead>
-      <tr>
-        <th>Class Name</th>
-        <th>Class Description</th>
-        <th>Age Range</th>
-        <th>Fee</th>
-        <th>Drop-Ins</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-  
-    <tbody>
-      <%= render @courses %>
-    </tbody>
-  </table>
+<section>
+  <%= render @courses.sort_by(&:name) %>
+</section>
+
 </div>
 
 <br>
 
-<%= link_to 'New Course', new_cuco_session_course_path %>
+

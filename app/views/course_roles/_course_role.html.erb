@@ -1,0 +1,11 @@
+<p>
+  <span class="course-role-name">
+    <% if current_user&.can? :show, :course_role %>
+      <%= link_to course_role.name.titleize, course_role %>
+    <% else %>
+      <%= course_role.name.titleize %>
+    <% end %>
+  </span>
+  <br><%= course_role.description.gsub('*', '') %>
+</p>
+

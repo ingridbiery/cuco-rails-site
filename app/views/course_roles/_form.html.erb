@@ -16,11 +16,12 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :is_worker %><br>
+    <%= f.label 'Is this a Volunteer Job?' %><br>
     <%= f.check_box :is_worker %>
   </div>
   <div class="field">
     <%= f.label :display_weight %><br>
+    <span>Determines the location of this role/job in the Roles and Volunteer Jobs lists.</span><br>
     <%= f.number_field :display_weight %>
   </div>
   <div class="field">

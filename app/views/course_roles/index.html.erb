@@ -1,20 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Volunteer Jobs</h1>
+<h1>Course Roles</h1>
 
-<ul>
-  <% @course_roles.order(:display_weight).each do |course_role| %>
-    <li><% if current_user&.can? :show, :course_role %>
-      <%= link_to course_role.name.titleize, course_role %>
-    <% else %>
-      <%= course_role.name.titleize %>
-    <% end %></li>
-    <%= course_role.description %>
+<p>
+  <% if current_user&.can? :new, :course_role %>
+    <%= link_to 'New Course Role (Add a Volunteer Job)', new_course_role_path %>
   <% end %>
-</ul>
+</p>
 
-<br>
+<hr>
 
-<% if current_user&.can? :new, :course_role %>
-  <%= link_to 'New Course role', new_course_role_path %>
-<% end %>
+<h2>Other Roles</h2>
+
+<%= render @course_roles.order(:display_weight).where('is_worker = ?', false) %>
+
+<h2>Volunteer Jobs</h2>
+
+<%= render @course_roles.order(:display_weight).where('is_worker = ?', true) %>
+
+<hr>
+
+<p>
+  <% if current_user&.can? :new, :course_role %>
+    <%= link_to 'New Course Role (Add a Volunteer Job)', new_course_role_path %>
+  <% end %>
+</p>

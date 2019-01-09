@@ -5,8 +5,15 @@
   <strong><%= @family_schedule.cuco_session.name %></strong> Schedule for the 
   <strong><%= @family_schedule.family.name %></strong> Family
 </h2>
-<%= render 'schedule_errors', family_schedule: @family_schedule %><br />
+
+<div class="back-link-area-top">
+  <%= link_to 'Back to session', @family_schedule.cuco_session %> | <%= link_to 'Back to family', @family_schedule.family %>
+</div>
+
+<%= render 'schedule_errors', family_schedule: @family_schedule %><br>
 <%= render 'schedule_header', family_schedule: @family_schedule %>
 <%= render 'schedule_list', family_schedule: @family_schedule, family_signups_by_period: @family_signups_by_period %>
 
-<%= link_to 'Back to session', @family_schedule.cuco_session %> | <%= link_to 'Back to family', @family_schedule.family %>
+<div class="back-link-area-bottom">
+  <%= link_to 'Back to session', @family_schedule.cuco_session %> | <%= link_to 'Back to family', @family_schedule.family %>
+</div>

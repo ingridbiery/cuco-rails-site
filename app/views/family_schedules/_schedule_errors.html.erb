@@ -1,6 +1,6 @@
 <% family_schedule.valid? %>
 <% if family_schedule.errors.any? %>
-  <div id="error_explanation">
+  <div id="error_explanation" class="error-explanation">
     <h2><%= pluralize(family_schedule.errors.count, "error") %> and/or 
     <% if family_schedule.errors.count > 1 %>
       <%= pluralize("", "warning") %> exist

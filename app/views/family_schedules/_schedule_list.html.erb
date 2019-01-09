@@ -1,13 +1,24 @@
 <% family_signups_by_period.each do |period_id, signups| %>
   <div class="period"><%= Period.find(period_id).name %> (<%= Period.find(period_id).duration_text %>)</div><br>
-  <% signups.each do |signup| %>
+  <div class="people-in-schedule">
+    <% signups.each do |signup| %>
     <% if signup.course.period_id == period_id %>
-      <p>
-        <span class="person"><%= signup.person.name %></span><br>
-        <span class="course"><%= link_to signup.course.name, [family_schedule.cuco_session, signup.course] %></span><br>
-        <span class="room">Room: <strong><%= signup.course.rooms.map{|room| room.name.titleize}.join(", ") %></strong></span><br>
-        <span class="role"><%= signup.course_role.name.titleize %></span><br>
-      </p>
+
+        <div class="person"><%= signup.person.name %></div>
+        <div class="course"><%= link_to signup.course.name, [family_schedule.cuco_session, signup.course] %></div>
+
+        <% # If role is student, don't show role. %>
+        <% unless signup.course_role.name == "student" %>
+          <div class="role">(<%= signup.course_role.name.titleize %>)</div>
+        <% end %>
+
+        <% # If course name is Free Play or Not at Co-op, don't show room. %>
+        <% unless signup.course.name.include?("Volunteers and Free Play") |
+          signup.course.name.include?("Not at Co-op") %>
+          <div class="room"><%= signup.course.rooms.map{|room| room.name.titleize}.join(", ") %></div>
+        <% end %>
+
+      <% end %>
     <% end %>
-  <% end %>
+  </div>  
 <% end %>

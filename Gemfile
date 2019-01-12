@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.5.3'
 
 gem 'rails',                   '~> 4.2.2'
 gem 'sass-rails',              '~> 5.0.2'
@@ -19,7 +19,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'google-api-client'
 gem 'action_access'
-gem 'pg'
+gem 'pg',                      '~> 0.18.4'
 gem 'active_warnings'
 gem 'simple_calendar'
 gem 'rails_real_favicon'

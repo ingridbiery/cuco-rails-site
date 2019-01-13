@@ -6,8 +6,8 @@ class CourseSignupsController < ApplicationController
   let [:paid], :register
   # who is allowed to sign up ever (former members can create teaching jobs for classes
   # they offer, but will need to pay to edit/update)
-  let [:web_team, :member, :former, :paid], [:new, :create]
-  let [:web_team, :paid], [:edit, :update, :destroy]
+  let [:web_team, :volunteer_coordinator, :member, :former, :paid], [:new, :create]
+  let [:web_team, :volunteer_coordinator, :paid], [:edit, :update, :destroy]
 
   before_action :set_edit_role # is the user allowed to change the course role?
   before_action :set_cuco_session

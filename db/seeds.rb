@@ -1,3 +1,4 @@
+# coding: utf-8
 if Rails.env.development?
   ENV['DEFAULT_PASSWORD'] ||= 'password'
 else
@@ -1677,6 +1678,7 @@ u20.notification_list = true
 u20.save
 u21 = User.create!(password: "password", email: 'CLYATT@example.com', notification_list: false)
 p3966.user = u21
+u21.roles << role_vc
 u192 = User.create!(password: "password", email: 'u192@example.com', notification_list: false)
 u192.notification_list = true
 u192.save

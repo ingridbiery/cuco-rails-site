@@ -1,3 +1,4 @@
+<div class="no-print">
 <% family_signups_by_period.each do |period_id, signups| %>
   <div class="period"><%= Period.find(period_id).name %> (<%= Period.find(period_id).duration_text %>)</div><br>
   <div class="people-in-schedule">
@@ -8,19 +9,17 @@
           <div class="person"><%= signup.person.name %></div>
           <div class="course"><%= link_to signup.course.name, [family_schedule.cuco_session, signup.course] %></div>
 
-          <% # If role is student, don't show role. %>
-          <% unless signup.course_role.name == "student" %>
-            <div class="role">(<%= signup.course_role.name.titleize %>)</div>
-          <% end %>
-
-          <% # If course name is Free Play or Not at Co-op, don't show room. %>
-          <% unless signup.course.name.include?("Volunteers and Free Play") |
-             signup.course.name.include?("Not at Co-op") |
-             signup.course.name.include?("Volunteers & Free Play") %>
-            <div class="room"><%= signup.course.rooms.map{|room| room.name.titleize}.join(", ") %></div>
-          <% end %>
+          <%= render 'schedule_signup_info', signup: signup %>
         </div>
       <% end %>
     <% end %>
   </div>  
 <% end %>
+</div>
+
+<!-- Print only view -->
+<div class="only-print">
+  <%= render 'schedule_table', family_schedule: family_schedule,
+      family_signups_by_person: family_signups_by_person,
+      periods: periods %>
+</div>

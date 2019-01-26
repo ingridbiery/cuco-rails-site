@@ -1,0 +1,10 @@
+<% unless signup.is_student? %>
+  <div class="role">(<%= signup.course_role.name.titleize %>)</div>
+<% end %>
+
+<% # If course name is Free Play or Not at Co-op, don't show room. %>
+<% unless signup.course.name.include?("Volunteers and Free Play") |
+   signup.course.name.include?("Not at Co-op") |
+   signup.course.name.include?("Volunteers & Free Play") %>
+  <div class="room"><%= signup.course.rooms.map{|room| room.name.titleize}.join(", ") %></div>
+<% end %>  

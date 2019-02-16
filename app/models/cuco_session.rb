@@ -21,6 +21,8 @@ class CucoSession < ActiveRecord::Base
   validates :end_date, presence: true
   validate :valid_dates
   
+  before_destroy :non_static_clear_caches
+  
   # maximum number of kids per sesson
   MAX_KIDS = 110
   
@@ -59,6 +61,10 @@ class CucoSession < ActiveRecord::Base
   # clear the session caches
   def self.clear_caches
     @latest = @current = @upcoming = nil
+  end
+  
+  def non_static_clear_caches
+    CucoSession.clear_caches
   end
   
   # is this session currently full? That is, are there 100 or more kids signed up

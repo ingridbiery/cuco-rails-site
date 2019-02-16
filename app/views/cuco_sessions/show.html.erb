@@ -65,7 +65,7 @@
           <td><%= period.name %><br/>(<%= period.duration_text %>)</td>
           <% @rooms.each do |room| %>
             <td>
-              <% @courses_by_period[period.id].each do |course| %>
+              <% @courses_by_period[period.id]&.each do |course| %>
                 <% if course.rooms.include? room %>
                   <% if course.short_name.length == 0 %>
                     <%= link_to course.name, [@cuco_session, course] %><br />

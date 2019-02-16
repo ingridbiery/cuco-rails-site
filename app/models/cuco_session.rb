@@ -157,10 +157,15 @@ class CucoSession < ActiveRecord::Base
       end
 
       # create after hours volunteer jobs for everyone on the board
+      # and the volunteer coordinators
       if index == 5 then
         after_hours = CourseRole.find_by(name: :after_hours_volunteer)
         bod = Role.find_by(name: :board_of_directors)
-        bod.users.each do |user|
+        bod&.users&.each do |user|
+          CourseSignup.create(course: c, person: user.person, course_role: after_hours)
+        end
+        vc = Role.find_by(name: :volunteer_coordinator)
+        vc&.users&.each do |user|
           CourseSignup.create(course: c, person: user.person, course_role: after_hours)
         end
       end

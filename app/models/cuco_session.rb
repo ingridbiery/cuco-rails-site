@@ -134,7 +134,7 @@ class CucoSession < ActiveRecord::Base
         index -= 1
       elsif index == 3 # lunch
         jobs = [:gym_monitor, :playground_monitor]
-        jobs += jobs + [:lunch_clean_up_manager, :lunch_time_keeper]
+        jobs += jobs + [:lunch_clean_up_manager]
         index = 2.5
       else # regular class periods
         jobs = main_jobs
@@ -151,9 +151,13 @@ class CucoSession < ActiveRecord::Base
         c.rooms << Room.find_by(name: room_name)
       end
 
-      jobs.each do |job|
+      jobs&.each do |job|
         role = CourseRole.find_by(name: job)
-        CourseSignup.create(course: c, person: nil, course_role: role)
+        # put this condition here because users can change the course roles
+        # and mess us up
+        if role
+          CourseSignup.create(course: c, person: nil, course_role: role)
+        end
       end
 
       # create after hours volunteer jobs for everyone on the board

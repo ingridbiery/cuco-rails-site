@@ -20,9 +20,6 @@ module Workspace
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
-
     # Mail setup
     config.action_mailer.delivery_method = :smtp
 
@@ -35,5 +32,7 @@ module Workspace
     }
     
     config.beginning_of_week = :sunday
+    
+    config.active_record.time_zone_aware_types = [:datetime, :time]
   end
 end

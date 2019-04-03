@@ -17,7 +17,7 @@ class CalendarsControllerTest < ActionController::TestCase
   end
 
   test "anonymous should get public events" do
-    get :show, start_date: "2016-08-01"
+    get :show, params: { start_date: "2016-08-01" }
     assert_select "div[class=?]", "simple-calendar-event", count: PUBLIC_EVENTS
   end
 
@@ -25,7 +25,7 @@ class CalendarsControllerTest < ActionController::TestCase
     travel_to @fall.start_date + 1.day
     sign_in @fall_member
     assert_equal ["user", "member"], @fall_member.clearance_levels
-    get :show, start_date: "2016-08-01"
+    get :show, params: { start_date: "2016-08-01" }
     assert_select "div[class=?]", "simple-calendar-event", count: ALL_EVENTS
   end
 end

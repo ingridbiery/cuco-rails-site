@@ -39,7 +39,7 @@ class CoursesControllerTest < ActionController::TestCase
 
   test "anonymous should get index during course offering" do
     travel_to @course_offering.start_dt + 1.day
-    get :index, cuco_session_id: @fall.id
+    get :index, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -47,7 +47,7 @@ class CoursesControllerTest < ActionController::TestCase
     travel_to @course_offering.start_dt + 1.day
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :index, cuco_session_id: @fall.id
+    get :index, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -55,7 +55,7 @@ class CoursesControllerTest < ActionController::TestCase
     travel_to @course_offering.start_dt + 1.day
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :index, cuco_session_id: @fall.id
+    get :index, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -63,7 +63,7 @@ class CoursesControllerTest < ActionController::TestCase
     travel_to @course_offering.start_dt + 1.day
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :index, cuco_session_id: @fall.id
+    get :index, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -73,7 +73,7 @@ class CoursesControllerTest < ActionController::TestCase
 
   test "anonymous should get index after course offering" do
     travel_to @course_offering.end_dt + 1.day
-    get :index, cuco_session_id: @fall.id
+    get :index, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -81,7 +81,7 @@ class CoursesControllerTest < ActionController::TestCase
     travel_to @course_offering.end_dt + 1.day
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :index, cuco_session_id: @fall.id
+    get :index, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -89,7 +89,7 @@ class CoursesControllerTest < ActionController::TestCase
     travel_to @course_offering.end_dt + 1.day
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :index, cuco_session_id: @fall.id
+    get :index, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -97,7 +97,7 @@ class CoursesControllerTest < ActionController::TestCase
     travel_to @course_offering.end_dt + 1.day
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :index, cuco_session_id: @fall.id
+    get :index, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -567,7 +567,7 @@ class CoursesControllerTest < ActionController::TestCase
 
   def new_test user
     sign_in user unless !user
-    get :new, cuco_session_id: @fall.id
+    get :new, params: { cuco_session_id: @fall.id }
   end
 
   def create_success user
@@ -584,7 +584,7 @@ class CoursesControllerTest < ActionController::TestCase
     c.name = "NEW NAME"
     c.created_by_id = user&.id
     assert_difference('Course.count', diff) do
-      post :create, cuco_session_id: @course.cuco_session_id, course: c.attributes
+      post :create, params: { cuco_session_id: @course.cuco_session_id, course: c.attributes }
     end
   end
   
@@ -592,14 +592,14 @@ class CoursesControllerTest < ActionController::TestCase
     sign_in user unless !user
     @course.created_by_id = course_owner.id
     @course.save
-    get :edit, cuco_session_id: @course.cuco_session_id, id: @course.id
+    get :edit, params: { cuco_session_id: @course.cuco_session_id, id: @course.id }
   end
 
   def update_test user, course_owner
     sign_in user unless !user
     @course.created_by_id = course_owner.id
     @course.save
-    patch :update, cuco_session_id: @fall.id, id: @course.id, course: @course.attributes
+    patch :update, params: { cuco_session_id: @fall.id, id: @course.id, course: @course.attributes }
   end
 
   def destroy_success user, course_owner
@@ -615,7 +615,7 @@ class CoursesControllerTest < ActionController::TestCase
     @course.created_by_id = course_owner.id
     @course.save
     assert_difference('Course.count', diff) do
-      delete :destroy, cuco_session_id: @course.cuco_session_id, id: @course.id
+      delete :destroy, params: { cuco_session_id: @course.cuco_session_id, id: @course.id }
     end
   end
 end

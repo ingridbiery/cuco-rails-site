@@ -1,8 +1,3 @@
-# allow a plural model name
-ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.uncountable 'dates'
-end
-
 # Be sure to restart your server when you modify this file.
 
 # Add new inflection rules using the following format. Inflections
@@ -19,3 +14,7 @@ end
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.uncountable "Dates"
+end

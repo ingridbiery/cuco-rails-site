@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.3'
 
 gem "minitest",                '5.10.1' # there's a problem with later versions of minitest
-gem 'rails',                   '= 5.0.2'
+gem 'rails',                   '= 5.0.7.2'
 gem 'bundler',                 '~> 1.17'
 gem 'sass-rails',              '~> 5.0'
 gem 'bootstrap-sass',          '~> 3.4.1'

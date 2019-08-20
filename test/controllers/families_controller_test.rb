@@ -58,7 +58,7 @@ class FamiliesControllerTest < ActionController::TestCase
 
   test "anonymous should not get create" do
     assert_difference 'Family.count', 0 do
-      post :create, family: @family.attributes
+      post :create, params: { family: @family.attributes }
     end
     assert_redirected_to root_url
   end
@@ -81,7 +81,7 @@ class FamiliesControllerTest < ActionController::TestCase
     family_attributes[:person] = p.attributes
     family_attributes[:person][:user] = @user_without_fam.id
     assert_difference 'Family.count', 1 do
-      post :create, family: family_attributes
+      post :create, params: { family: family_attributes }
     end
   end
 
@@ -102,7 +102,7 @@ class FamiliesControllerTest < ActionController::TestCase
     p.first_name = "NEW NAME"
     family_attributes[:person] = p.attributes
     assert_difference 'Family.count', 0 do
-      post :create, family: @family.attributes
+      post :create, params: { family: @family.attributes }
     end
     assert_redirected_to families_url
   end
@@ -112,19 +112,19 @@ class FamiliesControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get edit" do
-    get :edit, id: @family.id
+    get :edit, params: { id: @family.id }
     assert_redirected_to root_url
   end
 
   test "anonymous should not get update" do
-    patch :update, id: @family.id, family: @family
+    patch :update, params: { id: @family.id, family: @family }
     assert_redirected_to root_url
   end
 
   test "user with family should get edit for own family but not primary" do
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :edit, id: @user.person.family.id
+    get :edit, params: { id: @user.person.family.id }
     assert_select "select[id=family_primary_adult_id]", 0
     assert_response :success
   end
@@ -133,35 +133,35 @@ class FamiliesControllerTest < ActionController::TestCase
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
     family = @user.person.family
-    patch :update, id: family.id, family: family.attributes
+    patch :update, params: { id: family.id, family: family.attributes }
     assert_redirected_to family_path(assigns(:family))
   end
 
   test "user with family should not get edit for someone else's family" do
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :edit, id: @family.id
+    get :edit, params: { id: @family.id }
     assert_redirected_to families_url
   end
   
   test "user with family should not get update for someone else's family" do
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    patch :update, id: @family.id, family: @family.attributes
+    patch :update, params: { id: @family.id, family: @family.attributes }
     assert_redirected_to families_url
   end
   
   test "user without family should not get edit" do
     sign_in @user_without_fam
     assert_equal ["user", "new"], @user_without_fam.clearance_levels
-    get :edit, id: @family.id
+    get :edit, params: { id: @family.id }
     assert_redirected_to families_url
   end
   
   test "user without family should not get update" do
     sign_in @user_without_fam
     assert_equal ["user", "new"], @user_without_fam.clearance_levels
-    patch :update, id: @family.id, family: @family.attributes
+    patch :update, params: { id: @family.id, family: @family.attributes }
     assert_redirected_to families_url
   end
 
@@ -171,7 +171,7 @@ class FamiliesControllerTest < ActionController::TestCase
     family = @user.person.family
     family.primary_adult_id = @user.person.id
     family.save
-    get :edit, id: family.id
+    get :edit, params: { id: family.id }
     assert_select "select[id=family_primary_adult_id]", 1
     assert_response :success
   end
@@ -180,7 +180,7 @@ class FamiliesControllerTest < ActionController::TestCase
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
     family = @user.person.family
-    patch :update, id: family.id, family: family.attributes
+    patch :update, params: { id: family.id, family: family.attributes }
     assert_redirected_to family_path(assigns(:family))
   end
 
@@ -190,7 +190,7 @@ class FamiliesControllerTest < ActionController::TestCase
 
   test "anonymous should not get destroy" do
     assert_difference 'Family.count', 0 do
-      delete :destroy, :id => @family.id
+      delete :destroy, params: { id: @family.id }
     end
     assert_redirected_to root_url
   end
@@ -199,7 +199,7 @@ class FamiliesControllerTest < ActionController::TestCase
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
     assert_difference 'Family.count', 0 do
-      delete :destroy, :id => @user.person.family.id
+      delete :destroy, params: { id: @user.person.family.id }
     end
     assert_redirected_to root_url
   end
@@ -208,7 +208,7 @@ class FamiliesControllerTest < ActionController::TestCase
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
     assert_difference 'Family.count', 0 do
-      delete :destroy, :id => @family.id
+      delete :destroy, params: { id: @family.id }
     end
     assert_redirected_to root_url
   end
@@ -217,7 +217,7 @@ class FamiliesControllerTest < ActionController::TestCase
     sign_in @user_without_fam
     assert_equal ["user", "new"], @user.clearance_levels
     assert_difference 'Family.count', 0 do
-      delete :destroy, :id => @family.id
+      delete :destroy, params: { id: @family.id }
     end
     assert_redirected_to root_url
   end
@@ -226,7 +226,7 @@ class FamiliesControllerTest < ActionController::TestCase
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
     assert_difference 'Family.count', -1 do
-      delete :destroy, :id => @user.person.family.id
+      delete :destroy, params: { id: @user.person.family.id }
     end
     assert_redirected_to families_url
   end

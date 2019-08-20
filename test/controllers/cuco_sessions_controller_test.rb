@@ -28,7 +28,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get show open jobs" do
-    get :show_open_jobs, cuco_session_id: @fall.id
+    get :show_open_jobs, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -36,7 +36,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :show_open_jobs, cuco_session_id: @fall.id
+    get :show_open_jobs, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -45,7 +45,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @user
     @user.person.family.cuco_sessions << @spring
     assert_equal ["user", "former"], @user.clearance_levels
-    get :show_open_jobs, cuco_session_id: @fall.id
+    get :show_open_jobs, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -53,7 +53,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date + 1
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :show_open_jobs, cuco_session_id: @fall.id
+    get :show_open_jobs, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -61,7 +61,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date - 1
     sign_in @member
     assert_equal ["user", "paid"], @member.clearance_levels
-    get :show_open_jobs, cuco_session_id: @fall.id
+    get :show_open_jobs, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -69,7 +69,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :show_open_jobs, cuco_session_id: @fall.id
+    get :show_open_jobs, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -78,7 +78,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get show rosters" do
-    get :show_rosters, cuco_session_id: @fall.id
+    get :show_rosters, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -86,7 +86,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :show_rosters, cuco_session_id: @fall.id
+    get :show_rosters, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -95,7 +95,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @user
     @user.person.family.cuco_sessions << @spring
     assert_equal ["user", "former"], @user.clearance_levels
-    get :show_rosters, cuco_session_id: @fall.id
+    get :show_rosters, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -103,7 +103,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date + 1
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :show_rosters, cuco_session_id: @fall.id
+    get :show_rosters, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -111,7 +111,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date - 1
     sign_in @member
     assert_equal ["user", "paid"], @member.clearance_levels
-    get :show_rosters, cuco_session_id: @fall.id
+    get :show_rosters, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -119,7 +119,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :show_rosters, cuco_session_id: @fall.id
+    get :show_rosters, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -128,11 +128,11 @@ class CucoSessionsControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get show all signups" do
-    get :show_all_signups, cuco_session_id: @fall.id
+    get :show_all_signups, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_first_name, cuco_session_id: @fall.id
+    get :show_all_signups_first_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_last_name, cuco_session_id: @fall.id
+    get :show_all_signups_last_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -140,11 +140,11 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :show_all_signups, cuco_session_id: @fall.id
+    get :show_all_signups, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_first_name, cuco_session_id: @fall.id
+    get :show_all_signups_first_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_last_name, cuco_session_id: @fall.id
+    get :show_all_signups_last_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -153,11 +153,11 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @user
     @user.person.family.cuco_sessions << @spring
     assert_equal ["user", "former"], @user.clearance_levels
-    get :show_all_signups, cuco_session_id: @fall.id
+    get :show_all_signups, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_first_name, cuco_session_id: @fall.id
+    get :show_all_signups_first_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_last_name, cuco_session_id: @fall.id
+    get :show_all_signups_last_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -165,11 +165,11 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date + 1
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :show_all_signups, cuco_session_id: @fall.id
+    get :show_all_signups, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_first_name, cuco_session_id: @fall.id
+    get :show_all_signups_first_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_last_name, cuco_session_id: @fall.id
+    get :show_all_signups_last_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -177,11 +177,11 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date - 1
     sign_in @member
     assert_equal ["user", "paid"], @member.clearance_levels
-    get :show_all_signups, cuco_session_id: @fall.id
+    get :show_all_signups, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_first_name, cuco_session_id: @fall.id
+    get :show_all_signups_first_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
-    get :show_all_signups_last_name, cuco_session_id: @fall.id
+    get :show_all_signups_last_name, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -190,11 +190,11 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @member
     @member.roles << Role.find_by(name: "volunteer_coordinator")
     assert_equal ["user", "volunteer_coordinator", "paid"], @member.clearance_levels
-    get :show_all_signups, cuco_session_id: @fall.id
+    get :show_all_signups, params: { cuco_session_id: @fall.id }
     assert_response :success
-    get :show_all_signups_first_name, cuco_session_id: @fall.id
+    get :show_all_signups_first_name, params: { cuco_session_id: @fall.id }
     assert_response :success
-    get :show_all_signups_last_name, cuco_session_id: @fall.id
+    get :show_all_signups_last_name, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -202,11 +202,11 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :show_all_signups, cuco_session_id: @fall.id
+    get :show_all_signups, params: { cuco_session_id: @fall.id }
     assert_response :success
-    get :show_all_signups_first_name, cuco_session_id: @fall.id
+    get :show_all_signups_first_name, params: { cuco_session_id: @fall.id }
     assert_response :success
-    get :show_all_signups_last_name, cuco_session_id: @fall.id
+    get :show_all_signups_last_name, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -215,7 +215,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get show volunteers" do
-    get :show_volunteers, cuco_session_id: @fall.id
+    get :show_volunteers, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -223,7 +223,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :show_volunteers, cuco_session_id: @fall.id
+    get :show_volunteers, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -232,7 +232,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @user
     @user.person.family.cuco_sessions << @spring
     assert_equal ["user", "former"], @user.clearance_levels
-    get :show_volunteers, cuco_session_id: @fall.id
+    get :show_volunteers, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -240,7 +240,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date + 1
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :show_volunteers, cuco_session_id: @fall.id
+    get :show_volunteers, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -248,7 +248,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date - 1
     sign_in @member
     assert_equal ["user", "paid"], @member.clearance_levels
-    get :show_volunteers, cuco_session_id: @fall.id
+    get :show_volunteers, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -257,7 +257,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @member
     @member.roles << Role.find_by(name: "volunteer_coordinator")
     assert_equal ["user", "volunteer_coordinator", "paid"], @member.clearance_levels
-    get :show_volunteers, cuco_session_id: @fall.id
+    get :show_volunteers, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -265,7 +265,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :show_volunteers, cuco_session_id: @fall.id
+    get :show_volunteers, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -274,7 +274,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get show away" do
-    get :show_away, cuco_session_id: @fall.id
+    get :show_away, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -282,7 +282,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :show_away, cuco_session_id: @fall.id
+    get :show_away, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -291,7 +291,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @user
     @user.person.family.cuco_sessions << @spring
     assert_equal ["user", "former"], @user.clearance_levels
-    get :show_away, cuco_session_id: @fall.id
+    get :show_away, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -299,7 +299,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date + 1
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :show_away, cuco_session_id: @fall.id
+    get :show_away, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -307,7 +307,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date - 1
     sign_in @member
     assert_equal ["user", "paid"], @member.clearance_levels
-    get :show_away, cuco_session_id: @fall.id
+    get :show_away, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -316,7 +316,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @member
     @member.roles << Role.find_by(name: "volunteer_coordinator")
     assert_equal ["user", "volunteer_coordinator", "paid"], @member.clearance_levels
-    get :show_away, cuco_session_id: @fall.id
+    get :show_away, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -324,7 +324,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :show_away, cuco_session_id: @fall.id
+    get :show_away, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -333,7 +333,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get show nametags" do
-    get :show_nametags, cuco_session_id: @fall.id
+    get :show_nametags, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -341,7 +341,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :show_nametags, cuco_session_id: @fall.id
+    get :show_nametags, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -350,7 +350,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @user
     @user.person.family.cuco_sessions << @spring
     assert_equal ["user", "former"], @user.clearance_levels
-    get :show_nametags, cuco_session_id: @fall.id
+    get :show_nametags, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -358,7 +358,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date + 1
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :show_nametags, cuco_session_id: @fall.id
+    get :show_nametags, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -366,7 +366,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date - 1
     sign_in @member
     assert_equal ["user", "paid"], @member.clearance_levels
-    get :show_nametags, cuco_session_id: @fall.id
+    get :show_nametags, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -375,7 +375,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @member
     @member.roles << Role.find_by(name: "volunteer_coordinator")
     assert_equal ["user", "volunteer_coordinator", "paid"], @member.clearance_levels
-    get :show_nametags, cuco_session_id: @fall.id
+    get :show_nametags, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -383,7 +383,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :show_nametags, cuco_session_id: @fall.id
+    get :show_nametags, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -392,7 +392,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get show fees summary" do
-    get :show_fees_summary, cuco_session_id: @fall.id
+    get :show_fees_summary, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -400,7 +400,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :show_fees_summary, cuco_session_id: @fall.id
+    get :show_fees_summary, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -409,7 +409,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @user
     @user.person.family.cuco_sessions << @spring
     assert_equal ["user", "former"], @user.clearance_levels
-    get :show_fees_summary, cuco_session_id: @fall.id
+    get :show_fees_summary, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -417,7 +417,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date + 1
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :show_fees_summary, cuco_session_id: @fall.id
+    get :show_fees_summary, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -425,7 +425,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.start_date.to_date - 1
     sign_in @member
     assert_equal ["user", "paid"], @member.clearance_levels
-    get :show_fees_summary, cuco_session_id: @fall.id
+    get :show_fees_summary, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -434,7 +434,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @member
     @member.roles << roles(:volunteer_coordinator)
     assert_equal ["user", "volunteer_coordinator", "paid"], @member.clearance_levels
-    get :show_fees_summary, cuco_session_id: @fall.id
+    get :show_fees_summary, params: { cuco_session_id: @fall.id }
     assert_redirected_to root_url
   end
 
@@ -443,7 +443,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     sign_in @member
     @member.roles << roles(:treasurer)
     assert_equal ["user", "treasurer", "paid"], @member.clearance_levels
-    get :show_fees_summary, cuco_session_id: @fall.id
+    get :show_fees_summary, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 
@@ -451,7 +451,7 @@ class CucoSessionsControllerTest < ActionController::TestCase
     travel_to @fall.end_date.to_date + 1
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :show_fees_summary, cuco_session_id: @fall.id
+    get :show_fees_summary, params: { cuco_session_id: @fall.id }
     assert_response :success
   end
 end

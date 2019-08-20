@@ -2,18 +2,18 @@
 class ApplicationController < ActionController::Base
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
-  before_filter :authenticate
+  before_action :authenticate
   # saves the location before loading each page so we can return to the
   # right page. If we're on a devise page, we don't want to store that as the
   # place to return to (for example, we don't want to return to the sign_in page
   # after signing in), which is what the :unless prevents
-  before_filter :store_current_location, :unless => :devise_controller?
+  before_action :store_current_location, :unless => :devise_controller?
   
   # find information about current session and upcoming events to display in header
-  before_filter :get_session_info
+  before_action :get_session_info
 
   # set the site name
-  before_filter :set_site_name
+  before_action :set_site_name
   
   def get_session_info
     get_current_session_info
@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery prepend: true, with: :exception
   
   private
     # override the devise helper to store the current location so we can

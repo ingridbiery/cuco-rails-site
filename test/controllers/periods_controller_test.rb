@@ -43,36 +43,36 @@ class PeriodsControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get edit" do
-    get :edit, id: @period.id
+    get :edit, params: { id: @period.id }
     assert_redirected_to root_url
   end
 
   test "anonymous should not get update" do
-    put :update, id: @period.id, period: @period
+    put :update, params: { id: @period.id, period: @period }
     assert_redirected_to root_url
   end
 
   test "user should not get edit" do
     sign_in @user
-    get :edit, id:@period.id
+    get :edit, params: { id:@period.id }
     assert_redirected_to root_url
   end
 
   test "user should not get update" do
     sign_in @user
-    put :update, id: @period.id, period: @period.attributes
+    put :update, params: { id: @period.id, period: @period.attributes }
     assert_redirected_to root_url
   end
 
   test "web team should get edit" do
     sign_in @web_team
-    get :edit, id: @period.id
+    get :edit, params: { id: @period.id }
     assert_response :success
   end
 
   test "web team should get update" do
     sign_in @web_team
-    put :update, id: @period.id, period: @period.attributes
+    put :update, params: { id: @period.id, period: @period.attributes }
     assert_redirected_to periods_path
   end
 

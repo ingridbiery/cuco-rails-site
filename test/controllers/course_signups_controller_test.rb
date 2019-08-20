@@ -1221,7 +1221,7 @@ class CourseSignupsControllerTest < ActionController::TestCase
 
   def new_test user, role_name
     sign_in user unless !user
-    get :new, cuco_session_id: @fall.id, course_id: @course.id, role_name: role_name
+    get :new, params: { cuco_session_id: @fall.id, course_id: @course.id, role_name: role_name }
   end
 
   def create_success user, role_name
@@ -1238,7 +1238,7 @@ class CourseSignupsControllerTest < ActionController::TestCase
     s.person = @person
     s.course_role_id = get_role_id(role_name)
     assert_difference('CourseSignup.count', diff) do
-      post :create, cuco_session_id: @fall.id, course_id: @course.id, course_signup: s.attributes
+      post :create, params: { cuco_session_id: @fall.id, course_id: @course.id, course_signup: s.attributes }
     end
   end
   
@@ -1247,7 +1247,7 @@ class CourseSignupsControllerTest < ActionController::TestCase
     @course_signup.course_role_id = get_role_id(role_name)
     @course_signup.person = person
     @course_signup.save
-    get :edit, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id
+    get :edit, params: { cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id }
   end
 
   def update_test user, role_name, person
@@ -1255,7 +1255,7 @@ class CourseSignupsControllerTest < ActionController::TestCase
     @course_signup.person = person
     @course_signup.course_role_id = get_role_id(role_name)
     @course_signup.save
-    patch :update, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id, course_signup: @course_signup.attributes
+    patch :update, params: { cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id, course_signup: @course_signup.attributes }
   end
 
   def destroy_success user, role_name, person
@@ -1272,7 +1272,7 @@ class CourseSignupsControllerTest < ActionController::TestCase
     @course_signup.course_role_id = get_role_id(role_name)
     @course_signup.save
     assert_difference('CourseSignup.count', diff) do
-      delete :destroy, cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id
+      delete :destroy, params: { cuco_session_id: @fall.id, course_id: @course.id, id: @course_signup.id }
     end
   end
 

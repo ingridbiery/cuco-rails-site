@@ -28,35 +28,35 @@ class PeopleControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get index" do
-    get :index, family_id: @person.family_id
+    get :index, params: { family_id: @person.family_id }
     assert_redirected_to root_url
   end
 
   test "new user should not get index" do
     sign_in @user
     assert_equal ["user", "new"], @user.clearance_levels
-    get :index, family_id: @person.family_id
+    get :index, params: { family_id: @person.family_id }
     assert_redirected_to root_url
   end
 
   test "former should not get index" do
     sign_in @former
     assert_equal ["user", "former"], @former.clearance_levels
-    get :index, family_id: @person.family_id
+    get :index, params: { family_id: @person.family_id }
     assert_redirected_to root_url
   end
 
   test "member should not get index" do
     sign_in @member
     assert_equal ["user", "member"], @member.clearance_levels
-    get :index, family_id: @person.family_id
+    get :index, params: { family_id: @person.family_id }
     assert_redirected_to root_url
   end
 
   test "web_team should get index" do
     sign_in @web_team
     assert_includes @web_team.clearance_levels, "web_team"
-    get :index, family_id: @person.family_id
+    get :index, params: { family_id: @person.family_id }
     assert_response :success
   end
 
@@ -315,7 +315,7 @@ class PeopleControllerTest < ActionController::TestCase
   # try to :new a new person as the given user in the given family
   def new_test user, family
     sign_in user unless !user
-    get :new, family_id: family.id
+    get :new, params: { family_id: family.id }
   end
 
   # try to :create a new person as the given user in the given family, we expect success
@@ -335,20 +335,20 @@ class PeopleControllerTest < ActionController::TestCase
     p = family.people.first.dup
     p.first_name = "New"
     assert_difference('Person.count', diff) do
-      post :create, family_id: family.id, person: p.attributes
+      post :create, params: { family_id: family.id, person: p.attributes }
     end
   end
 
   # try to :edit the given person in the given family as the given person
   def edit_test user, family, person
     sign_in user unless !user
-    get :edit, family_id: family.id, id: person.id
+    get :edit, params: { family_id: family.id, id: person.id }
   end
   
   # try to :update the given person in the given family as the given person
   def update_test user, family, person
     sign_in user unless !user
-    patch :update, family_id: family.id, id: person.id, person: person.attributes
+    patch :update, params: { family_id: family.id, id: person.id, person: person.attributes }
   end
   
   # try to :destroy a person as the given user in the given family, we expect success
@@ -366,7 +366,7 @@ class PeopleControllerTest < ActionController::TestCase
   def destroy_test user, family, person, diff
     sign_in user unless !user
     assert_difference('Person.count', diff) do
-      delete :destroy, family_id: family.id, id: person.id
+      delete :destroy, params: { family_id: family.id, id: person.id }
     end
   end
 

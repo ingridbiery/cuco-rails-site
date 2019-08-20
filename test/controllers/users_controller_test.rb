@@ -57,19 +57,19 @@ class UsersControllerTest < ActionController::TestCase
   #############################################################################
 
   test "anonymous should not get show" do
-    get :show, id: @user.id
+    get :show, params: { id: @user.id }
     assert_redirected_to root_url
   end
 
   test "user should get show for self" do
     sign_in @user
-    get :show, id: @user.id
+    get :show, params: { id: @user.id }
     assert_response :success
   end
 
   test "user should not get show for someone else" do
     sign_in @user
-    get :show, id: @web_team.id
+    get :show, params: { id: @web_team.id }
     assert_redirected_to root_path
   end
   

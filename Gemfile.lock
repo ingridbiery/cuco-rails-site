@@ -253,36 +253,36 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  action_access (~> 0.1)
-  active_warnings (~> 0.1)
-  bootstrap-sass (~> 3.4)
-  bootstrap-will_paginate (~> 1.0)
+  action_access (~> 0.1.1)
+  active_warnings (~> 0.1.5)
+  bootstrap-sass (~> 3.4.1)
+  bootstrap-will_paginate (~> 1.0.0)
   bullet
   bundler (~> 1.17)
   byebug
-  coffee-rails (~> 4.2)
+  coffee-rails (~> 4.2.2)
   devise
   figaro
-  google-api-client (~> 0.30)
-  high_voltage (~> 3.1)
-  jbuilder (~> 2.1)
-  jquery-rails (~> 4.3)
+  google-api-client (~> 0.30.8)
+  high_voltage (~> 3.1.2)
+  jbuilder (~> 2.9.1)
+  jquery-rails (~> 4.3.5)
   newrelic_rpm
-  omniauth (~> 1.9)
-  omniauth-google-oauth2 (~> 0.7)
-  pg (~> 1.1)
+  omniauth (~> 1.9.0)
+  omniauth-google-oauth2 (~> 0.7.0)
+  pg (~> 1.1.4)
   rails (~> 5.1.0)
   rails-controller-testing
   rails_12factor
-  rails_real_favicon
-  sassc-rails (~> 2.1)
-  sdoc
-  simple_calendar (~> 2.3)
+  rails_real_favicon (~> 0.0.2)
+  sassc-rails (~> 2.1.2)
+  sdoc (~> 1.0.0)
+  simple_calendar (~> 2.3.0)
   spring
-  turbolinks (~> 5.2)
-  uglifier (~> 4.1)
+  turbolinks (~> 5.2.0)
+  uglifier (~> 4.1.20)
   web-console
-  will_paginate (~> 3.1)
+  will_paginate (~> 3.1.8)
 
 RUBY VERSION
    ruby 2.5.3p105

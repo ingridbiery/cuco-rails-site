@@ -28,7 +28,7 @@
 
 <p>
   <strong>Age Range:</strong>
-  <%= @course.min_age %> - <%= @course.max_age %> 
+  <%= @course.min_age %> - <%= @course.max_age %>
   <strong>Firm?:</strong>
   <%= @course.age_firm %>
 </p>
@@ -91,7 +91,7 @@
   <%= render 'waiting_list' %>
   <%= render 'volunteers' %>
   <%= render 'people_in_room' %>
-  <%= render 'unassigned_volunteers' %>
+  <%= render 'on_call_volunteers' %>
 <% end %>
 
 <%= link_to 'Edit', edit_cuco_session_course_path %> |

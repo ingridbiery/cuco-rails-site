@@ -33,9 +33,9 @@
         <% end %>
       </ul>
     <% end %>
-    <% if course.unassigned_volunteer_signups.count != 0 %>
-      Unassigned Volunteers<ul>
-        <% course.unassigned_volunteer_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
+    <% if course.on_call_volunteer_signups.count != 0 %>
+      On Call Volunteers<ul>
+        <% course.on_call_volunteer_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
           <li><%= course_signup.person.name %></li>
         <% end %>
       </ul>

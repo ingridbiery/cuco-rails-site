@@ -3,12 +3,12 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :rooms
   belongs_to :period
   belongs_to :created_by, class_name: "User"
-  
+
   has_many :course_signups, dependent: :destroy
   has_many :people, through: :course_signups
   has_many :student_signups, -> { CourseSignup.student }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :waiting_list_signups, -> { CourseSignup.waiting_list }, class_name: 'CourseSignup', foreign_key: :course_id
-  has_many :unassigned_volunteer_signups, -> { CourseSignup.unassigned_volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :on_call_volunteer_signups, -> { CourseSignup.on_call_volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :people_in_room_signups, -> { CourseSignup.people_in_room }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :volunteer_signups, -> { CourseSignup.volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
 
@@ -55,7 +55,7 @@ class Course < ActiveRecord::Base
         errors.add("Max age", "(#{max_age}) is not greater than min age (#{min_age})")
       end
     end
-  
+
     # Check to see if min_students is less than max_students
     def student_ranges
       if max_students.to_i <= min_students.to_i

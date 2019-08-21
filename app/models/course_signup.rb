@@ -7,7 +7,7 @@ class CourseSignup < ActiveRecord::Base
 
   scope :student, -> { joins(:course_role).where(course_roles: { name: :student }) }
   scope :waiting_list, -> { joins(:course_role).where(course_roles: { name: :waiting_list }) }
-  scope :unassigned_volunteer, -> { joins(:course_role).where(course_roles: { name: :unassigned_volunteer }) }
+  scope :on_call_volunteer, -> { joins(:course_role).where(course_roles: { name: :on_call_volunteer }) }
   scope :people_in_room, -> { joins(:course_role).where(course_roles: { name: :person_in_room }) }
   scope :volunteer, -> { joins(:course_role).where(course_roles: { is_worker: true }) }
 
@@ -20,9 +20,9 @@ class CourseSignup < ActiveRecord::Base
     course_role.is_worker?
   end
 
-  # is this an unassigned volunteer?
-  def is_unassigned?
-    course_role.name.to_sym == :unassigned_volunteer
+  # is this an on call volunteer?
+  def is_on_call?
+    course_role.name.to_sym == :on_call_volunteer
   end
 
   # is this a student

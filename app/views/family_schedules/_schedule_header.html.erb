@@ -3,7 +3,7 @@
 
 
 <strong>Volunteering:</strong> <%= family_schedule.jobs %>
-| <strong>Unassigned:</strong> <%= family_schedule.unassigned %>
+| <strong>On Call:</strong> <%= family_schedule.on_call %>
 | <strong>Fees:</strong> <%= "$%.2f" % family_schedule.fees.round(2) %>
 <% if family_schedule.fees != 0 %>
   | <strong>Electronic Payment Total:</strong> <%= "$%.2f" % fees_due %>

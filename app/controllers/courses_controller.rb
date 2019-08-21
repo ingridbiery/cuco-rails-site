@@ -13,11 +13,11 @@ class CoursesController < ApplicationController
 
   # anyone, including anonymous users, can view courses
   let :all, [:index, :show]
-  
+
   before_action :set_cuco_session
   before_action :set_course, except: [:new, :create, :index]
   before_action :set_people, only: [:show]
-  before_action :set_show_unassigned # should we show unassigned volunteering?
+  before_action :set_show_on_call # should we show on call volunteering?
 
   # make sure the timing is right for new/create
   before_action :new_create_authorized, only: [:new, :create]
@@ -69,7 +69,7 @@ class CoursesController < ApplicationController
     @course.destroy
     redirect_to cuco_session_courses_path, notice: "#{@course.name} was successfully destroyed."
   end
-  
+
   private
 
     # make sure new and create are authorized
@@ -82,7 +82,7 @@ class CoursesController < ApplicationController
         end
       end
     end
-  
+
     # make sure edit and update are authorized
     # edit/update/destroy is only available to typical users during course offerings
     # regular users can only edit/update/destroy courses they created
@@ -125,13 +125,13 @@ class CoursesController < ApplicationController
                                      :is_away)
     end
 
-    # should we show unassigned volunteering?
-    def set_show_unassigned
-      @show_unassigned = false
+    # should we show on call volunteering?
+    def set_show_on_call
+      @show_on_call = false
       if @course&.name&.include? "Free Play" or
          @course&.name&.include? "Volunteer"
-        @show_unassigned = true
+        @show_on_call = true
       end
     end
-  
+
 end

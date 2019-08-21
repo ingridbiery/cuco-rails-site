@@ -78,7 +78,7 @@
 <p>If you are caring for a baby, there is no need for their family to pay the membership fee. Once the child is two, is not always under your direct supervision, or wants to sign up for a class, their family needs to join.</p>
 
 <h4><%= content_tag(:a, "What are the volunteer requirements?", name: "volunteer") %></h4>
-<p>Each family must help with either setup before co-op, or cleanup after co-op (there is no need to sign up for these jobs). The specific requirements may vary from session to session. Typically, each family needs to do at least two jobs each session and sign up to fill in as needed during another period. If all jobs have already been taken, or you are unable to volunteer in any of the available jobs, let us know and we can find something else for you to do.</p>
+<p>The specific requirements may vary from session to session. Typically, each family needs adults to do at least three jobs each session. If all jobs have already been taken, or you are unable to volunteer in any of the available jobs, let us know and we can find something else for you to do. In addition, each family must also sign up help with either setup before co-op, or cleanup after co-op. These are typically quick jobs that everyone must help out with in addition to their other jobs. Setup and cleanup managers must be the first and last ones there, and these do count as one of your jobs. Others may be asked to fill in if the setup or cleanup managers call in sick.</p>
 <p>Some job possibilities are:</p>
 <ul>
   <li>prepare and teach a class on your own</li>
@@ -112,9 +112,9 @@
 
 <h4><%= content_tag(:a, "Can my kids bring toy weapons to CUCO?", name: "weapons") %></h4>
 <p>Out of respect for families that choose not to play with toy guns, we ask that you not bring them to CUCO. Sometimes a nerf class is offered, and nerf guns are, of course, needed for that. They should only be played with in the class. During other times, if they are large or proving hard for kids to avoid, they can be stored out of sight behind a door by the stage.</p>
-  
+
 <p>Swords are fine to bring. "Boffer" weapons (large swords made of PVC and pool noodles) can be brought, but should not be played with in the auditorium or lobby. When the weather is nice, they should be used only outside. In bad weather, they can be used in the gym when it is available.</p>
-  
+
 <% if current_user&.can? :show_all_faqs, :users %>
   <h3>Information for Members</h3>
 
@@ -123,7 +123,7 @@
 
   <h4><%= content_tag(:a, "What if I unexpectedly can't make it to co-op?", name: "cannot_make_it") %></h4>
   If you can't make it to co-op please post to the CUCO Google group as soon as possible. If it's co-op day when you realize you can't come, please call or text <strong>614-450-CUCO (2826)</strong> by 9:30, preferably before. Our volunteer coordinators will be working hard to make sure all positions are covered, so the sooner we know you won't be there, the easier it will be to cover your position.
-  
+
   <h4><%= content_tag(:a, "When should I keep my child home?", name: "stay_home") %></h4>
   <p>Your child is too ill to go to co-op if he or she has any of the following symptoms:</p>
   <ul>
@@ -143,10 +143,10 @@
 
   <h4><%= content_tag(:a, "Does CUCO close for weather emergencies?", name: "weather_emergencies") %></h4>
   If Columbus city schools are closed due to weather, CUCO will be closed. We do not make up classes that are missed due to weather or other extenuating circumstances and we do not offer refunds for missed classes.
-  
+
   <h4><%= content_tag(:a, "Does CUCO close for any other reason?", name: "cuco_close") %></h4>
   Sometimes there are extenuating circumstances requiring that CUCO is closed unexpectedly. We'll do our best to notify members in a timely manner, as soon as we find out about the need for closing. We do not make up classes that are missed due to weather or other extenuating circumstances and we do not offer refunds for missed classes.
-  
+
   <h4><%= content_tag(:a, "If CUCO is closed due to weather or other circumstances, will we make up the missed class?", name: "make_up") %></h4>
   No, we will not make up the missed class and we can not offer refunds for the missed class. We will do our best to notify members of unexpected closures in a timely manner, but we do not have the scheduling and financial flexibility to do make-ups or refunds at this time.
 
@@ -157,7 +157,7 @@
 
   <h4><%= content_tag(:a, "I'm a teacher who is charging a class fee. How do I collect the money from my students?", name: "collect_fees") %></h4>
   Our treasurer will pay you any class fees on the first day of classes. If you need the money to purchase supplies before classes start, contact the treasurer at <%= mail_to "fees@columbusunschoolers.com" %>. They will be happy to make arrangements with you to get the money sooner.
-  
+
   <h4><%= content_tag(:a, "Why are classes so expensive?", name: "expensive") %></h4>
   Some of our classes have fees in order to cover the cost of supplies. Some of our classes have fees because they are taught by professionals who require payment. Ideally, our classes would all be free but classes are limited to what our members offer.
 
@@ -169,5 +169,5 @@
   <h4><%= content_tag(:a, "What if I can't volunteer due to time and/or other obligations?", name: "hardship") %></h4>
   <p>A hardship pass allows you to be exempt from volunteer jobs for one session. You can request a hardship pass if you have been a member for three or more sessions, you are facing an unusual amount of stressors in your life, and you are unable to contribute by doing any volunteer jobs.</p>
   <p>See the <%= link_to "Hardship Pass", page_path("hardship-pass") %> page for more info.</p>
-  
-<% end %>  
+
+<% end %>

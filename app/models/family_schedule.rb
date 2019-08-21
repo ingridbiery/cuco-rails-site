@@ -6,22 +6,23 @@ class FamilySchedule
   validate :check_missing_and_duplicates
 
   # how many jobs is each family responsible for
-  MIN_JOB_REQUIREMENT = 2
-  # how many unassigned volunteer slots is each family responsible for
-  MIN_UNASSIGNED_REQUIREMENT = 1
+  MIN_JOB_REQUIREMENT = 3
+  # how many on call volunteer slots is each family responsible for
+  # (we're no longer distinguishing between on call and regular jobs)
+  MIN_ON_CALL_REQUIREMENT = 0
 
   def signups
     @family_signups ||= cuco_session.course_signups.includes(:course_role, :course).where(person: family.people)
   end
-  
+
   def fees
-    fees = 0    
+    fees = 0
     signups.each do |signup|
       if signup.is_student? then fees += signup.course.fee end
     end
     fees
   end
-  
+
   def jobs
     jobs = 0
     signups.each do |signup|
@@ -30,21 +31,21 @@ class FamilySchedule
     jobs
   end
 
-  def unassigned
-    unassigned = 0
+  def on_call
+    on_call = 0
     signups.each do |signup|
-      if signup.is_unassigned? then unassigned = unassigned + 1 end
+      if signup.is_on_call? then on_call = on_call + 1 end
     end
-    unassigned
+    on_call
   end
-  
+
   def check_missing_and_duplicates
     if jobs < MIN_JOB_REQUIREMENT
       errors.add("Family Schedule", "Family needs at least #{MIN_JOB_REQUIREMENT} job(s)")
     end
-    if unassigned < MIN_UNASSIGNED_REQUIREMENT and
-       jobs < MIN_JOB_REQUIREMENT + MIN_UNASSIGNED_REQUIREMENT then
-      errors.add("Family Schedule", "Family needs at least #{MIN_UNASSIGNED_REQUIREMENT} unassigned volunteering assignment(s)")
+    if on_call < MIN_ON_CALL_REQUIREMENT and
+       jobs < MIN_JOB_REQUIREMENT + MIN_ON_CALL_REQUIREMENT then
+      errors.add("Family Schedule", "Family needs at least #{MIN_ON_CALL_REQUIREMENT} on call volunteering assignment(s)")
     end
     grouped_by_person = signups.group_by(&:person_id)
     grouped_by_person.each do |person_id, signups_for_person|

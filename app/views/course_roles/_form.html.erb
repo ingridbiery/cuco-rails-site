@@ -1,4 +1,7 @@
 <%= form_for(@course_role) do |f| %>
+  <h1>
+    <font color="red">SOME VOLUNTEER JOB NAMES ARE HARDCODED! CHANGING THESE CAN BREAK THE WEBSITE!!!! PLEASE BE CAREFUL</font>
+  </h1>
   <% if @course_role.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@course_role.errors.count, "error") %> prohibited this course role from being saved:</h2>

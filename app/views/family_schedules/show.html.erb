@@ -6,14 +6,19 @@
   <strong><%= @family_schedule.family.name %></strong> Family
 </h2>
 
-<div class="back-link-area-top">
-  <%= link_to 'Back to session', @family_schedule.cuco_session %> | <%= link_to 'Back to family', @family_schedule.family %>
+<div class="no-print">
+  <div class="back-link-area-top">
+    <%= link_to 'Back to session', @family_schedule.cuco_session %> | <%= link_to 'Back to family', @family_schedule.family %>
+  </div>
+
+  <%= render 'schedule_errors', family_schedule: @family_schedule %><br>
+  <%= render 'schedule_header', family_schedule: @family_schedule %>
 </div>
+<%= render 'schedule_list', family_schedule: @family_schedule,
+    family_signups_by_period: @family_signups_by_period,
+    family_signups_by_person: @family_signups_by_person,
+    periods: Period.all.order(:start_time) %>
 
-<%= render 'schedule_errors', family_schedule: @family_schedule %><br>
-<%= render 'schedule_header', family_schedule: @family_schedule %>
-<%= render 'schedule_list', family_schedule: @family_schedule, family_signups_by_period: @family_signups_by_period %>
-
-<div class="back-link-area-bottom">
+<div class="back-link-area-bottom no-print">
   <%= link_to 'Back to session', @family_schedule.cuco_session %> | <%= link_to 'Back to family', @family_schedule.family %>
 </div>

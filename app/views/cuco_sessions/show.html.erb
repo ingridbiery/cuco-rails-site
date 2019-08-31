@@ -81,10 +81,15 @@
     </table>
   </div>
   <ul>
-  <% on_call_courses = @cuco_session.courses.where(period: nil) %>
-  <% if on_call_courses.count > 0 %>
-    <h4>On Call</h4>
-    <ul><% on_call_courses.each do |course| %>
+
+  <%# I'm not sure how to combine these two queries together %>
+  <% unassigned_room = @cuco_session.courses.left_outer_joins(:rooms).where( rooms: { id: nil } ) %>
+  <% unassigned_period = @cuco_session.courses.where(period: nil) %>
+  <% if unassigned_room.count > 0 or unassigned_period > 0 %>
+    <h4>Unassigned</h4>
+    <ul><% unassigned_room.each do |course| %>
+      <li><%= link_to course.name, [@cuco_session, course] %></li>
+    <% end %><% unassigned_period.each do |course| %>
       <li><%= link_to course.name, [@cuco_session, course] %></li>
     <% end %></ul>
   <% end %>

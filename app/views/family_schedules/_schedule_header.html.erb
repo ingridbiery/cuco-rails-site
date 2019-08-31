@@ -2,8 +2,7 @@
 <% paypal_url = "https://www.paypal.me/columbusunschoolers" + "/%.2f" % fees_due %>
 
 
-<strong>Volunteering:</strong> <%= family_schedule.jobs %>
-| <strong>On Call:</strong> <%= family_schedule.on_call %>
+<strong>Adult Volunteering:</strong> <%= family_schedule.adult_jobs %>
 | <strong>Fees:</strong> <%= "$%.2f" % family_schedule.fees.round(2) %>
 <% if family_schedule.fees != 0 %>
   | <strong>Electronic Payment Total:</strong> <%= "$%.2f" % fees_due %>

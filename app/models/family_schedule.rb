@@ -31,6 +31,14 @@ class FamilySchedule
     jobs
   end
 
+  def adult_jobs
+    jobs = 0
+    signups.each do |signup|
+      if signup.is_volunteer_job? and signup.person.adult? then jobs = jobs + 1 end
+    end
+    jobs
+  end
+
   def on_call
     on_call = 0
     signups.each do |signup|
@@ -40,8 +48,8 @@ class FamilySchedule
   end
 
   def check_missing_and_duplicates
-    if jobs < MIN_JOB_REQUIREMENT
-      errors.add("Family Schedule", "Family needs at least #{MIN_JOB_REQUIREMENT} job(s)")
+    if adult_jobs < MIN_JOB_REQUIREMENT
+      errors.add("Family Schedule", "Family needs at least #{MIN_JOB_REQUIREMENT} adult job(s)")
     end
     if on_call < MIN_ON_CALL_REQUIREMENT and
        jobs < MIN_JOB_REQUIREMENT + MIN_ON_CALL_REQUIREMENT then

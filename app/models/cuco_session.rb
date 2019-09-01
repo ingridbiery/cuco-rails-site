@@ -12,7 +12,7 @@ class CucoSession < ActiveRecord::Base
   has_many :course_signups, through: :assigned_courses # filters out signups for courses that are not happening
   has_many :real_courses, -> { Course.assigned and Course.not_away }, class_name: 'Course', foreign_key: :cuco_session_id
   has_many :real_signups, through: :real_courses, :source => :course_signups # signups for courses that are happening and don't represent being away from co-op
-  
+
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },
                    uniqueness: { message: "already exists." }
@@ -20,12 +20,12 @@ class CucoSession < ActiveRecord::Base
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :valid_dates
-  
+
   before_destroy :non_static_clear_caches
-  
+
   # maximum number of kids per sesson
   MAX_KIDS = 110
-  
+
   # get the current session, if there is one (the session where today is between
   # the start and end dates of the session)
   def self.current
@@ -45,7 +45,7 @@ class CucoSession < ActiveRecord::Base
     end
     @upcoming
   end
-  
+
   # get the latest session (may be the same as current, but if there is no current
   # session, this will get the last one that happened)
   # this is used to determine who is a member vs. a former member. See the user
@@ -57,23 +57,31 @@ class CucoSession < ActiveRecord::Base
     end
     @latest
   end
-  
+
   # clear the session caches
   def self.clear_caches
     @latest = @current = @upcoming = nil
   end
-  
+
   def non_static_clear_caches
     CucoSession.clear_caches
   end
-  
+
   # is this session currently full? That is, are there 100 or more kids signed up
   # we might want to make this limit configurable in the future, but for now,
   # it's hardcoded
   def full?
     return kids.count >= MAX_KIDS
   end
-  
+
+  # counting kids includes kids who aren't attending. Use this to count only kids
+  # that have been enrolled in a class (this is too slow to actually use)
+  def kids_with_signups
+    enrolled_kids = Hash.new
+    real_signups.each { |signup| if kids.include? signup.person then enrolled_kids[signup.person] = true end }
+    enrolled_kids.keys
+  end
+
   # figure out if membership signups are currently open for the given user type
   def membership_signups_open?(user)
     # returns nil if dates nil, dates.membership_signups_open?(user) otherwise
@@ -90,7 +98,7 @@ class CucoSession < ActiveRecord::Base
   def course_signups_open?
     dates&.course_signups_open?
   end
-  
+
   # are course offerings currently open.
   def course_offerings_open?
     dates&.course_offerings_open?

@@ -12,7 +12,10 @@ class Course < ActiveRecord::Base
   has_many :people_in_room_signups, -> { CourseSignup.people_in_room }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :volunteer_signups, -> { CourseSignup.volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
 
-  scope :assigned, -> { where.not(period_id: nil) }
+  scope :assigned_period, -> { where.not(period_id: nil).order(:name) }
+  scope :assigned_room, -> { left_outer_joins(:rooms).where.not(rooms: { id: nil }).order(:name) }
+  scope :assigned, -> { assigned_period.assigned_room.order(:name) }
+  scope :unassigned, -> { left_outer_joins(:rooms).where("period_id IS NULL OR rooms.id IS NULL").order(:name) }
   scope :not_away, -> { where(:is_away => false) } # courses that don't represent being away from co-op
 
   validates :name, presence: true,

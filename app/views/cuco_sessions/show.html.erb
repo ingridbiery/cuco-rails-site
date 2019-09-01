@@ -82,13 +82,15 @@
   </div>
   <ul>
 
-  <% if @cuco_session.courses.unassigned.any? %>
+  <% if @cuco_session.courses.assigned.count != @cuco_session.courses.count %>
     <h4>Unassigned</h4>
-      <ol><% @cuco_session.courses.unassigned.each do |course| %>
-        <li><%= link_to course.name, [@cuco_session, course] %></li>
+      <ol><% @cuco_session.courses.each do |course| %>
+        <% if !@cuco_session.courses.assigned.include? course %>
+          <li><%= link_to course.name, [@cuco_session, course] %></li>
+        <% end %>
       <% end %></ol>
   <% end %>
-  
+
 <% end%>
 
 <% if current_user&.can? :show, :membership then %>

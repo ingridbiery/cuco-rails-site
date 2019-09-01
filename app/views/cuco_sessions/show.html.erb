@@ -82,10 +82,13 @@
   </div>
   <ul>
 
-  <h4>Unassigned</h4>
-    <ol><% @cuco_session.courses.unassigned.each do |course| %>
-      <li><%= link_to course.name, [@cuco_session, course] %></li>
-    <% end %></ol>
+  <% if @cuco_session.courses.unassigned.any? %>
+    <h4>Unassigned</h4>
+      <ol><% @cuco_session.courses.unassigned.each do |course| %>
+        <li><%= link_to course.name, [@cuco_session, course] %></li>
+      <% end %></ol>
+  <% end %>
+  
 <% end%>
 
 <% if current_user&.can? :show, :membership then %>

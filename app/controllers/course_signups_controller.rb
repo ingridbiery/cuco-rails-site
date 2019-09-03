@@ -14,7 +14,7 @@ class CourseSignupsController < ApplicationController
   before_action :set_course, except: [:destroy]
   before_action :set_course_signup, except: [:new, :create]
   before_action :set_people
-  
+
   # make sure the timing is right for new/create
   before_action :new_create_authorized, only: [:new, :create]
   # make sure the timing is right for edit/update
@@ -28,7 +28,7 @@ class CourseSignupsController < ApplicationController
     # we want the given role_name to be selected by default
     @course_signup.course_role_id = CourseRole.find_by(name: params[:role_name]).id
   end
-  
+
   def edit
   end
 
@@ -50,7 +50,7 @@ class CourseSignupsController < ApplicationController
       render :new
     end
   end
-  
+
   def update
     if @course_signup.update(course_signup_params)
       redirect_to [@cuco_session, @course], notice: "#{@course_signup.name} was successfully updated."
@@ -65,7 +65,7 @@ class CourseSignupsController < ApplicationController
   end
 
   private
-  
+
     # make sure new and create are authorized
     # during registration, those who can :register can new/create anything
     # always, those who can :manage_all can new/create anything
@@ -89,7 +89,7 @@ class CourseSignupsController < ApplicationController
         end
       end
     end
-  
+
     # make sure edit and update are authorized
     # during registration, those who can :register can edit/update their own and blank
     # always, those who can :manage_all can edit/update anything
@@ -148,7 +148,7 @@ class CourseSignupsController < ApplicationController
         CourseRole.find(role_id).name == "student"
       end
     end
-  
+
     # determine if we want to edit the role in the form
     def set_edit_role
       @edit_role = false
@@ -160,7 +160,13 @@ class CourseSignupsController < ApplicationController
     # get the people that this user can add or remove from a course
     def set_people
       if current_user&.can? :manage_all, :course_signups
-        @people = Person.all
+        # use only people who are members
+        @people = []
+        @cuco_session.families.each { |family| @people += family.people }
+        # if the session has no members yet, it's probably before the session starts, use all set_people
+        if @people.count == 0 then
+          @people = Person.all
+        end
       else
         @people = current_user&.person&.family&.people
       end

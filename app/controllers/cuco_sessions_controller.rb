@@ -1,7 +1,7 @@
 class CucoSessionsController < ApplicationController
   let :web_team, :all
   let [:volunteer_coordinator, :printable_manager],
-          [:show_volunteers, :show_all_signups_first_name,
+          [:show_volunteers, :show_open_jobs, :show_all_signups_first_name,
            :show_all_signups_last_name, :show_away,
            :show_all_signups]
   let :printable_manager, :show_nametags

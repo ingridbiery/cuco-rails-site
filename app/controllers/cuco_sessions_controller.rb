@@ -14,7 +14,7 @@ class CucoSessionsController < ApplicationController
   def index
     @cuco_sessions = CucoSession.all
   end
-  
+
   def show
     # store rooms and periods so we only fetch them once and they're always in
     # the same order
@@ -65,7 +65,7 @@ class CucoSessionsController < ApplicationController
     @cuco_session.destroy
     redirect_to cuco_sessions_path, notice: "#{@cuco_session.name} was successfully destroyed."
   end
-  
+
   # show a list of jobs that haven't been taken yet
   def show_open_jobs
     @cuco_session = CucoSession.find(params[:cuco_session_id])
@@ -76,7 +76,7 @@ class CucoSessionsController < ApplicationController
     @cuco_session = CucoSession.find(params[:cuco_session_id])
     @signups = @cuco_session.course_signups.includes(course: :period).includes(:course).includes(:course_role)
                                            .order('periods.start_time', 'courses.name', 'course_roles.display_weight')
-                                           .select{|signup| (signup.is_volunteer_job? or signup.person.adult?) and
+                                           .select{|signup| (signup.is_volunteer_job? or signup.person == nil or signup.person&.adult?) and
                                                             not signup.course.name.downcase.include? "not at"}
   end
 
@@ -108,8 +108,8 @@ class CucoSessionsController < ApplicationController
   # show all class and volunteer signups for this session
   def show_all_signups
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-  end    
-  
+  end
+
   def show_fees_summary
     @cuco_session = CucoSession.find(params[:cuco_session_id])
   end

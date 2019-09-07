@@ -2,18 +2,18 @@
 
 <h1>Nametag Info for <strong><%= @cuco_session.name %></strong></h1>
 
-<% @cuco_session.memberships.includes(:family).order('families.name').each do |membership| %>
+<% @memberships.each do |membership| %>
   <% family = membership.family %>
   <div class="nametag-title"><%= link_to "#{family.name}", family_path(family) %></div>
 
   <% family&.people.each do |person| %>
     <% if @cuco_session.real_signups.where(person_id: person.id).count > 0 %>
       <% if person.adult? %>
-        <%= person.first_name %> <%= person.last_name %> - 
+        <%= person.first_name %> <%= person.last_name %> -
       <% else %>
-        <%= person.first_name %> <%= person.last_name.first %> - 
+        <%= person.first_name %> <%= person.last_name.first %> -
       <% end %>
-    
+
       <% if person.pronoun %>
         <%= person.pronoun.preferred_pronouns %><br />
       <% else %>

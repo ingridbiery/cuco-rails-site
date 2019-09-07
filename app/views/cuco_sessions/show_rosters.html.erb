@@ -3,7 +3,7 @@
 <h2><strong><%= @cuco_session.name %></strong> Class Rosters</h2>
 
 <% period = nil %>
-<% @cuco_session.assigned_courses.includes(:period).order('periods.start_time').each do |course| %>
+<% @courses.each do |course| %>
   <% if period != course.period %>
     <h2><%= course.period.name.titleize %></h2>
     <% period = course.period %>

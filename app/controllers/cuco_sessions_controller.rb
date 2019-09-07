@@ -20,7 +20,7 @@ class CucoSessionsController < ApplicationController
     # the same order
     @rooms = Room.all
     @periods = Period.all
-    @courses_by_period = @cuco_session.courses.includes(:rooms).group_by(&:period_id)
+    @courses_by_period = @cuco_session.courses.group_by(&:period_id)
   end
 
   def new
@@ -69,12 +69,12 @@ class CucoSessionsController < ApplicationController
   # show a list of jobs that haven't been taken yet
   def show_open_jobs
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.includes(course: :period).order('periods.start_time')
+    @signups = @cuco_session.course_signups.includes(course: :period).includes(:course_role).includes(:person).order('periods.start_time')
   end
 
   def show_volunteers
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.includes(course: :period).includes(:course).includes(:course_role)
+    @signups = @cuco_session.course_signups.includes([:course, :course_role, :person]).includes(course: :period).includes(person: :family)
                                            .order('periods.start_time', 'courses.name', 'course_roles.display_weight')
                                            .select{ |signup| (signup.course_role.is_worker or signup.course_role.is_helper or
                                                               signup.person == nil or signup.person&.adult?) and
@@ -83,14 +83,14 @@ class CucoSessionsController < ApplicationController
 
   def show_all_signups_first_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
+    @signups = @cuco_session.course_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
                                            .order('periods.start_time', 'people.first_name', 'people.last_name')
                                            .select{|signup| not signup.course.is_away?}
   end
 
   def show_all_signups_last_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
+    @signups = @cuco_session.course_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
                                            .order('periods.start_time', 'people.last_name', 'people.first_name')
                                            .select{|signup| not signup.course.is_away?}
   end
@@ -104,11 +104,13 @@ class CucoSessionsController < ApplicationController
 
   def show_nametags
     @cuco_session = CucoSession.find(params[:cuco_session_id])
+    @memberships = @cuco_session.memberships.includes(:family).includes(family: :people).order('families.name')
   end
 
   # show all class and volunteer signups for this session
   def show_all_signups
     @cuco_session = CucoSession.find(params[:cuco_session_id])
+    @memberships = @cuco_session.memberships.includes(:family).includes(family: :people).order('families.name')
   end
 
   def show_fees_summary
@@ -117,6 +119,11 @@ class CucoSessionsController < ApplicationController
 
   def show_rosters
     @cuco_session = CucoSession.find(params[:cuco_session_id])
+    @courses = @cuco_session.assigned_courses.includes(course_signups: [:person, :course_role])
+                                             .includes([:courses_rooms, :rooms, :course_signups])
+                                             .includes(:period).order('periods.start_time')
+                                             # I'm not sure how to optimize this more. The next line (put above the order line) makes it slower
+                                             #    .includes([:helper_signups, :student_signups, :volunteer_signups, :waiting_list_signups, :person_in_room_signups])
   end
 
   private

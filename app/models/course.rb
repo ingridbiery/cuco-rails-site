@@ -1,3 +1,4 @@
+
 class Course < ActiveRecord::Base
   belongs_to :cuco_session
   has_and_belongs_to_many :rooms
@@ -16,7 +17,7 @@ class Course < ActiveRecord::Base
   has_many :teacher_signups, -> { CourseSignup.teacher }, class_name: 'CourseSignup', foreign_key: :course_id
 
 # was assigned_period until I broke something
-  scope :assigned, -> { where.not(period_id: nil).order(:name) }
+  scope :assigned, -> { where.not(period_id: nil) }
 #  scope :assigned_room, -> { left_outer_joins(:rooms).where.not(rooms: { id: nil }).order(:name) }
 #  scope :assigned, -> { assigned_period.assigned_room.order(:name) }
 #  scope :unassigned, -> { left_outer_joins(:rooms).where("period_id IS NULL OR rooms.id IS NULL").order(:name) }
@@ -36,6 +37,11 @@ class Course < ActiveRecord::Base
 
   validate :age_ranges
   validate :student_ranges
+
+  # is this one of the special courses for volunteers and free play?
+  def is_vols?
+    name.include?("Volunteers") and name.include?("Free Play")
+  end
 
   def full
     student_signups.count >= max_students

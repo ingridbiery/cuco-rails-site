@@ -135,9 +135,9 @@ class CourseSignupsController < ApplicationController
 
     # is this a student signup?
     def is_student?
-      # for new, params[:role_name] will tell us which
+      # for new, look up by name
       if params[:role_name]
-        params[:role_name] == "student"
+        CourseRole.find_by(name: params[:role_name]).is_student?
       else
         # for create/update, we need to check what was selected
         if params[:course_signup]
@@ -145,7 +145,7 @@ class CourseSignupsController < ApplicationController
         else
           role_id = @course_signup.course_role_id
         end
-        CourseRole.find(role_id).name == "student"
+        CourseRole.find(role_id).is_student?
       end
     end
 

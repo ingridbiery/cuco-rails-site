@@ -44,13 +44,13 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
-  
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  
+
   # Mail setup
-  config.action_mailer.default_url_options = { :host => 'cuco-rails-ingridbiery.c9users.io' }
-  
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
   config.after_initialize do
     Bullet.enable = true
     Bullet.alert = false
@@ -61,7 +61,7 @@ Rails.application.configure do
     Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
     Bullet.stacktrace_excludes = [ 'their_gem', 'their_middleware' ]
   end
-  
+
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker

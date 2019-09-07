@@ -1,4 +1,4 @@
-<% unless signup.is_student? %>
+<% unless signup.course_role.is_student? %>
   <div class="role">(<%= signup.course_role.name.titleize %>)</div>
 <% end %>
 
@@ -7,4 +7,4 @@
    signup.course.name.include?("Not at Co-op") |
    signup.course.name.include?("Volunteers & Free Play") %>
   <div class="room"><%= signup.course.rooms.map{|room| room.name.titleize}.join(", ") %></div>
-<% end %>  
+<% end %>

@@ -76,29 +76,30 @@ class CucoSessionsController < ApplicationController
     @cuco_session = CucoSession.find(params[:cuco_session_id])
     @signups = @cuco_session.course_signups.includes(course: :period).includes(:course).includes(:course_role)
                                            .order('periods.start_time', 'courses.name', 'course_roles.display_weight')
-                                           .select{|signup| (signup.is_volunteer_job? or signup.person == nil or signup.person&.adult?) and
-                                                            not signup.course.name.downcase.include? "not at"}
+                                           .select{ |signup| (signup.course_role.is_worker or signup.course_role.is_helper or
+                                                              signup.person == nil or signup.person&.adult?) and
+                                                             not signup.course.is_away?}
   end
 
   def show_all_signups_first_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
     @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
                                            .order('periods.start_time', 'people.first_name', 'people.last_name')
-                                           .select{|signup| not signup.course.name.downcase.include? "not at"}
+                                           .select{|signup| not signup.course.is_away?}
   end
 
   def show_all_signups_last_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
     @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
                                            .order('periods.start_time', 'people.last_name', 'people.first_name')
-                                           .select{|signup| not signup.course.name.downcase.include? "not at"}
+                                           .select{|signup| not signup.course.is_away?}
   end
 
   def show_away
     @cuco_session = CucoSession.find(params[:cuco_session_id])
     @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
                                            .order('periods.start_time', 'people.last_name', 'people.first_name')
-                                           .select{|signup| signup.course.name.downcase.include? "not at"}
+                                           .select{|signup| signup.course.is_away?}
   end
 
   def show_nametags

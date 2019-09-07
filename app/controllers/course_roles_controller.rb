@@ -1,11 +1,13 @@
 class CourseRolesController < ApplicationController
   let :web_team, :all
-  let :member, [:show, :index]
-  
+  let [:member, :volunteer_coordinator], [:show, :index]
+
   before_action :set_course_role, only: [:show, :edit, :update, :destroy]
 
   def index
-    @course_roles = CourseRole.all.order(:display_weight)
+    @volunteers = CourseRole.volunteer
+    @helpers = CourseRole.helper
+    @non_working_roles = CourseRole.non_working_role
   end
 
   def show
@@ -49,6 +51,6 @@ class CourseRolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_role_params
-      params.require(:course_role).permit(:name, :is_worker, :display_weight, :description)
+      params.require(:course_role).permit(:name, :is_worker, :is_helper, :display_weight, :description)
     end
 end

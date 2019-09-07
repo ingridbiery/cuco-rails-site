@@ -18,7 +18,7 @@ class FamilySchedule
   def fees
     fees = 0
     signups.each do |signup|
-      if signup.is_student? then fees += signup.course.fee end
+      if signup.course_role.is_student? then fees += signup.course.fee end
     end
     fees
   end
@@ -26,7 +26,7 @@ class FamilySchedule
   def jobs
     jobs = 0
     signups.each do |signup|
-      if signup.is_volunteer_job? then jobs = jobs + 1 end
+      if signup.course_role.is_worker? then jobs = jobs + 1 end
     end
     jobs
   end
@@ -34,7 +34,7 @@ class FamilySchedule
   def adult_jobs
     jobs = 0
     signups.each do |signup|
-      if signup.is_volunteer_job? and signup.person.adult? then jobs = jobs + 1 end
+      if signup.course_role.is_worker? and signup.person.adult? then jobs = jobs + 1 end
     end
     jobs
   end
@@ -42,7 +42,7 @@ class FamilySchedule
   def on_call
     on_call = 0
     signups.each do |signup|
-      if signup.is_on_call? then on_call = on_call + 1 end
+      if signup.course_role.is_on_call? then on_call = on_call + 1 end
     end
     on_call
   end

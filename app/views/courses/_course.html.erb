@@ -46,9 +46,17 @@
           <% end %>
         <% end %>
       </ul>
+      <strong>Helpers:</strong><br>
+      <ul>
+        <% course.helper_signups.includes(:course_role).order('course_roles.display_weight').each do |course_signup| %>
+          <% if course_signup.person_id? %>
+            <li><%= course_signup.course_role.name.titleize %>: <%= course_signup.person.name %></li>
+          <% end %>
+        <% end %>
+      </ul>
     <% end %>
   </div>
-  
+
   <hr>
 </div>
 <% end %>

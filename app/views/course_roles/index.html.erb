@@ -12,13 +12,25 @@
 
 <hr>
 
-<h2>Roles</h2>
+<h2>Non-Working Roles</h2>
 
-<%= render @course_roles.order(:display_weight).where('is_worker = ?', false) %>
+<% if @non_working_roles.any? %>
+  <%= render @non_working_roles %>
+<% end %>
 
 <h2>Volunteer Jobs</h2>
 
-<%= render @course_roles.order(:display_weight).where('is_worker = ?', true) %>
+<% if @volunteers.any? %>
+  <%= render @volunteers %>
+<% end %>
+
+<hr>
+
+<h2>Helper Jobs</h2>
+
+<% if @helpers.any? %>
+  <%= render @helpers %>
+<% end %>
 
 <hr>
 

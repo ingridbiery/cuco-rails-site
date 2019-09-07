@@ -6,11 +6,14 @@ class Course < ActiveRecord::Base
 
   has_many :course_signups, dependent: :destroy
   has_many :people, through: :course_signups
+
   has_many :student_signups, -> { CourseSignup.student }, class_name: 'CourseSignup', foreign_key: :course_id
-  has_many :waiting_list_signups, -> { CourseSignup.waiting_list }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :waiting_list_signups, -> { CourseSignup.waiting_list_member }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :on_call_volunteer_signups, -> { CourseSignup.on_call_volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
-  has_many :people_in_room_signups, -> { CourseSignup.people_in_room }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :person_in_room_signups, -> { CourseSignup.person_in_room }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :volunteer_signups, -> { CourseSignup.volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :helper_signups, -> { CourseSignup.helper }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :teacher_signups, -> { CourseSignup.teacher }, class_name: 'CourseSignup', foreign_key: :course_id
 
 # was assigned_period until I broke something
   scope :assigned, -> { where.not(period_id: nil).order(:name) }
@@ -42,14 +45,10 @@ class Course < ActiveRecord::Base
     fee * student_signups.count
   end
 
-  def teachers
-    teacher_list = []
-    volunteer_signups.each do |signup|
-      if signup.course_role.name == "teacher" and signup.person
-        teacher_list << signup.person.name
-      end
-    end
-    teacher_list
+  def teacher_names
+    teachers = []
+    teacher_signups.each { |signup| teachers << signup.person.name }
+    teachers.join(", ")
   end
 
   private

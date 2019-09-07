@@ -1,5 +1,5 @@
 <tr>
   <td><%= link_to course.name, [@cuco_session, course] %></td>
-  <td><%= course.teachers.join(", ") %></td>
+  <td><%= course.teacher_names %></td>
   <td><%= "$%.2f" % course.total_fees.round(2) %></td>
 </tr>

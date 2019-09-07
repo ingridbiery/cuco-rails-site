@@ -18,10 +18,11 @@ class CourseSignupTest < ActiveSupport::TestCase
   #############################################################################
   # duplicates
   #############################################################################
-  
-  test "person/course pair should be unique" do
+
+  test "warn when person/course pair not unique" do
     new_signup = @course_signup.dup
-    assert_not new_signup.valid?
+    assert new_signup.valid?
+    assert_not new_signup.safe?
   end
 
   test "warn when person signed up for another course in same period" do
@@ -39,7 +40,7 @@ class CourseSignupTest < ActiveSupport::TestCase
   #############################################################################
   # course full
   #############################################################################
-  
+
   test "signup should not be allowed when course is full" do
     course = @course_signup.course
     course.max_students = course.student_signups.count
@@ -48,7 +49,7 @@ class CourseSignupTest < ActiveSupport::TestCase
     new_signup.person = @person
     assert_not new_signup.valid?
   end
-  
+
   #############################################################################
   # too young
   #############################################################################

@@ -23,6 +23,10 @@
     <%= f.check_box :is_worker %>
   </div>
   <div class="field">
+    <%= f.label 'Is this a Helper Job?' %><br>
+    <%= f.check_box :is_helper %>
+  </div>
+  <div class="field">
     <%= f.label :display_weight %><br>
     <span>Determines the location of this role/job in the Roles and Volunteer Jobs lists.</span><br>
     <%= f.number_field :display_weight %>

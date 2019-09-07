@@ -3,8 +3,8 @@
   <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course, role_name: :person_in_room), title: "Add Person to Course" %>
 <% end %></h3>
 <p><%= CourseRole.find_by(name: :person_in_room).description %></p>
-<% if @course.people_in_room_signups.count != 0 %>
-  <ul><% @course.people_in_room_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
+<% if @course.person_in_room_signups.count != 0 %>
+  <ul><% @course.person_in_room_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
     <% person = course_signup.person %>
     <li><%= person.name %>
       <% if (@course.cuco_session.course_signups_open? and

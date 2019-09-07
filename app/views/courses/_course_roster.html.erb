@@ -5,30 +5,37 @@
   Fee: <em><%= course.fee %></em>;
   Drop In? <em><%= course.drop_ins %></em><br />
   <% if current_user&.can? :show_students, :courses %>
-    <% if course.student_signups.count != 0 %>
+    <% if course.student_signups.any? %>
       Students:<ol>
-        <% course.student_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
-          <li><%= course_signup.person.name %></li>
+        <% course.student_signups.each do |student_signup| %>
+          <li><%= student_signup.person.name %></li>
         <% end %>
       </ol>
     <% end %>
-    <% if course.waiting_list_signups.count != 0 %>
+    <% if course.waiting_list_signups.any? %>
       Waiting List:<ol>
-        <% course.waiting_list_signups.order(:created_at).each do |course_signup| %>
+        <% course.waiting_list_signups.includes(:person).order(:created_at).each do |course_signup| %>
           <li><%= course_signup.person.name %></li>
         <% end %>
       </ol>
     <% end %>
-    <% if course.volunteer_signups.count != 0 %>
+    <% if course.volunteer_signups.any? %>
       Volunteers:<ul>
-        <% course.volunteer_signups.includes(:course_role).order('course_roles.display_weight').each do |course_signup| %>
+        <% course.volunteer_signups.includes(:person).each do |course_signup| %>
           <li><%= course_signup.course_role.name.titleize %>: <%= course_signup&.person&.name %></li>
         <% end %>
       </ul>
     <% end %>
-    <% if course.people_in_room_signups.count != 0 %>
+    <% if course.helper_signups.any? %>
+      Volunteers:<ul>
+        <% course.helper_signups.includes(:person).each do |course_signup| %>
+          <li><%= course_signup.course_role.name.titleize %>: <%= course_signup&.person&.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if course.person_in_room_signups.any? %>
       People In Room:<ul>
-        <% course.people_in_room_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
+        <% course.person_in_room_signups.includes(:person).order('people.last_name', 'people.first_name').each do |course_signup| %>
           <li><%= course_signup.person.name %></li>
         <% end %>
       </ul>

@@ -5,30 +5,18 @@ class CourseSignup < ActiveRecord::Base
   belongs_to :person
   belongs_to :course_role
 
-  scope :student, -> { joins(:course_role).where(course_roles: { name: :student }) }
-  scope :waiting_list, -> { joins(:course_role).where(course_roles: { name: :waiting_list }) }
-  scope :on_call_volunteer, -> { joins(:course_role).where(course_roles: { name: :on_call_volunteer }) }
-  scope :people_in_room, -> { joins(:course_role).where(course_roles: { name: :person_in_room }) }
-  scope :volunteer, -> { joins(:course_role).where(course_roles: { is_worker: true }) }
+  scope :student, -> { joins(:course_role).merge(CourseRole.student) }
+  scope :waiting_list_member, -> { joins(:course_role).merge(CourseRole.waiting_list_member) }
+  scope :on_call_volunteer, -> { joins(:course_role).merge(CourseRole.on_call_volunteer) }
+  scope :person_in_room, -> { joins(:course_role).merge(CourseRole.person_in_room) }
+  scope :teacher, -> { joins(:course_role).merge(CourseRole.teacher) }
+  scope :volunteer, -> { joins(:course_role).merge(CourseRole.volunteer) }
+  scope :helper, -> { joins(:course_role).merge(CourseRole.helper) }
+  scope :non_working_role, -> { joins(:course_role).merge(CourseRole.non_working_role) }
 
   validate :course_capacity
   validate :student_age_if_firm
   validate :person_validity
-
-  # is this a volunteer job?
-  def is_volunteer_job?
-    course_role.is_worker?
-  end
-
-  # is this an on call volunteer?
-  def is_on_call?
-    course_role.name.to_sym == :on_call_volunteer
-  end
-
-  # is this a student
-  def is_student?
-    course_role.name.to_sym == :student
-  end
 
   # get a name to display notices
   def name
@@ -67,7 +55,7 @@ class CourseSignup < ActiveRecord::Base
 
   # if this is a not a job, it needs a person
   def person_validity
-    if !course_role.is_worker and !person
+    if !course_role.can_be_unassigned? and !person
       errors.add("Person", "is blank for a non-worker role: #{course_role.name}")
     end
   end

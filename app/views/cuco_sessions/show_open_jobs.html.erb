@@ -11,7 +11,7 @@
     </tr>
 
     <% @signups.each do |signup| %>
-      <% if signup.is_volunteer_job? and !signup.person %>
+      <% if signup.course_role.can_be_unassigned? and !signup.person %>
         <tr>
           <td><%= signup.course.period.name %></td>
           <td>

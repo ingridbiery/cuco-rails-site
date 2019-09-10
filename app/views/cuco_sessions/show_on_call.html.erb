@@ -6,8 +6,8 @@
   <% if signups_for_a_period %>
     <h3><%= signups_for_a_period.first.course.period.name %></h3>
     <ul><% signups_for_a_period.each do |signup| %>
-      <% byebug %>
-      <li><%= link_to signup.person.name || "", edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %> (<%= signup.person.family.family_schedule.adult_jobs %>)</li>
+      <% membership = @cuco_session.memberships.find_by(family: signup.person.family) %>
+      <li><%= link_to signup.person.name || "", edit_cuco_session_course_course_signup_path(@cuco_session, signup.course, signup) %><% if membership %> (jobs: <%= membership.schedule.adult_jobs - membership.schedule.on_call %>)<% end %></li>
     <% end %></ul>
   <% end %>
 <% end %>

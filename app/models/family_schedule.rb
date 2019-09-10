@@ -33,8 +33,8 @@ class FamilySchedule
 
   def adult_jobs
     jobs = 0
-    signups.each do |signup|
-      if signup.course_role.is_worker? and signup.person.adult? then jobs = jobs + 1 end
+    adult_signups.each do |signup|
+      if signup.course_role.is_worker? then jobs = jobs + 1 end
     end
     jobs
   end

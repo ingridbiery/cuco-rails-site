@@ -15,6 +15,7 @@ class Course < ActiveRecord::Base
   has_many :volunteer_signups, -> { CourseSignup.volunteer }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :helper_signups, -> { CourseSignup.helper }, class_name: 'CourseSignup', foreign_key: :course_id
   has_many :teacher_signups, -> { CourseSignup.teacher }, class_name: 'CourseSignup', foreign_key: :course_id
+  has_many :adult_signups, -> { CourseSignup.adult }, class_name: 'CourseSignup', foreign_key: :course_id
 
 # was assigned_period until I broke something
   scope :assigned, -> { where.not(period_id: nil) }

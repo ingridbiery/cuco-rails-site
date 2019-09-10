@@ -3,8 +3,8 @@ class CucoSessionsController < ApplicationController
   let [:volunteer_coordinator, :printable_manager],
           [:show_volunteers, :show_open_jobs, :show_all_signups_first_name,
            :show_all_signups_last_name, :show_away,
-           :show_all_signups]
-  let :printable_manager, :show_nametags
+           :show_all_signups, :show_on_call]
+  let :printable_manager, [:show_nametags, :show_printables]
   let :treasurer, :show_fees_summary
   let :all, [:index, :show]
   let :paid, :show_open_jobs
@@ -74,32 +74,43 @@ class CucoSessionsController < ApplicationController
 
   def show_volunteers
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.includes([:course, :course_role, :person]).includes(course: :period).includes(person: :family)
-                                           .order('periods.start_time', 'courses.name', 'course_roles.display_weight')
-                                           .select{ |signup| (signup.course_role.is_worker or signup.course_role.is_helper or
-                                                              signup.person == nil or signup.person&.adult?) and
-                                                             not signup.course.is_away?}
+    @signups = @cuco_session.real_signups.includes([:course, :course_role, :person]).includes(course: :period).includes(person: :family)
+                                         .order('periods.start_time', 'courses.name', 'course_roles.display_weight')
+                                         .select{ |signup| (signup.course_role.is_worker or signup.course_role.is_helper or
+                                                            signup.person == nil or signup.person&.adult?) }
   end
 
   def show_all_signups_first_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
-                                           .order('periods.start_time', 'people.first_name', 'people.last_name')
-                                           .select{|signup| not signup.course.is_away?}
+    @signups = @cuco_session.real_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
+                                         .order('periods.start_time', 'people.first_name', 'people.last_name')
   end
 
   def show_all_signups_last_name
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @signups = @cuco_session.course_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
-                                           .order('periods.start_time', 'people.last_name', 'people.first_name')
-                                           .select{|signup| not signup.course.is_away?}
+    @signups = @cuco_session.real_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
+                                         .order('periods.start_time', 'people.last_name', 'people.first_name')
+  end
+
+  def show_on_call
+    @cuco_session = CucoSession.find(params[:cuco_session_id])
+    @signups = @cuco_session.real_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
+                                         .order('periods.start_time', 'people.last_name', 'people.first_name')
+                                         .select{ |signup| signup.course_role.is_on_call? }
+    @signups_by_period = []
+    @signups.each { |signup|
+      if !@signups_by_period[signup.course.period_id] then
+        @signups_by_period[signup.course.period_id] = []
+      end
+      @signups_by_period[signup.course.period_id] << signup
+    }
   end
 
   def show_away
     @cuco_session = CucoSession.find(params[:cuco_session_id])
     @signups = @cuco_session.course_signups.includes(course: :period).includes(:person)
                                            .order('periods.start_time', 'people.last_name', 'people.first_name')
-                                           .select{|signup| signup.course.is_away?}
+                                           .select{|signup| signup.course.is_away? }
   end
 
   def show_nametags

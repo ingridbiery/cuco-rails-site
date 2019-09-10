@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   resources :pronouns, :event_types
   resources :rooms, :periods, :only => [:index, :edit, :update]
-  
+
   resources :cuco_sessions do
     resources :courses do
       resources :course_signups, except: [:index, :show]
@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :memberships, only: [:new, :create, :show, :edit, :update]
     resources :family_schedules, only: [:show]
     get :show_open_jobs
+    get :show_on_call
     get :show_rosters
     get :show_all_signups
     get :show_volunteers

@@ -13,6 +13,7 @@ class CourseSignup < ActiveRecord::Base
   scope :volunteer, -> { joins(:course_role).merge(CourseRole.volunteer) }
   scope :helper, -> { joins(:course_role).merge(CourseRole.helper) }
   scope :non_working_role, -> { joins(:course_role).merge(CourseRole.non_working_role) }
+  scope :adult, -> { joins(:person).merge(Person.adult) }
 
   validate :course_capacity
   validate :student_age_if_firm

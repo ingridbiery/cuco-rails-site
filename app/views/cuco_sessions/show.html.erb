@@ -4,32 +4,50 @@
 
 <h2>Session <%= @cuco_session.name %></h2>
 
-<% if current_user&.can? :show_open_jobs, :cuco_session %>
-  <p>See <%= link_to "open jobs", cuco_session_show_open_jobs_path(@cuco_session) %>.</p>
+<% if current_user&.can? :show_volunteers, :cuco_session or current_user&.can? :show_printables, :cuco_session %>
+  <h3>Volunteering Details:</h3>
+  <ul>
+    <% if current_user&.can? :show_signups, :cuco_session %>
+      <li><%= link_to "all signups by family", cuco_session_show_all_signups_path(@cuco_session) %>, with errors and warnings (be patient, this page loads very slowly).</li>
+    <% end %>
+    <% if current_user&.can? :show_rosters, :cuco_session %>
+      <li><%= link_to "class rosters", cuco_session_show_rosters_path(@cuco_session) %></li>
+    <% end %>
+    <% if current_user&.can? :show_volunteers, :cuco_session %>
+      <li><%= link_to "volunteer list", cuco_session_show_volunteers_path(@cuco_session) %></li>
+    <% end %>
+    <% if current_user&.can? :show_open_jobs, :cuco_session %>
+      <li><%= link_to "open jobs", cuco_session_show_open_jobs_path(@cuco_session) %></li>
+    <% end %>
+  </ul>
 <% end %>
-<% if current_user&.can? :show_rosters, :cuco_session %>
-  <p>See <%= link_to "class rosters", cuco_session_show_rosters_path(@cuco_session) %>.</p>
+
+<% if current_user&.can? :show_volunteers, :cuco_session or current_user&.can? :show_printables, :cuco_session %>
+  <h3>Other Printables:</h3>
+  <ul>
+    <% if current_user&.can? :show_away, :cuco_session %>
+      <li><%= link_to "away from co-op", cuco_session_show_away_path(@cuco_session) %></li>
+    <% end %>
+    <% if current_user&.can? :show_on_call, :cuco_session %>
+      <li><%= link_to "on call", cuco_session_show_on_call_path(@cuco_session) %></li>
+    <% end %>
+    <% if current_user&.can? :show_all_signups, :cuco_session %>
+      <li><%= link_to "all signups by first name", cuco_session_show_all_signups_first_name_path(@cuco_session) %></li>
+    <% end %>
+    <% if current_user&.can? :show_all_signups, :cuco_session %>
+      <li><%= link_to "all signups by last name", cuco_session_show_all_signups_last_name_path(@cuco_session) %></li>
+    <% end %>
+    <% if current_user&.can? :show_nametags, :cuco_session %>
+      <li><%= link_to "nametag info", cuco_session_show_nametags_path(@cuco_session) %></li>
+    <% end %>
+  </ul>
 <% end %>
-<% if current_user&.can? :show_volunteers, :cuco_session %>
-  <p>See <%= link_to "volunteer list", cuco_session_show_volunteers_path(@cuco_session) %>.</p>
-<% end %>
-<% if current_user&.can? :show_nametags, :cuco_session %>
-  <p>See <%= link_to "nametag info", cuco_session_show_nametags_path(@cuco_session) %>.</p>
-<% end %>
-<% if current_user&.can? :show_all_signups, :cuco_session %>
-  <p>See <%= link_to "all signups by family", cuco_session_show_all_signups_path(@cuco_session) %>, with errors and warnings (be patient, this page loads very slowly).</p>
-<% end %>
-<% if current_user&.can? :show_away, :cuco_session %>
-  <p>See <%= link_to "away from co-op", cuco_session_show_away_path(@cuco_session) %>.</p>
-<% end %>
-<% if current_user&.can? :show_all_signups, :cuco_session %>
-  <p>See <%= link_to "all signups by first name", cuco_session_show_all_signups_first_name_path(@cuco_session) %>.</p>
-<% end %>
-<% if current_user&.can? :show_all_signups, :cuco_session %>
-  <p>See <%= link_to "all signups by last name", cuco_session_show_all_signups_last_name_path(@cuco_session) %>.</p>
-<% end %>
+
 <% if current_user&.can? :show_fees_summary, :cuco_session %>
-  <p>See <%= link_to "fees summary", cuco_session_show_fees_summary_path(@cuco_session) %>.</p>
+  <h3>Other Printables:</h3>
+  <ul>
+    <li><%= link_to "fees summary", cuco_session_show_fees_summary_path(@cuco_session) %></li>
+  </ul>
 <% end %>
 
 <% if current_user&.can? :show, :dates %>

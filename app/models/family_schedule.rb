@@ -10,6 +10,8 @@ class FamilySchedule
   # how many on call volunteer slots is each family responsible for
   # (we're no longer distinguishing between on call and regular jobs)
   MIN_ON_CALL_REQUIREMENT = 0
+  # how many helper jobs is each family responsible extend For
+  MIN_HELPER_REQUIREMENT = 1
 
   def signups
     @family_signups ||= cuco_session.course_signups.includes(:course_role, :course).where(person: family.people)
@@ -34,7 +36,7 @@ class FamilySchedule
   def adult_jobs
     jobs = 0
     signups.each do |signup|
-      if signup.course_role.is_worker? and signup.person.adult? then jobs = jobs + 1 end
+      if signup.course_role.is_worker? and signup.person.adult? then jobs += 1 end
     end
     jobs
   end
@@ -42,19 +44,30 @@ class FamilySchedule
   def on_call
     on_call = 0
     signups.each do |signup|
-      if signup.course_role.is_on_call? then on_call = on_call + 1 end
+      if signup.course_role.is_on_call? then on_call += 1 end
     end
     on_call
+  end
+
+  def helper_jobs
+    helper = 0
+    signups.each do |signup|
+      if signup.course_role.is_helper? then helper += 1 end
+    end
+    helper
   end
 
   def check_missing_and_duplicates
     if adult_jobs < MIN_JOB_REQUIREMENT
       errors.add("Family Schedule", "Family needs at least #{MIN_JOB_REQUIREMENT} adult job(s)")
     end
-    if on_call < MIN_ON_CALL_REQUIREMENT and
-       jobs < MIN_JOB_REQUIREMENT + MIN_ON_CALL_REQUIREMENT then
+    if on_call < MIN_ON_CALL_REQUIREMENT and jobs < MIN_JOB_REQUIREMENT + MIN_ON_CALL_REQUIREMENT + MIN_HELPER_REQUIREMENT then
       errors.add("Family Schedule", "Family needs at least #{MIN_ON_CALL_REQUIREMENT} on call volunteering assignment(s)")
     end
+    if helper_jobs < MIN_HELPER_REQUIREMENT and jobs < MIN_JOB_REQUIREMENT + MIN_ON_CALL_REQUIREMENT + MIN_HELPER_REQUIREMENT then
+      errors.add("Family Schedule", "Family needs at least #{MIN_HELPER_REQUIREMENT} helper assignment(s)")
+    end
+
     grouped_by_person = signups.group_by(&:person_id)
     grouped_by_person.each do |person_id, signups_for_person|
       grouped_by_period = signups_for_person.group_by {|signup| signup.course.period_id}

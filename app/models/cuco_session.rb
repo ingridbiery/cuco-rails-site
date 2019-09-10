@@ -121,8 +121,15 @@ class CucoSession < ActiveRecord::Base
   def check_signups
     # if there are any signups for people who are not members of the session
     unless non_member_signups.count == 0
-      errors.add('Session', 'contains signups for people who are not members')
+      errors.add('Session', 'contains signups with no person or for people who are not members')
     end
+
+    # check if any classes have fewer than 2 adults in the rules
+    assigned_courses.each { |course|
+      if course.adult_signups.count < 2 then
+        errors.add("Session", "WARNING: #{course.name} does not have 2 adults")
+      end
+    }
   end
 
   # create the default courses for this session (expected to be called only once

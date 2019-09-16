@@ -3,7 +3,7 @@ class CucoSessionsController < ApplicationController
   let [:volunteer_coordinator, :printable_manager],
           [:show_volunteers, :show_open_jobs, :show_all_signups_first_name,
            :show_all_signups_last_name, :show_away,
-           :show_all_signups, :show_on_call]
+           :show_all_signups, :show_on_call, :show_adults]
   let :printable_manager, [:show_nametags, :show_printables]
   let :treasurer, :show_fees_summary
   let :all, [:index, :show]
@@ -97,6 +97,20 @@ class CucoSessionsController < ApplicationController
     @signups = @cuco_session.real_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
                                          .order('periods.start_time', 'people.last_name', 'people.first_name')
                                          .select{ |signup| signup.course_role.is_on_call? }
+    @signups_by_period = []
+    @signups.each { |signup|
+      if !@signups_by_period[signup.course.period_id] then
+        @signups_by_period[signup.course.period_id] = []
+      end
+      @signups_by_period[signup.course.period_id] << signup
+    }
+  end
+
+  def show_adults
+    @cuco_session = CucoSession.find(params[:cuco_session_id])
+    @signups = @cuco_session.real_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
+                                         .order('periods.start_time', 'people.last_name', 'people.first_name')
+                                         .select{ |signup| signup.course_role.is_on_call? or (signup.person.adult? and (!signup.course_role.is_worker? and !signup.course_role.is_helper?)) }
     @signups_by_period = []
     @signups.each { |signup|
       if !@signups_by_period[signup.course.period_id] then

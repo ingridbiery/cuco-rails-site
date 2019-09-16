@@ -10,7 +10,7 @@ class CucoSession < ActiveRecord::Base
   has_many :people, through: :families
   has_many :assigned_courses, -> { Course.assigned }, class_name: 'Course', foreign_key: :cuco_session_id
   has_many :course_signups, through: :assigned_courses # filters out signups for courses that are not happening
-  has_many :real_courses, -> { Course.assigned and Course.not_away }, class_name: 'Course', foreign_key: :cuco_session_id
+  has_many :real_courses, -> { Course.assigned.not_away }, class_name: 'Course', foreign_key: :cuco_session_id
   has_many :real_signups, through: :real_courses, :source => :course_signups # signups for courses that are happening and don't represent being away from co-op
 
   validates :name, presence: true,

@@ -31,6 +31,9 @@
     <% if current_user&.can? :show_on_call, :cuco_session %>
       <li><%= link_to "on call", cuco_session_show_on_call_path(@cuco_session) %></li>
     <% end %>
+    <% if current_user&.can? :show_adults, :cuco_session %>
+      <li><%= link_to "potentially available adults (on call and in classes)", cuco_session_show_adults_path(@cuco_session) %></li>
+    <% end %>
     <% if current_user&.can? :show_all_signups, :cuco_session %>
       <li><%= link_to "all signups by first name", cuco_session_show_all_signups_first_name_path(@cuco_session) %></li>
     <% end %>

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     resources :family_schedules, only: [:show]
     get :show_open_jobs
     get :show_on_call
+    get :show_adults
     get :show_rosters
     get :show_all_signups
     get :show_volunteers

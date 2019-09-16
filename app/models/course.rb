@@ -22,7 +22,7 @@ class Course < ActiveRecord::Base
 #  scope :assigned_room, -> { left_outer_joins(:rooms).where.not(rooms: { id: nil }).order(:name) }
 #  scope :assigned, -> { assigned_period.assigned_room.order(:name) }
 #  scope :unassigned, -> { left_outer_joins(:rooms).where("period_id IS NULL OR rooms.id IS NULL").order(:name) }
-  scope :not_away, -> { where(:is_away => false) } # courses that don't represent being away from co-op
+  scope :not_away, -> { where(is_away: false) } # courses that don't represent being away from co-op
 
   validates :name, presence: true,
                    length: { minimum: 3, maximum: 100 }

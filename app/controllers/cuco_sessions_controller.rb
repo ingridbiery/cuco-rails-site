@@ -110,7 +110,7 @@ class CucoSessionsController < ApplicationController
     @cuco_session = CucoSession.find(params[:cuco_session_id])
     @signups = @cuco_session.real_signups.includes(course: :period).includes([:person, :course_role]).includes(person: :family)
                                          .order('periods.start_time', 'people.last_name', 'people.first_name')
-                                         .select{ |signup| signup.course_role.is_on_call? or (signup&.person.adult? and (!signup.course_role.is_worker? and !signup.course_role.is_helper?)) }
+                                         .select{ |signup| signup.course_role.is_on_call? or (signup.person&.adult? and (!signup.course_role.is_worker? and !signup.course_role.is_helper?)) }
     @signups_by_period = []
     @signups.each { |signup|
       if !@signups_by_period[signup.course.period_id] then

@@ -1,5 +1,10 @@
-<% if @course.waiting_list_signups.count != 0 %>
-  <h3>Waiting List</h3>
+<% if @course.waiting_list_signups.count != 0 or @course.full %>
+  <h3>Waiting List
+    <% if (@course.cuco_session.course_signups_open? and @course.full) or
+          current_user&.can? :manage_all, :course_signups %>
+      <%= link_to image_tag('add.png'), new_cuco_session_course_course_signup_path(@cuco_session, @course, role_name: :waiting_list), title: "Add Person to Waiting List" %>
+    <% end %>
+  </h3>
   <ol><% @course.waiting_list_signups.order('created_at').each do |course_signup| %>
     <% person = course_signup.person %>
     <li><%= person.name %>

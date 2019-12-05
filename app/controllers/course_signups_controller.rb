@@ -60,7 +60,12 @@ class CourseSignupsController < ApplicationController
   end
 
   def destroy
+    course = @course_signup.course
     @course_signup.destroy
+    if (signup = course.waiting_list_signups.order('created_at')&.first)
+      signup.course_role = CourseRole.find_by(name: :student)
+      signup.save
+    end
     redirect_to [@cuco_session, @course_signup.course], notice: "#{@course_signup.name} was successfully removed from #{@course_signup.course.name}."
   end
 

@@ -31,6 +31,8 @@
       <li><%= link_to "Why are classes so expensive?", page_path("faq", anchor: "expensive") %></li>
       <li><%= link_to "What if I have a concern or issue with someone or something at CUCO?", page_path("faq", anchor: "concern") %></li>
       <li><%= link_to "What if I can't volunteer due to time and/or other obligations?", page_path("faq", anchor: "hardship") %></li>
+      <li><%= link_to "Can I bring a family member who is not signed up?", page_path("faq", anchor: "family") %></li>
+      <li><%= link_to "Can I invite friends who might be interested in co-op to come to parties or to visit for the day?", page_path("faq", anchor: "visitors") %></li>
     </ul>
   <% end %>
 </ul>
@@ -150,7 +152,7 @@
   <h4><%= content_tag(:a, "If CUCO is closed due to weather or other circumstances, will we make up the missed class?", name: "make_up") %></h4>
   No, we will not make up the missed class and we can not offer refunds for the missed class. We will do our best to notify members of unexpected closures in a timely manner, but we do not have the scheduling and financial flexibility to do make-ups or refunds at this time.
 
-  <h4><%= content_tag(:a, "How do I pay my class fees?", name: "pay_fees") %></li>
+  <h4><%= content_tag(:a, "How do I pay my class fees?", name: "pay_fees") %></h4>
   <p>See the <%= link_to "calendar", calendar_path %> to find out when payment is due. You can also check how much you owe by looking at your family schedule. You can pay your fees by cash or check made out to CUCO to our treasurer who you can contact through <%= mail_to "fees@columbusunschoolers.com" %> or through PayPal.</p>
   <p>You can make arrangements with the treasurer to pay early or if something comes up that makes it impossible for you to pay. Any member who doesn't pay their class fees by the due date will be dropped from the classes that require a fee and put into free play.</p>
   <p>If you have a sudden emergency and can not pay by the deadline, please contact the treasurer before the deadline to make other arrangements. If we don't hear from you, we have to assume you're not paying your class fees and we'll have to drop you from your classes.</p>
@@ -170,4 +172,9 @@
   <p>A hardship pass allows you to be exempt from volunteer jobs for one session. You can request a hardship pass if you have been a member for three or more sessions, you are facing an unusual amount of stressors in your life, and you are unable to contribute by doing any volunteer jobs.</p>
   <p>See the <%= link_to "Hardship Pass", page_path("hardship-pass") %> page for more info.</p>
 
+  <h4><%= content_tag(:a, "Can I bring a family member who is not signed up?", name: "family") %></h4>
+  <p>Yes, whether it's a visiting adult family member, or a kid who is normally in school but has the day off, feel free to bring them. They are welcome to attend drop-in classes, or hang out in free play. Please add them on the website if they will start coming regularly so we can have an idea of who is in the building in case of emergency.</p>
+
+  <h4><%= content_tag(:a, "Can I invite friends who might be interested in co-op to come to parties or to visit for the day?", name: "visitors") %></h4>
+  <p>Prospective members are welcome to visit and/or join us at our parties. Please have them contact <%= mail_to "help@columbusunschoolers.com" %> so that we can get them onto our notification list and make sure they're getting accurate information about policies and dates.</p>
 <% end %>

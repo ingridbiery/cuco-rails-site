@@ -4,7 +4,7 @@ class CucoSessionsController < ApplicationController
           [:show_volunteers, :show_open_jobs, :show_all_signups_first_name,
            :show_all_signups_last_name, :show_away,
            :show_all_signups, :show_on_call, :show_adults]
-  let :printable_manager, [:show_nametags, :show_printables]
+  let :printable_manager, [:show_nametags, :show_printables, :show_ceramics_numbers]
   let :treasurer, :show_fees_summary
   let :all, [:index, :show]
   let :paid, :show_open_jobs
@@ -149,6 +149,11 @@ class CucoSessionsController < ApplicationController
                                              .includes(:period).order('periods.start_time')
                                              # I'm not sure how to optimize this more. The next line (put above the order line) makes it slower
                                              #    .includes([:helper_signups, :student_signups, :volunteer_signups, :waiting_list_signups, :person_in_room_signups])
+  end
+
+  def show_ceramics_numbers
+    @people = Person.all.where.not(ceramics_number: nil)
+    @max = @people.reorder(:ceramics_number).last.ceramics_number
   end
 
   private

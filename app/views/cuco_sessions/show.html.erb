@@ -46,10 +46,16 @@
   </ul>
 <% end %>
 
-<% if current_user&.can? :show_fees_summary, :cuco_session %>
+<% if current_user&.can? :show_fees_summary, :cuco_session or
+      current_user&.can? :show_printables %>
   <h3>Other Printables:</h3>
   <ul>
-    <li><%= link_to "fees summary", cuco_session_show_fees_summary_path(@cuco_session) %></li>
+    <% if current_user&.can? :show_fees_summary, :cuco_session %>
+      <li><%= link_to "fees summary", cuco_session_show_fees_summary_path(@cuco_session) %></li>
+    <% end %>
+    <% if current_user&.can? :show_ceramics_numbers, :cuco_session %>
+      <li><%= link_to "ceramics numbers", cuco_session_show_ceramics_numbers_path(@cuco_session) %></li>
+    <% end %>
   </ul>
 <% end %>
 

@@ -4,11 +4,6 @@
   <table class="table table-striped table-condensed">
     <%# number of names per row %>
     <% cols = 3 %>
-    <tr>
-      <% for num in 1..cols %>
-        <th>Num</th><th>Name</th>
-      <% end %>
-    </tr>
     <% for num in 0..@max %>
       <%# time to start a new row %>
       <% if num % cols == 0 %>
@@ -32,9 +27,6 @@
 <p/ style="page-break-before: always">
 <div class="table-responsive">
   <table class="table table-striped table-condensed">
-    <% for num in 1..cols %>
-      <th>Num</th><th>Name</th>
-    <% end %>
     <% @people.each_with_index do |person, i| %>
       <% if i % cols == 0 %>
         <tr>

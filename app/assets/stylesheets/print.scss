@@ -17,7 +17,7 @@
     -webkit-column-count: 2;
     column-count: 2;
   }
-  
+
   tr td {
     font-size: .8em;
     border: none;
@@ -26,7 +26,7 @@
   thead tbody {
     font-size: 1.2em;
   }
-  
+
   div > table > tbody > tr.Before > td {
     background-color: white !important;
     -webkit-print-color-adjust: exact;
@@ -63,25 +63,28 @@
   }
 
   /* Print styles for all courses report */
-  
+
   .no-print {
       display: none;
   }
 
+  /* this makes the margin so small that print headers/footers can't be added */
+  /* but it also makes the text go right up to (and past the edge of the page)
   @page {
       margin: 0;
   }
-  
+  */
+
   .listing-courses {
       page-break-inside: avoid;
       padding: 20px 20px 0 20px;
       font-family: Verdana, serif;
   }
-  
+
   .listing-courses h2 {
       font-size: 2rem;
   }
-  
+
   .course-print-style {
       font-size: 10px;
       line-height: 1.2;

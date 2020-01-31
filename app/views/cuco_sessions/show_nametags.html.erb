@@ -3,35 +3,23 @@
 <h1>Nametag Info for <strong><%= @cuco_session.name %></strong></h1>
 
 <h2>Not Returning Members (<%= @not_returning_families.count %>)</h2>
-<ul>
 <% @not_returning_families&.each do |family| %>
-  <li><%=family.name%></li>
-  <%#= render 'family_for_nametags', family: family %>
+  <%= render 'family_for_nametags', family: family %>
 <% end %>
-</ul>
 
 <h2>New Members (<%= @new_families.count %>)</h2>
-<ul>
 <% @new_families.each do |family| %>
-  <li><%=family.name%></li>
-  <%#= render 'family_for_nametags', family: family %>
+  <%= render 'family_for_nametags', family: family %>
 <% end %>
-</ul>
 
 <h2>Returning After a Break Members (<%= @returning_after_a_break_families.count %>)</h2>
-<ul>
 <% @returning_after_a_break_families.each do |family| %>
-  <li><%=family.name%></li>
-  <%#= render 'family_for_nametags', family: family %>
+  <%= render 'family_for_nametags', family: family %>
 <% end %>
-</ul>
 
 <h2>Returning Members (<%= @returning_families.count %>)</h2>
-<ul>
 <% @returning_families.each do |family| %>
-  <li><%=family.name%></li>
-  <%#= render 'family_for_nametags', family: family %>
+  <%= render 'family_for_nametags', family: family %>
 <% end %>
-<ul>
 
 <%= link_to 'Back to Session', @cuco_session %>

@@ -3,7 +3,7 @@
 <h1>Nametag Info for <strong><%= @cuco_session.name %></strong></h1>
 
 <h2>Not Returning Members (<%= @not_returning_families.count %>)</h2>
-<% @not_returning_families&.each do |family| %>
+<% @not_returning_families.each do |family| %>
   <%= render 'family_for_nametags', family: family %>
 <% end %>
 

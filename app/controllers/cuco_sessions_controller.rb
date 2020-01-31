@@ -129,7 +129,10 @@ class CucoSessionsController < ApplicationController
 
   def show_nametags
     @cuco_session = CucoSession.find(params[:cuco_session_id])
-    @memberships = @cuco_session.memberships.includes(:family).includes(family: :people).order('families.name')
+    @not_returning_families = @cuco_session.not_returning_families
+    @new_families = @cuco_session.new_families
+    @returning_after_a_break_families = @cuco_session.returning_after_a_break_families
+    @returning_families = @cuco_session.returning_families
   end
 
   # show all class and volunteer signups for this session

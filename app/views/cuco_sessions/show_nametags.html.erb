@@ -2,25 +2,36 @@
 
 <h1>Nametag Info for <strong><%= @cuco_session.name %></strong></h1>
 
-<% @memberships.each do |membership| %>
-  <% family = membership.family %>
-  <div class="nametag-title"><%= link_to "#{family.name}", family_path(family) %></div>
-
-  <% family&.people.each do |person| %>
-    <% if @cuco_session.real_signups.where(person_id: person.id).count > 0 %>
-      <% if person.adult? %>
-        <%= person.first_name %> <%= person.last_name %> -
-      <% else %>
-        <%= person.first_name %> <%= person.last_name.first %> -
-      <% end %>
-
-      <% if person.pronoun %>
-        <%= person.pronoun.preferred_pronouns %><br />
-      <% else %>
-        ERROR: No preference specified<br />
-      <% end %>
-    <% end %>
-  <% end %>
+<h2>Not Returning Members (<%= @not_returning_families.count %>)</h2>
+<ul>
+<% @not_returning_families&.each do |family| %>
+  <li><%=family.name%></li>
+  <%#= render 'family_for_nametags', family: family %>
 <% end %>
+</ul>
+
+<h2>New Members (<%= @new_families.count %>)</h2>
+<ul>
+<% @new_families.each do |family| %>
+  <li><%=family.name%></li>
+  <%#= render 'family_for_nametags', family: family %>
+<% end %>
+</ul>
+
+<h2>Returning After a Break Members (<%= @returning_after_a_break_families.count %>)</h2>
+<ul>
+<% @returning_after_a_break_families.each do |family| %>
+  <li><%=family.name%></li>
+  <%#= render 'family_for_nametags', family: family %>
+<% end %>
+</ul>
+
+<h2>Returning Members (<%= @returning_families.count %>)</h2>
+<ul>
+<% @returning_families.each do |family| %>
+  <li><%=family.name%></li>
+  <%#= render 'family_for_nametags', family: family %>
+<% end %>
+<ul>
 
 <%= link_to 'Back to Session', @cuco_session %>

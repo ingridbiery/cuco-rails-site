@@ -13,6 +13,8 @@ class CucoSession < ActiveRecord::Base
   has_many :real_courses, -> { Course.assigned.not_away }, class_name: 'Course', foreign_key: :cuco_session_id
   has_many :real_signups, through: :real_courses, :source => :course_signups # signups for courses that are happening and don't represent being away from co-op
 
+  default_scope -> { order(start_date: :asc) }
+
   validates :name, presence: true,
                    length: { minimum: 5, maximum: 30 },
                    uniqueness: { message: "already exists." }
@@ -61,6 +63,43 @@ class CucoSession < ActiveRecord::Base
   # clear the session caches
   def self.clear_caches
     @latest = @current = @upcoming = nil
+  end
+
+  # find the session before this one (may be nil)
+  def session_before
+    CucoSession.where('start_date < ?', start_date).reorder(start_date: :desc).first.presence
+  end
+
+  # find all members that were here in the previous session but are not returning
+  def not_returning_families
+    if session_before then
+      session_before.families - families
+    else
+      []
+    end
+  end
+
+  # find all members that were here in the previous session and are returning
+  def returning_families
+    if session_before then
+      session_before.families & families
+    else
+      []
+    end
+  end
+
+  # find all families that are returning after a break
+  def returning_after_a_break_families
+    if session_before then
+      families - new_families - returning_families
+    else
+      []
+    end
+  end
+
+  # find all memberships where this is their first session
+  def new_families
+    families.select { |family| family.cuco_sessions.first == self }
   end
 
   def non_static_clear_caches

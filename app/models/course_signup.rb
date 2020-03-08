@@ -2,7 +2,7 @@ class CourseSignup < ActiveRecord::Base
   include ActiveWarnings
 
   belongs_to :course
-  belongs_to :person
+  belongs_to :person, optional: true
   belongs_to :course_role
 
   scope :student, -> { joins(:course_role).merge(CourseRole.student) }

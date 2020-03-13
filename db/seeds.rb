@@ -5,6 +5,10 @@ else
   raise 'Need to set ENV var "DEFAULT_PASSWORD"' if ENV['DEFAULT_PASSWORD'].nil?
 end
 
+print "Banner\n"
+Banner.destroy_all
+Banner.create!(banner: 'This is a banner announcement')
+
 print "Roles\n"
 Role.destroy_all
 role_u = Role.create!(name: 'user')

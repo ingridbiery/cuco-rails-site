@@ -1,4 +1,6 @@
 class BannersController < ApplicationController
+  let :web_team, :all
+
   before_action :set_banner, only: [:show, :edit, :update, :destroy]
 
   def show

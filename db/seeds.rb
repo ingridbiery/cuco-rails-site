@@ -35,31 +35,31 @@ other = EventType.create!(name: :other, display_name: "Other",start_date_offset:
 
 print "Course Roles\n"
 CourseRole.destroy_all
-teacher = CourseRole.create!(name: :teacher, is_worker: true, display_weight: 1, description: "Teach a class.")
-ta = CourseRole.create!(name: :teaching_assistant, is_worker: true, display_weight: 2, description: "* Help teacher with set up, if needed.
+teacher = CourseRole.create!(name: :teacher, is_worker: true, is_helper: false, display_weight: 1, description: "Teach a class.")
+ta = CourseRole.create!(name: :teaching_assistant, is_worker: true, is_helper: false, display_weight: 2, description: "* Help teacher with set up, if needed.
 * Assist teacher during class time.
 * Help with clean up, if needed.")
-monitor = CourseRole.create!(name: :room_monitor, is_worker: true, display_weight: 3, description: "Help supervise a class.")
-vol_mgr = CourseRole.create!(name: :volunteer_manager, is_worker: true, display_weight: 4, description: "* Have a cell phone for members to text/call in if they aren’t coming that day.
+monitor = CourseRole.create!(name: :room_monitor, is_worker: true, is_helper: false, display_weight: 3, description: "Help supervise a class.")
+vol_mgr = CourseRole.create!(name: :volunteer_manager, is_worker: true, is_helper: false, display_weight: 4, description: "* Have a cell phone for members to text/call in if they aren’t coming that day.
 * Check googlegroup to find out who is going to miss co-op or be late.
 * Assign free adults to fill in for those who are absent.
 * Assist people with checking in.
 * Direct volunteers to their positions and parents and students to their classrooms.
 * Let unknown visitors know that the location is being used for a closed activity.
 * Answer questions as necessary.")
-set_up = CourseRole.create!(name: :set_up_manager, is_worker: true, display_weight: 5, description: "* Be there when the building opens.
+set_up = CourseRole.create!(name: :set_up_manager, is_worker: true, is_helper: false, display_weight: 5, description: "* Be there when the building opens.
 * Put out the book/board/nametags, etc.
 * Make sure all of the jobs on the board get done. If people are milling around, encourage them to take a card and do a job.
 * Assist people with checking in.
 * Direct volunteers to their positions and parents and students to their classrooms.
 * Let unknown visitors know that the location is being used for a closed activity.
 * Answer questions as necessary.")
-clean_up = CourseRole.create!(name: :clean_up_manager, is_worker: true, display_weight: 6, description: "* Be the last one to leave
+clean_up = CourseRole.create!(name: :clean_up_manager, is_worker: true, is_helper: false, display_weight: 6, description: "* Be the last one to leave
 * Put away the board/nametags, etc. Take home the book if no one else has.
 * Make sure all of the jobs on the board get done. If people are milling around, encourage them to take a card and do a job. If there are not enough volunteers, check outside.
 * If a job is not done thoroughly, try to figure out who did the job and teach them how to do it better next time.
 * Put lost and found and cleaning supplies away after everything is done.")
-gym_monitor = CourseRole.create!(name: :gym_monitor, is_worker: true, display_weight: 7, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
+gym_monitor = CourseRole.create!(name: :gym_monitor, is_worker: true, is_helper: false, display_weight: 7, description: "It is very important that you STAY in the gym for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the gym, children may arrive later and each room needs supervision.
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
@@ -67,39 +67,39 @@ It is also important that volunteers use their best judgment rather than blindly
 * Keep gym equipment in the gym.
 * Run interference, if needed, between big kid/little kid play.
 * After last class: make sure gym clean up card from nametag tree is completed.")
-game_monitor = CourseRole.create!(name: :game_room_monitor, is_worker: true, display_weight: 8, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
+game_monitor = CourseRole.create!(name: :game_room_monitor, is_worker: true, is_helper: false, display_weight: 8, description: "It is very important that you STAY in the game room for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the game room, children may arrive later and each room needs supervision.
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
 * Before first class: make sure game room set up card from nametag tree is completed.
 * All day: monitor play, as needed, to ensure that kids that want to play get the chance.
 * After last class: make sure clean up card from nametag tree is completed.")
-auditorium_monitor = CourseRole.create!(name: :auditorium_monitor, is_worker: true, display_weight: 9, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
+auditorium_monitor = CourseRole.create!(name: :auditorium_monitor, is_worker: true, is_helper: false, display_weight: 9, description: "It is very important that you STAY in the auditorium for the duration of class time. If you need assistance, the floater or check-in person can help. However, even if there are no children using the auditorium, children may arrive later and each room needs supervision.
 
 It is also important that volunteers use their best judgment rather than blindly following rules in questionable situations that may arise. If this occurs, please contact the volunteer coordinator so the situation/rule can be evaluated.
 
 * Before first class: make auditorium set up card from nametag tree is completed.
 * All day: monitor and run interference, if needed, between big kid/little kid play and keep kids off the stage.
 * After last class: make sure auditorium clean up card from nametag tree is completed.")
-playground_monitor = CourseRole.create!(name: :playground_monitor, is_worker: true, display_weight: 10, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
+playground_monitor = CourseRole.create!(name: :playground_monitor, is_worker: true, is_helper: false, display_weight: 10, description: "Be available to go outside with kids who want to. Make sure kids don't wander beyond the big oak tree and tennis courts. You must be prepared to be outside even if the weather is not perfect.
 
 You MUST have a cell phone that you keep charged and carry with you to perform this job. If a child needs to be found, you will need to coordinate with the downstairs floater to determine if they're in a free play area or have wandered off.")
-floater = CourseRole.create!(name: :floater, is_worker: true, display_weight: 11, description: "Position starts at beginning of class time and ends when the next class time begins. You need to generally know your way around the building, where our storage is, roughly where the classrooms are, etc. You can learn this at orientation. It is fine to sit and read, work on your computer, knit, etc. as long as you are attending to the following expectations.
+floater = CourseRole.create!(name: :floater, is_worker: true, is_helper: false, display_weight: 11, description: "Position starts at beginning of class time and ends when the next class time begins. You need to generally know your way around the building, where our storage is, roughly where the classrooms are, etc. You can learn this at orientation. It is fine to sit and read, work on your computer, knit, etc. as long as you are attending to the following expectations.
 * At the beginning of the class period, check each classroom. Make sure all volunteers are where they need to be. If one is late or missing without having notified the check-in desk, use the unassigned volunteers list to fill the empty spot and make a note for the volunteer manager that you have found a replacement.
 * Be available in the hallway to provide teachers with any help they need - provide assistance or find someone who can.
 * Make sure co-op expectations including facility rules are being followed in halls and lobby. Remember to speak respectfully and look for solutions rather than focusing on inappropriate behavior.
 * Be familiar with emergency procedures and help as needed in case of emergency.
 * Before the facility opens to the public, let unknown visitors know that we are having a closed activity.
 * Answer questions as necessary.")
-lunch_clean = CourseRole.create!(name: :lunch_clean_up_manager, is_worker: true, display_weight: 12, description: "One person to be responsible for getting the chairs and tables put away in the closet. Other members should help, but you are responsible for making sure it gets finished. You should make an announcement 10-15 minutes before lunch is over to remind everyone to clean up after themselves.
+lunch_clean = CourseRole.create!(name: :lunch_clean_up_manager, is_worker: true, is_helper: false, display_weight: 12, description: "One person to be responsible for getting the chairs and tables put away in the closet. Other members should help, but you are responsible for making sure it gets finished. You should make an announcement 10-15 minutes before lunch is over to remind everyone to clean up after themselves.
 One person responsible for sweeping the floor.
 These jobs may run past the end of lunch so should be taken by someone who is either free after lunch, or planning to be in the auditorium.")
-lunch_timer = CourseRole.create!(name: :lunch_time_keeper, is_worker: true, display_weight: 13, description: "Make an announcement about 10-15 minutes before the end of lunch to remind people to help wipe down tables and chairs and return them to their carts.")
-after_hours_volunteer = CourseRole.create!(name: :after_hours_volunteer, is_worker: true, display_weight: 5, description: "Perform a job away from co-op.")
-unassigned = CourseRole.create!(name: :unassigned_volunteer, is_worker: false, display_weight: 14, description: "Adult available to help in a given period.")
-student = CourseRole.create!(name: :student, is_worker: false, display_weight: 15, description: "A student in the class.")
-person_in_room = CourseRole.create!(name: :person_in_room, is_worker: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
-waiting_list = CourseRole.create!(name: :waiting_list, is_worker: false, display_weight: 17, description: "Someone who wants to be a student in a full class. If a spot opens up, the first person on the waiting list will automatically be signed up. If this class is taught in a future session, students on previous waiting lists will have priority signing up.")
+lunch_timer = CourseRole.create!(name: :lunch_time_keeper, is_worker: true, is_helper: false, display_weight: 13, description: "Make an announcement about 10-15 minutes before the end of lunch to remind people to help wipe down tables and chairs and return them to their carts.")
+after_hours_volunteer = CourseRole.create!(name: :after_hours_volunteer, is_worker: true, is_helper: false, display_weight: 5, description: "Perform a job away from co-op.")
+unassigned = CourseRole.create!(name: :unassigned_volunteer, is_worker: false, is_helper: false, display_weight: 14, description: "Adult available to help in a given period.")
+student = CourseRole.create!(name: :student, is_worker: false, is_helper: false, display_weight: 15, description: "A student in the class.")
+person_in_room = CourseRole.create!(name: :person_in_room, is_worker: false, is_helper: false, display_weight: 16, description: "People who want or need to be in the classroom, but will not be participating in the class either as volunteers or students. Typically, this is for adults whose kids are not ready to separate, and for kids who are hanging out with their adults while they volunteer. Of course, extra help is always appreciated when possible.")
+waiting_list = CourseRole.create!(name: :waiting_list, is_worker: false, is_helper: false, display_weight: 17, description: "Someone who wants to be a student in a full class. If a spot opens up, the first person on the waiting list will automatically be signed up. If this class is taught in a future session, students on previous waiting lists will have priority signing up.")
 
 print "Pronouns\n"
 User.destroy_all
@@ -110,168 +110,327 @@ she = Pronoun.create!(preferred_pronouns: 'She/Her/Hers')
 they = Pronoun.create!(preferred_pronouns: 'They/Them/Their')
 
 print "Families"
-f41 = Family.create!(name: 'GURGANIOUS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TREY'.titleize, ec_last_name: 'GURGANIOUS'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f46 = Family.create!(name: 'DOMEK'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ARACELIS'.titleize, ec_last_name: 'DOMEK'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f49 = Family.create!(name: 'DRONEY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'NORBERTO'.titleize, ec_last_name: 'DRONEY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f54 = Family.create!(name: 'HASHAGEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'APRYL'.titleize, ec_last_name: 'HASHAGEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f56 = Family.create!(name: 'KESKE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'NAPOLEON'.titleize, ec_last_name: 'KESKE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f57 = Family.create!(name: 'UTTECH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ANNETT'.titleize, ec_last_name: 'UTTECH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f58 = Family.create!(name: 'BOEREMA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JEROLD'.titleize, ec_last_name: 'BOEREMA'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f66 = Family.create!(name: 'NEYENS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ALISHIA'.titleize, ec_last_name: 'NEYENS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f69 = Family.create!(name: 'WEPPLER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'FRITZ'.titleize, ec_last_name: 'WEPPLER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f74 = Family.create!(name: 'SCHNETZER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'VEOLA'.titleize, ec_last_name: 'SCHNETZER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f77 = Family.create!(name: 'FETZNER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ROSENDO'.titleize, ec_last_name: 'FETZNER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'dad')
-f79 = Family.create!(name: 'KLEBAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'USHA'.titleize, ec_last_name: 'KLEBAN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f82 = Family.create!(name: 'SITTERLY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MILFORD'.titleize, ec_last_name: 'SITTERLY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f85 = Family.create!(name: 'CLYATT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TOSHIKO'.titleize, ec_last_name: 'CLYATT'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f89 = Family.create!(name: 'DUNKLEE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SANG'.titleize, ec_last_name: 'DUNKLEE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f92 = Family.create!(name: 'PLOUFF'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'THEOLA'.titleize, ec_last_name: 'PLOUFF'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f137 = Family.create!(name: 'LIENAU'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DEON'.titleize, ec_last_name: 'LIENAU'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'friend')
-f99 = Family.create!(name: 'UHLS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TASHIA'.titleize, ec_last_name: 'UHLS'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f101 = Family.create!(name: 'WALDROOP'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'CHRISTOPER'.titleize, ec_last_name: 'WALDROOP'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f108 = Family.create!(name: 'KLONTZ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TALITHA'.titleize, ec_last_name: 'KLONTZ'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f111 = Family.create!(name: 'TRETTIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'ALFONZO'.titleize, ec_last_name: 'TRETTIN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f114 = Family.create!(name: 'DEIGHAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'SHERY'.titleize, ec_last_name: 'DEIGHAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f117 = Family.create!(name: 'BACORN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LYMAN'.titleize, ec_last_name: 'BACORN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f120 = Family.create!(name: 'DIMARZO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RUDY'.titleize, ec_last_name: 'DIMARZO'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f123 = Family.create!(name: 'YAROS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JOSIAH'.titleize, ec_last_name: 'YAROS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f126 = Family.create!(name: 'TIESZEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RENETTA'.titleize, ec_last_name: 'TIESZEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f129 = Family.create!(name: 'EMBLETON'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'BRANT'.titleize, ec_last_name: 'EMBLETON'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f135 = Family.create!(name: 'JAQUESS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'REIKO'.titleize, ec_last_name: 'JAQUESS'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f239 = Family.create!(name: 'NIENHAUS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'WILTON'.titleize, ec_last_name: 'NIENHAUS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'grandma')
-f3193 = Family.create!(name: 'SWENOR'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RASHEEDA'.titleize, ec_last_name: 'SWENOR'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f440 = Family.create!(name: 'MAJESTIC'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'RICO'.titleize, ec_last_name: 'MAJESTIC'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f471 = Family.create!(name: 'POSILLICO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OMEGA'.titleize, ec_last_name: 'POSILLICO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f501 = Family.create!(name: 'SUNDT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JAMAAL'.titleize, ec_last_name: 'SUNDT'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f506 = Family.create!(name: 'KALLHOFF'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OBDULIA'.titleize, ec_last_name: 'KALLHOFF'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Dad')
-f502 = Family.create!(name: 'DETIENNE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DEWITT'.titleize, ec_last_name: 'DETIENNE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f518 = Family.create!(name: 'ZACHARIA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MIKA'.titleize, ec_last_name: 'ZACHARIA'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f540 = Family.create!(name: 'ARSCOTT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'CAROL'.titleize, ec_last_name: 'ARSCOTT'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Dad')
-f677 = Family.create!(name: 'SARAFIAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MELAINE'.titleize, ec_last_name: 'SARAFIAN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'grandma')
-f903 = Family.create!(name: 'DEPIERRO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'BRENTON'.titleize, ec_last_name: 'DEPIERRO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f934 = Family.create!(name: 'THORUP'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MEGGAN'.titleize, ec_last_name: 'THORUP'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'other mother')
-f1014 = Family.create!(name: 'MEULEMANS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'YONG'.titleize, ec_last_name: 'MEULEMANS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Dad')
-f1043 = Family.create!(name: 'NICCOLI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARTIN'.titleize, ec_last_name: 'NICCOLI'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f1049 = Family.create!(name: 'HOLBEIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OLIN'.titleize, ec_last_name: 'HOLBEIN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f1104 = Family.create!(name: 'HURTIG'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARLEN'.titleize, ec_last_name: 'HURTIG'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f1120 = Family.create!(name: 'STREITMATTER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'FOSTER'.titleize, ec_last_name: 'STREITMATTER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f1185 = Family.create!(name: 'CHAPPUIS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARGET'.titleize, ec_last_name: 'CHAPPUIS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'friend')
-f1867 = Family.create!(name: 'YARN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'FAUSTINO'.titleize, ec_last_name: 'YARN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mother')
-f1780 = Family.create!(name: 'CORDASCO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARCELINE'.titleize, ec_last_name: 'CORDASCO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f2673 = Family.create!(name: 'HONSE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'CLAUDIO'.titleize, ec_last_name: 'HONSE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f2560 = Family.create!(name: 'PECKENPAUGH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MANA'.titleize, ec_last_name: 'PECKENPAUGH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Dad')
+f41 = Family.new(name: 'GURGANIOUS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TREY'.titleize, ec_last_name: 'GURGANIOUS'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f41.save(validate: false)
+f46 = Family.new(name: 'DOMEK'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ARACELIS'.titleize, ec_last_name: 'DOMEK'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f46.save(validate: false)
+f49 = Family.new(name: 'DRONEY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'NORBERTO'.titleize, ec_last_name: 'DRONEY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f49.save(validate: false)
+f54 = Family.new(name: 'HASHAGEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'APRYL'.titleize, ec_last_name: 'HASHAGEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f54.save(validate: false)
+f56 = Family.new(name: 'KESKE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'NAPOLEON'.titleize, ec_last_name: 'KESKE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f56.save(validate: false)
+f57 = Family.new(name: 'UTTECH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ANNETT'.titleize, ec_last_name: 'UTTECH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f57.save(validate: false)
+f58 = Family.new(name: 'BOEREMA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JEROLD'.titleize, ec_last_name: 'BOEREMA'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f58.save(validate: false)
+f66 = Family.new(name: 'NEYENS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ALISHIA'.titleize, ec_last_name: 'NEYENS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f66.save(validate: false)
+f69 = Family.new(name: 'WEPPLER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'FRITZ'.titleize, ec_last_name: 'WEPPLER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f69.save(validate: false)
+f74 = Family.new(name: 'SCHNETZER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'VEOLA'.titleize, ec_last_name: 'SCHNETZER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f74.save(validate: false)
+f77 = Family.new(name: 'FETZNER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ROSENDO'.titleize, ec_last_name: 'FETZNER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'dad')
+f77.save(validate: false)
+f79 = Family.new(name: 'KLEBAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'USHA'.titleize, ec_last_name: 'KLEBAN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f79.save(validate: false)
+f82 = Family.new(name: 'SITTERLY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MILFORD'.titleize, ec_last_name: 'SITTERLY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f82.save(validate: false)
+f85 = Family.new(name: 'CLYATT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TOSHIKO'.titleize, ec_last_name: 'CLYATT'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f85.save(validate: false)
+f89 = Family.new(name: 'DUNKLEE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SANG'.titleize, ec_last_name: 'DUNKLEE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f89.save(validate: false)
+f92 = Family.new(name: 'PLOUFF'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'THEOLA'.titleize, ec_last_name: 'PLOUFF'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f92.save(validate: false)
+f137 = Family.new(name: 'LIENAU'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DEON'.titleize, ec_last_name: 'LIENAU'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'friend')
+f137.save(validate: false)
+f99 = Family.new(name: 'UHLS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TASHIA'.titleize, ec_last_name: 'UHLS'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f99.save(validate: false)
+f101 = Family.new(name: 'WALDROOP'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'CHRISTOPER'.titleize, ec_last_name: 'WALDROOP'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f101.save(validate: false)
+f108 = Family.new(name: 'KLONTZ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TALITHA'.titleize, ec_last_name: 'KLONTZ'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f108.save(validate: false)
+f111 = Family.new(name: 'TRETTIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'ALFONZO'.titleize, ec_last_name: 'TRETTIN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f111.save(validate: false)
+f114 = Family.new(name: 'DEIGHAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'SHERY'.titleize, ec_last_name: 'DEIGHAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f114.save(validate: false)
+f117 = Family.new(name: 'BACORN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LYMAN'.titleize, ec_last_name: 'BACORN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f117.save(validate: false)
+f120 = Family.new(name: 'DIMARZO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RUDY'.titleize, ec_last_name: 'DIMARZO'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f120.save(validate: false)
+f123 = Family.new(name: 'YAROS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JOSIAH'.titleize, ec_last_name: 'YAROS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f123.save(validate: false)
+f126 = Family.new(name: 'TIESZEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RENETTA'.titleize, ec_last_name: 'TIESZEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f126.save(validate: false)
+f129 = Family.new(name: 'EMBLETON'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'BRANT'.titleize, ec_last_name: 'EMBLETON'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f129.save(validate: false)
+f135 = Family.new(name: 'JAQUESS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'REIKO'.titleize, ec_last_name: 'JAQUESS'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f135.save(validate: false)
+f239 = Family.new(name: 'NIENHAUS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'WILTON'.titleize, ec_last_name: 'NIENHAUS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'grandma')
+f239.save(validate: false)
+f3193 = Family.new(name: 'SWENOR'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RASHEEDA'.titleize, ec_last_name: 'SWENOR'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f3193.save(validate: false)
+f440 = Family.new(name: 'MAJESTIC'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'RICO'.titleize, ec_last_name: 'MAJESTIC'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f440.save(validate: false)
+f471 = Family.new(name: 'POSILLICO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OMEGA'.titleize, ec_last_name: 'POSILLICO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f471.save(validate: false)
+f501 = Family.new(name: 'SUNDT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JAMAAL'.titleize, ec_last_name: 'SUNDT'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f501.save(validate: false)
+f506 = Family.new(name: 'KALLHOFF'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OBDULIA'.titleize, ec_last_name: 'KALLHOFF'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Dad')
+f506.save(validate: false)
+f502 = Family.new(name: 'DETIENNE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DEWITT'.titleize, ec_last_name: 'DETIENNE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f502.save(validate: false)
+f518 = Family.new(name: 'ZACHARIA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MIKA'.titleize, ec_last_name: 'ZACHARIA'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f518.save(validate: false)
+f540 = Family.new(name: 'ARSCOTT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'CAROL'.titleize, ec_last_name: 'ARSCOTT'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Dad')
+f540.save(validate: false)
+f677 = Family.new(name: 'SARAFIAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MELAINE'.titleize, ec_last_name: 'SARAFIAN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'grandma')
+f677.save(validate: false)
+f903 = Family.new(name: 'DEPIERRO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'BRENTON'.titleize, ec_last_name: 'DEPIERRO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f903.save(validate: false)
+f1014 = Family.new(name: 'MEULEMANS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'YONG'.titleize, ec_last_name: 'MEULEMANS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Dad')
+f1014.save(validate: false)
+f934 = Family.new(name: 'THORUP'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MEGGAN'.titleize, ec_last_name: 'THORUP'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'other mother')
+f934.save(validate: false)
+f1043 = Family.new(name: 'NICCOLI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARTIN'.titleize, ec_last_name: 'NICCOLI'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f1043.save(validate: false)
+f1049 = Family.new(name: 'HOLBEIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OLIN'.titleize, ec_last_name: 'HOLBEIN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f1049.save(validate: false)
+f1104 = Family.new(name: 'HURTIG'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARLEN'.titleize, ec_last_name: 'HURTIG'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f1104.save(validate: false)
+f1120 = Family.new(name: 'STREITMATTER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'FOSTER'.titleize, ec_last_name: 'STREITMATTER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f1120.save(validate: false)
+f1185 = Family.new(name: 'CHAPPUIS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARGET'.titleize, ec_last_name: 'CHAPPUIS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'friend')
+f1185.save(validate: false)
+f1867 = Family.new(name: 'YARN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'FAUSTINO'.titleize, ec_last_name: 'YARN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mother')
+f1867.save(validate: false)
+f1780 = Family.new(name: 'CORDASCO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARCELINE'.titleize, ec_last_name: 'CORDASCO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f1780.save(validate: false)
+f2673 = Family.new(name: 'HONSE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'CLAUDIO'.titleize, ec_last_name: 'HONSE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f2673.save(validate: false)
+f2560 = Family.new(name: 'PECKENPAUGH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MANA'.titleize, ec_last_name: 'PECKENPAUGH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Dad')
+f2560.save(validate: false)
 print(".")
-f2452 = Family.create!(name: 'SULLEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JUDSON'.titleize, ec_last_name: 'SULLEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Friend of family')
-f2486 = Family.create!(name: 'CAULDWELL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MAGDALEN'.titleize, ec_last_name: 'CAULDWELL'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Dad')
-f2520 = Family.create!(name: 'MCINROY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'GINO'.titleize, ec_last_name: 'MCINROY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Mother')
-f2523 = Family.create!(name: 'BOISSELLE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LIBRADA'.titleize, ec_last_name: 'BOISSELLE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Daddy')
-f2819 = Family.create!(name: 'SHWARTZ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'EDGARDO'.titleize, ec_last_name: 'SHWARTZ'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f3042 = Family.create!(name: 'MONCRIEFFE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LEZLIE'.titleize, ec_last_name: 'MONCRIEFFE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f4135 = Family.create!(name: 'WINDMILLER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'BERRY'.titleize, ec_last_name: 'WINDMILLER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
-f3116 = Family.create!(name: 'IRMEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LEXIE'.titleize, ec_last_name: 'IRMEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f3350 = Family.create!(name: 'TRESCH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ALEC'.titleize, ec_last_name: 'TRESCH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f3368 = Family.create!(name: 'CAVENDISH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LATASHIA'.titleize, ec_last_name: 'CAVENDISH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f3401 = Family.create!(name: 'DEWBRE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TANNER'.titleize, ec_last_name: 'DEWBRE'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f3436 = Family.create!(name: 'GRANADE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JARRED'.titleize, ec_last_name: 'GRANADE'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f3502 = Family.create!(name: 'ZUCH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'KELLE'.titleize, ec_last_name: 'ZUCH'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f4033 = Family.create!(name: 'FICCO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DONN'.titleize, ec_last_name: 'FICCO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f4111 = Family.create!(name: 'CHERNY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ISIDRA'.titleize, ec_last_name: 'CHERNY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Didi')
-f4116 = Family.create!(name: 'WIEAND'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TRINIDAD'.titleize, ec_last_name: 'WIEAND'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
-f4133 = Family.create!(name: 'ANGLEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ISA'.titleize, ec_last_name: 'ANGLEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mother')
-f4966 = Family.create!(name: 'ZAVERI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TAD'.titleize, ec_last_name: 'ZAVERI'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f5129 = Family.create!(name: 'LANGSDORF'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'INOCENCIA'.titleize, ec_last_name: 'LANGSDORF'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Papa')
-f5179 = Family.create!(name: 'MEIDL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SHIRLEY'.titleize, ec_last_name: 'MEIDL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Dad')
-f5178 = Family.create!(name: 'STAVISH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'GWYN'.titleize, ec_last_name: 'STAVISH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Dad')
-f5194 = Family.create!(name: 'DIESING'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'PRINCE'.titleize, ec_last_name: 'DIESING'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f5195 = Family.create!(name: 'TUBBY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'FRANCOISE'.titleize, ec_last_name: 'TUBBY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f5198 = Family.create!(name: 'ATIYEH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'PORFIRIO'.titleize, ec_last_name: 'ATIYEH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f5342 = Family.create!(name: 'KOENEMAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ERMINIA'.titleize, ec_last_name: 'KOENEMAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f5545 = Family.create!(name: 'VALLETTE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ODIS'.titleize, ec_last_name: 'VALLETTE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
-f5573 = Family.create!(name: 'MALSTROM'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'ERINN'.titleize, ec_last_name: 'MALSTROM'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f5584 = Family.create!(name: 'LEABO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARIA'.titleize, ec_last_name: 'LEABO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f6032 = Family.create!(name: 'MCCAMY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DIMPLE'.titleize, ec_last_name: 'MCCAMY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f6060 = Family.create!(name: 'GELLIS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'LENARD'.titleize, ec_last_name: 'GELLIS'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f6314 = Family.create!(name: 'HOLLICK'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DEVORA'.titleize, ec_last_name: 'HOLLICK'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'stepparent')
-f6403 = Family.create!(name: 'LUCADO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'CHAUNCEY'.titleize, ec_last_name: 'LUCADO'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f6466 = Family.create!(name: 'BALIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'CRISELDA'.titleize, ec_last_name: 'BALIN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f6505 = Family.create!(name: 'MARACLE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'CHANG'.titleize, ec_last_name: 'MARACLE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f6621 = Family.create!(name: 'SOHAIL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ARMANDA'.titleize, ec_last_name: 'SOHAIL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f6593 = Family.create!(name: 'TUFARO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TOD'.titleize, ec_last_name: 'TUFARO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f6642 = Family.create!(name: 'BLUETT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ARIE'.titleize, ec_last_name: 'BLUETT'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f6689 = Family.create!(name: 'FINNICUM'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MEL'.titleize, ec_last_name: 'FINNICUM'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f7042 = Family.create!(name: 'DOSH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ARIANE'.titleize, ec_last_name: 'DOSH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f7068 = Family.create!(name: 'KOPISCHKE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARCELO'.titleize, ec_last_name: 'KOPISCHKE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f7503 = Family.create!(name: 'VOSLER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'ANGELO'.titleize, ec_last_name: 'VOSLER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f7121 = Family.create!(name: 'GREALISH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'KORY'.titleize, ec_last_name: 'GREALISH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f7481 = Family.create!(name: 'DENOBLE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ANGELENA'.titleize, ec_last_name: 'DENOBLE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Step-ish-dad')
-f7147 = Family.create!(name: 'YEHLE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'AUGUSTUS'.titleize, ec_last_name: 'YEHLE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f7150 = Family.create!(name: 'NILE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ALLEN'.titleize, ec_last_name: 'NILE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Family Friend')
-f7247 = Family.create!(name: 'COSENS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'KEVEN'.titleize, ec_last_name: 'COSENS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f7304 = Family.create!(name: 'EGNEW'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ALIZA'.titleize, ec_last_name: 'EGNEW'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f7409 = Family.create!(name: 'PHILLIPPS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'HILARIO'.titleize, ec_last_name: 'PHILLIPPS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f7430 = Family.create!(name: 'BLITZER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ADRIENE'.titleize, ec_last_name: 'BLITZER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f7445 = Family.create!(name: 'WHISTON'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'BUD'.titleize, ec_last_name: 'WHISTON'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f2452 = Family.new(name: 'SULLEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JUDSON'.titleize, ec_last_name: 'SULLEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Friend of family')
+f2452.save(validate: false)
+f2486 = Family.new(name: 'CAULDWELL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MAGDALEN'.titleize, ec_last_name: 'CAULDWELL'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Dad')
+f2486.save(validate: false)
+f2520 = Family.new(name: 'MCINROY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'GINO'.titleize, ec_last_name: 'MCINROY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Mother')
+f2520.save(validate: false)
+f2523 = Family.new(name: 'BOISSELLE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LIBRADA'.titleize, ec_last_name: 'BOISSELLE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Daddy')
+f2523.save(validate: false)
+f2819 = Family.new(name: 'SHWARTZ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'EDGARDO'.titleize, ec_last_name: 'SHWARTZ'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f2819.save(validate: false)
+f3042 = Family.new(name: 'MONCRIEFFE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LEZLIE'.titleize, ec_last_name: 'MONCRIEFFE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f3042.save(validate: false)
+f4135 = Family.new(name: 'WINDMILLER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'BERRY'.titleize, ec_last_name: 'WINDMILLER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
+f4135.save(validate: false)
+f3116 = Family.new(name: 'IRMEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LEXIE'.titleize, ec_last_name: 'IRMEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f3116.save(validate: false)
+f3350 = Family.new(name: 'TRESCH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ALEC'.titleize, ec_last_name: 'TRESCH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f3350.save(validate: false)
+f3368 = Family.new(name: 'CAVENDISH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LATASHIA'.titleize, ec_last_name: 'CAVENDISH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f3368.save(validate: false)
+f3401 = Family.new(name: 'DEWBRE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TANNER'.titleize, ec_last_name: 'DEWBRE'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f3401.save(validate: false)
+f3502 = Family.new(name: 'ZUCH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'KELLE'.titleize, ec_last_name: 'ZUCH'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f3502.save(validate: false)
+f3436 = Family.new(name: 'GRANADE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JARRED'.titleize, ec_last_name: 'GRANADE'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f3436.save(validate: false)
+f4033 = Family.new(name: 'FICCO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DONN'.titleize, ec_last_name: 'FICCO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f4033.save(validate: false)
+f4111 = Family.new(name: 'CHERNY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ISIDRA'.titleize, ec_last_name: 'CHERNY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Didi')
+f4111.save(validate: false)
+f4116 = Family.new(name: 'WIEAND'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TRINIDAD'.titleize, ec_last_name: 'WIEAND'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
+f4116.save(validate: false)
+f4133 = Family.new(name: 'ANGLEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ISA'.titleize, ec_last_name: 'ANGLEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mother')
+f4133.save(validate: false)
+f5129 = Family.new(name: 'LANGSDORF'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'INOCENCIA'.titleize, ec_last_name: 'LANGSDORF'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Papa')
+f5129.save(validate: false)
+f5179 = Family.new(name: 'MEIDL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SHIRLEY'.titleize, ec_last_name: 'MEIDL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Dad')
+f5179.save(validate: false)
+f4966 = Family.new(name: 'ZAVERI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TAD'.titleize, ec_last_name: 'ZAVERI'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f4966.save(validate: false)
+f5178 = Family.new(name: 'STAVISH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'GWYN'.titleize, ec_last_name: 'STAVISH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Dad')
+f5178.save(validate: false)
+f5195 = Family.new(name: 'TUBBY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'FRANCOISE'.titleize, ec_last_name: 'TUBBY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f5195.save(validate: false)
+f5194 = Family.new(name: 'DIESING'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'PRINCE'.titleize, ec_last_name: 'DIESING'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f5194.save(validate: false)
+f5198 = Family.new(name: 'ATIYEH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'PORFIRIO'.titleize, ec_last_name: 'ATIYEH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f5198.save(validate: false)
+f5342 = Family.new(name: 'KOENEMAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ERMINIA'.titleize, ec_last_name: 'KOENEMAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f5342.save(validate: false)
+f5545 = Family.new(name: 'VALLETTE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ODIS'.titleize, ec_last_name: 'VALLETTE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
+f5545.save(validate: false)
+f5573 = Family.new(name: 'MALSTROM'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'ERINN'.titleize, ec_last_name: 'MALSTROM'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f5573.save(validate: false)
+f5584 = Family.new(name: 'LEABO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARIA'.titleize, ec_last_name: 'LEABO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f5584.save(validate: false)
+f6032 = Family.new(name: 'MCCAMY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DIMPLE'.titleize, ec_last_name: 'MCCAMY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f6032.save(validate: false)
+f6060 = Family.new(name: 'GELLIS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'LENARD'.titleize, ec_last_name: 'GELLIS'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f6060.save(validate: false)
+f6314 = Family.new(name: 'HOLLICK'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DEVORA'.titleize, ec_last_name: 'HOLLICK'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'stepparent')
+f6314.save(validate: false)
+f6403 = Family.new(name: 'LUCADO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'CHAUNCEY'.titleize, ec_last_name: 'LUCADO'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f6403.save(validate: false)
+f6466 = Family.new(name: 'BALIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'CRISELDA'.titleize, ec_last_name: 'BALIN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f6466.save(validate: false)
+f6505 = Family.new(name: 'MARACLE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'CHANG'.titleize, ec_last_name: 'MARACLE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f6505.save(validate: false)
+f6621 = Family.new(name: 'SOHAIL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ARMANDA'.titleize, ec_last_name: 'SOHAIL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f6621.save(validate: false)
+f6642 = Family.new(name: 'BLUETT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ARIE'.titleize, ec_last_name: 'BLUETT'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f6642.save(validate: false)
+f6593 = Family.new(name: 'TUFARO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TOD'.titleize, ec_last_name: 'TUFARO'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f6593.save(validate: false)
+f6689 = Family.new(name: 'FINNICUM'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MEL'.titleize, ec_last_name: 'FINNICUM'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f6689.save(validate: false)
+f7042 = Family.new(name: 'DOSH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ARIANE'.titleize, ec_last_name: 'DOSH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f7042.save(validate: false)
+f7068 = Family.new(name: 'KOPISCHKE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARCELO'.titleize, ec_last_name: 'KOPISCHKE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f7068.save(validate: false)
+f7503 = Family.new(name: 'VOSLER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'ANGELO'.titleize, ec_last_name: 'VOSLER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f7503.save(validate: false)
+f7121 = Family.new(name: 'GREALISH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'KORY'.titleize, ec_last_name: 'GREALISH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f7121.save(validate: false)
+f7481 = Family.new(name: 'DENOBLE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ANGELENA'.titleize, ec_last_name: 'DENOBLE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Step-ish-dad')
+f7481.save(validate: false)
+f7147 = Family.new(name: 'YEHLE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'AUGUSTUS'.titleize, ec_last_name: 'YEHLE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f7147.save(validate: false)
+f7150 = Family.new(name: 'NILE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ALLEN'.titleize, ec_last_name: 'NILE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Family Friend')
+f7150.save(validate: false)
+f7247 = Family.new(name: 'COSENS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'KEVEN'.titleize, ec_last_name: 'COSENS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f7247.save(validate: false)
+f7304 = Family.new(name: 'EGNEW'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ALIZA'.titleize, ec_last_name: 'EGNEW'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f7304.save(validate: false)
+f7409 = Family.new(name: 'PHILLIPPS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'HILARIO'.titleize, ec_last_name: 'PHILLIPPS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f7409.save(validate: false)
+f7430 = Family.new(name: 'BLITZER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ADRIENE'.titleize, ec_last_name: 'BLITZER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f7430.save(validate: false)
+f7445 = Family.new(name: 'WHISTON'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'BUD'.titleize, ec_last_name: 'WHISTON'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f7445.save(validate: false)
 print(".")
-f7470 = Family.create!(name: 'FRINGER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'ADALINE'.titleize, ec_last_name: 'FRINGER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f7486 = Family.create!(name: 'GELTZ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SAL'.titleize, ec_last_name: 'GELTZ'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Friend')
-f7536 = Family.create!(name: 'BEIDLEMAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'XOCHITL'.titleize, ec_last_name: 'BEIDLEMAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Step-mom')
-f7860 = Family.create!(name: 'VINSANT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ROSARIO'.titleize, ec_last_name: 'VINSANT'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'dad')
-f7943 = Family.create!(name: 'VONDRASEK'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TWANNA'.titleize, ec_last_name: 'VONDRASEK'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f7977 = Family.create!(name: 'FAGGART'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ORVAL'.titleize, ec_last_name: 'FAGGART'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f8012 = Family.create!(name: 'GRANIERI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TRAN'.titleize, ec_last_name: 'GRANIERI'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Step-parent')
-f8016 = Family.create!(name: 'NEWBURG'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MAURO'.titleize, ec_last_name: 'NEWBURG'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f8155 = Family.create!(name: 'MANDILE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TOMIKO'.titleize, ec_last_name: 'MANDILE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mother')
-f8175 = Family.create!(name: 'HOOGLAND'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DANNIE'.titleize, ec_last_name: 'HOOGLAND'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
-f8198 = Family.create!(name: 'RUSCITTI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TAMISHA'.titleize, ec_last_name: 'RUSCITTI'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Aunt')
-f8259 = Family.create!(name: 'JUNCAJ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ZACHARIAH'.titleize, ec_last_name: 'JUNCAJ'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'dad')
-f10005 = Family.create!(name: 'SWEEZEY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TAISHA'.titleize, ec_last_name: 'SWEEZEY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
-f9322 = Family.create!(name: 'KILGALLON'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OLEN'.titleize, ec_last_name: 'KILGALLON'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f9222 = Family.create!(name: 'HAERTEL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SUSY'.titleize, ec_last_name: 'HAERTEL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f9254 = Family.create!(name: 'WEECH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ANIBAL'.titleize, ec_last_name: 'WEECH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f8858 = Family.create!(name: 'HOELL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SIU'.titleize, ec_last_name: 'HOELL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f11280 = Family.create!(name: 'SCHMOKER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MILO'.titleize, ec_last_name: 'SCHMOKER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f9152 = Family.create!(name: 'WYFFELS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RUTHA'.titleize, ec_last_name: 'WYFFELS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f9154 = Family.create!(name: 'VANSLOOTEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JED'.titleize, ec_last_name: 'VANSLOOTEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mother')
-f11648 = Family.create!(name: 'RANSIER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ROXY'.titleize, ec_last_name: 'RANSIER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Grandparents')
-f9955 = Family.create!(name: 'KNIBBS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'FRANCES'.titleize, ec_last_name: 'KNIBBS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Biological Father')
-f9977 = Family.create!(name: 'TINDOL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RHONA'.titleize, ec_last_name: 'TINDOL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f10099 = Family.create!(name: 'JENNIGES'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'THANH'.titleize, ec_last_name: 'JENNIGES'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Mother')
-f10205 = Family.create!(name: 'THEILEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RAYMOND'.titleize, ec_last_name: 'THEILEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f10269 = Family.create!(name: 'ZOUCHA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DILLON'.titleize, ec_last_name: 'ZOUCHA'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f10610 = Family.create!(name: 'HAIK'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OTHA'.titleize, ec_last_name: 'HAIK'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f10611 = Family.create!(name: 'DIMURO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'AMADO'.titleize, ec_last_name: 'DIMURO'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Dad')
-f11181 = Family.create!(name: 'MONTIETH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'NORIKO'.titleize, ec_last_name: 'MONTIETH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f10908 = Family.create!(name: 'LORETTE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'NEWTON'.titleize, ec_last_name: 'LORETTE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'FATHER')
-f11010 = Family.create!(name: 'CROGAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'NATASHIA'.titleize, ec_last_name: 'CROGAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f11206 = Family.create!(name: 'SOOKRAM'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'CONNIE'.titleize, ec_last_name: 'SOOKRAM'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f11274 = Family.create!(name: 'GERVIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MERRIE'.titleize, ec_last_name: 'GERVIN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Grandmother')
-f11277 = Family.create!(name: 'PILLARS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LENNY'.titleize, ec_last_name: 'PILLARS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f11279 = Family.create!(name: 'WHEDBEE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MELVIN'.titleize, ec_last_name: 'WHEDBEE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f11328 = Family.create!(name: 'AMODEI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TORY'.titleize, ec_last_name: 'AMODEI'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'parent')
-f11319 = Family.create!(name: 'KUGELMAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARINDA'.titleize, ec_last_name: 'KUGELMAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f11778 = Family.create!(name: 'DENZ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RICHIE'.titleize, ec_last_name: 'DENZ'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f11429 = Family.create!(name: 'SCHNEBLY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARIKO'.titleize, ec_last_name: 'SCHNEBLY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f11452 = Family.create!(name: 'STREETY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LUPE'.titleize, ec_last_name: 'STREETY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father/Stepfather')
-f11979 = Family.create!(name: 'SKY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARGERT'.titleize, ec_last_name: 'SKY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f11988 = Family.create!(name: 'SONDGEROTH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'HORACIO'.titleize, ec_last_name: 'SONDGEROTH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
-f12052 = Family.create!(name: 'WESTBAY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LORIS'.titleize, ec_last_name: 'WESTBAY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f12057 = Family.create!(name: 'VLAHAKIS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'BRICE'.titleize, ec_last_name: 'VLAHAKIS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mom')
-f12660 = Family.create!(name: 'MANABAT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LIZZETTE'.titleize, ec_last_name: 'MANABAT'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f12719 = Family.create!(name: 'TRIPPLETT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MOHAMED'.titleize, ec_last_name: 'TRIPPLETT'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f12795 = Family.create!(name: 'MERTA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LEISHA'.titleize, ec_last_name: 'MERTA'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
-f12798 = Family.create!(name: 'DARON'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DELMER'.titleize, ec_last_name: 'DARON'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
-f12820 = Family.create!(name: 'KANAAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'KAILA'.titleize, ec_last_name: 'KANAAN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f12824 = Family.create!(name: 'FLORESCA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'DARIO'.titleize, ec_last_name: 'FLORESCA'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f7470 = Family.new(name: 'FRINGER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'ADALINE'.titleize, ec_last_name: 'FRINGER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f7470.save(validate: false)
+f7486 = Family.new(name: 'GELTZ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SAL'.titleize, ec_last_name: 'GELTZ'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Friend')
+f7486.save(validate: false)
+f7536 = Family.new(name: 'BEIDLEMAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'XOCHITL'.titleize, ec_last_name: 'BEIDLEMAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Step-mom')
+f7536.save(validate: false)
+f7943 = Family.new(name: 'VONDRASEK'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TWANNA'.titleize, ec_last_name: 'VONDRASEK'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f7943.save(validate: false)
+f7860 = Family.new(name: 'VINSANT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ROSARIO'.titleize, ec_last_name: 'VINSANT'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'dad')
+f7860.save(validate: false)
+f7977 = Family.new(name: 'FAGGART'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ORVAL'.titleize, ec_last_name: 'FAGGART'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f7977.save(validate: false)
+f8012 = Family.new(name: 'GRANIERI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TRAN'.titleize, ec_last_name: 'GRANIERI'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Step-parent')
+f8012.save(validate: false)
+f8016 = Family.new(name: 'NEWBURG'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MAURO'.titleize, ec_last_name: 'NEWBURG'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f8016.save(validate: false)
+f8155 = Family.new(name: 'MANDILE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TOMIKO'.titleize, ec_last_name: 'MANDILE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mother')
+f8155.save(validate: false)
+f8175 = Family.new(name: 'HOOGLAND'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DANNIE'.titleize, ec_last_name: 'HOOGLAND'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'father')
+f8175.save(validate: false)
+f8198 = Family.new(name: 'RUSCITTI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TAMISHA'.titleize, ec_last_name: 'RUSCITTI'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Aunt')
+f8198.save(validate: false)
+f8259 = Family.new(name: 'JUNCAJ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ZACHARIAH'.titleize, ec_last_name: 'JUNCAJ'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'dad')
+f8259.save(validate: false)
+f10005 = Family.new(name: 'SWEEZEY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TAISHA'.titleize, ec_last_name: 'SWEEZEY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Father')
+f10005.save(validate: false)
+f9322 = Family.new(name: 'KILGALLON'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OLEN'.titleize, ec_last_name: 'KILGALLON'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f9322.save(validate: false)
+f9222 = Family.new(name: 'HAERTEL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SUSY'.titleize, ec_last_name: 'HAERTEL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f9222.save(validate: false)
+f9254 = Family.new(name: 'WEECH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ANIBAL'.titleize, ec_last_name: 'WEECH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f9254.save(validate: false)
+f8858 = Family.new(name: 'HOELL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'SIU'.titleize, ec_last_name: 'HOELL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f8858.save(validate: false)
+f11280 = Family.new(name: 'SCHMOKER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MILO'.titleize, ec_last_name: 'SCHMOKER'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f11280.save(validate: false)
+f9152 = Family.new(name: 'WYFFELS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RUTHA'.titleize, ec_last_name: 'WYFFELS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f9152.save(validate: false)
+f9154 = Family.new(name: 'VANSLOOTEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JED'.titleize, ec_last_name: 'VANSLOOTEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mother')
+f9154.save(validate: false)
+f11648 = Family.new(name: 'RANSIER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'ROXY'.titleize, ec_last_name: 'RANSIER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Grandparents')
+f11648.save(validate: false)
+f9955 = Family.new(name: 'KNIBBS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'FRANCES'.titleize, ec_last_name: 'KNIBBS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Biological Father')
+f9955.save(validate: false)
+f9977 = Family.new(name: 'TINDOL'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RHONA'.titleize, ec_last_name: 'TINDOL'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f9977.save(validate: false)
+f10099 = Family.new(name: 'JENNIGES'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'THANH'.titleize, ec_last_name: 'JENNIGES'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Mother')
+f10099.save(validate: false)
+f10269 = Family.new(name: 'ZOUCHA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DILLON'.titleize, ec_last_name: 'ZOUCHA'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f10269.save(validate: false)
+f10205 = Family.new(name: 'THEILEN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RAYMOND'.titleize, ec_last_name: 'THEILEN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f10205.save(validate: false)
+f10610 = Family.new(name: 'HAIK'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'OTHA'.titleize, ec_last_name: 'HAIK'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f10610.save(validate: false)
+f10611 = Family.new(name: 'DIMURO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'AMADO'.titleize, ec_last_name: 'DIMURO'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'Dad')
+f10611.save(validate: false)
+f11181 = Family.new(name: 'MONTIETH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'NORIKO'.titleize, ec_last_name: 'MONTIETH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f11181.save(validate: false)
+f10908 = Family.new(name: 'LORETTE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'NEWTON'.titleize, ec_last_name: 'LORETTE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'FATHER')
+f10908.save(validate: false)
+f11010 = Family.new(name: 'CROGAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'NATASHIA'.titleize, ec_last_name: 'CROGAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f11010.save(validate: false)
+f11274 = Family.new(name: 'GERVIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MERRIE'.titleize, ec_last_name: 'GERVIN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Grandmother')
+f11274.save(validate: false)
+f11206 = Family.new(name: 'SOOKRAM'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'CONNIE'.titleize, ec_last_name: 'SOOKRAM'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f11206.save(validate: false)
+f11277 = Family.new(name: 'PILLARS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LENNY'.titleize, ec_last_name: 'PILLARS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f11277.save(validate: false)
+f11279 = Family.new(name: 'WHEDBEE'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MELVIN'.titleize, ec_last_name: 'WHEDBEE'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f11279.save(validate: false)
+f11319 = Family.new(name: 'KUGELMAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARINDA'.titleize, ec_last_name: 'KUGELMAN'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f11319.save(validate: false)
+f11328 = Family.new(name: 'AMODEI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'TORY'.titleize, ec_last_name: 'AMODEI'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'parent')
+f11328.save(validate: false)
+f11778 = Family.new(name: 'DENZ'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'RICHIE'.titleize, ec_last_name: 'DENZ'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f11778.save(validate: false)
+f11452 = Family.new(name: 'STREETY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LUPE'.titleize, ec_last_name: 'STREETY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father/Stepfather')
+f11452.save(validate: false)
+f11979 = Family.new(name: 'SKY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARGERT'.titleize, ec_last_name: 'SKY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f11979.save(validate: false)
+f11429 = Family.new(name: 'SCHNEBLY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MARIKO'.titleize, ec_last_name: 'SCHNEBLY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f11429.save(validate: false)
+f11988 = Family.new(name: 'SONDGEROTH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'HORACIO'.titleize, ec_last_name: 'SONDGEROTH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
+f11988.save(validate: false)
+f12052 = Family.new(name: 'WESTBAY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LORIS'.titleize, ec_last_name: 'WESTBAY'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f12052.save(validate: false)
+f12057 = Family.new(name: 'VLAHAKIS'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'BRICE'.titleize, ec_last_name: 'VLAHAKIS'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'mom')
+f12057.save(validate: false)
+f12660 = Family.new(name: 'MANABAT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LIZZETTE'.titleize, ec_last_name: 'MANABAT'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f12660.save(validate: false)
+f12795 = Family.new(name: 'MERTA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'LEISHA'.titleize, ec_last_name: 'MERTA'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Father')
+f12795.save(validate: false)
+f12719 = Family.new(name: 'TRIPPLETT'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'MOHAMED'.titleize, ec_last_name: 'TRIPPLETT'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f12719.save(validate: false)
+f12820 = Family.new(name: 'KANAAN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'KAILA'.titleize, ec_last_name: 'KANAAN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12820.save(validate: false)
+f12798 = Family.new(name: 'DARON'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'DELMER'.titleize, ec_last_name: 'DARON'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'Mother')
+f12798.save(validate: false)
+f12824 = Family.new(name: 'FLORESCA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'DARIO'.titleize, ec_last_name: 'FLORESCA'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12824.save(validate: false)
 print(".")
-f12825 = Family.create!(name: 'BEED'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'KA'.titleize, ec_last_name: 'BEED'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f12826 = Family.create!(name: 'MARANDOLA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'REYES'.titleize, ec_last_name: 'MARANDOLA'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f12835 = Family.create!(name: 'FEISTER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JOANNIE'.titleize, ec_last_name: 'FEISTER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f12838 = Family.create!(name: 'YEARGAIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'DEE'.titleize, ec_last_name: 'YEARGAIN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f12839 = Family.create!(name: 'MALARA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JERRICA'.titleize, ec_last_name: 'MALARA'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f12840 = Family.create!(name: 'JAGIELLO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'MAC'.titleize, ec_last_name: 'JAGIELLO'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f12841 = Family.create!(name: 'SCHIPANI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JENE'.titleize, ec_last_name: 'SCHIPANI'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
-f13540 = Family.create!(name: 'SWARTZBAUGH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JONAH'.titleize, ec_last_name: 'SWARTZBAUGH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
-f13521 = Family.create!(name: 'RUSSEY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JANNET'.titleize, ec_last_name: 'RUSSEY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12825 = Family.new(name: 'BEED'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'KA'.titleize, ec_last_name: 'BEED'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12825.save(validate: false)
+f12826 = Family.new(name: 'MARANDOLA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'REYES'.titleize, ec_last_name: 'MARANDOLA'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12826.save(validate: false)
+f12835 = Family.new(name: 'FEISTER'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JOANNIE'.titleize, ec_last_name: 'FEISTER'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12835.save(validate: false)
+f12838 = Family.new(name: 'YEARGAIN'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'DEE'.titleize, ec_last_name: 'YEARGAIN'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12838.save(validate: false)
+f12839 = Family.new(name: 'MALARA'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JERRICA'.titleize, ec_last_name: 'MALARA'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12839.save(validate: false)
+f12840 = Family.new(name: 'JAGIELLO'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'MAC'.titleize, ec_last_name: 'JAGIELLO'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12840.save(validate: false)
+f13540 = Family.new(name: 'SWARTZBAUGH'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'true', ec_first_name: 'JONAH'.titleize, ec_last_name: 'SWARTZBAUGH'.titleize, ec_phone: '6145551213', ec_text: true, ec_relationship: 'father')
+f13540.save(validate: false)
+f12841 = Family.new(name: 'SCHIPANI'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JENE'.titleize, ec_last_name: 'SCHIPANI'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f12841.save(validate: false)
+f13521 = Family.new(name: 'RUSSEY'.titleize, street_address: '100 E Broad St', city: 'Columbus', state: 'OH', zip: 43215, phone: '6145551213', text: 'false', ec_first_name: 'JANNET'.titleize, ec_last_name: 'RUSSEY'.titleize, ec_phone: '6145551213', ec_text: false, ec_relationship: 'x')
+f13521.save(validate: false)
 print("\n")
 
 print "People"
@@ -1612,624 +1771,717 @@ p13522.save(validate: false)
 print("\n")
 
 print "Users"
-u97 = User.create!(password: "password", email: 'TUBBY@example.com', notification_list: false)
+u97 = User.new(password: "password", email: 'TUBBY@example.com', notification_list: false)
 p5548.user = u97
 u97.notification_list = true
 u97.save
-u3 = User.create!(password: "password", email: 'GURGANIOUS@example.com', notification_list: false)
+u3 = User.new(password: "password", email: 'GURGANIOUS@example.com', notification_list: false)
 p412.user = u3
 u3.roles << role_w
-u171 = User.create!(password: "password", email: 'u171@example.com', notification_list: false)
+u171 = User.new(password: "password", email: 'u171@example.com', notification_list: false)
 u171.notification_list = true
 u171.save
-u4 = User.create!(password: "password", email: 'HASHAGEN@example.com', notification_list: false)
+u4 = User.new(password: "password", email: 'HASHAGEN@example.com', notification_list: false)
 p411.user = u4
-u131 = User.create!(password: "password", email: 'DENOBLE@example.com', notification_list: false)
+u4.save
+u131 = User.new(password: "password", email: 'DENOBLE@example.com', notification_list: false)
 p7482.user = u131
 u131.notification_list = true
 u131.save
 print(".")
-u5 = User.create!(password: "password", email: 'YAROS@example.com', notification_list: false)
+u5 = User.new(password: "password", email: 'YAROS@example.com', notification_list: false)
 p427.user = u5
 u5.roles << role_loc
-u6 = User.create!(password: "password", email: 'SCHNETZER@example.com', notification_list: false)
+u5.save
+u6 = User.new(password: "password", email: 'SCHNETZER@example.com', notification_list: false)
 p434.user = u6
-u7 = User.create!(password: "password", email: 'KLEBAN@example.com', notification_list: false)
+u6.save
+u7 = User.new(password: "password", email: 'KLEBAN@example.com', notification_list: false)
 p432.user = u7
-u8 = User.create!(password: "password", email: 'PLOUFF@example.com', notification_list: false)
+u7.save
+u8 = User.new(password: "password", email: 'PLOUFF@example.com', notification_list: false)
 p417.user = u8
 u8.roles << role_b
 u8.notification_list = true
 u8.save
 u8.roles << role_s
 u8.roles << role_w
-u130 = User.create!(password: "password", email: 'FRINGER@example.com', notification_list: false)
+u130 = User.new(password: "password", email: 'FRINGER@example.com', notification_list: false)
 p7471.user = u130
 u130.notification_list = true
 u130.save
 print(".")
-u9 = User.create!(password: "password", email: 'DRONEY@example.com', notification_list: false)
+u9 = User.new(password: "password", email: 'DRONEY@example.com', notification_list: false)
 p413.user = u9
-u71 = User.create!(password: "password", email: 'u71@example.com', notification_list: false)
-u13 = User.create!(password: "password", email: 'DOMEK@example.com', notification_list: false)
+u71 = User.new(password: "password", email: 'u71@example.com', notification_list: false)
+u71.save
+u13 = User.new(password: "password", email: 'DOMEK@example.com', notification_list: false)
+u13.save
 p414.user = u13
-u14 = User.create!(password: "password", email: 'KESKE@example.com', notification_list: false)
+u14 = User.new(password: "password", email: 'KESKE@example.com', notification_list: false)
 p967.user = u14
-u15 = User.create!(password: "password", email: 'UTTECH@example.com', notification_list: false)
+u14.save
+u15 = User.new(password: "password", email: 'UTTECH@example.com', notification_list: false)
 p438.user = u15
 u15.notification_list = true
 u15.save
 print(".")
-u16 = User.create!(password: "password", email: 'BOEREMA@example.com', notification_list: false)
+u16 = User.new(password: "password", email: 'BOEREMA@example.com', notification_list: false)
+u16.save
 p437.user = u16
-u193 = User.create!(password: "password", email: 'u193@example.com', notification_list: false)
+u193 = User.new(password: "password", email: 'u193@example.com', notification_list: false)
 u193.notification_list = true
 u193.save
-u17 = User.create!(password: "password", email: 'NEYENS@example.com', notification_list: false)
+u17 = User.new(password: "password", email: 'NEYENS@example.com', notification_list: false)
 p436.user = u17
-u18 = User.create!(password: "password", email: 'WEPPLER@example.com', notification_list: false)
+u17.save
+u18 = User.new(password: "password", email: 'WEPPLER@example.com', notification_list: false)
 p435.user = u18
-u19 = User.create!(password: "password", email: 'FETZNER@example.com', notification_list: false)
+u18.save
+u19 = User.new(password: "password", email: 'FETZNER@example.com', notification_list: false)
 p433.user = u19
+u19.save
 print(".")
-u20 = User.create!(password: "password", email: 'SITTERLY@example.com', notification_list: false)
+u20 = User.new(password: "password", email: 'SITTERLY@example.com', notification_list: false)
 p431.user = u20
 u20.notification_list = true
 u20.save
-u21 = User.create!(password: "password", email: 'CLYATT@example.com', notification_list: false)
+u21 = User.new(password: "password", email: 'CLYATT@example.com', notification_list: false)
 p3966.user = u21
 u21.roles << role_vc
-u192 = User.create!(password: "password", email: 'u192@example.com', notification_list: false)
-u192.notification_list = true
+u21.save
+u192 = User.new(password: "password", email: 'u192@example.com', notification_list: false)
 u192.save
-u22 = User.create!(password: "password", email: 'EMBLETON@example.com', notification_list: false)
+u22 = User.new(password: "password", email: 'EMBLETON@example.com', notification_list: false)
 p429.user = u22
 u22.roles << role_b
 u22.roles << role_h
 u22.roles << role_w
-u105 = User.create!(password: "password", email: 'KOENEMAN@example.com', notification_list: false)
+u22.save
+u105 = User.new(password: "password", email: 'KOENEMAN@example.com', notification_list: false)
 p5529.user = u105
 u105.roles << role_b
 u105.roles << role_t
 u105.roles << role_w
+u105.save
 print(".")
-u23 = User.create!(password: "password", email: 'DIMARZO@example.com', notification_list: false)
+u23 = User.new(password: "password", email: 'DIMARZO@example.com', notification_list: false)
 p426.user = u23
-u24 = User.create!(password: "password", email: 'BACORN@example.com', notification_list: false)
+u23.save
+u24 = User.new(password: "password", email: 'BACORN@example.com', notification_list: false)
 p1002.user = u24
-u187 = User.create!(password: "password", email: 'AMODEI@example.com', notification_list: false)
+u24.save
+u187 = User.new(password: "password", email: 'AMODEI@example.com', notification_list: false)
 p11925.user = u187
 u187.roles << role_b
 u187.roles << role_nm
-u25 = User.create!(password: "password", email: 'DEIGHAN@example.com', notification_list: false)
+u187.save
+u25 = User.new(password: "password", email: 'DEIGHAN@example.com', notification_list: false)
 p424.user = u25
-u26 = User.create!(password: "password", email: 'TRETTIN@example.com', notification_list: false)
+u25.save
+u26 = User.new(password: "password", email: 'TRETTIN@example.com', notification_list: false)
 p422.user = u26
+u26.save
 print(".")
-u27 = User.create!(password: "password", email: 'KLONTZ@example.com', notification_list: false)
+u27 = User.new(password: "password", email: 'KLONTZ@example.com', notification_list: false)
 p421.user = u27
 u27.notification_list = true
 u27.save
-u28 = User.create!(password: "password", email: 'WALDROOP@example.com', notification_list: false)
+u28 = User.new(password: "password", email: 'WALDROOP@example.com', notification_list: false)
 p420.user = u28
-u196 = User.create!(password: "password", email: 'u196@example.com', notification_list: false)
+u28.save
+u196 = User.new(password: "password", email: 'u196@example.com', notification_list: false)
 u196.notification_list = true
 u196.save
-u29 = User.create!(password: "password", email: 'UHLS@example.com', notification_list: false)
+u29 = User.new(password: "password", email: 'UHLS@example.com', notification_list: false)
 p419.user = u29
-u30 = User.create!(password: "password", email: 'DUNKLEE@example.com', notification_list: false)
+u29.save
+u30 = User.new(password: "password", email: 'DUNKLEE@example.com', notification_list: false)
 p416.user = u30
 u30.notification_list = true
 u30.save
 print(".")
-u118 = User.create!(password: "password", email: 'BLUETT@example.com', notification_list: false)
+u118 = User.new(password: "password", email: 'BLUETT@example.com', notification_list: false)
 p6644.user = u118
-u31 = User.create!(password: "password", email: 'JAQUESS@example.com', notification_list: false)
+u118.save
+u31 = User.new(password: "password", email: 'JAQUESS@example.com', notification_list: false)
 p415.user = u31
-u33 = User.create!(password: "password", email: 'TIESZEN@example.com', notification_list: false)
+u31.save
+u33 = User.new(password: "password", email: 'TIESZEN@example.com', notification_list: false)
 p428.user = u33
 u33.notification_list = true
 u33.save
-u34 = User.create!(password: "password", email: 'LIENAU@example.com', notification_list: false)
+u34 = User.new(password: "password", email: 'LIENAU@example.com', notification_list: false)
 p418.user = u34
-u37 = User.create!(password: "password", email: 'NIENHAUS@example.com', notification_list: false)
+u34.save
+u37 = User.new(password: "password", email: 'NIENHAUS@example.com', notification_list: false)
 p423.user = u37
 u37.notification_list = true
 u37.save
 print(".")
-u38 = User.create!(password: "password", email: 'POSILLICO@example.com', notification_list: false)
+u38 = User.new(password: "password", email: 'POSILLICO@example.com', notification_list: false)
 p503.user = u38
 u38.notification_list = true
 u38.save
-u39 = User.create!(password: "password", email: 'ZACHARIA@example.com', notification_list: false)
+u39 = User.new(password: "password", email: 'ZACHARIA@example.com', notification_list: false)
 p645.user = u39
-u40 = User.create!(password: "password", email: 'KALLHOFF@example.com', notification_list: false)
+u39.save
+u40 = User.new(password: "password", email: 'KALLHOFF@example.com', notification_list: false)
 p509.user = u40
 u40.notification_list = true
 u40.save
-u41 = User.create!(password: "password", email: 'ARSCOTT@example.com', notification_list: false)
+u41 = User.new(password: "password", email: 'ARSCOTT@example.com', notification_list: false)
 p646.user = u41
 u41.notification_list = true
 u41.save
-u132 = User.create!(password: "password", email: 'u132@example.com', notification_list: false)
+u132 = User.new(password: "password", email: 'u132@example.com', notification_list: false)
 u132.notification_list = true
 u132.save
 print(".")
-u133 = User.create!(password: "password", email: 'VOSLER@example.com', notification_list: false)
+u133 = User.new(password: "password", email: 'VOSLER@example.com', notification_list: false)
 p8080.user = u133
-u42 = User.create!(password: "password", email: 'SARAFIAN@example.com', notification_list: false)
+u133.save
+u42 = User.new(password: "password", email: 'SARAFIAN@example.com', notification_list: false)
 p1085.user = u42
-u43 = User.create!(password: "password", email: 'DETIENNE@example.com', notification_list: false)
+u42.save
+u43 = User.new(password: "password", email: 'DETIENNE@example.com', notification_list: false)
 p511.user = u43
 u43.notification_list = true
 u43.save
-u120 = User.create!(password: "password", email: 'u120@example.com', notification_list: false)
-u44 = User.create!(password: "password", email: 'SUNDT@example.com', notification_list: false)
+u120 = User.new(password: "password", email: 'u120@example.com', notification_list: false)
+u120.save
+u44 = User.new(password: "password", email: 'SUNDT@example.com', notification_list: false)
 p510.user = u44
 u44.notification_list = true
 u44.save
 print(".")
-u112 = User.create!(password: "password", email: 'DOSH@example.com', notification_list: false)
+u112 = User.new(password: "password", email: 'DOSH@example.com', notification_list: false)
 p8112.user = u112
 u112.notification_list = true
 u112.save
-u45 = User.create!(password: "password", email: 'NICCOLI@example.com', notification_list: false)
+u45 = User.new(password: "password", email: 'NICCOLI@example.com', notification_list: false)
 p1082.user = u45
-u46 = User.create!(password: "password", email: 'DEPIERRO@example.com', notification_list: false)
+u45.save
+u46 = User.new(password: "password", email: 'DEPIERRO@example.com', notification_list: false)
 p907.user = u46
 u46.notification_list = true
 u46.save
-u115 = User.create!(password: "password", email: 'LUCADO@example.com', notification_list: false)
+u115 = User.new(password: "password", email: 'LUCADO@example.com', notification_list: false)
 p6414.user = u115
 u115.notification_list = true
 u115.save
-u47 = User.create!(password: "password", email: 'MEULEMANS@example.com', notification_list: false)
+u47 = User.new(password: "password", email: 'MEULEMANS@example.com', notification_list: false)
 p1078.user = u47
 u47.notification_list = true
 u47.save
 print(".")
-u48 = User.create!(password: "password", email: 'THORUP@example.com', notification_list: false)
+u48 = User.new(password: "password", email: 'THORUP@example.com', notification_list: false)
 p1084.user = u48
 u48.notification_list = true
 u48.save
-u49 = User.create!(password: "password", email: 'HOLBEIN@example.com', notification_list: false)
+u49 = User.new(password: "password", email: 'HOLBEIN@example.com', notification_list: false)
 p1083.user = u49
-u106 = User.create!(password: "password", email: 'MALSTROM@example.com', notification_list: false)
+u49.save
+u106 = User.new(password: "password", email: 'MALSTROM@example.com', notification_list: false)
 p5583.user = u106
-u50 = User.create!(password: "password", email: 'CHAPPUIS@example.com', notification_list: false)
+u106.save
+u50 = User.new(password: "password", email: 'CHAPPUIS@example.com', notification_list: false)
 p1187.user = u50
-u51 = User.create!(password: "password", email: 'HURTIG@example.com', notification_list: false)
+u50.save
+u51 = User.new(password: "password", email: 'HURTIG@example.com', notification_list: false)
 p1105.user = u51
+u51.save
 print(".")
-u52 = User.create!(password: "password", email: 'STREITMATTER@example.com', notification_list: false)
+u52 = User.new(password: "password", email: 'STREITMATTER@example.com', notification_list: false)
 p1122.user = u52
-u54 = User.create!(password: "password", email: 'u54@example.com', notification_list: false)
+u52.save
+u54 = User.new(password: "password", email: 'u54@example.com', notification_list: false)
 u54.notification_list = true
 u54.save
-u55 = User.create!(password: "password", email: 'u55@example.com', notification_list: false)
+u55 = User.new(password: "password", email: 'u55@example.com', notification_list: false)
 u55.notification_list = true
 u55.save
-u56 = User.create!(password: "password", email: 'YARN@example.com', notification_list: false)
+u56 = User.new(password: "password", email: 'YARN@example.com', notification_list: false)
 p1868.user = u56
 u56.notification_list = true
 u56.save
-u190 = User.create!(password: "password", email: 'SKY@example.com', notification_list: false)
+u190 = User.new(password: "password", email: 'SKY@example.com', notification_list: false)
 p11980.user = u190
+u190.save
 print(".")
-u57 = User.create!(password: "password", email: 'CORDASCO@example.com', notification_list: false)
+u57 = User.new(password: "password", email: 'CORDASCO@example.com', notification_list: false)
 p1785.user = u57
-u58 = User.create!(password: "password", email: 'u58@example.com', notification_list: false)
-u114 = User.create!(password: "password", email: 'MARACLE@example.com', notification_list: false)
+u57.save
+u58 = User.new(password: "password", email: 'u58@example.com', notification_list: false)
+u58.save
+u114 = User.new(password: "password", email: 'MARACLE@example.com', notification_list: false)
 p6560.user = u114
 u114.roles << role_w
-u116 = User.create!(password: "password", email: 'TUFARO@example.com', notification_list: false)
+u114.save
+u116 = User.new(password: "password", email: 'TUFARO@example.com', notification_list: false)
 p6594.user = u116
 u116.notification_list = true
 u116.save
-u117 = User.create!(password: "password", email: 'SOHAIL@example.com', notification_list: false)
+u117 = User.new(password: "password", email: 'SOHAIL@example.com', notification_list: false)
 p6622.user = u117
 u117.notification_list = true
 u117.save
 print(".")
-u60 = User.create!(password: "password", email: 'u60@example.com', notification_list: false)
+u60 = User.new(password: "password", email: 'u60@example.com', notification_list: false)
 u60.notification_list = true
 u60.save
-u61 = User.create!(password: "password", email: 'BOISSELLE@example.com', notification_list: false)
+u61 = User.new(password: "password", email: 'BOISSELLE@example.com', notification_list: false)
 p2531.user = u61
 u61.notification_list = true
 u61.save
-u122 = User.create!(password: "password", email: 'KOPISCHKE@example.com', notification_list: false)
+u122 = User.new(password: "password", email: 'KOPISCHKE@example.com', notification_list: false)
 p7259.user = u122
 u122.notification_list = true
 u122.save
-u62 = User.create!(password: "password", email: 'PECKENPAUGH@example.com', notification_list: false)
+u62 = User.new(password: "password", email: 'PECKENPAUGH@example.com', notification_list: false)
 p2573.user = u62
-u113 = User.create!(password: "password", email: 'BALIN@example.com', notification_list: false)
+u62.save
+u113 = User.new(password: "password", email: 'BALIN@example.com', notification_list: false)
 p6490.user = u113
 u113.notification_list = true
 u113.save
 print(".")
-u63 = User.create!(password: "password", email: 'SULLEN@example.com', notification_list: false)
+u63 = User.new(password: "password", email: 'SULLEN@example.com', notification_list: false)
 p2458.user = u63
 u63.notification_list = true
 u63.save
-u64 = User.create!(password: "password", email: 'DEWBRE@example.com', notification_list: false)
+u64 = User.new(password: "password", email: 'DEWBRE@example.com', notification_list: false)
 p3521.user = u64
-u65 = User.create!(password: "password", email: 'CAULDWELL@example.com', notification_list: false)
+u64.save
+u65 = User.new(password: "password", email: 'CAULDWELL@example.com', notification_list: false)
 p2495.user = u65
-u66 = User.create!(password: "password", email: 'MCINROY@example.com', notification_list: false)
+u65.save
+u66 = User.new(password: "password", email: 'MCINROY@example.com', notification_list: false)
 p2707.user = u66
-u67 = User.create!(password: "password", email: 'HONSE@example.com', notification_list: false)
+u66.save
+u67 = User.new(password: "password", email: 'HONSE@example.com', notification_list: false)
 p2675.user = u67
 u67.roles << role_b
 u67.notification_list = true
 u67.save
 print(".")
-u68 = User.create!(password: "password", email: 'u68@example.com', notification_list: false)
-u186 = User.create!(password: "password", email: 'u186@example.com', notification_list: false)
-u69 = User.create!(password: "password", email: 'u69@example.com', notification_list: false)
-u70 = User.create!(password: "password", email: 'u70@example.com', notification_list: false)
+u68 = User.new(password: "password", email: 'u68@example.com', notification_list: false)
+u68.save
+u186 = User.new(password: "password", email: 'u186@example.com', notification_list: false)
+u186.save
+u69 = User.new(password: "password", email: 'u69@example.com', notification_list: false)
+u69.save
+u70 = User.new(password: "password", email: 'u70@example.com', notification_list: false)
 u70.notification_list = true
 u70.save
-u72 = User.create!(password: "password", email: 'u72@example.com', notification_list: false)
+u72 = User.new(password: "password", email: 'u72@example.com', notification_list: false)
 u72.notification_list = true
 u72.save
 print(".")
-u73 = User.create!(password: "password", email: 'u73@example.com', notification_list: false)
+u73 = User.new(password: "password", email: 'u73@example.com', notification_list: false)
 u73.notification_list = true
 u73.save
-u74 = User.create!(password: "password", email: 'MONCRIEFFE@example.com', notification_list: false)
+u74 = User.new(password: "password", email: 'MONCRIEFFE@example.com', notification_list: false)
 p6687.user = u74
 u74.roles << role_h
 u74.roles << role_s
 u74.roles << role_w
-u75 = User.create!(password: "password", email: 'IRMEN@example.com', notification_list: false)
+u74.save
+u75 = User.new(password: "password", email: 'IRMEN@example.com', notification_list: false)
 p3539.user = u75
 u75.notification_list = true
 u75.save
-u76 = User.create!(password: "password", email: 'SWENOR@example.com', notification_list: false)
+u76 = User.new(password: "password", email: 'SWENOR@example.com', notification_list: false)
 p3418.user = u76
 u76.notification_list = true
 u76.save
-u121 = User.create!(password: "password", email: 'GREALISH@example.com', notification_list: false)
+u121 = User.new(password: "password", email: 'GREALISH@example.com', notification_list: false)
 p7165.user = u121
 u121.roles << role_b
 u121.notification_list = true
 u121.save
 print(".")
-u170 = User.create!(password: "password", email: 'u170@example.com', notification_list: false)
+u170 = User.new(password: "password", email: 'u170@example.com', notification_list: false)
 u170.notification_list = true
 u170.save
-u77 = User.create!(password: "password", email: 'TRESCH@example.com', notification_list: false)
+u77 = User.new(password: "password", email: 'TRESCH@example.com', notification_list: false)
 p3570.user = u77
 u77.notification_list = true
 u77.save
-u78 = User.create!(password: "password", email: 'CAVENDISH@example.com', notification_list: false)
+u78 = User.new(password: "password", email: 'CAVENDISH@example.com', notification_list: false)
 p3376.user = u78
 u78.notification_list = true
 u78.save
-u79 = User.create!(password: "password", email: 'GRANADE@example.com', notification_list: false)
+u79 = User.new(password: "password", email: 'GRANADE@example.com', notification_list: false)
+u79.save
 p3445.user = u79
-u80 = User.create!(password: "password", email: 'u80@example.com', notification_list: false)
+u80 = User.new(password: "password", email: 'u80@example.com', notification_list: false)
+u80.save
 print(".")
-u81 = User.create!(password: "password", email: 'ZUCH@example.com', notification_list: false)
+u81 = User.new(password: "password", email: 'ZUCH@example.com', notification_list: false)
 p3557.user = u81
-u109 = User.create!(password: "password", email: 'u109@example.com', notification_list: false)
-u111 = User.create!(password: "password", email: 'MCCAMY@example.com', notification_list: false)
+u81.save
+u109 = User.new(password: "password", email: 'u109@example.com', notification_list: false)
+u109.save
+u111 = User.new(password: "password", email: 'MCCAMY@example.com', notification_list: false)
 p6059.user = u111
-u123 = User.create!(password: "password", email: 'YEHLE@example.com', notification_list: false)
+u111.save
+u123 = User.new(password: "password", email: 'YEHLE@example.com', notification_list: false)
 p7148.user = u123
 u123.notification_list = true
 u123.save
-u119 = User.create!(password: "password", email: 'FINNICUM@example.com', notification_list: false)
+u119 = User.new(password: "password", email: 'FINNICUM@example.com', notification_list: false)
 p6693.user = u119
 u119.notification_list = true
 u119.save
 print(".")
-u104 = User.create!(password: "password", email: 'VALLETTE@example.com', notification_list: false)
+u104 = User.new(password: "password", email: 'VALLETTE@example.com', notification_list: false)
 p5582.user = u104
-u82 = User.create!(password: "password", email: 'FICCO@example.com', notification_list: false)
+u104.save
+u82 = User.new(password: "password", email: 'FICCO@example.com', notification_list: false)
 p4034.user = u82
 u82.notification_list = true
 u82.save
-u83 = User.create!(password: "password", email: 'CHERNY@example.com', notification_list: false)
+u83 = User.new(password: "password", email: 'CHERNY@example.com', notification_list: false)
 p4516.user = u83
 u83.notification_list = true
 u83.save
-u84 = User.create!(password: "password", email: 'WIEAND@example.com', notification_list: false)
+u84 = User.new(password: "password", email: 'WIEAND@example.com', notification_list: false)
 p4123.user = u84
-u85 = User.create!(password: "password", email: 'ANGLEN@example.com', notification_list: false)
+u84.save
+u85 = User.new(password: "password", email: 'ANGLEN@example.com', notification_list: false)
 p4514.user = u85
 u85.notification_list = true
 u85.save
 print(".")
-u86 = User.create!(password: "password", email: 'WINDMILLER@example.com', notification_list: false)
+u86 = User.new(password: "password", email: 'WINDMILLER@example.com', notification_list: false)
 p4446.user = u86
 u86.roles << role_w
-u157 = User.create!(password: "password", email: 'VANSLOOTEN@example.com', notification_list: false)
+u86.save
+u157 = User.new(password: "password", email: 'VANSLOOTEN@example.com', notification_list: false)
 p9161.user = u157
-u107 = User.create!(password: "password", email: 'LEABO@example.com', notification_list: false)
+u157.save
+u107 = User.new(password: "password", email: 'LEABO@example.com', notification_list: false)
 p9834.user = u107
 u107.notification_list = true
 u107.save
-u87 = User.create!(password: "password", email: 'u87@example.com', notification_list: false)
-u88 = User.create!(password: "password", email: 'u88@example.com', notification_list: false)
+u87 = User.new(password: "password", email: 'u87@example.com', notification_list: false)
+u87.save
+u88 = User.new(password: "password", email: 'u88@example.com', notification_list: false)
+u88.save
 print(".")
-u89 = User.create!(password: "password", email: 'SWEEZEY@example.com', notification_list: false)
+u89 = User.new(password: "password", email: 'SWEEZEY@example.com', notification_list: false)
 p10006.user = u89
-u184 = User.create!(password: "password", email: 'SCHNEBLY@example.com', notification_list: false)
+u89.save
+u184 = User.new(password: "password", email: 'SCHNEBLY@example.com', notification_list: false)
 p11463.user = u184
-u91 = User.create!(password: "password", email: 'LANGSDORF@example.com', notification_list: false)
+u184.save
+u91 = User.new(password: "password", email: 'LANGSDORF@example.com', notification_list: false)
 p5131.user = u91
-u167 = User.create!(password: "password", email: 'u167@example.com', notification_list: false)
+u91.save
+u167 = User.new(password: "password", email: 'u167@example.com', notification_list: false)
 u167.notification_list = true
 u167.save
-u92 = User.create!(password: "password", email: 'u92@example.com', notification_list: false)
+u92 = User.new(password: "password", email: 'u92@example.com', notification_list: false)
+u92.save
 print(".")
-u93 = User.create!(password: "password", email: 'HOLLICK@example.com', notification_list: false)
+u93 = User.new(password: "password", email: 'HOLLICK@example.com', notification_list: false)
 p6315.user = u93
-u94 = User.create!(password: "password", email: 'u94@example.com', notification_list: false)
+u93.save
+u94 = User.new(password: "password", email: 'u94@example.com', notification_list: false)
 u94.notification_list = true
 u94.save
-u95 = User.create!(password: "password", email: 'u95@example.com', notification_list: false)
-u96 = User.create!(password: "password", email: 'ZAVERI@example.com', notification_list: false)
+u95 = User.new(password: "password", email: 'u95@example.com', notification_list: false)
+u95.save
+u96 = User.new(password: "password", email: 'ZAVERI@example.com', notification_list: false)
 p4968.user = u96
 u96.notification_list = true
 u96.save
-u108 = User.create!(password: "password", email: 'GELLIS@example.com', notification_list: false)
+u108 = User.new(password: "password", email: 'GELLIS@example.com', notification_list: false)
 p6061.user = u108
+u108.save
 print(".")
-u98 = User.create!(password: "password", email: 'u98@example.com', notification_list: false)
+u98 = User.new(password: "password", email: 'u98@example.com', notification_list: false)
 u98.notification_list = true
 u98.save
-u99 = User.create!(password: "password", email: 'u99@example.com', notification_list: false)
+u99 = User.new(password: "password", email: 'u99@example.com', notification_list: false)
 u99.notification_list = true
 u99.save
-u100 = User.create!(password: "password", email: 'u100@example.com', notification_list: false)
+u100 = User.new(password: "password", email: 'u100@example.com', notification_list: false)
 u100.notification_list = true
 u100.save
-u101 = User.create!(password: "password", email: 'u101@example.com', notification_list: false)
+u101 = User.new(password: "password", email: 'u101@example.com', notification_list: false)
 u101.notification_list = true
 u101.save
-u102 = User.create!(password: "password", email: 'DIESING@example.com', notification_list: false)
+u102 = User.new(password: "password", email: 'DIESING@example.com', notification_list: false)
 p5196.user = u102
 u102.notification_list = true
 u102.save
 print(".")
-u103 = User.create!(password: "password", email: 'ATIYEH@example.com', notification_list: false)
+u103 = User.new(password: "password", email: 'ATIYEH@example.com', notification_list: false)
 p5530.user = u103
-u110 = User.create!(password: "password", email: 'u110@example.com', notification_list: false)
+u103.save
+u110 = User.new(password: "password", email: 'u110@example.com', notification_list: false)
 u110.notification_list = true
 u110.save
-u124 = User.create!(password: "password", email: 'NILE@example.com', notification_list: false)
+u124 = User.new(password: "password", email: 'NILE@example.com', notification_list: false)
 p7151.user = u124
 u124.notification_list = true
 u124.save
-u125 = User.create!(password: "password", email: 'EGNEW@example.com', notification_list: false)
+u125 = User.new(password: "password", email: 'EGNEW@example.com', notification_list: false)
 p7305.user = u125
 u125.roles << role_w
-u126 = User.create!(password: "password", email: 'COSENS@example.com', notification_list: false)
+u125.save
+u126 = User.new(password: "password", email: 'COSENS@example.com', notification_list: false)
 p7249.user = u126
+u126.save
 print(".")
-u127 = User.create!(password: "password", email: 'PHILLIPPS@example.com', notification_list: false)
+u127 = User.new(password: "password", email: 'PHILLIPPS@example.com', notification_list: false)
 p7421.user = u127
 u127.notification_list = true
 u127.save
-u128 = User.create!(password: "password", email: 'WHISTON@example.com', notification_list: false)
+u128 = User.new(password: "password", email: 'WHISTON@example.com', notification_list: false)
 p7456.user = u128
 u128.notification_list = true
 u128.save
-u129 = User.create!(password: "password", email: 'BLITZER@example.com', notification_list: false)
+u129 = User.new(password: "password", email: 'BLITZER@example.com', notification_list: false)
 p7431.user = u129
-u134 = User.create!(password: "password", email: 'u134@example.com', notification_list: false)
+u129.save
+u134 = User.new(password: "password", email: 'u134@example.com', notification_list: false)
 u134.notification_list = true
 u134.save
-u135 = User.create!(password: "password", email: 'u135@example.com', notification_list: false)
+u135 = User.new(password: "password", email: 'u135@example.com', notification_list: false)
 u135.notification_list = true
 u135.save
 print(".")
-u136 = User.create!(password: "password", email: 'VINSANT@example.com', notification_list: false)
+u136 = User.new(password: "password", email: 'VINSANT@example.com', notification_list: false)
 p7865.user = u136
-u137 = User.create!(password: "password", email: 'u137@example.com', notification_list: false)
+u136.save
+u137 = User.new(password: "password", email: 'u137@example.com', notification_list: false)
 u137.notification_list = true
 u137.save
-u138 = User.create!(password: "password", email: 'u138@example.com', notification_list: false)
+u138 = User.new(password: "password", email: 'u138@example.com', notification_list: false)
 u138.notification_list = true
 u138.save
-u139 = User.create!(password: "password", email: 'BEIDLEMAN@example.com', notification_list: false)
+u139 = User.new(password: "password", email: 'BEIDLEMAN@example.com', notification_list: false)
 p7539.user = u139
 u139.notification_list = true
 u139.save
-u140 = User.create!(password: "password", email: 'GRANIERI@example.com', notification_list: false)
+u140 = User.new(password: "password", email: 'GRANIERI@example.com', notification_list: false)
 p8015.user = u140
 u140.notification_list = true
 u140.save
 print(".")
-u141 = User.create!(password: "password", email: 'NEWBURG@example.com', notification_list: false)
+u141 = User.new(password: "password", email: 'NEWBURG@example.com', notification_list: false)
 p8034.user = u141
-u155 = User.create!(password: "password", email: 'WEECH@example.com', notification_list: false)
+u141.save
+u155 = User.new(password: "password", email: 'WEECH@example.com', notification_list: false)
 p9259.user = u155
 u155.notification_list = true
 u155.save
-u189 = User.create!(password: "password", email: 'RANSIER@example.com', notification_list: false)
+u189 = User.new(password: "password", email: 'RANSIER@example.com', notification_list: false)
 p11715.user = u189
-u143 = User.create!(password: "password", email: 'VONDRASEK@example.com', notification_list: false)
+u189.save
+u143 = User.new(password: "password", email: 'VONDRASEK@example.com', notification_list: false)
 p7952.user = u143
 u143.notification_list = true
 u143.save
-u144 = User.create!(password: "password", email: 'u144@example.com', notification_list: false)
+u144 = User.new(password: "password", email: 'u144@example.com', notification_list: false)
 u144.notification_list = true
 u144.save
 print(".")
-u145 = User.create!(password: "password", email: 'FAGGART@example.com', notification_list: false)
+u145 = User.new(password: "password", email: 'FAGGART@example.com', notification_list: false)
 p7985.user = u145
 u145.notification_list = true
 u145.save
-u146 = User.create!(password: "password", email: 'u146@example.com', notification_list: false)
-u147 = User.create!(password: "password", email: 'RUSCITTI@example.com', notification_list: false)
+u146 = User.new(password: "password", email: 'u146@example.com', notification_list: false)
+u146.save
+u147 = User.new(password: "password", email: 'RUSCITTI@example.com', notification_list: false)
 p8396.user = u147
 u147.roles << role_w
-u148 = User.create!(password: "password", email: 'MANDILE@example.com', notification_list: false)
+u147.save
+u148 = User.new(password: "password", email: 'MANDILE@example.com', notification_list: false)
 p8157.user = u148
 u148.notification_list = true
 u148.save
-u149 = User.create!(password: "password", email: 'HOELL@example.com', notification_list: false)
+u149 = User.new(password: "password", email: 'HOELL@example.com', notification_list: false)
 p8865.user = u149
+u149.save
 print(".")
-u150 = User.create!(password: "password", email: 'HOOGLAND@example.com', notification_list: false)
+u150 = User.new(password: "password", email: 'HOOGLAND@example.com', notification_list: false)
 p8179.user = u150
 u150.notification_list = true
 u150.save
-u151 = User.create!(password: "password", email: 'WYFFELS@example.com', notification_list: false)
+u151 = User.new(password: "password", email: 'WYFFELS@example.com', notification_list: false)
 p9160.user = u151
 u151.notification_list = true
 u151.save
-u152 = User.create!(password: "password", email: 'u152@example.com', notification_list: false)
+u152 = User.new(password: "password", email: 'u152@example.com', notification_list: false)
 u152.notification_list = true
 u152.save
-u153 = User.create!(password: "password", email: 'DIMURO@example.com', notification_list: false)
+u153 = User.new(password: "password", email: 'DIMURO@example.com', notification_list: false)
 p10682.user = u153
 u153.notification_list = true
 u153.save
-u175 = User.create!(password: "password", email: 'u175@example.com', notification_list: false)
+u175 = User.new(password: "password", email: 'u175@example.com', notification_list: false)
 u175.notification_list = true
 u175.save
 print(".")
-u156 = User.create!(password: "password", email: 'u156@example.com', notification_list: false)
-u174 = User.create!(password: "password", email: 'u174@example.com', notification_list: false)
-u158 = User.create!(password: "password", email: 'HAERTEL@example.com', notification_list: false)
+u156 = User.new(password: "password", email: 'u156@example.com', notification_list: false)
+u156.save
+u174 = User.new(password: "password", email: 'u174@example.com', notification_list: false)
+u174.save
+u158 = User.new(password: "password", email: 'HAERTEL@example.com', notification_list: false)
 p9226.user = u158
 u158.notification_list = true
 u158.save
-u159 = User.create!(password: "password", email: 'KILGALLON@example.com', notification_list: false)
+u159 = User.new(password: "password", email: 'KILGALLON@example.com', notification_list: false)
 p9327.user = u159
 u159.notification_list = true
 u159.save
-u160 = User.create!(password: "password", email: 'HAIK@example.com', notification_list: false)
+u160 = User.new(password: "password", email: 'HAIK@example.com', notification_list: false)
 p10618.user = u160
+u160.save
 print(".")
-u162 = User.create!(password: "password", email: 'TINDOL@example.com', notification_list: false)
+u162 = User.new(password: "password", email: 'TINDOL@example.com', notification_list: false)
 p9987.user = u162
-u163 = User.create!(password: "password", email: 'KNIBBS@example.com', notification_list: false)
+u162.save
+u163 = User.new(password: "password", email: 'KNIBBS@example.com', notification_list: false)
 p10107.user = u163
-u164 = User.create!(password: "password", email: 'JENNIGES@example.com', notification_list: false)
+u163.save
+u164 = User.new(password: "password", email: 'JENNIGES@example.com', notification_list: false)
 p10109.user = u164
-u165 = User.create!(password: "password", email: 'THEILEN@example.com', notification_list: false)
+u164.save
+u165 = User.new(password: "password", email: 'THEILEN@example.com', notification_list: false)
 p10212.user = u165
 u165.notification_list = true
 u165.save
-u166 = User.create!(password: "password", email: 'ZOUCHA@example.com', notification_list: false)
+u166 = User.new(password: "password", email: 'ZOUCHA@example.com', notification_list: false)
 p10483.user = u166
 u166.notification_list = true
 u166.save
 print(".")
-u168 = User.create!(password: "password", email: 'CROGAN@example.com', notification_list: false)
+u168 = User.new(password: "password", email: 'CROGAN@example.com', notification_list: false)
 p11019.user = u168
 u168.notification_list = true
 u168.save
-u169 = User.create!(password: "password", email: 'LORETTE@example.com', notification_list: false)
+u169 = User.new(password: "password", email: 'LORETTE@example.com', notification_list: false)
 p10915.user = u169
 u169.notification_list = true
 u169.save
-u172 = User.create!(password: "password", email: 'MONTIETH@example.com', notification_list: false)
+u172 = User.new(password: "password", email: 'MONTIETH@example.com', notification_list: false)
 p11185.user = u172
 u172.notification_list = true
 u172.save
-u173 = User.create!(password: "password", email: 'SOOKRAM@example.com', notification_list: false)
+u173 = User.new(password: "password", email: 'SOOKRAM@example.com', notification_list: false)
 p11219.user = u173
 u173.notification_list = true
 u173.save
-u176 = User.create!(password: "password", email: 'u176@example.com', notification_list: false)
+u176 = User.new(password: "password", email: 'u176@example.com', notification_list: false)
 u176.notification_list = true
 u176.save
 print(".")
-u177 = User.create!(password: "password", email: 'u177@example.com', notification_list: false)
+u177 = User.new(password: "password", email: 'u177@example.com', notification_list: false)
 u177.notification_list = true
 u177.save
-u178 = User.create!(password: "password", email: 'u178@example.com', notification_list: false)
+u178 = User.new(password: "password", email: 'u178@example.com', notification_list: false)
 u178.notification_list = true
 u178.save
-u179 = User.create!(password: "password", email: 'STREETY@example.com', notification_list: false)
+u179 = User.new(password: "password", email: 'STREETY@example.com', notification_list: false)
 p11488.user = u179
-u191 = User.create!(password: "password", email: 'u191@example.com', notification_list: false)
+u179.save
+u191 = User.new(password: "password", email: 'u191@example.com', notification_list: false)
 u191.notification_list = true
 u191.save
-u181 = User.create!(password: "password", email: 'DENZ@example.com', notification_list: false)
+u181 = User.new(password: "password", email: 'DENZ@example.com', notification_list: false)
 p11780.user = u181
 u181.notification_list = true
 u181.save
 print(".")
-u182 = User.create!(password: "password", email: 'KUGELMAN@example.com', notification_list: false)
+u182 = User.new(password: "password", email: 'KUGELMAN@example.com', notification_list: false)
 p11714.user = u182
 u182.notification_list = true
 u182.save
-u183 = User.create!(password: "password", email: 'SONDGEROTH@example.com', notification_list: false)
+u183 = User.new(password: "password", email: 'SONDGEROTH@example.com', notification_list: false)
 p11997.user = u183
 u183.notification_list = true
 u183.save
-u185 = User.create!(password: "password", email: 'u185@example.com', notification_list: false)
+u185 = User.new(password: "password", email: 'u185@example.com', notification_list: false)
 u185.notification_list = true
 u185.save
-u188 = User.create!(password: "password", email: 'u188@example.com', notification_list: false)
+u188 = User.new(password: "password", email: 'u188@example.com', notification_list: false)
 u188.notification_list = true
 u188.save
-u194 = User.create!(password: "password", email: 'WESTBAY@example.com', notification_list: false)
+u194 = User.new(password: "password", email: 'WESTBAY@example.com', notification_list: false)
 p12064.user = u194
+u194.save
 print(".")
-u195 = User.create!(password: "password", email: 'u195@example.com', notification_list: false)
+u195 = User.new(password: "password", email: 'u195@example.com', notification_list: false)
 u195.notification_list = true
 u195.save
-u197 = User.create!(password: "password", email: 'u197@example.com', notification_list: false)
+u197 = User.new(password: "password", email: 'u197@example.com', notification_list: false)
 u197.notification_list = true
 u197.save
-u198 = User.create!(password: "password", email: 'TRIPPLETT@example.com', notification_list: false)
+u198 = User.new(password: "password", email: 'TRIPPLETT@example.com', notification_list: false)
 p12731.user = u198
-u199 = User.create!(password: "password", email: 'DARON@example.com', notification_list: false)
+u198.save
+u199 = User.new(password: "password", email: 'DARON@example.com', notification_list: false)
 p12800.user = u199
 u199.notification_list = true
 u199.save
-u200 = User.create!(password: "password", email: 'u200@example.com', notification_list: false)
+u200 = User.new(password: "password", email: 'u200@example.com', notification_list: false)
 u200.notification_list = true
 u200.save
 print(".")
-u201 = User.create!(password: "password", email: 'u201@example.com', notification_list: false)
+u201 = User.new(password: "password", email: 'u201@example.com', notification_list: false)
 u201.notification_list = true
 u201.save
-u202 = User.create!(password: "password", email: 'u202@example.com', notification_list: false)
+u202 = User.new(password: "password", email: 'u202@example.com', notification_list: false)
 u202.notification_list = true
 u202.save
-u203 = User.create!(password: "password", email: 'RUSSEY@example.com', notification_list: false)
+u203 = User.new(password: "password", email: 'RUSSEY@example.com', notification_list: false)
 p13573.user = u203
-u204 = User.create!(password: "password", email: 'KANAAN@example.com', notification_list: false)
+u203.save
+u204 = User.new(password: "password", email: 'KANAAN@example.com', notification_list: false)
 p12821.user = u204
-u205 = User.create!(password: "password", email: 'FLORESCA@example.com', notification_list: false)
+u204.save
+u205 = User.new(password: "password", email: 'FLORESCA@example.com', notification_list: false)
 p12827.user = u205
+u205.save
 print(".")
-u206 = User.create!(password: "password", email: 'BEED@example.com', notification_list: false)
+u206 = User.new(password: "password", email: 'BEED@example.com', notification_list: false)
 p12828.user = u206
-u207 = User.create!(password: "password", email: 'MARANDOLA@example.com', notification_list: false)
+u206.save
+u207 = User.new(password: "password", email: 'MARANDOLA@example.com', notification_list: false)
 p12829.user = u207
-u208 = User.create!(password: "password", email: 'FEISTER@example.com', notification_list: false)
+u207.save
+u208 = User.new(password: "password", email: 'FEISTER@example.com', notification_list: false)
 p12836.user = u208
-u209 = User.create!(password: "password", email: 'YEARGAIN@example.com', notification_list: false)
+u208.save
+u209 = User.new(password: "password", email: 'YEARGAIN@example.com', notification_list: false)
 p12842.user = u209
-u210 = User.create!(password: "password", email: 'SCHIPANI@example.com', notification_list: false)
+u209.save
+u210 = User.new(password: "password", email: 'SCHIPANI@example.com', notification_list: false)
 p12843.user = u210
+u210.save
 print(".")
-u211 = User.create!(password: "password", email: 'MALARA@example.com', notification_list: false)
+u211 = User.new(password: "password", email: 'MALARA@example.com', notification_list: false)
 p12844.user = u211
-u212 = User.create!(password: "password", email: 'JAGIELLO@example.com', notification_list: false)
+u211.save
+u212 = User.new(password: "password", email: 'JAGIELLO@example.com', notification_list: false)
 p12845.user = u212
-u213 = User.create!(password: "password", email: 'u213@example.com', notification_list: false)
+u212.save
+u213 = User.new(password: "password", email: 'u213@example.com', notification_list: false)
 u213.notification_list = true
 u213.save
-u214 = User.create!(password: "password", email: 'u214@example.com', notification_list: false)
+u214 = User.new(password: "password", email: 'u214@example.com', notification_list: false)
 u214.notification_list = true
 u214.save
-u215 = User.create!(password: "password", email: 'SWARTZBAUGH@example.com', notification_list: false)
+u215 = User.new(password: "password", email: 'SWARTZBAUGH@example.com', notification_list: false)
 p13572.user = u215
+u215.save
 print(".")
-u216 = User.create!(password: "password", email: 'u216@example.com', notification_list: false)
+u216 = User.new(password: "password", email: 'u216@example.com', notification_list: false)
 u216.notification_list = true
 u216.save
 print("\n")
@@ -2485,10 +2737,11 @@ Please note the age suggestion on the play class. This is because it can hurt to
 c8583.rooms.append(auditorium)
 c8591 = s8405.courses.create!(name: 'Fiber Arts Club', short_name: 'Fiber Arts Club', description: 'Bring your knitting, crocheting, needlepoint, etc projects to do together. We have some extra knitting needles and some extra yarn and can do some basic instruction, but if anyone with more experience wants to sign up as another teacher we would certainly welcome it!', min_age: 6, max_age: 99, age_firm: false, min_students: 3, max_students: 100, fee: 0, supplies: 'Bring any supplies you will need for your self-paced projects.', room_reqs: 'A room with chairs would be good, I think we can do without tables if we need to.', time_reqs: 'Not at the same time as soap carving or macrame, please.', drop_ins: true, additional_info: '', is_away: 'false', period_id: p2.id, created_by_id: u42.id)
 c8591.rooms.append(ceramics)
-c8619 = s8405.courses.create!(name: 'Wyandot Explorer Scouts (Jr)', short_name: 'Wyandot Scouts (Jr)', description: 'This is a secular co-ed scouting group. We are part of the Camp Wyandot organization http://www.campwyandot.org . We always sing songs and play lots of games while doing some organized scouting activities. There will be some optional field trips and service activities. This group will be less formal and involve more movement than the older kids\' Wyandot group.
+c8619 = s8405.courses.new(name: 'Wyandot Explorer Scouts (Jr)', short_name: 'Wyandot Scouts (Jr)', description: 'This is a secular co-ed scouting group. We are part of the Camp Wyandot organization http://www.campwyandot.org . We always sing songs and play lots of games while doing some organized scouting activities. There will be some optional field trips and service activities. This group will be less formal and involve more movement than the older kids\' Wyandot group.
 All kids will earn some patches and beads they can add to their vests.
 We will be meeting fourth period so we can use more than an hour and not have to rush.', min_age: 4, max_age: 8, age_firm: false, min_students: 1, max_students: 100, fee: 6, supplies: '', room_reqs: 'dance room', time_reqs: 'fourth period', drop_ins: true, additional_info: '', is_away: 'false', period_id: nil, created_by_id: u74.id)
 c8619.rooms.append()
+c8619.save(validate: false)
 c8974 = s8405.courses.create!(name: 'Party Planning', short_name: 'Party', description: 'Planning for the End of session party - meets during Lunch.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: 'Meeting room', time_reqs: 'lunch', drop_ins: true, additional_info: '', is_away: 'false', period_id: p25.id, created_by_id: u74.id)
 c8974.rooms.append(meeting)
 c9415 = s9337.courses.create!(name: 'Photography - Composition', short_name: 'Photo Composition', description: 'This class is for those who want to create visually compelling photographs. You will learn photographic composition - a crucial element for great photos. Students must have access to a camera and know how to operate it (does not have to be fancy; can be a point and shoot camera). Students must also be able to upload an image to sharing software. Cost covers professional printing and mounting of a final 8x10 display image for a Gallery Show.
@@ -2908,8 +3161,9 @@ Age Limit Note: I have left it pretty open, but most 3-year-olds can\'t hula hoo
 Optional: I\'m thinking that we can work on a routine to do for talent show toward the end of the course.
 *****If you don\'t have your own hoop and need to use one of mine, please let me know. I\'ll guarantee hoop reservations for the first 8 people to sign up and ask.*****', min_age: 3, max_age: 99, age_firm: false, min_students: 1, max_students: 12, fee: 0, supplies: 'Hula Hoop (first 8 to sign up can use mine if you let us know)', room_reqs: 'Plenty of room', time_reqs: 'Flexible', drop_ins: true, additional_info: 'You are welcome to bring a hoop or borrow any not in use, but I\'ll try to keep a space for people practicing and learning new moves and one for people hooping to their own beat!', is_away: 'false', period_id: p2.id, created_by_id: u184.id)
 c12207.rooms.append(gym)
-c12211 = s12091.courses.create!(name: 'Slime', short_name: 'Slime', description: 'We\'ll make and play with various kinds of slime.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 15, fee: 0, supplies: '', room_reqs: 'Chairs, tables. I either need a room that\'s not the clay room, or I need an assistant. The allure of the clay figures is a little much for some of the kids', time_reqs: 'Would prefer not 4th because sometimes we need to make a hasty exit if someone has reached their limit.', drop_ins: true, additional_info: '', is_away: 'false', period_id: nil, created_by_id: u126.id)
+c12211 = s12091.courses.new(name: 'Slime', short_name: 'Slime', description: 'We\'ll make and play with various kinds of slime.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 15, fee: 0, supplies: '', room_reqs: 'Chairs, tables. I either need a room that\'s not the clay room, or I need an assistant. The allure of the clay figures is a little much for some of the kids', time_reqs: 'Would prefer not 4th because sometimes we need to make a hasty exit if someone has reached their limit.', drop_ins: true, additional_info: '', is_away: 'false', period_id: nil, created_by_id: u126.id)
 c12211.rooms.append()
+c12211.save(validate: false)
 c12214 = s12091.courses.create!(name: 'Basics of Acting', short_name: 'Acting', description: 'Lets all get together and run through some fun acting exercises! Ran by <name> and her daughters <name> and <name> who have been in way more theatrics than their mother! We will have tons of fun acting weird and being silly while learning how to be someone or something else! Maybe if we really Really wanted to we could put a little something together for the end of session party?! Who knows where this session will take us!', min_age: 1, max_age: 100, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: 'If we do a skit or performance we may need to have specific actors/actresses bring or make props? This will be discussed as needed.', room_reqs: 'Maybe the dance room or the long room across from it would be nice. We need space to be silly.', time_reqs: 'I\'m late in the mornings (although this might be the kick in the rear I need to be on time) and rocking a baby down for a nap during 3rd period. Izzy and Elizabeth do not want to miss Wyandot therefore this class cannot be at the same time as Wyandot. Thank you!', drop_ins: true, additional_info: '', is_away: 'false', period_id: p4.id, created_by_id: u187.id)
 c12214.rooms.append(classroom)
 c12215 = s12091.courses.create!(name: 'American Sign Language', short_name: 'ASL', description: 'Learn along with me! Watching videos/tutorials on ASL together and trying to hold conversations together in only ASL. I will have some printed up sheets for you to take home if you are interested in continuing your learning and practicing what we learned at home, which I hope you will.', min_age: 0, max_age: 100, age_firm: false, min_students: 1, max_students: 100, fee: 1, supplies: 'computer hook up, outlet, internet. Printer paper.', room_reqs: 'Internet possibility? If not I have my ways... Outlet for running my laptop. Seats and tables would be nice for sure.', time_reqs: 'I\'ll try to pull this off whenever we can fit this in.', drop_ins: true, additional_info: '', is_away: 'false', period_id: p2.id, created_by_id: u187.id)
@@ -2920,8 +3174,9 @@ c12219 = s12091.courses.create!(name: 'Washi Tape Crafts', short_name: 'Washi', 
 c12219.rooms.append(small_art)
 c12223 = s12091.courses.create!(name: 'Spring Crafts', short_name: 'Crafts', description: 'Each week we will create a different craft with a seasonal theme. Most crafts will be enjoyable for children 10 and under but children of any age can participate in the class. Children need to be able to cut and glue on their own or have an adult present to help them.', min_age: 0, max_age: 100, age_firm: false, min_students: 1, max_students: 13, fee: 3, supplies: '', room_reqs: 'One of the craft rooms would be great!', time_reqs: 'I would prefer 1st or 2nd if possible.', drop_ins: false, additional_info: '', is_away: 'false', period_id: p1.id, created_by_id: u141.id)
 c12223.rooms.append(small_art)
-c12224 = s12091.courses.create!(name: 'Tiny Dancers', short_name: 'Dance', description: 'Dance and move to music of many varieties. We listen to lots of different styles of music, do stretches and warm ups, make up dances and moves, and have big fun. Bring your favorite dance clothes.', min_age: 1, max_age: 8, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: 'Upstairs Class Room', time_reqs: '1st or 2nd period', drop_ins: true, additional_info: '', is_away: 'false', period_id: nil, created_by_id: u105.id)
+c12224 = s12091.courses.new(name: 'Tiny Dancers', short_name: 'Dance', description: 'Dance and move to music of many varieties. We listen to lots of different styles of music, do stretches and warm ups, make up dances and moves, and have big fun. Bring your favorite dance clothes.', min_age: 1, max_age: 8, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: 'Upstairs Class Room', time_reqs: '1st or 2nd period', drop_ins: true, additional_info: '', is_away: 'false', period_id: nil, created_by_id: u105.id)
 c12224.rooms.append()
+c12224.save(validate:false)
 c12226 = s12091.courses.create!(name: 'Sensory Art', short_name: 'Sensory Art', description: 'Messy, squishy art opportunities. I\'ll show them a different project each week and I\'ll also have some playdough and finger paint on hand.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 15, fee: 3, supplies: '', room_reqs: 'Would prefer big art room', time_reqs: 'Would prefer not 4th, but can make anything work', drop_ins: true, additional_info: 'No age limit, but if a kid is likely to taste test the materials, a parent may want to come', is_away: 'false', period_id: p2.id, created_by_id: u126.id)
 c12226.rooms.append(big_art)
 c12229 = s12091.courses.create!(name: 'Beginner Gymnastics', short_name: 'Gymnastics', description: 'We will work on floor and beam skills, levels 1-5: mainly hops, jumps, turns, and light tumbling.
@@ -2945,8 +3200,9 @@ c12240 = s12091.courses.create!(name: 'Sewing; Stuffed animals', short_name: 'Se
 c12240.rooms.append(big_art)
 c12242 = s12091.courses.create!(name: 'Paper Clay Sculpture and Ball Jointed Dolls', short_name: 'Sculpture', description: 'We\'ll be using Air Dry Paper Clay to make small sculptures and/or to continue making the ball jointed dolls started during the winter session.', min_age: 6, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 15, supplies: 'I\'ll buy air dry paper clay. I\'ll bring sculpture tools.', room_reqs: 'Tables, chairs', time_reqs: 'Please don\'t conflict with Sewing or Watercolors', drop_ins: true, additional_info: '', is_away: 'false', period_id: p4.id, created_by_id: u67.id)
 c12242.rooms.append(big_art)
-c12244 = s12091.courses.create!(name: 'Painting with Watercolors', short_name: 'Watercolors', description: 'We\'ll be painting with Watercolor paints. Younger kids will need their adults to supervise.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 2, supplies: 'I\'ll buy watercolor paper. We already have the paint.', room_reqs: 'a sink, tables and chairs', time_reqs: 'Please don\'t conflict with Sculpture or Sewing', drop_ins: true, additional_info: 'moved from Spring 2016 because cut', is_away: 'false', period_id: nil, created_by_id: u67.id)
+c12244 = s12091.courses.new(name: 'Painting with Watercolors', short_name: 'Watercolors', description: 'We\'ll be painting with Watercolor paints. Younger kids will need their adults to supervise.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 2, supplies: 'I\'ll buy watercolor paper. We already have the paint.', room_reqs: 'a sink, tables and chairs', time_reqs: 'Please don\'t conflict with Sculpture or Sewing', drop_ins: true, additional_info: 'moved from Spring 2016 because cut', is_away: 'false', period_id: nil, created_by_id: u67.id)
 c12244.rooms.append()
+c12244.save(validate: false)
 c12246 = s12091.courses.create!(name: 'Student Government', short_name: 'Student Government', description: 'We\'ll keep working on ways to make co-op better! This class and Party Planning will be together.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: 'Tables and chairs', time_reqs: 'Please schedule during lunch; could be combined with Party Planning.', drop_ins: true, additional_info: '', is_away: 'false', period_id: p25.id, created_by_id: u67.id)
 c12246.rooms.append(meeting)
 c12263 = s12091.courses.create!(name: 'Cake Decorating', short_name: 'Cakes', description: 'Learn to decorate cupcakes, and maybe even a larger cake, using different techniques. We\'ll be using the 4H cake decorating book and other resources as guides. I\'ll bring 4 gluten-free cupcakes per child each week, plus icing and any other materials the class decides they wan to experiment with. We have bags and various tips but if anyone wants to bring their own equipment they\'re welcome to!', min_age: 7, max_age: 99, age_firm: true, min_students: 3, max_students: 8, fee: 10, supplies: '', room_reqs: 'kitchen', time_reqs: 'not same as ball jointed dolls or acting', drop_ins: false, additional_info: '', is_away: 'false', period_id: p1.id, created_by_id: u8.id)
@@ -2954,27 +3210,30 @@ c12263.rooms.append(kitchen)
 c12266 = s12091.courses.create!(name: 'Ceramics P3', short_name: 'Ceramics', description: 'Creating/free play with clay (& eventually glazing) making whatever your little heart desires. We do have potter\'s wheel instruction. (Each person can choose to have a turn on the wheel....., or not.) There\'s lots of work space for hand building. You may want to bring a smock/old t-shirt/apron if you\'re concerned about getting messy (\'cause clay IS MESSY!). (we do have a few large old t-shirts that can be used if someone forgets theirs)
 Under 4 need in-room assistance of an adult or older sibling during class.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 16, fee: 7, supplies: '', room_reqs: '.', time_reqs: '.', drop_ins: false, additional_info: '', is_away: 'false', period_id: p3.id, created_by_id: u8.id)
 c12266.rooms.append(ceramics)
-c12267 = s12091.courses.create!(name: 'Ceramics P4', short_name: 'Ceramics', description: 'Creating/free play with clay (& eventually glazing) making whatever your little heart desires. We do have potter\'s wheel instruction. (Each person can choose to have a turn on the wheel....., or not.) There\'s lots of work space for hand building. You may want to bring a smock/old t-shirt/apron if you\'re concerned about getting messy (\'cause clay IS MESSY!). (we do have a few large old t-shirts that can be used if someone forgets theirs)
+c12267 = s12091.courses.new(name: 'Ceramics P4', short_name: 'Ceramics', description: 'Creating/free play with clay (& eventually glazing) making whatever your little heart desires. We do have potter\'s wheel instruction. (Each person can choose to have a turn on the wheel....., or not.) There\'s lots of work space for hand building. You may want to bring a smock/old t-shirt/apron if you\'re concerned about getting messy (\'cause clay IS MESSY!). (we do have a few large old t-shirts that can be used if someone forgets theirs)
 Under 4 need in-room assistance of an adult or older sibling during class.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 15, fee: 7, supplies: '', room_reqs: '.', time_reqs: '.', drop_ins: false, additional_info: '', is_away: 'false', period_id: nil, created_by_id: u8.id)
 c12267.rooms.append()
+c12267.save(validate: false)
 c12941 = s12856.courses.create!(name: 'All Ages Dodge Ball', short_name: 'Dodge Ball', description: 'Fun Dodge ball games for all ages. Kids needing a little extra support should bring their grown up.', min_age: 1, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: 'Gym', time_reqs: 'First or Second', drop_ins: true, additional_info: '', is_away: 'false', period_id: p1.id, created_by_id: u74.id)
 c12941.rooms.append(gym)
 c12944 = s12856.courses.create!(name: 'Ceramics P2', short_name: 'Ceramics', description: 'Creating/hand-building with clay (& eventually glazing) making whatever your little heart desires. We do have potter\'s wheel instruction. (Each person can choose to have a turn on the wheel....., or not.) There\'s lots of work space for hand building. You may want to bring a smock/old t-shirt/apron if you\'re concerned about getting messy (\'cause clay IS MESSY!). (We do have a few large old t-shirts that can be used if someone forgets theirs). Creations need to go home @ the end of the session.
 4 and under will need in-room assistance of an adult or older sibling during class.', min_age: 1, max_age: 99, age_firm: false, min_students: 1, max_students: 15, fee: 7, supplies: 'We could use newspaper or brown paper from Amazon shipments to help wrap creations & get them home safely.', room_reqs: 'Obviously, the ceramics room.... ha!', time_reqs: 'We\'d like to offer this P2 & P3 this year', drop_ins: false, additional_info: '', is_away: 'false', period_id: p2.id, created_by_id: u5.id)
 c12944.rooms.append(ceramics)
-c12945 = s12856.courses.create!(name: 'Tae Kwon Do', short_name: 'TKD', description: 'We will cover the same Tae Kwon Do curriculum that Master <name> teaches at her school, Central Ohio Martial Arts http://www.centralohiomartialarts.com . This is a quote from her website: Our training is traditional military style and non-sport, focusing on self-defense for real life protection. We teach control with every kick and punch. The training is in a family environment, with everyone encouraged to reach their own potential.
+c12945 = s12856.courses.new(name: 'Tae Kwon Do', short_name: 'TKD', description: 'We will cover the same Tae Kwon Do curriculum that Master <name> teaches at her school, Central Ohio Martial Arts http://www.centralohiomartialarts.com . This is a quote from her website: Our training is traditional military style and non-sport, focusing on self-defense for real life protection. We teach control with every kick and punch. The training is in a family environment, with everyone encouraged to reach their own potential.
 Students will be able to test for yellow belt after attending at least six classes. Students younger than six need a parent and permission from <name>.
 This is a more formal experience than most of our classes. Students will be expected to speak more formally to instructors (yes/no ma\'am/sir). Students will be expected to generally follow directions, have some ability to be still when asked, and not be disruptive. But Master Laura does not have unrealistic expectations about age-appropriate behavior.', min_age: 6, max_age: 99, age_firm: false, min_students: 5, max_students: 100, fee: 90, supplies: 'Fee is $90 for one student or $150 for a family of any size. There is a $50 discount for students taking both tae kwon do and gumdo. These adjustments will be made manually during and after signups but before fees are officially posted. When testing, a uniform is required. Uniforms can be purchased for $30 from her store on High St by Cooke.', room_reqs: 'gym', time_reqs: '4th period', drop_ins: false, additional_info: 'minimum size may be adjusted if both classes combined have 10 students', is_away: 'false', period_id: nil, created_by_id: u3.id)
 c12945.rooms.append()
+c12945.save(validate: false)
 c12949 = s12856.courses.create!(name: 'Magic: The Gathering', short_name: 'Magic', description: 'In this class we will be playing Magic: The Gathering, trading cards, building decks with spare cards, and generally having a really good time.
 Kids participating in this class must know how to read or have an adult with them to help with reading the cards.
 (Some of the cards have images that some kids might find scary and/or disturbing (ie - blood, gore (occasionally) zombies & other things like that. Magic: The Gathering is rated [on packaging] ages 13+)
 I will teach kids how to play, but it would be helpful if you learn how to play beforehand so that we have more time to play.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 10, fee: 0, supplies: 'Magic: The Gathering deck', room_reqs: 'I would prefer the meeting room. If unavailable, the game room or classroom will work fine.', time_reqs: 'can not be @ the same time as Wyandot Scouts', drop_ins: true, additional_info: 'Cost of a starter deck is $15', is_away: 'false', period_id: p4.id, created_by_id: u5.id)
 c12949.rooms.append(game)
-c12954 = s12856.courses.create!(name: 'Haidong Gumdo', short_name: 'sword', description: 'We will cover the same Haidong Gumdo curriculum that Master <name> teaches at her school, Central Ohio Martial Arts http://www.centralohiomartialarts.com . Students will use foam swords to learn forms and techniques. There is no sparring or contact. THIS IS NOT BOFFER FIGHTING!
+c12954 = s12856.courses.new(name: 'Haidong Gumdo', short_name: 'sword', description: 'We will cover the same Haidong Gumdo curriculum that Master <name> teaches at her school, Central Ohio Martial Arts http://www.centralohiomartialarts.com . Students will use foam swords to learn forms and techniques. There is no sparring or contact. THIS IS NOT BOFFER FIGHTING!
 Students will be able to test for yellow belt after attending at least six classes. Students younger than eight need a parent and permission from <name>.
 This is a more formal experience than most of our classes. Students will be expected to speak more formally to instructors (yes/no ma\'am/sir). Students will be expected to generally follow directions, have some ability to be still when asked, and not be disruptive. But Master Laura does not have unrealistic expectations about age-appropriate behavior.', min_age: 8, max_age: 99, age_firm: false, min_students: 5, max_students: 100, fee: 90, supplies: 'Fee is $90 for one student or $150 for a family of any size. There is a $50 discount for students taking both tae kwon do and gumdo. These adjustments will be made manually during and after signups but before fees are officially posted. Master Laura will bring swords for everyone for the first few classes. After that, students will need to buy their own. When testing, a uniform is required. Uniforms can be purchased for $80 from her store on High St by Cooke. Swords are $35 at her store.', room_reqs: 'gym', time_reqs: '3rd', drop_ins: false, additional_info: 'minimum size may be adjusted if both classes combined have 10 students', is_away: 'false', period_id: nil, created_by_id: u3.id)
 c12954.rooms.append()
+c12954.save(validate: false)
 c12958 = s12856.courses.create!(name: 'Acting and Improv Games', short_name: 'Acting/Improv', description: 'In this class we\'ll do different Acting/Improv games every week! Games will focus on confidence building and having fun! Join us for a creative time to express yourself.', min_age: 8, max_age: 100, age_firm: true, min_students: 1, max_students: 10, fee: 0, supplies: 'Nothing is needed we\'ll bring every thing you need!', room_reqs: 'A large room would be nice. Nothing else is needed.', time_reqs: 'I won\'t be there first period. I prefer second period, but third or fourth period work too.', drop_ins: false, additional_info: 'None', is_away: 'false', period_id: p4.id, created_by_id: u160.id)
 c12958.rooms.append(dance)
 print(".")
@@ -2999,10 +3258,11 @@ c12972 = s12856.courses.create!(name: 'Intro to Pop-Ups and Dioramas/Minitures',
 c12972.rooms.append(big_art)
 c12978 = s12856.courses.create!(name: 'Party Planning', short_name: 'Party', description: 'Planning the Halloween and Holidays parties. Everyone is welcome to come help decide what the parties will look like.', min_age: 0, max_age: 99, age_firm: false, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: '.', time_reqs: '.', drop_ins: true, additional_info: '', is_away: 'false', period_id: p25.id, created_by_id: u8.id)
 c12978.rooms.append(meeting)
-c12981 = s12856.courses.create!(name: 'Student Government', short_name: 'Student Gov', description: 'If you\'re under 18, interested in how co-op works and would like to take part in decision making this is the place for you!
+c12981 = s12856.courses.new(name: 'Student Government', short_name: 'Student Gov', description: 'If you\'re under 18, interested in how co-op works and would like to take part in decision making this is the place for you!
 (If you\'re over 18, have been a member for a year, and would like to be active we\'re currently looking for board members)
 We\'ll decide at our first meeting how often and how long we\'d like to make the class.', min_age: 0, max_age: 18, age_firm: true, min_students: 1, max_students: 100, fee: 0, supplies: '', room_reqs: '.', time_reqs: '.', drop_ins: true, additional_info: '', is_away: 'false', period_id: nil, created_by_id: u8.id)
 c12981.rooms.append(meeting)
+c12981.save(validate: false)
 c12988 = s12856.courses.create!(name: 'Dancers and Gymnasts', short_name: 'Dance and Gymnastics', description: 'I will have different kinds of music we can listen to and dance to. We will also use the gymnastics mat and do tumbling and cartwheels. No experience needed.', min_age: 2, max_age: 99, age_firm: false, min_students: 2, max_students: 12, fee: 0, supplies: 'Gymnastics mat in Dance Room closet', room_reqs: 'Dance Room', time_reqs: '1st period, same time as Disc Golf', drop_ins: true, additional_info: '', is_away: 'false', period_id: p1.id, created_by_id: u105.id)
 c12988.rooms.append(dance)
 c12990 = s12856.courses.create!(name: 'Dragon Trainer Support Group', short_name: 'Dragons', description: 'Training dragons is fun and exciting! Those baby dragons are soooo cute! However, dragon training is also sometimes difficult, exhausting, and frustrating. This class will be a support group for dragon trainers. We\'ll come together each week to talk about our successes and failures, watch movies that will help us develop our training techniques, and study the many dragon training research materials written throughout the ages.
@@ -3013,7 +3273,7 @@ Oh, and if you\'ve never trained a dragon before and are interested in trying, j
 c12990.rooms.append(small_art)
 c12993 = s12856.courses.create!(name: 'Fiction Book Club', short_name: 'Book Club', description: 'We\'ll read books at home between classes and then discuss what we\'ve read in each class.
 These are the books we\'ll be reading, so you can get a sense of the reading level we\'re aiming for:
-      
+
 We\'re open to reading different books if those in the class want to read something else. For the discussion, we may do crafts and/or other book-related type small projects/fun stuff.
 ** Feel free to read these out loud to one another as needed or desired. We want to welcome any reading level as long as at least one person in the family or group of friends is willing and able to read the books.
 Here\'s a syllabus of the class:
@@ -6812,4 +7072,3 @@ CourseSignup.create(course: c10399, person: p3966, course_role: person_in_room)
 CourseSignup.create(course: c9422, person: p2675, course_role: teacher)
 CourseSignup.create(course: c10393, person: p10915, course_role: ta)
 print("\n")
-

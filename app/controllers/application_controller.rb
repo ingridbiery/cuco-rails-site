@@ -8,13 +8,22 @@ class ApplicationController < ActionController::Base
   # place to return to (for example, we don't want to return to the sign_in page
   # after signing in), which is what the :unless prevents
   before_action :store_current_location, :unless => :devise_controller?
-  
+
   # find information about current session and upcoming events to display in header
   before_action :get_session_info
 
   # set the site name
   before_action :set_site_name
-  
+
+  # set the banner text
+  before_action :set_banner_text
+
+  def set_banner_text
+    if Banner.first.banner.length != 0 then
+      @banner_text = Banner.first.banner
+    end
+  end
+
   def get_session_info
     get_current_session_info
     get_next_session_info
@@ -75,7 +84,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery prepend: true, with: :exception
-  
+
   private
     # override the devise helper to store the current location so we can
     # redirect to it after logging in or out. This override makes signing in
@@ -84,13 +93,13 @@ class ApplicationController < ActionController::Base
     def store_current_location
       store_location_for(:user, request.url)
     end
-  
+
     # override the devise method for where to go after signing out because theirs
     # always goes to the root path.
     def after_sign_out_path_for(resource)
       new_user_session_path
     end
-  
+
   protected
     def authenticate
       # if this is our beta testing site, require a username/password
@@ -105,12 +114,12 @@ class ApplicationController < ActionController::Base
     registration_params = [:email, :password, :password_confirmation, :notification_list]
 
     if params[:action] == 'update'
-      devise_parameter_sanitizer.permit(:account_update) { 
+      devise_parameter_sanitizer.permit(:account_update) {
         |u| u.permit(registration_params << :current_password)
       }
     elsif params[:action] == 'create'
-      devise_parameter_sanitizer.permit(:sign_up) { 
-        |u| u.permit(registration_params) 
+      devise_parameter_sanitizer.permit(:sign_up) {
+        |u| u.permit(registration_params)
       }
     end
   end

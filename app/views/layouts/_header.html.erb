@@ -1,14 +1,14 @@
 <header class="navbar navbar-default.navbar-static-top navbar-inverse">
   <div class="container">
     <%= link_to @site_name, root_path, id: "logo" %>
-  
+
     <%= render "layouts/menu" %>
 
     <span id="welcome"><% if user_signed_in? %>
       Welcome <br /> <%= current_user.name %>
     <% end %></span>
   </div>
-  
+
   <% if @current_session_info %>
     <div id="notice"><%= @current_session_info %></div>
   <% end %>
@@ -43,5 +43,9 @@
       </div>
     <% end # @membership_signup_info %>
   <% end # next_session_info.nil? %>
-  
+
+  <% if @banner_text %>
+    <div id="banner"><%= @banner_text %></div>
+  <% end %>
+
 </header>

@@ -7,17 +7,17 @@ class BannersControllerTest < ActionDispatch::IntegrationTest
 
   test "should show banner" do
     get banner_url(@banner)
-    assert_response :success
+    assert_response :redirect
   end
 
   test "should get edit" do
     get edit_banner_url(@banner)
-    assert_response :success
+    assert_response :redirect
   end
 
   test "should update banner" do
     patch banner_url(@banner), params: { banner: { banner: @banner.banner } }
-    assert_redirected_to banner_url(@banner)
+    assert_response :redirect
   end
 
 end

@@ -42,7 +42,7 @@ class CucoSession < ActiveRecord::Base
   # after today)
   def self.upcoming
     if !@upcoming
-      cuco_sessions = CucoSession.where('start_date >= ?', Time.now).order(start_date: :asc)
+      cuco_sessions = CucoSession.where('start_date >= ?', Time.now)
       @upcoming = cuco_sessions.first.presence
     end
     @upcoming
@@ -54,7 +54,7 @@ class CucoSession < ActiveRecord::Base
   # model for details of that determination.
   def self.latest
     if !@latest then
-      cuco_sessions = CucoSession.where('start_date < ?', Time.now).order(start_date: :desc)
+      cuco_sessions = CucoSession.where('start_date < ?', Time.now).reorder(start_date: :desc)
       @latest = cuco_sessions.first.presence
     end
     @latest

@@ -1,4 +1,4 @@
-class RefactorCucoSession < ActiveRecord::Migration
+class RefactorCucoSession < ActiveRecord::Migration[4.2]
   def change
     # add dates and calendar ids to cuco_sessions
     add_column :cuco_sessions, :start_date, :string

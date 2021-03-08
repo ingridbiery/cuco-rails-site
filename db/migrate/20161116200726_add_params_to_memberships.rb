@@ -1,4 +1,4 @@
-class AddParamsToMemberships < ActiveRecord::Migration
+class AddParamsToMemberships < ActiveRecord::Migration[4.2]
   def change
     add_column :memberships, :notification_params, :text
     add_column :memberships, :status, :string

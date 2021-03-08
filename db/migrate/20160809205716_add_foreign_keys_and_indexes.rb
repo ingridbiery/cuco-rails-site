@@ -1,4 +1,4 @@
-class AddForeignKeysAndIndexes < ActiveRecord::Migration
+class AddForeignKeysAndIndexes < ActiveRecord::Migration[4.2]
   def change
     # make sure all of our references to other tables have foreign keys
     add_foreign_key :courses, :cuco_sessions

@@ -1,4 +1,4 @@
-class CreateCourseRoles < ActiveRecord::Migration
+class CreateCourseRoles < ActiveRecord::Migration[4.2]
   def change
     create_table :course_roles do |t|
       t.string :name

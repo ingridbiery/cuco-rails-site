@@ -1,4 +1,4 @@
-class CreateFamilySchedules < ActiveRecord::Migration
+class CreateFamilySchedules < ActiveRecord::Migration[4.2]
   def change
     create_table :family_schedules do |t|
       t.references :cuco_session, index: true, foreign_key: true

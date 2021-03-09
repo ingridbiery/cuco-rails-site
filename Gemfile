@@ -24,6 +24,7 @@ gem 'pg',                      '~> 1.1.4'
 gem 'active_warnings',         '~> 0.1.5'
 gem 'simple_calendar',         '~> 2.3.0'
 gem 'rails_real_favicon'
+gem 'bootsnap'
 
 group :development, :test do
   gem 'byebug'
@@ -32,6 +33,11 @@ group :development, :test do
   gem 'newrelic_rpm'
   gem 'bullet'
   gem 'rails-controller-testing'
+  gem 'listen'
+end
+
+group :test do
+  gem 'capybara'
 end
 
 group :development do

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.3'
 
 gem 'sassc-rails',             '~> 2.1.2'
-gem 'rails',                   '~> 6.0.0'
+gem 'rails',                   '~> 6.1.0'
 gem 'bundler',                 '~> 1.17'
 gem 'bootstrap-sass',          '~> 3.4.1'
 gem 'uglifier',                '~> 4.1.20'

@@ -1,4 +1,4 @@
-class AddColumnsToEventType < ActiveRecord::Migration
+class AddColumnsToEventType < ActiveRecord::Migration[4.2]
   def change
     add_column :event_types, :display_name, :string
     add_column :event_types, :start_date_offset, :integer

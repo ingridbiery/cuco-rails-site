@@ -1,4 +1,4 @@
-class ChangeSeveralColumnNames < ActiveRecord::Migration
+class ChangeSeveralColumnNames < ActiveRecord::Migration[4.2]
   def change
     rename_column :courses, :session_id, :cuco_session_id
     rename_column :courses, :min_num_students, :min_students

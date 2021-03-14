@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.3'
 
 gem 'sassc-rails',             '~> 2.1.2'
-gem 'rails',                   '~> 5.1.0'
+gem 'rails',                   '~> 5.2.0'
 gem 'bundler',                 '~> 1.17'
 gem 'bootstrap-sass',          '~> 3.4.1'
 gem 'uglifier',                '~> 4.1.20'
@@ -23,7 +23,8 @@ gem 'action_access',           '~> 0.1.1'
 gem 'pg',                      '~> 1.1.4'
 gem 'active_warnings',         '~> 0.1.5'
 gem 'simple_calendar',         '~> 2.3.0'
-gem 'rails_real_favicon',      '~> 0.0.2'
+gem 'rails_real_favicon'
+gem 'bootsnap'
 
 group :development, :test do
   gem 'byebug'
@@ -32,6 +33,11 @@ group :development, :test do
   gem 'newrelic_rpm'
   gem 'bullet'
   gem 'rails-controller-testing'
+  gem 'listen'
+end
+
+group :test do
+  gem 'capybara'
 end
 
 group :development do

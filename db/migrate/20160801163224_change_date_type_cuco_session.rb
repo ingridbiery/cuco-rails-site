@@ -1,4 +1,4 @@
-class ChangeDateTypeCucoSession < ActiveRecord::Migration
+class ChangeDateTypeCucoSession < ActiveRecord::Migration[4.2]
   def change
     # change column is not reversible, so delete and add
     remove_column :cuco_sessions, :start_date, :string

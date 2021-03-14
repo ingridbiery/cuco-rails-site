@@ -1,4 +1,4 @@
-class CreateJoinTableRolesUsers < ActiveRecord::Migration
+class CreateJoinTableRolesUsers < ActiveRecord::Migration[4.2]
   def change
     create_join_table :roles, :users do |t|
       # t.index [:role_id, :user_id]

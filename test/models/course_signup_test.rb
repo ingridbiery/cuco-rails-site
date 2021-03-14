@@ -57,7 +57,7 @@ class CourseSignupTest < ActiveSupport::TestCase
   test "too young signup should not be allowed when age firm" do
     course = @course_signup.course
     course.age_firm = true
-    course.min_age = @course_signup.person.age + 1
+    course.min_age = @course_signup.person.age_on(course.cuco_session.start_date) + 1
     course.save
     assert_not @course_signup.valid?
   end
@@ -74,7 +74,7 @@ class CourseSignupTest < ActiveSupport::TestCase
     course = @course_signup.course
     @course_signup.person = people(:emma)
     course.age_firm = false
-    course.min_age = @course_signup.person.age + 1
+    course.min_age = @course_signup.person.age_on(course.cuco_session.start_date) + 1
     course.save
     assert @course_signup.valid?
     assert_not @course_signup.safe?
@@ -87,8 +87,9 @@ class CourseSignupTest < ActiveSupport::TestCase
   test "too old signup should not be allowed when age firm" do
     course = @course_signup.course
     @course_signup.person = people(:emma)
+    @course_signup.save
     course.age_firm = true
-    course.max_age = @course_signup.person.age - 2
+    course.max_age = @course_signup.person.age_on(course.cuco_session.start_date) - 2
     course.save
     assert_not @course_signup.valid?
   end
@@ -105,7 +106,7 @@ class CourseSignupTest < ActiveSupport::TestCase
     course = @course_signup.course
     @course_signup.person = people(:emma)
     course.age_firm = false
-    course.max_age = @course_signup.person.age - 2
+    course.max_age = @course_signup.person.age_on(course.cuco_session.start_date) - 2
     course.save
     assert @course_signup.valid?
     assert_not @course_signup.safe?

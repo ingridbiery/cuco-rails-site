@@ -1,4 +1,4 @@
-class AddGoogleidToEvent < ActiveRecord::Migration
+class AddGoogleidToEvent < ActiveRecord::Migration[4.2]
   def change
     add_column :events, :googleid, :string
     rename_column :events, :start, :start_dt

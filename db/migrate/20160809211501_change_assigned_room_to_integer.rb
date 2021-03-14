@@ -1,4 +1,4 @@
-class ChangeAssignedRoomToInteger < ActiveRecord::Migration
+class ChangeAssignedRoomToInteger < ActiveRecord::Migration[4.2]
   def change
     remove_column :courses, :assigned_room, :string
     add_column :courses, :room_id, :integer

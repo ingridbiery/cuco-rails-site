@@ -11,7 +11,7 @@ class DatesTest < ActiveSupport::TestCase
     @winter = cuco_sessions(:winter)
     @spring = cuco_sessions(:spring)
     @fall = cuco_sessions(:fall)
-    
+
     # member
     @member = users(:lj)
     @member.roles << roles(:user)
@@ -22,12 +22,12 @@ class DatesTest < ActiveSupport::TestCase
     @former = users(:js)
     @former.roles << roles(:user)
     @former.person.family.cuco_sessions << @winter
-    
+
     # new member
     @new = users(:new)
     @new.roles << roles(:user)
 
-    # these sample events are all appropriate @fall for fall session
+    # these sample events are all appropriate for @fall session
     @course_offering = events(:course_offering)
     @schedule_posted = events(:schedule_posted)
     @member_reg = events(:member_reg)
@@ -39,7 +39,7 @@ class DatesTest < ActiveSupport::TestCase
     @week2 = events(:week2)
     @other = events(:other)
   end
-  
+
   #############################################################################
   # missing events
   #############################################################################
@@ -57,7 +57,7 @@ class DatesTest < ActiveSupport::TestCase
     @new_reg.destroy
     assert_not @fall.dates.has_required_events?
   end
-  
+
   #############################################################################
   # duplicate events
   #############################################################################
@@ -130,7 +130,7 @@ class DatesTest < ActiveSupport::TestCase
     assert_equal @fall.dates.next_event(@new), @schedule_posted
     assert_equal @fall.dates.next_event(nil), @schedule_posted
   end
-  
+
   test "next event for schedule posted" do
     travel_to @schedule_posted.end_dt - 1
     assert_equal ["user", "member"], @member.clearance_levels
@@ -141,7 +141,7 @@ class DatesTest < ActiveSupport::TestCase
     assert_equal @fall.dates.next_event(@new), @schedule_posted
     assert_equal @fall.dates.next_event(nil), @schedule_posted
   end
-  
+
   test "next event for reg" do
     travel_to @member_reg.end_dt - 1
     assert_equal ["user", "paid"], @member.clearance_levels

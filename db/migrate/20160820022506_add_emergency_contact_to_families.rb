@@ -1,4 +1,4 @@
-class AddEmergencyContactToFamilies < ActiveRecord::Migration
+class AddEmergencyContactToFamilies < ActiveRecord::Migration[4.2]
   def change
     add_column :families, :ec_first_name, :string
     add_column :families, :ec_last_name, :string

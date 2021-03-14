@@ -22,7 +22,7 @@ gem 'pg'
 gem 'active_warnings'
 gem 'simple_calendar'
 gem 'rails_real_favicon'
-gem 'bootsnap'
+gem 'bootsnap', require: false
 
 group :development, :test do
   gem 'byebug'

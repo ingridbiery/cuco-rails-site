@@ -14,8 +14,12 @@
   <div id="error_explanation">PLEASE CREATE YOURSELF AS A PERSON IN THIS FAMILY</div><br>
 <% end %>
 
-<strong><%= @family.primary_adult.name %></strong> is the primary adult who will be
-            responsible for this family's children at CUCO on a regular basis.
+<% if @family.primary_adult %>
+  <strong><%= @family.primary_adult.name %></strong> is the primary adult who will be
+              responsible for this family's children at CUCO on a regular basis.
+<% else %>
+  <div id="error_explanation">PLEASE CREATE YOURSELF AS A THE PRIMARY ADULT IN THIS FAMILY</div><br>
+<% end %>
 
 <p>
   <h3>Address and Phone</h3>
@@ -58,7 +62,7 @@
   You have been a member in the following sessions:
   <ul>
   <% @family.memberships.each do |membership| %>
-    <li><%= link_to membership.cuco_session.name, membership.cuco_session %> 
+    <li><%= link_to membership.cuco_session.name, membership.cuco_session %>
       <%= render 'family_schedules/schedule_link', membership: membership %>
     </li>
   <% end %>

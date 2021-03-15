@@ -14,7 +14,7 @@
 <% else %>
   <span style="no-text"><strong>NOT OK</strong> to text</span><br />
 <% end %>
-<%= family.user.email %><br />
+<%= family.user&.email %><br />
 
 <ul>
   <% family.adults.each do |adult| %>

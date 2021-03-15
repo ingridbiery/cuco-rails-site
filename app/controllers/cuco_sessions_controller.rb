@@ -156,7 +156,7 @@ class CucoSessionsController < ApplicationController
 
   def show_ceramics_numbers
     @people = Person.all.where.not(ceramics_number: nil)
-    @max = @people.reorder(:ceramics_number).last.ceramics_number
+    @max = @people.reorder(:ceramics_number).last&.ceramics_number
   end
 
   private

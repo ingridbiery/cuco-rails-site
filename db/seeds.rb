@@ -438,11 +438,11 @@ f13521.save(validate: false)
 print("\n")
 
 print "People"
-p411 = f54.people.create(first_name: 'JERROLD'.titleize, last_name: 'HASHAGEN'.titleize, pronoun_id: he.id)
+p411 = f54.people.create(first_name: 'JERROLD'.titleize, last_name: 'HASHAGEN'.titleize, pronoun_id: he.id, ceramics_number: 1)
 p411.save(validate: false)
 f54.primary_adult_id = p411.id
 f54.save
-p412 = f41.people.create(first_name: 'JANEE'.titleize, last_name: 'GURGANIOUS'.titleize, pronoun_id: she.id)
+p412 = f41.people.create(first_name: 'JANEE'.titleize, last_name: 'GURGANIOUS'.titleize, pronoun_id: she.id, ceramics_number: 9)
 p412.save(validate: false)
 f41.primary_adult_id = p412.id
 f41.save
@@ -454,7 +454,7 @@ p414 = f46.people.create(first_name: 'JACINDA'.titleize, last_name: 'DOMEK'.titl
 p414.save(validate: false)
 f46.primary_adult_id = p414.id
 f46.save
-p415 = f135.people.create(first_name: 'HANK'.titleize, last_name: 'JAQUESS'.titleize, pronoun_id: she.id)
+p415 = f135.people.create(first_name: 'HANK'.titleize, last_name: 'JAQUESS'.titleize, pronoun_id: she.id, ceramics_number: 4)
 p415.save(validate: false)
 f135.primary_adult_id = p415.id
 f135.save
@@ -478,7 +478,7 @@ p420 = f101.people.create(first_name: 'DORETTA'.titleize, last_name: 'WALDROOP'.
 p420.save(validate: false)
 f101.primary_adult_id = p420.id
 f101.save
-p421 = f108.people.create(first_name: 'ROLLAND'.titleize, last_name: 'KLONTZ'.titleize, pronoun_id: she.id)
+p421 = f108.people.create(first_name: 'ROLLAND'.titleize, last_name: 'KLONTZ'.titleize, pronoun_id: she.id, ceramics_number: 5)
 p421.save(validate: false)
 f108.primary_adult_id = p421.id
 f108.save
@@ -490,7 +490,7 @@ p423 = f239.people.create(first_name: 'KENTON'.titleize, last_name: 'NIENHAUS'.t
 p423.save(validate: false)
 f239.primary_adult_id = p423.id
 f239.save
-p424 = f114.people.create(first_name: 'DANIELL'.titleize, last_name: 'DEIGHAN'.titleize, pronoun_id: she.id)
+p424 = f114.people.create(first_name: 'DANIELL'.titleize, last_name: 'DEIGHAN'.titleize, pronoun_id: she.id, ceramics_number: 2)
 p424.save(validate: false)
 f114.primary_adult_id = p424.id
 f114.save
@@ -596,7 +596,7 @@ p937 = f934.people.create(first_name: 'OREN'.titleize, last_name: 'THORUP'.title
 p937.save(validate: false)
 p1179 = f440.people.create(first_name: 'REYNALDA'.titleize, last_name: 'MAJESTIC'.titleize, pronoun_id: he.id)
 p1179.save(validate: false)
-p967 = f56.people.create(first_name: 'NOBLE'.titleize, last_name: 'KESKE'.titleize, pronoun_id: she.id)
+p967 = f56.people.create(first_name: 'NOBLE'.titleize, last_name: 'KESKE'.titleize, pronoun_id: she.id, ceramics_number: 3)
 p967.save(validate: false)
 f56.primary_adult_id = p967.id
 f56.save
@@ -711,7 +711,7 @@ p3966 = f85.people.create(first_name: 'LAVETTE'.titleize, last_name: 'CLYATT'.ti
 p3966.save(validate: false)
 f85.primary_adult_id = p3966.id
 f85.save
-p4034 = f4033.people.create(first_name: 'LYNDON'.titleize, last_name: 'FICCO'.titleize, pronoun_id: he.id)
+p4034 = f4033.people.create(first_name: 'LYNDON'.titleize, last_name: 'FICCO'.titleize, pronoun_id: he.id, ceramics_number: 8)
 p4034.save(validate: false)
 f4033.primary_adult_id = p4034.id
 f4033.save
@@ -824,7 +824,7 @@ p7165 = f7121.people.create(first_name: 'GAYNELLE'.titleize, last_name: 'GREALIS
 p7165.save(validate: false)
 f7121.primary_adult_id = p7165.id
 f7121.save
-p7249 = f7247.people.create(first_name: 'TYRON'.titleize, last_name: 'COSENS'.titleize, pronoun_id: she.id)
+p7249 = f7247.people.create(first_name: 'TYRON'.titleize, last_name: 'COSENS'.titleize, pronoun_id: she.id, ceramics_number: 7)
 p7249.save(validate: false)
 f7247.primary_adult_id = p7249.id
 f7247.save

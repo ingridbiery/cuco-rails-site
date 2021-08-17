@@ -8,10 +8,10 @@ class DatesController < ApplicationController
 
   def edit
   end
-  
+
   # update each of the Events
   def update
-    if @dates.update_attributes(dates_params)
+    if @dates.update(dates_params)
       # dates gets updated before its events, so check for missing and duplicate
       # events after the update
       if @dates.has_required_events?
@@ -33,7 +33,7 @@ class DatesController < ApplicationController
     def set_cuco_session
       @cuco_session = CucoSession.find(params[:cuco_session_id])
     end
-    
+
     def dates_params
       params.require(:dates).permit( { events_attributes: [:id, :name, :start_dt, :end_dt, :event_type_id, :_destroy] } )
     end

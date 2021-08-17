@@ -8,7 +8,7 @@ class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update]
   before_action :family_info_must_be_correct, only: [:new, :create]
   before_action :confirm_signups_open, only: [:new, :create]
-  
+
   # the paypal hook gets called with no user and needs access that we wouldn't normally grant
   skip_before_action :authenticate, only: :paypal_hook
   protect_from_forgery except: :paypal_hook
@@ -17,11 +17,11 @@ class MembershipsController < ApplicationController
     status = params[:payment_status]
     if status == "Completed"
       @membership = Membership.find params[:invoice]
-      @membership.update_attributes! notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
+      @membership.update! notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
     end
     render nothing: true
   end
-  
+
   def new
     @membership = Membership.new
   end
@@ -30,14 +30,14 @@ class MembershipsController < ApplicationController
   def add
     @membership = Membership.new
     @membership.status = "Completed"
-    
+
     # Show families not already in the session.
     @families = Family.select{|family| !@cuco_session.families.include? family}
   end
 
   def edit
   end
-  
+
   def create
     @membership = Membership.find_or_initialize_by(cuco_session: @cuco_session,
                                                    family: current_user.person.family)
@@ -79,12 +79,12 @@ class MembershipsController < ApplicationController
   def show_schedule
     @membership = Membership.find(params[:membership_id])
   end
-  
+
   private
 
     # only let new memberships be created when signups are open
     def confirm_signups_open
-      unless current_user&.can? :manage_all, :families 
+      unless current_user&.can? :manage_all, :families
         if !@cuco_session.membership_signups_open?(current_user) then
           not_authorized! message: "Membership signups are not currently open."
         end
@@ -103,7 +103,7 @@ class MembershipsController < ApplicationController
     def set_membership
       @membership = Membership.find(params[:id])
     end
-    
+
     # if the current user's family information is not valid,
     # force them to edit before continuing
     def family_info_must_be_correct
@@ -112,7 +112,7 @@ class MembershipsController < ApplicationController
         redirect_to edit_family_path(current_user.person.family)
       end
     end
-    
+
     def membership_params
       params.require(:membership).permit(:cuco_session_id, :family_id, :status)
     end

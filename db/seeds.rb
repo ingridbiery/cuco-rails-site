@@ -2599,6 +2599,7 @@ s12856.dates.events.create!(name: 'Scheduling Meeting', start_dt: Time.zone.pars
 s12856.dates.events.create!(name: 'Schedule Posted', start_dt: Time.zone.parse('Aug 21, 2016 23:30:00'), end_dt: Time.zone.parse('Aug 21, 2016 23:30:00'), event_type: schedule)
 s12856.dates.events.create!(name: 'Member Registration', start_dt: Time.zone.parse('Aug 22, 2016 23:30:00'), end_dt: Time.zone.parse('Aug 29, 2016 12:00:00'), event_type: member_reg)
 s12856.dates.events.create!(name: 'Former Member Registration', start_dt: Time.zone.parse('Aug 24, 2016 23:30:00'), end_dt: Time.zone.parse('Aug 27, 2016 23:30:00'), event_type: former_reg)
+s12856.dates.events.create!(name: 'New Member Registration', start_dt: Time.zone.parse('Aug 26, 2016 23:30:00'), end_dt: Time.zone.parse('Aug 27, 2016 23:30:00'), event_type: new_reg)
 s12856.dates.events.create!(name: 'Fees Posted', start_dt: Time.zone.parse('Aug 31, 2016 23:30:00'), end_dt: Time.zone.parse('Aug 31, 2016 23:30:00'), event_type: fees_posted)
 s12856.dates.events.create!(name: 'Fees Due', start_dt: Time.zone.parse('Sep 2, 2016 23:30:00'), end_dt: Time.zone.parse('Sep 2, 2016 23:30:00'), event_type: fees_due)
 s12856.dates.events.create!(name: 'Orientation', start_dt: Time.zone.parse('Sep 13, 2016 10:30:00'), end_dt: Time.zone.parse('Sep 13, 2016 13:30:00'), event_type: other)

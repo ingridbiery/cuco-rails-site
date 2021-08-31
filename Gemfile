@@ -12,7 +12,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'sdoc', group: :doc
-gem 'devise', github: 'heartcombo/devise'
+gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'high_voltage'
 gem 'will_paginate'

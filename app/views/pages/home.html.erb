@@ -4,7 +4,7 @@
   <h1>Columbus Unschoolers Cooperative</h1>
 
   <h3>
-We are a family-centered group whose members seek to support each other and augment our children’s educational and social enrichment opportunities in a supportive, nurturing, hands-on classroom environment. 
+We are a family-centered group whose members seek to support each other and augment our children’s educational and social enrichment opportunities in a supportive, nurturing, hands-on classroom environment.
 <br /><br />
 All parents whose children take classes serve in volunteer roles to make the program a success. Our co-op is composed of a diverse range of families, and we request that members respect the diversity of the group.
 <br /><br />
@@ -14,4 +14,5 @@ The one thing we have in common is an interest in trying to do what is best for 
   <% if !user_signed_in? %>
     <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
   <% end %>
+  <%= link_to "COVID/illness policy", page_path('sick') %>
 </div>

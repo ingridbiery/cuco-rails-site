@@ -17,7 +17,7 @@
     <li><%= link_to "Do I get a refund if I drop out of CUCO?", page_path("faq", anchor: "refund") %></li>
     <li><%= link_to "Can my kids bring toy weapons to CUCO?", page_path("faq", anchor: "weapons") %></li>
     <li><%= link_to "What if I unexpectedly can't make it to co-op?", page_path("faq", anchor: "cannot_make_it") %></li>
-    <li><%= link_to "What is your COVID/illness policy?", page_path('sick') %>
+    <li><%= link_to "What is your COVID/illness policy?", page_path('sick') %></li>
   </ul>
   <% if current_user&.can? :show_all_faqs, :users %>
     <h4>Information for Members</h4>

@@ -16,13 +16,13 @@
     <li><%= link_to "What are CUCO participation requirements?", page_path("faq", anchor: "participation_reqs") %></li>
     <li><%= link_to "Do I get a refund if I drop out of CUCO?", page_path("faq", anchor: "refund") %></li>
     <li><%= link_to "Can my kids bring toy weapons to CUCO?", page_path("faq", anchor: "weapons") %></li>
+    <li><%= link_to "What if I unexpectedly can't make it to co-op?", page_path("faq", anchor: "cannot_make_it") %></li>
+    <li><%= link_to "What is your COVID/illness policy?", page_path('sick') %>
   </ul>
   <% if current_user&.can? :show_all_faqs, :users %>
     <h4>Information for Members</h4>
     <ul>
       <li><%= link_to "What if I'm going to be late to co-op?", page_path("faq", anchor: "late") %></li>
-      <li><%= link_to "What if I unexpectedly can't make it to co-op?", page_path("faq", anchor: "cannot_make_it") %></li>
-      <li><%= link_to "When should I keep my child home?", page_path("faq", anchor: "stay_home") %></li>
       <li><%= link_to "Does CUCO close for weather emergencies?", page_path("faq", anchor: "weather_emergencies") %></li>
       <li><%= link_to "Does CUCO close for any other reason?", page_path("faq", anchor: "cuco_close") %></li>
       <li><%= link_to "If CUCO is closed due to weather or other circumstances, will we make up the missed class?", page_path("faq", anchor: "make_up") %></li>
@@ -125,23 +125,6 @@
 
   <h4><%= content_tag(:a, "What if I unexpectedly can't make it to co-op?", name: "cannot_make_it") %></h4>
   If you can't make it to co-op please post to the CUCO Google group as soon as possible. If it's co-op day when you realize you can't come, please call or text <strong>513-970-CUCO (2826)</strong> by 9:30, preferably before. Our volunteer coordinators will be working hard to make sure all positions are covered, so the sooner we know you won't be there, the easier it will be to cover your position.
-
-  <h4><%= content_tag(:a, "When should I keep my child home?", name: "stay_home") %></h4>
-  <p>Your child is too ill to go to co-op if he or she has any of the following symptoms:</p>
-  <ul>
-    <li>Seems very tired and needs bed rest (common with flu symptoms)</li>
-    <li>Has vomiting or diarrhea in the past 24 hours.</li>
-    <li>Becomes short of breath or has increase in wheezing during normal activity.</li>
-    <li>Has a cough that interrupts his normal activity.</li>
-    <li>Has a temperature above 100 F by mouth.</li>
-    <li>Has yellow or green drainage from nose or eye(s).</li>
-    <li>Breaks out in a rash.</li>
-  </ul>
-  <p><strong>*Your child should not go to co-op until his/her temperature is below 100 F without the use of a fever reducing medication for 24 hours and is feeling better.</strong>
-  <h5><strong>Contagious Disease</strong></h5>
-  <p>A contagious disease is one that can be spread by close contact with another person or object. Examples include strep throat, pink eye, vomiting/diarrhea and chickenpox. A disease is often most contagious 24 hours before the child shows signs of illness. It is very hard to prevent the spread of germs in the co-op setting. However, good hand washing is the best prevention both in and out of co-op.</p>
-  <p>If your child has been prescribed antibiotics, they should be on the antibiotics a full 24 hours before returning to CUCO. If an antibiotic has been prescribed, be sure not to skip any doses and to take the full course of medication.</p>
-  <p>In the case of <strong>head lice</strong>, keep your child home until he/she is nit-free.</p>
 
   <h4><%= content_tag(:a, "Does CUCO close for weather emergencies?", name: "weather_emergencies") %></h4>
   If Columbus city schools are closed due to weather, CUCO will be closed. We do not make up classes that are missed due to weather or other extenuating circumstances and we do not offer refunds for missed classes.

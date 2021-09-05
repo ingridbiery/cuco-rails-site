@@ -121,10 +121,10 @@
   <h3>Information for Members</h3>
 
   <h4><%= content_tag(:a, "What if I'm going to be late to co-op?", name: "late") %></h4>
-  We understand that last-minute emergencies happen. If you find that you're going to be late (even if just a few minutes late), please call or text our volunteer coordinator at <strong>513-970-CUCO (2826)</strong> by 9:30, preferably before. The sooner we know you won't be there, the easier it will be to cover your position.
+  We understand that last-minute emergencies happen. If you find that you're going to be late (even if just a few minutes late), <%= render 'application/phone' %> by 9:30, preferably before. Our volunteer coordinators will be working hard to make sure all positions are covered, so the sooner we know you will be late, the easier it will be to cover your position.
 
   <h4><%= content_tag(:a, "What if I unexpectedly can't make it to co-op?", name: "cannot_make_it") %></h4>
-  If you can't make it to co-op please post to the CUCO Google group as soon as possible. If it's co-op day when you realize you can't come, please call or text <strong>513-970-CUCO (2826)</strong> by 9:30, preferably before. Our volunteer coordinators will be working hard to make sure all positions are covered, so the sooner we know you won't be there, the easier it will be to cover your position.
+  If you can't make it to co-op please post to the CUCO Google group as soon as possible. If it's co-op day when you realize you can't come, <%= render 'application/phone' %> by 9:30, preferably before. Our volunteer coordinators will be working hard to make sure all positions are covered, so the sooner we know you won't be there, the easier it will be to cover your position.
 
   <h4><%= content_tag(:a, "Does CUCO close for weather emergencies?", name: "weather_emergencies") %></h4>
   If Columbus city schools are closed due to weather, CUCO will be closed. We do not make up classes that are missed due to weather or other extenuating circumstances and we do not offer refunds for missed classes.

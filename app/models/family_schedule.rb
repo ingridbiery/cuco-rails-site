@@ -6,12 +6,12 @@ class FamilySchedule
   validate :check_missing_and_duplicates
 
   # how many jobs is each family responsible for
-  MIN_JOB_REQUIREMENT = 3
+  MIN_JOB_REQUIREMENT = 1
   # how many on call volunteer slots is each family responsible for
   # (we're no longer distinguishing between on call and regular jobs)
   MIN_ON_CALL_REQUIREMENT = 0
   # how many helper jobs is each family responsible extend For
-  MIN_HELPER_REQUIREMENT = 1
+  MIN_HELPER_REQUIREMENT = 0
 
   def signups
     @family_signups ||= cuco_session.course_signups.includes(:course_role, :course).where(person: family.people)

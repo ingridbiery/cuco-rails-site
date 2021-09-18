@@ -1,6 +1,15 @@
 @media print {
-  footer, div#header, .debug_dump, div#alert, .no-print, .pagination, .one-column {
+
+  /* things we don't want to print */
+  /* by using div# here, we make this line more specific than other css
+     so it will override other display: settings */
+  footer, div#header, .debug_dump, div#alert, .no-print, .pagination, .one-column, div#error_explanation {
     display: none;
+  }
+
+  /* try to keep family table together when printing family schedule */
+  .family {
+    page-break-inside: avoid;
   }
 
   tbody > tr:nth-child(odd) > td {

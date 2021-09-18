@@ -17,13 +17,15 @@
 
 <h2>Member Family Signups</h2>
 <% @memberships.each do |membership| %>
-  <h2><strong><%= link_to membership.schedule.family.name, family_path(membership.schedule.family.id) %></strong></h2>
+  <div class="family">
+    <h2><strong><%= link_to membership.schedule.family.name, family_path(membership.schedule.family.id) %></strong></h2>
 
-  <% @family_signups_by_person = membership.schedule.signups.group_by(&:person_id) %>
-  <%= render 'family_schedules/schedule_errors', family_schedule: membership.schedule %><br />
-  <%= render 'family_schedules/schedule_header', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person %>
-  <%= render 'family_schedules/schedule_table', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person, periods: Period.all.order(:start_time) %>
-  <hr>
+    <% @family_signups_by_person = membership.schedule.signups.group_by(&:person_id) %>
+    <%= render 'family_schedules/schedule_errors', family_schedule: membership.schedule %><br />
+    <%= render 'family_schedules/schedule_header', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person %>
+    <%= render 'family_schedules/schedule_table', family_schedule: membership.schedule, family_signups_by_person: @family_signups_by_person, periods: Period.all.order(:start_time) %>
+    <hr>
+  </div>
 <% end %>
 
 <% non_member_signups = @cuco_session.non_member_signups %>

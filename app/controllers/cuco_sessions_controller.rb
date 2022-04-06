@@ -18,8 +18,8 @@ class CucoSessionsController < ApplicationController
   def show
     # store rooms and periods so we only fetch them once and they're always in
     # the same order
-    @rooms = Room.all
-    @periods = Period.all
+    @rooms = Room.where("LENGTH(name) > 3")
+    @periods = Period.where("LENGTH(name) > 3")
     @courses_by_period = @cuco_session.courses.group_by(&:period_id)
   end
 

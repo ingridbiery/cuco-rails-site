@@ -7,7 +7,7 @@ class Membership < ActiveRecord::Base
   validates_uniqueness_of :family_id, :scope => [:cuco_session_id]
   validates :status, presence: true
 
-  MEMBERSHIP_FEE = 23.975
+  MEMBERSHIP_FEE = 38.54
 
   serialize :notification_params, Hash
   def paypal_url(return_path, paypal_hook_path)
@@ -30,16 +30,16 @@ class Membership < ActiveRecord::Base
   def self.membership_fee
     MEMBERSHIP_FEE
   end
-  
+
   # fee is 2.9866% plus 30.896 cents
   def self.electronic_payment_fee(base_fee)
     base_fee*0.029866 + 0.30896
   end
-  
+
   # get the FamilySchedule for this session/family combination
   # (it may or may not already exist)
   def schedule
     @schedule ||= FamilySchedule.new(family: family, cuco_session: cuco_session)
   end
-  
+
 end

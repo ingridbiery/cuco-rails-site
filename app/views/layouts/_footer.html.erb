@@ -3,10 +3,9 @@
     If you have questions or would like to join, please contact <%= mail_to "info@columbusunschoolers.com" %>.
     CUCO <%= link_to "terms and conditions", page_path("terms_and_conditions") %>.
     <% if current_user&.can? :show_member_directory, :families %>
-      <br />If you realize in the morning that you will be late or miss co-op, <%= render 'application/phone' %> as soon as you know. <br />
       You can contact the entire board of directors at <%= mail_to "bod@columbusunschoolers.com" %>.
     <% end %>
-    v220414
+    v221011
   </small>
 
 </footer>

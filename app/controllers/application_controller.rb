@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   def get_session_info
     get_current_session_info
     get_next_session_info
+    @location = "We meet at Tuttle Recreation Center" if current_user&.can? :show_rosters, CucoSessionsController
   end
 
   # set the text to display for the current session in @current_session_info

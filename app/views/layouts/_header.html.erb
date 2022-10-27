@@ -15,6 +15,9 @@
   <% if @next_session_info %>
     <div id="notice"><%= @next_session_info %></div>
   <% end %>
+  <% if @location %>
+    <div id="notice"><%= @location %></div>
+  <% end %>
   <% if @membership_signup_info %>
     <div id="notice"><%= @membership_signup_info %>
     <% if @membership_session.full? # this information was already included in the next session info %>

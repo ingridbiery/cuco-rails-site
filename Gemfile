@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.6.6'
+ruby '3.2.2'
 
 gem 'sassc-rails'
-gem 'rails'
+gem 'rails', "~> 6"
 gem 'bundler'
 gem 'bootstrap-sass'
 gem 'uglifier'
@@ -23,6 +23,7 @@ gem 'active_warnings'
 gem 'simple_calendar'
 gem 'rails_real_favicon'
 gem 'bootsnap', require: false
+gem 'webrick', "~> 1.7"
 
 group :development, :test do
   gem 'byebug'

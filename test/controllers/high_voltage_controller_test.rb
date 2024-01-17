@@ -13,16 +13,11 @@ class HighVoltageControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
-  test "should get day at cuco" do
-    get page_path("dayatcuco")
-    assert_response :success
-  end
-
   test "should get expectations" do
     get page_path("expectations")
     assert_response :success
   end
-  
+
   test "should get FAQ" do
     get page_path("faq")
     assert_response :success
@@ -42,7 +37,7 @@ class HighVoltageControllerTest < ActionDispatch::IntegrationTest
     get page_path("privacy")
     assert_response :success
   end
-  
+
   test "should get refund" do
     get page_path("refund")
     assert_response :success
